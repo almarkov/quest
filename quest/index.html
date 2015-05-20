@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+	<title>Система управления квестом</title>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+</head>
+<body>
+	<div id='Main'>
+
+		<div class='Element'>
+			<label for="inpTimer" class="Label1">Таймер</label>
+			<input type="text" name="timer" value="" id="inpTimer" class="Input1"/>
+			<ul class='Timer'>
+				<li><a class="On" href="">Включить</a></li>
+				<li><a class="Off" href="">Выключить</a></li>
+			</ul>
+		</div>
+
+		<div class='Element'>
+			<label for="inpDoor" class="Label1">Дверь</label>
+			<input type="text" name="door" value="" id="inpDoor" class="Input1" disabled/>
+			<ul class='Door'>
+				<li><a class="Open" href="">Открыть</a></li>
+				<li><a class="Close" href="">Закрыть</a></li>
+			</ul>
+		</div>
+
+
+	</div>
+
+	<script type="text/javascript">
+		var timer_ip   = "127.0.0.1";
+		var timer_port = "8083";
+		var door_ip    = "127.0.0.1";
+		var door_port  = "8082";
+
+		var timer_url  = "http://" + timer_ip + ":" + timer_port;
+		var door_url   = "http://" + door_ip  + ":" + door_port;
+
+		$(document).ready(function() {
+			//состояние двери
+			setInterval(function(){
+				$.ajax({
+				url: door_url,
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						if (response.state == "closed") {
+							$("#inpDoor").val('Закрыта');
+						} else if (response.state == "opened") {
+							$("#inpDoor").val('Открыта');
+						}
+					},
+					error: function (xhr, status) {
+					}
+				});
+			}, 500);
+			//состояние таймера
+			setInterval(function(){
+				$.ajax({
+				url: timer_url,
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						if (response.state == "idle") {
+							$("#inpTimer").prop('disabled', false);
+						} else if (response.state == "active") {
+							if (response.current_value == "0") {
+								$("#inpTimer").val(response.value);
+								$("#inpTimer").prop('disabled', false);
+								$.ajax({
+									url: door_url,
+									type: "POST",
+									crossDomain: true,
+									data: { action: "open" }
+								});
+							} else {
+								$("#inpTimer").val(response.current_value);
+								$("#inpTimer").prop('disabled', true);
+							}
+						}
+					},
+					error: function (xhr, status) {
+					}
+				});
+			}, 1000);
+			
+		});
+		//Включить таймер
+		$('#Main .Timer .On').click(function(e){
+			$.ajax({
+				url: timer_url,
+				type: "POST",
+				crossDomain: true,
+				data: { action: "activate", value: $("#inpTimer").val() }
+			});
+		});
+
+		//Выключить таймер
+		$('#Main .Timer .Off').click(function(e){
+			$.ajax({
+				url: timer_url,
+				type: "POST",
+				crossDomain: true,
+				data: { action: "stop" }
+			});
+		});
+
+		//Открыть дверь
+		$('#Main .Door .Open').click(function(e){
+			$.ajax({
+				url: door_url,
+				type: "POST",
+				crossDomain: true,
+				data: { action: "open" }
+			});
+		});
+
+		//Закрыть дверь
+		$('#Main .Door .Close').click(function(e){
+			$.ajax({
+				url: door_url,
+				type: "POST",
+				crossDomain: true,
+				data: { action: "close" }
+			});
+		});
+
+
+	</script>
+</body>
+</html>

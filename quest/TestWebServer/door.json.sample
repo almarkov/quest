@@ -1,0 +1,4 @@
+GET {"id": "1", "ip": "127.0.0.1", "port": "8082", "type": "door", "state": "closed|opened" }
+POST
+	action=open
+	action=close
