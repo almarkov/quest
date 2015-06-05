@@ -1,0 +1,640 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+	<title>Управление игрой</title>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<link href="/stylesheets/style.css" rel="stylesheet">
+
+	<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+</head>
+<body>
+	<div class="Content" style="position: relative;  height: 800px;">
+
+		<div id='Head' style="position: absolute;  height: 200px;">
+			<h1>Управление игрой</h1>
+				<label for="inpGamerCount" class="Label1">Число игроков</label>
+				<input type="text" name="_gamer_count" value="" id="inpGamerCount" class="Input1" />
+				<ul class='DashBoard'>
+					<li><a class="Start BType_01"><span>Начать</span></a></li>
+					<li><a class="Reset BType_01"><span>Сбросить</span></a></li>
+					<li><a class="StartScan BType_01"><span>Сканировать человека</span></a></li>
+					<li><a class="StopScan BType_01"><span>Закончить сканирование</span></a></li>
+				</ul>
+		</div>
+
+		<div id='Main' style="position: absolute; left: 0px; width:800px; top: 200px">
+
+			<!-- Входная дверь -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpEntranceDoor" class="Label1">Входная дверь</label>
+					<input type="text" name="_entrance_door" value="" id="inpEntranceDoor" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='EntranceDoor'>
+						<li><a class="Open BType_01"><span>Открыть</span></a></li>
+						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Таймер -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpTimer" class="Label1">Таймер</label>
+					<input type="text" name="_timer" value="" id="inpTimer" class="Input1" disabled/>
+					<input type="text" name="_timer_state" value="" id="inpTimerState" class="Input1" disabled/>
+				</div>
+				
+				<div class="Commands">
+					<ul class='Timer'>
+						<li><a class="Set BType_01"><span>Включить</span></a></li>
+						<li><a class="Stop BType_01"><span>Выключить</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Дверь в команту №2 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpRoom2Door" class="Label1">Дверь в команту №2</label>
+					<input type="text" name="_room2_door" value="" id="inpRoom2Door" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Room2Door'>
+						<li><a class="Open BType_01"><span>Открыть</span></a></li>
+						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Кнопка, открывающая шкаф -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpLockerButton" class="Label1">Кнопка, открывающая шкаф</label>
+				</div>
+
+				<div class="Commands">
+					<ul class='LockerButton'>
+						<li><a class="Push BType_01"><span>Нажать</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Дверь шкафа -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpLockerDoor" class="Label1">Дверь шкафа</label>
+					<input type="text" name="_locker_door" value="" id="inpLockerDoor" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='LockerDoor'>
+						<li><a class="Open BType_01"><span>Открыть</span></a></li>
+						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Подставка многогранника -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="PolyhedronRack" class="Label1">Подставка многогранника</label>
+					<input type="text" name="_polyhedron_rack" value="" id="inpPolyhedronRack" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='PolyhedronRack'>
+						<li><a class="On BType_01"><span>Активировать</span></a></li>
+						<li><a class="Off BType_01"><span>Деактивировать</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Свет -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpLight" class="Label1">Свет</label>
+					<input type="text" name="_light" value="" id="inpLight" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Light'>
+						<li><a class="On" href="">Включить</a></li>
+						<li><a class="Off" href="">Выключить</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Дверь в команту №3 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpRoom3Door" class="Label1">Дверь в команту №3</label>
+					<input type="text" name="_room3_door" value="" id="inpRoom3Door" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Room3Door'>
+						<li><a class="Open">Открыть</a></li>
+						<li><a class="Close">Закрыть</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Дверь в команту №4 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpRoom4Door" class="Label1">Дверь в команту №4</label>
+					<input type="text" name="_room4_door" value="" id="inpRoom4Door" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Room4Door'>
+						<li><a class="Open">Открыть</a></li>
+						<li><a class="Close">Закрыть</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Дверь в команту №5 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpRoom5Door" class="Label1">Дверь в команту №5</label>
+					<input type="text" name="_room5_door" value="" id="inpRoom5Door" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Room5Door'>
+						<li><a class="Open">Открыть</a></li>
+						<li><a class="Close">Закрыть</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Кнопка, спасения игрока -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpSaveButton" class="Label1">Кнопка, спасения предпоследнего игрока</label>
+				</div>
+
+				<div class="Commands">
+					<ul class='SaveButton'>
+						<li><a class="Push" href="">Нажать</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Дверь в команту №6 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpRoom6Door" class="Label1">Дверь в команту №6</label>
+					<input type="text" name="_room6_door" value="" id="inpRoom6Door" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Room6Door'>
+						<li><a class="Open">Открыть</a></li>
+						<li><a class="Close">Закрыть</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Ячейка №1 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpCell1" class="Label1">Ячейка №1</label>
+					<input type="text" name="_cell1" value="" id="inpCell1" class="Input1" />
+					<input type="text" name="_cell1_state" value="" id="inpCell1State" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Cell1'>
+						<li><a class="Send" href="">Отправить код</a></li>
+						<li><a class="Open">Открыть</a></li>
+						<li><a class="Close">Закрыть</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Ячейка №2 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpCell2" class="Label1">Ячейка №2</label>
+					<input type="text" name="_cell2" value="" id="inpCell2" class="Input1" />
+					<input type="text" name="_cell2_state" value="" id="inpCell2State" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Cell2'>
+						<li><a class="Send" href="">Отправить код</a></li>
+						<li><a class="Open">Открыть</a></li>
+						<li><a class="Close">Закрыть</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Дверь в команту №7 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpRoom7Door" class="Label1">Дверь в команту №7</label>
+					<input type="text" name="_room7_door" value="" id="inpRoom7Door" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Room7Door'>
+						<li><a class="Open">Открыть</a></li>
+						<li><a class="Close">Закрыть</a></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		<div id="Info" style="position:absolute; left:800px; width:400px; top: 200px">
+			<div class="Quest">
+				<label for="QuestState" class="Label2">Состояние квеста: </label>
+				<span id="QuestState">NA</span>
+			</div>
+
+			<div class="Quest">
+				<label for="QuestTimer" class="Label2">Обратный отсчёт: </label>
+				<span id="QuestTimer">NA</span>
+			</div>
+
+			<div class="Quest">
+				<span id="QuestError">NA</span>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript">
+		var dev_url         = "http://localhost:3030";
+		var web_server_url   = "http://localhost:3000";
+		
+		var start_time;
+		var game_timer;
+		var m, s;
+
+		function disable_gamer_count() {
+			$("#inpGamerCount").prop('disabled', true);
+		}
+
+		function enable_gamer_count() {
+			$("#inpGamerCount").prop('disabled', false);
+		}
+
+		function stop_timer() {
+		    clearInterval(game_timer);
+		}
+
+		function restart_timer () {
+			// получаем дату старта для таймера игры
+			start_time = null;
+			var now = new Date();
+			$.ajax({
+				url: web_server_url + '/game/start_time',
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+				success: function (response) {
+					console.log(response);
+					if (response.date) {
+						start_time = new Date(response.date);
+						var diff = start_time - now + 60*60*1000 ;
+						var ms = diff % 1000;
+						s  = ((diff - ms)/1000) % 60;
+						m  = ((diff - ms - s* 1000)/60000) % 60;
+
+						//таймер квеста(1час)
+						game_timer = setInterval(function () {
+							s = s - 1;
+							if (s == -1) {
+								m = m-1;
+								s = 59;
+							}
+							if (start_time) {
+								$("#QuestTimer").text(parseInt(m) + ':' + parseInt(s));
+							} else {
+								$("#QuestTimer").text('NA');
+							}
+						}, 1000);
+
+						disable_gamer_count();
+					} else {
+
+						stop_timer();
+						enable_gamer_count();
+						$("#QuestTimer").text('NA');
+						return;
+					}
+				}
+			});
+
+			
+		}
+
+		$(document).ready(function() {
+
+			if (!start_time) {
+				restart_timer();
+			}
+
+			// проверяем состояние устройств
+			// в данном случае - читаем коллекцию devices из mongo
+			setInterval(function(){
+				$.ajax({
+				url: web_server_url + '/devices_list/all',
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('Devices state');
+						// входная дверь
+						if (response._entrance_door.state == "opened") {
+							$("#inpEntranceDoor").val('Открыта');
+						} else if (response._entrance_door.state == "closed") {
+							$("#inpEntranceDoor").val('Закрыта');
+						}
+
+						// таймер
+						$("#inpTimer").val(response._timer.current_value.toString());
+						if (response._timer.state == "active") {
+							$("#inpTimerState").val('Активен');
+						} else if (response._timer.state == "ready") {
+							$("#inpTimerState").val('Готов');
+						} else if (response._timer.state == "idle") {
+							$("#inpTimerState").val('Неактивен');
+						}
+
+						// дверь в комнату №2 
+						if (response._room2_door.state == "opened") {
+							$("#inpRoom2Door").val('Открыта');
+						} else if (response._room2_door.state == "closed") {
+							$("#inpRoom2Door").val('Закрыта');
+						}
+
+						// кнопка, открывающая шкаф
+
+						// дверь шкафа
+						if (response._locker_door.state == "opened") {
+							$("#inpLockerDoor").val('Открыта');
+						} else if (response._locker_door.state == "closed") {
+							$("#inpLockerDoor").val('Закрыта');
+						}
+
+						// подставка многогранника
+						if (response._polyhedron_rack.state == "active") {
+							$("#inpPolyhedronRack").val('Активна');
+						} else if (response._polyhedron_rack.state == "idle") {
+							$("#inpPolyhedronRack").val('Не активна');
+						}
+
+						// свет
+						if (response._light.state == "on") {
+							$("#inpLight").val('Включён');
+						} else if (response._light.state == "off") {
+							$("#inpLight").val('Выключен');
+						}
+
+						// дверь в комнату №3
+						if (response._room3_door.state == "opened") {
+							$("#inpRoom3Door").val('Открыта');
+						} else if (response._room3_door.state == "closed") {
+							$("#inpRoom3Door").val('Закрыта');
+						}
+
+						// дверь в комнату №4
+						if (response._room4_door.state == "opened") {
+							$("#inpRoom4Door").val('Открыта');
+						} else if (response._room4_door.state == "closed") {
+							$("#inpRoom4Door").val('Закрыта');
+						}
+
+						// дверь в комнату №5
+						if (response._room5_door.state == "opened") {
+							$("#inpRoom5Door").val('Открыта');
+						} else if (response._room5_door.state == "closed") {
+							$("#inpRoom5Door").val('Закрыта');
+						}
+
+						// дверь в комнату №6
+						if (response._room6_door.state == "opened") {
+							$("#inpRoom6Door").val('Открыта');
+						} else if (response._room6_door.state == "closed") {
+							$("#inpRoom6Door").val('Закрыта');
+						}
+
+						// дверь в комнату №7
+						if (response._room7_door.state == "opened") {
+							$("#inpRoom7Door").val('Открыта');
+						} else if (response._room7_door.state == "closed") {
+							$("#inpRoom7Door").val('Закрыта');
+						}
+
+						$("#QuestState").text(response.quest_state);
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+				});
+			}, 500);
+
+		});
+
+		// Инициализация игры
+		$('#Head .DashBoard .Start').click(function(e){
+			if (!$("#inpGamerCount").val()) {
+				alert ('Введите количество игроков');
+				return;
+			}
+			var gamer_count = $("#inpGamerCount").val();
+			$.ajax({
+				url: web_server_url + '/game/start' + '/' + gamer_count,
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						$("#inpGamerCount").prop('disabled', true);
+						console.log('game start');
+						restart_timer();
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		});
+
+		// Восстанавливаем в модели значения по умолчанию
+		$('#Head .DashBoard .Reset').click(function(e){
+			$.ajax({
+				url: web_server_url + '/game/reset',
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						$("#inpGamerCount").prop('disabled', false);
+						console.log('game reset');
+						restart_timer();
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		});
+
+		// Начать сканирование
+		$('#Head .DashBoard .StartScan').click(function(e){
+			$.ajax({
+				url: web_server_url + '/scanner/start',
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						//$("#inpGamerCount").prop('disabled', false);
+						console.log('start scan');
+						//restart_timer();
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		});
+
+		// Завершить сканирование
+		$('#Head .DashBoard .StopScan').click(function(e){
+			$.ajax({
+				url: web_server_url + '/scanner/stop',
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						//$("#inpGamerCount").prop('disabled', false);
+						console.log('stop scan');
+						//restart_timer();
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		});
+
+		// Кнопка 'Нажать' - для моделирования нажатия
+		$('#Main .LockerButton .Push').click(function(e){
+			if ($("#inpRoom2Door").val() == 'Открыта') {
+				$.ajax({
+					url: web_server_url + '/locker_button/pushed',
+					type: "GET",
+					crossDomain: true,
+					dataType: "json",
+						success: function (response) {
+							console.log('button pushed');
+						},
+						error: function(error) {
+							console.log('ERROR:', error);
+						}
+				});
+			}
+		});
+
+		// Кнопки 'Активировать' и 'Деактивировать' - для моделирования подставки
+		$('#Main .PolyhedronRack .On').click(function(e){
+			if ($("#inpLockerDoor").val() == 'Открыта') {
+				$.ajax({
+					url: web_server_url + '/polyhedron_rack/activated',
+					type: "GET",
+					crossDomain: true,
+					dataType: "json",
+						success: function (response) {
+							console.log('rack activated');
+						},
+						error: function(error) {
+							console.log('ERROR:', error);
+						}
+				});
+			}
+		});
+		$('#Main .PolyhedronRack .Off').click(function(e){
+			if ($("#inpLockerDoor").val() == 'Открыта') {
+				$.ajax({
+					url: web_server_url + '/polyhedron_rack/deactivated',
+					type: "GET",
+					crossDomain: true,
+					dataType: "json",
+						success: function (response) {
+							console.log('rack deactivated');
+						},
+						error: function(error) {
+							console.log('ERROR:', error);
+						}
+				});
+			}
+		});
+	</script>
+</body>
+</html>

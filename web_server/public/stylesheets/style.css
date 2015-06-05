@@ -1,0 +1,64 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a.BType_01 {display:block;height:30px;text-align:center;font:bold 12px/12px arial;color:#000;text-decoration:none;background:#b9b9b9;background-image:linear-gradient(#f2f2f2, #b9b9b9);border:1px solid #bababa;border-radius:2px;behavior:url(/css3/PIE.htc)}
+a.BType_01 span {display:block;height:22px;padding:9px 0 0 0}
+a:hover.BType_01 {background-image:linear-gradient(#f2f2f2, #c9c9c9);color:#333;cursor:pointer}
+a:hover.BType_01 span {}
+
+.Commands ul, ul.DashBoard {  list-style-type: none;}
+
+
+
+ul.DashBoard li {
+  display: inline-block;
+}
+
+.Device {
+	position: relative;
+	height: 100px;
+
+}
+
+.Device div.Status {
+	position: absolute;
+	left: 0px;
+	width: 20px;
+	height: 100px;
+}
+
+.Device div.State {
+	position: absolute;
+	left: 20px;
+	width: 500px;
+	height: 100px;
+}
+
+.Device div.Commands {
+	position: absolute;
+	left: 520px;
+	width: 200px;
+	height: 100px;
+}
+
+
+.Device .Status {
+    width: 100px;
+    height: 100px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+}
+
+.Device .Offline {
+    background: red;
+}
+
+.Device .Online {
+    background: green;
+}
+
+
+    

@@ -1,0 +1,2213 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"QUEST",
+				"QuestState"
+			],
+			[
+				"_",
+				"_locker_door"
+			],
+			[
+				"res",
+				"response"
+			],
+			[
+				"ga",
+				"gamer_count"
+			],
+			[
+				"dis",
+				"disable_gamer_count"
+			],
+			[
+				"game",
+				"game_state"
+			],
+			[
+				"To",
+				"toString"
+			],
+			[
+				"sat",
+				"start_time"
+			],
+			[
+				"start",
+				"start_time"
+			],
+			[
+				"p",
+				"polyhedron_rack"
+			],
+			[
+				"Lock",
+				"LockerButton"
+			],
+			[
+				"lco",
+				"locker_button"
+			],
+			[
+				"req",
+				"require"
+			],
+			[
+				"inp",
+				"inpTimer"
+			],
+			[
+				"time",
+				"timer_port"
+			],
+			[
+				"in",
+				"inpDoor"
+			],
+			[
+				"stat",
+				"status_pane"
+			],
+			[
+				"doc",
+				"docIncut"
+			],
+			[
+				"file",
+				"file_upload_callback"
+			],
+			[
+				"user",
+				"user_id"
+			],
+			[
+				"hot",
+				"hot_meal"
+			],
+			[
+				"cat",
+				"cat_or_ct"
+			],
+			[
+				"cal",
+				"calc"
+			],
+			[
+				"sch",
+				"schenolist"
+			],
+			[
+				"pie",
+				"pie_ref"
+			],
+			[
+				"cake",
+				"cake_ref"
+			],
+			[
+				"caek",
+				"cake_ref"
+			],
+			[
+				"rever",
+				"reverse_greeting"
+			],
+			[
+				"pages",
+				"pages_count"
+			],
+			[
+				"cu",
+				"current_page"
+			],
+			[
+				"pa",
+				"pages_count"
+			],
+			[
+				"page",
+				"page_size"
+			],
+			[
+				"p_A",
+				"p_ANNOUNCEMENT_EDIT_PUBLISHED"
+			],
+			[
+				"ann",
+				"announcement"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "app.js",
+			"settings":
+			{
+				"buffer_size": 2801,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/gamers.js",
+			"settings":
+			{
+				"buffer_size": 652,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/routes/game.js",
+			"settings":
+			{
+				"buffer_size": 1779,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "routes/entrance_door.js",
+			"settings":
+			{
+				"buffer_size": 439,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "routes/room2_door.js",
+			"settings":
+			{
+				"buffer_size": 426,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "routes/locker_door.js",
+			"settings":
+			{
+				"buffer_size": 432,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "routes/index.js",
+			"settings":
+			{
+				"buffer_size": 188,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "routes/devices_list.js",
+			"settings":
+			{
+				"buffer_size": 1224,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "config.js",
+			"settings":
+			{
+				"buffer_size": 2220,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "devices.js",
+			"settings":
+			{
+				"buffer_size": 2601,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "routes/polyhedron_rack.js",
+			"settings":
+			{
+				"buffer_size": 832,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "routes/timer.js",
+			"settings":
+			{
+				"buffer_size": 406,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "routes/users.js",
+			"settings":
+			{
+				"buffer_size": 203,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "routes/locker_button.js",
+			"settings":
+			{
+				"buffer_size": 454,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "routes/light.js",
+			"settings":
+			{
+				"buffer_size": 397,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "public/index.html",
+			"settings":
+			{
+				"buffer_size": 9714,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 367,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/api.txt",
+			"settings":
+			{
+				"buffer_size": 5186,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/devices_list.txt",
+			"settings":
+			{
+				"buffer_size": 3941,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/scenario.txt",
+			"settings":
+			{
+				"buffer_size": 1875,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/install.bat",
+			"settings":
+			{
+				"buffer_size": 67,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/app.js",
+			"settings":
+			{
+				"buffer_size": 2393,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/game_state.js",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/devices.js",
+			"settings":
+			{
+				"buffer_size": 2601,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/routes/devices_list.js",
+			"settings":
+			{
+				"buffer_size": 374,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/routes/users.js",
+			"settings":
+			{
+				"buffer_size": 202,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/routes/locker_button.js",
+			"settings":
+			{
+				"buffer_size": 1199,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/routes/polyhedron_rack.js",
+			"settings":
+			{
+				"buffer_size": 504,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/routes/timer.js",
+			"settings":
+			{
+				"buffer_size": 1732,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/routes/index.js",
+			"settings":
+			{
+				"buffer_size": 196,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/config.js",
+			"settings":
+			{
+				"buffer_size": 2220,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/public/index.html",
+			"settings":
+			{
+				"buffer_size": 14968,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/node/web_server/public/stylesheets/style.css",
+			"settings":
+			{
+				"buffer_size": 1187,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "ss c",
+		"selected_items":
+		[
+			[
+				"ss c",
+				"Set Syntax: C++"
+			],
+			[
+				"ssh",
+				"Set Syntax: HTML"
+			],
+			[
+				"ss",
+				"Set Syntax: HTML"
+			],
+			[
+				"sh",
+				"Set Syntax: HTML"
+			],
+			[
+				"ssh ",
+				"Set Syntax: HTML"
+			],
+			[
+				"svn",
+				"Preferences: SVN Settings"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Upgrade/Overwrite All Packages"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/node/dev_emulator",
+		"/C/node/dev_emulator/routes",
+		"/C/node/dev_emulator/views",
+		"/C/node/web_server",
+		"/C/node/web_server/routes",
+		"/C/node/web_server/views"
+	],
+	"file_history":
+	[
+		"/C/node/dev_emulator/start_mongo.bat",
+		"/C/node/dev_emulator/mongo_dev_emulator.bat",
+		"/C/node/dev_emulator/start.bat",
+		"/C/node/dev_emulator/config.js",
+		"/C/node/web_server/game_state.js",
+		"/C/node/dev_emulator/public/stylesheets/style.css",
+		"/C/node/web_server/node_modules/utils/index.js",
+		"/C/node/dev_emulator/mongo.bat",
+		"/C/node/dev_emulator/devices_list.txt",
+		"/C/node/dev_emulator/api.txt",
+		"/C/node/web_server/routes/index.js",
+		"/C/node/web_server/node_modules/express/index.js",
+		"/C/node/dev_emulator/bin/www",
+		"/C/node/dev_emulator/package.json",
+		"/C/node/nodetest2/routes/door.js",
+		"/C/node/nodetest2/routes/timer.js",
+		"/C/node/nodetest2/public/index2.html",
+		"/C/node/nodetest2/routes/users.js",
+		"/C/example/start_timer.bat",
+		"/C/example/start_door.bat",
+		"/C/example/index.html",
+		"/C/example/start.bat",
+		"/C/example/rest.txt",
+		"/C/example/install.bat",
+		"/C/Users/Александр/Dropbox/SD_card_read_http_server.ino",
+		"/Z/deploy/trunk/92fm/lib/App/Plugin/Helpers.pm",
+		"/Z/deploy/trunk/92fm/lib/App/Model/Announcement.pm",
+		"/Z/deploy/trunk/92fm/lib/App/Controller/Cms/Announcements.pm",
+		"/Z/deploy/trunk/92fm/templates/inc/leftprograms.html.ep",
+		"/Z/deploy/trunk/92fm/templates/layouts/default.html.ep",
+		"/Z/deploy/trunk/92fm/lib/App/Controller/Cms/Schedule.pm",
+		"/Z/deploy/trunk/bank/bank.conf",
+		"/Z/deploy/trunk/common/bb/lib/bb.pm",
+		"/Z/deploy/trunk/92fm/templates/cms/articles/edit.html.ep",
+		"/Z/deploy/trunk/92fm/templates/cms/bbbar.html.ep",
+		"/Z/deploy/trunk/92fm/public/js/bb_editor.js",
+		"/Z/deploy/trunk/92fm/templates/cms/_html5_type1_upload.html.ep",
+		"/Z/deploy/trunk/92fm/templates/cms/_html5_type5_upload.html.ep",
+		"/Z/deploy/trunk/sphinx/reload",
+		"/Z/deploy/trunk/92fm/public/js/article.edit.js",
+		"/Z/deploy/trunk/92fm/templates/articles/_latest_by_rubric.html.ep",
+		"/Z/deploy/trunk/92fm/lib/App/Controller/Articles.pm",
+		"/Z/deploy/trunk/92fm/public/css/article.css",
+		"/Z/deploy/trunk/92fm/lib/App/Model/ArticleRubricMap.pm",
+		"/Z/deploy/trunk/92fm/templates/articles/_rubrics_crumbs.html.ep",
+		"/Z/deploy/trunk/92fm/lib/App/Controller/Cms/Auth.pm",
+		"/Z/deploy/trunk/92fm/templates/cms/programs/create.html.ep",
+		"/Z/deploy/trunk/92fm/db/sql/migrations/create_announcements_4_down.sql",
+		"/Z/deploy/trunk/92fm/lib/App/Constants.pm",
+		"/Z/deploy/trunk/92fm/templates/cms/bbforms.html.ep",
+		"/Z/deploy/trunk/common/bb/t/article/bb2txt",
+		"/Z/deploy/trunk/92fm/public/css/cms/bb_editor.css",
+		"/Z/deploy/trunk/92fm/public/css/cms/adm.css",
+		"/Z/deploy/trunk/92fm/templates/cms/articles/view.html.ep",
+		"/Z/deploy/trunk/common/bank/bank",
+		"/Z/deploy/trunk/test.pl",
+		"/Z/deploy/trunk/common/bank/t/upload_mass",
+		"/Z/deploy/trunk/common/bank/tools/unused files/02 move_unused",
+		"/Z/deploy/trunk/92fm/public/css/cms/bvalidator.css",
+		"/Z/deploy/trunk/common/bank/nginx/bank_converter.conf",
+		"/Z/deploy/trunk/92fm/public/html5_uploader/FileAPI.min.js",
+		"/Z/deploy/trunk/92fm/public/html5_uploader/FileAPI.js",
+		"/Z/deploy/trunk/common/bank/lib/kqueue/t/11_file.t",
+		"/Z/deploy/trunk/92fm/templates/cms/auth/login.html.ep",
+		"/Z/deploy/trunk/92fm/templates/search/_articles.html.ep",
+		"/Z/deploy/trunk/92fm/templates/cms/articles/preview.html.ep",
+		"/Z/deploy/trunk/92fm/templates/articles/view.html.ep",
+		"/Z/deploy/trunk/92fm/templates/articles/list.html.ep",
+		"/Z/deploy/trunk/92fm/templates/articles/_portrait_latest.html.ep",
+		"/Z/deploy/trunk/92fm/templates/articles/_popular_articles.html.ep",
+		"/Z/deploy/trunk/92fm/templates/cms/_html5_upload_lib.html.ep",
+		"/Z/deploy/trunk/92fm/public/html5_uploader/FileAPI.html5.js",
+		"/Z/deploy/trunk/nginx/htpasswd",
+		"/Z/deploy/trunk/92fm/templates/inc/tags.html.ep",
+		"/Z/deploy/trunk/filmpro/lib/App/Routes.pm",
+		"/Z/deploy/trunk/filmpro/script/test.pl",
+		"/Z/deploy/trunk/filmpro/b/bb/test",
+		"/Z/deploy/trunk/java_app/main/resources/org/w3c/tidy/TidyMessages_es.properties",
+		"/Z/deploy/trunk/java_app/main/java/w3c/tidy/EntityTable.java",
+		"/Z/deploy/trunk/top_api.patch",
+		"/Z/deploy/trunk/old/robots.txt",
+		"/Z/deploy/trunk/reload_all",
+		"/Z/deploy/trunk/92fm/db/sql/migrations/insert_new_rubric_8_up.sql",
+		"/Z/deploy/trunk/92fm/templates/cms/programs/list.html.ep",
+		"/Z/deploy/trunk/92fm/lib/App.pm",
+		"/Z/deploy/trunk/92fm/lib/App/Controller/Cms/Programs.pm",
+		"/Z/deploy/trunk/92fm/lib/App/Plugin/Paginator.pm",
+		"/Z/deploy/trunk/92fm/templates/programs/list.html.ep",
+		"/Z/deploy/trunk/92fm/lib/App/Controller/Programs.pm",
+		"/Z/deploy/trunk/92fm/lib/App/Controller.pm",
+		"/Z/deploy/trunk/92fm/app.conf",
+		"/Z/deploy/trunk/92fm/lib/App/Model/Program.pm",
+		"/Z/deploy/trunk/92fm/lib/App/Model/Permission.pm",
+		"/Z/deploy/trunk/crontab/prod",
+		"/Z/deploy/trunk/92fm/lib/App/Controller/Feedback.pm",
+		"/Z/deploy/trunk/92fm/templates/cms/articles/list.html.ep",
+		"/Z/deploy/trunk/92fm/lib/App/Controller/Cms/Articles.pm",
+		"/Z/deploy/trunk/sphinx/search",
+		"/Z/deploy/trunk/nginx/start",
+		"/Z/deploy/trunk/sphinx/index_update",
+		"/Z/deploy/trunk/common/Configuration.pm",
+		"/Z/deploy/trunk/bank/public/crossdomain.xml",
+		"/Z/deploy/trunk/crontab/reload",
+		"/Z/deploy/trunk/crontab/beta",
+		"/Z/deploy/trunk/92fm/db/sql/migrations/create_announcements_4_up.sql",
+		"/Z/deploy/trunk/bank/public/backend_error.html",
+		"/Z/deploy/trunk/92fm/templates/menu/_main.html.ep",
+		"/Z/deploy/trunk/92fm/lib/App/Routes.pm",
+		"/Z/deploy/trunk/92fm/templates/layouts/cms.html.ep",
+		"/Z/deploy/trunk/92fm/templates/cms/index/index.html.ep",
+		"/Z/deploy/trunk/92fm/templates/persons/list.html.ep",
+		"/Z/deploy/trunk/92fm/db/sql/migrations/update_permissions_2_up.sql",
+		"/Z/deploy/trunk/92fm/db/sql/migrations/update_permissions_2_down.sql",
+		"/Z/deploy/trunk/92fm/templates/cms/announcements/create.html.ep",
+		"/Z/deploy/trunk/92fm/db/sql/migrations/create_polls_with_permissions_7_up.sql",
+		"/Z/deploy/trunk/92fm/templates/inc/sidebar.html.ep",
+		"/Z/deploy/trunk/92fm/db/sql/migrations/insert_new_rubric_8_down.sql",
+		"/Z/deploy/trunk/92fm/db/sql/migrations/create_polls_with_permissions_7_down.sql",
+		"/Z/deploy/trunk/92fm/templates/cms/polls/view.html.ep",
+		"/Z/deploy/trunk/92fm/templates/cms/polls/list.html.ep",
+		"/Z/deploy/trunk/92fm/templates/cms/polls/edit.html.ep",
+		"/Z/deploy/trunk/92fm/templates/cms/polls/create.html.ep",
+		"/Z/deploy/trunk/92fm/lib/App/Controller/Cms/Polls.pm",
+		"/Z/deploy/trunk/92fm/lib/App/Model/Poll.pm",
+		"/Z/deploy/trunk/92fm/templates/about.html.ep",
+		"/Z/deploy/trunk/92fm/templates/schedule/list.html.ep",
+		"/Z/deploy/trunk/92fm/templates/cms/schedule/view.html.ep",
+		"/Z/deploy/trunk/92fm/templates/listen/list.html.ep"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"C:\\node\\web_server",
+			"C:\\node\\dev_emulator",
+			"C:\\node\\dev_emulator\\bin",
+			"C:\\node\\dev_emulator",
+			"C:\\node\\nodetest2",
+			"Z:\\deploy\\trunk\\92fm",
+			"Z:\\deploy\\trunk",
+			"Z:\\deploy\\trunk\\bank",
+			"Z:\\deploy\\trunk",
+			"Z:\\deploy\\trunk\\92fm",
+			"Z:\\deploy\\trunk",
+			"Z:\\deploy\\trunk\\92fm\\templates",
+			"Z:\\deploy\\trunk",
+			"Z:\\deploy\\trunk\\92fm\\templates",
+			"Z:\\deploy\\trunk",
+			"Z:\\deploy\\trunk\\92fm",
+			"Z:\\deploy\\trunk\\92fm\\templates",
+			"Z:\\deploy\\trunk\\92fm",
+			"Z:\\deploy\\trunk",
+			"Z:\\deploy\\trunk\\92fm",
+			"Z:\\deploy\\trunk",
+			"Z:\\deploy\\trunk\\92fm",
+			"Z:\\deploy\\trunk"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"ell1",
+			"disable",
+			"href",
+			"dev_url",
+			"59",
+			"host_url",
+			"_seat_belt",
+			"dev_url",
+			"host_url",
+			"find",
+			"сбросить",
+			"    ",
+			"port",
+			"start",
+			"3000",
+			"respond with a",
+			"respond with",
+			"    ",
+			"left_programs",
+			"statu",
+			"#",
+			"UploadInfo",
+			"desc",
+			"URL",
+			"uploader_id",
+			"doc",
+			"doc_",
+			"upload_events_callbacks",
+			"BBEditorContainer",
+			"var bb_editor_container",
+			"bb_editor_container",
+			"upload_events_callbacks",
+			"callbacks",
+			"expertIncut",
+			"expertIncutUpload_events",
+			"upload_events_callbacks",
+			"call",
+			"incutImageUpload_events",
+			"incutBigImageUpload_events",
+			"upload_events_callbacks",
+			"callbacks",
+			"callback",
+			"callbacks",
+			"BBEditorContainer",
+			"insert",
+			"docIncu",
+			"inser",
+			"file",
+			"getUrl",
+			"hideDropDown",
+			"HTML5UploaderType1",
+			"z-",
+			"html",
+			"type1",
+			"ShowImages",
+			"simple_replace",
+			"SimpleReplace",
+			"UploadInfo",
+			"m24.ru",
+			"SimpleUploader",
+			"602",
+			"check_auth",
+			"602",
+			"UploadIncutBigImage",
+			"IncutImageUpload",
+			"SimpleReplace",
+			"simple",
+			"92fm.ru",
+			"moskvafm.com",
+			"error",
+			"ошибка",
+			"Оши",
+			"moskvafm.com",
+			"92",
+			"referer",
+			"m24",
+			"92",
+			"max_upload_count",
+			"UploadIncutBigImage_ReplaceContainer",
+			"IncutImageUpload",
+			"image",
+			"URL",
+			"rel",
+			"pagin",
+			"PAGE_SIZE",
+			"setup_paginator",
+			"warn",
+			"_latest_by_rubric",
+			"все новости раздела",
+			"setup_paginator",
+			"announcement",
+			"Announcement",
+			"announcement",
+			"Announcement",
+			"announcement",
+			"name",
+			"announcement",
+			"ANNOUNCEMENT",
+			"article",
+			"MainFacesList",
+			"user",
+			"sidebar",
+			"list_by_tag",
+			"artic",
+			"%= include",
+			"% include",
+			"get_latest",
+			"%include",
+			"include",
+			"leftprograms",
+			"stash",
+			"%= include",
+			"%= include \\",
+			"schedule_create",
+			"popular_articles",
+			"dmitry",
+			"sidebar",
+			"lcol",
+			"rcol",
+			"program_image",
+			"dev",
+			"sched",
+			"Сетка вещания",
+			"ann",
+			"p_ANNOUNCEMENT_VIEW",
+			"article",
+			"annou",
+			"Image"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"ell2",
+			"	",
+			"moskvafm.com",
+			"92fm.ru",
+			"92fm",
+			"poll",
+			"Poll",
+			"poll",
+			"Poll",
+			"poll",
+			"POLL",
+			"poll",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 7,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2801,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								819,
+								819
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 86.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/node/web_server/gamers.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 652,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								652,
+								652
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/node/web_server/routes/game.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1779,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1410,
+								1410
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "routes/entrance_door.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 439,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								233,
+								114
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "routes/room2_door.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 426,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								374,
+								374
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 23,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "routes/locker_door.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 432,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								432,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "routes/index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 188,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								188,
+								188
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 25,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "routes/devices_list.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1224,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								261,
+								261
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "config.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2220,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								961,
+								961
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 20,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "devices.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2601,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2601,
+								2601
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "routes/polyhedron_rack.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 832,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								571,
+								571
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 22,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "routes/timer.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 406,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								175,
+								175
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 21,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "routes/users.js",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 203,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 24,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "routes/locker_button.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 454,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								454,
+								454
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "routes/light.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 397,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								397,
+								397
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "public/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9714,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7790,
+								7790
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2884.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 367,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								121,
+								365
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 32,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 7,
+			"sheets":
+			[
+				{
+					"buffer": 17,
+					"file": "/C/node/web_server/api.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5186,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 31,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "/C/node/web_server/devices_list.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3941,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3940,
+								3940
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 98.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "/C/node/web_server/scenario.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1875,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								234,
+								234
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 30,
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "/C/node/web_server/install.bat",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 67,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								67,
+								67
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Batch File/Batch File.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 29,
+					"type": "text"
+				},
+				{
+					"buffer": 21,
+					"file": "/C/node/web_server/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2393,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								590,
+								604
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 336.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 19,
+					"type": "text"
+				},
+				{
+					"buffer": 22,
+					"file": "/C/node/web_server/game_state.js",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 28,
+					"type": "text"
+				},
+				{
+					"buffer": 23,
+					"file": "/C/node/web_server/devices.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2601,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2601,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 24,
+					"file": "/C/node/web_server/routes/devices_list.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 374,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								251,
+								251
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 25,
+					"file": "/C/node/web_server/routes/users.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 202,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								202,
+								202
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 26,
+					"type": "text"
+				},
+				{
+					"buffer": 26,
+					"file": "/C/node/web_server/routes/locker_button.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1199,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1019,
+								1042
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 27,
+					"file": "/C/node/web_server/routes/polyhedron_rack.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 504,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								390,
+								390
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 28,
+					"file": "/C/node/web_server/routes/timer.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1732,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1523,
+								1523
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 29,
+					"file": "/C/node/web_server/routes/index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 196,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								196,
+								196
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 30,
+					"file": "/C/node/web_server/config.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2220,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2219,
+								1083
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 31,
+					"file": "/C/node/web_server/public/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 14968,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12328,
+								12141
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5935.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 32,
+					"file": "/C/node/web_server/public/stylesheets/style.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1187,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								908,
+								908
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 42.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 27,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.475877558206,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "dev_emulator.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"devic",
+				"dev_emulator\\devices.js"
+			],
+			[
+				"config",
+				"dev_emulator\\config.js"
+			],
+			[
+				"co",
+				"dev_emulator\\config.js"
+			],
+			[
+				"mob",
+				"dev_emulator\\mongo_dev_emulator.bat"
+			],
+			[
+				"star",
+				"dev_emulator\\start_mongo.bat"
+			],
+			[
+				"insta",
+				"web_server\\install.bat"
+			],
+			[
+				"webserindex",
+				"web_server\\routes\\index.js"
+			],
+			[
+				"weindex.js",
+				"web_server\\node_modules\\express\\index.js"
+			],
+			[
+				"index",
+				"routes\\index.js"
+			],
+			[
+				"app",
+				"app.js"
+			],
+			[
+				"defa",
+				"92fm\\templates\\layouts\\default.html.ep"
+			],
+			[
+				"hel",
+				"92fm\\lib\\App\\Plugin\\Helpers.pm"
+			],
+			[
+				"ann",
+				"92fm\\lib\\App\\Model\\Announcement.pm"
+			],
+			[
+				"bank.",
+				"bank\\bank.conf"
+			],
+			[
+				"html5typ",
+				"92fm\\templates\\cms\\_html5_type1_upload.html.ep"
+			],
+			[
+				"html",
+				"92fm\\templates\\cms\\_html5_type5_upload.html.ep"
+			],
+			[
+				"articleedi",
+				"92fm\\templates\\cms\\articles\\edit.html.ep"
+			],
+			[
+				"creat",
+				"92fm\\templates\\cms\\programs\\create.html.ep"
+			],
+			[
+				"bbhtml",
+				"92fm\\templates\\cms\\bbbar.html.ep"
+			],
+			[
+				"bbedi",
+				"92fm\\public\\js\\bb_editor.js"
+			],
+			[
+				"bb",
+				"common\\bb\\lib\\bb.pm"
+			],
+			[
+				"html5",
+				"92fm\\templates\\cms\\_html5_type5_upload.html.ep"
+			],
+			[
+				"adm",
+				"92fm\\public\\css\\cms\\adm.css"
+			],
+			[
+				"bbcss",
+				"92fm\\public\\css\\cms\\bb_editor.css"
+			],
+			[
+				"auth.pm",
+				"92fm\\lib\\App\\Controller\\Cms\\Auth.pm"
+			],
+			[
+				"articlesedit",
+				"92fm\\templates\\cms\\articles\\edit.html.ep"
+			],
+			[
+				"articlesview",
+				"92fm\\templates\\cms\\articles\\view.html.ep"
+			],
+			[
+				"articleslist",
+				"92fm\\templates\\articles\\list.html.ep"
+			],
+			[
+				"_html5_type1_upload",
+				"92fm\\templates\\cms\\_html5_type1_upload.html.ep"
+			],
+			[
+				"bbar",
+				"92fm\\templates\\cms\\bbbar.html.ep"
+			],
+			[
+				"tets",
+				"test.pl"
+			],
+			[
+				"test.pl",
+				"filmpro\\script\\test.pl"
+			],
+			[
+				"route",
+				"filmpro\\lib\\App\\Routes.pm"
+			],
+			[
+				"test",
+				"test.pl"
+			],
+			[
+				"",
+				"92fm\\lib\\App\\Controller\\Cms\\Programs.pm"
+			],
+			[
+				"programslist",
+				"92fm\\templates\\cms\\programs\\list.html.ep"
+			],
+			[
+				"programs",
+				"92fm\\lib\\App\\Controller\\Cms\\Programs.pm"
+			],
+			[
+				"controll",
+				"92fm\\lib\\App\\Controller.pm"
+			],
+			[
+				"contr",
+				"92fm\\lib\\App\\Controller.pm"
+			],
+			[
+				"articles",
+				"92fm\\lib\\App\\Controller\\Articles.pm"
+			],
+			[
+				"au",
+				"92fm\\lib\\App\\Controller\\Cms\\Auth.pm"
+			],
+			[
+				"articles.",
+				"92fm\\lib\\App\\Controller\\Cms\\Articles.pm"
+			],
+			[
+				"sidebar",
+				"92fm\\templates\\inc\\sidebar.html.ep"
+			],
+			[
+				"ontr",
+				"92fm\\lib\\App\\Controller.pm"
+			],
+			[
+				"articlepm",
+				"92fm\\lib\\App\\Controller\\Articles.pm"
+			],
+			[
+				"art",
+				"92fm\\lib\\App\\Controller\\Articles.pm"
+			],
+			[
+				"up.sql",
+				"92fm\\db\\sql\\migrations\\create_programs_3_up.sql"
+			],
+			[
+				"con",
+				"92fm\\lib\\App\\Constants.pm"
+			],
+			[
+				"routes",
+				"92fm\\lib\\App\\Routes.pm"
+			],
+			[
+				"cms",
+				"92fm\\templates\\layouts\\cms.html.ep"
+			],
+			[
+				"cmsindex",
+				"92fm\\templates\\cms\\index\\index.html.ep"
+			],
+			[
+				"cmsauth",
+				"92fm\\lib\\App\\Controller\\Cms\\Auth.pm"
+			],
+			[
+				"relo",
+				"reload_all"
+			],
+			[
+				"schedul",
+				"92fm\\templates\\schedule\\list.html.ep"
+			],
+			[
+				"schedule",
+				"92fm\\templates\\cms\\schedule\\view.html.ep"
+			],
+			[
+				"style",
+				"92fm\\public\\css\\style.css"
+			],
+			[
+				"in",
+				"92fm\\templates\\index\\index.html.ep"
+			],
+			[
+				"personslist",
+				"92fm\\templates\\persons\\list.html.ep"
+			],
+			[
+				"pers",
+				"92fm\\lib\\App\\Controller\\Persons.pm"
+			],
+			[
+				"leftfaces",
+				"92fm\\templates\\inc\\leftfaces.html.ep"
+			],
+			[
+				"side",
+				"92fm\\templates\\inc\\sidebar.html.ep"
+			],
+			[
+				"about",
+				"92fm\\templates\\about.html.ep"
+			],
+			[
+				"anns",
+				"92fm\\templates\\cms\\announcements\\list.html.ep"
+			],
+			[
+				"help",
+				"92fm\\lib\\App\\Plugin\\Helpers.pm"
+			],
+			[
+				"cont",
+				"92fm\\lib\\App\\Controller.pm"
+			],
+			[
+				"leftnews",
+				"92fm\\templates\\inc\\leftnews.html.ep"
+			],
+			[
+				"sideba",
+				"92fm\\templates\\inc\\sidebar.html.ep"
+			],
+			[
+				"_main",
+				"92fm\\templates\\menu\\_main.html.ep"
+			],
+			[
+				"leftprograms",
+				"92fm\\templates\\inc\\leftprograms.html.ep"
+			],
+			[
+				"leftonair",
+				"92fm\\templates\\inc\\leftonair.html.ep"
+			],
+			[
+				"leftpleer",
+				"92fm\\templates\\inc\\leftpleer.html.ep"
+			],
+			[
+				"left",
+				"92fm\\templates\\inc\\leftprograms.html.ep"
+			],
+			[
+				"rubrics",
+				"92fm\\templates\\cms\\rubrics\\rubrics_list.html.ep"
+			],
+			[
+				"updtae",
+				"92fm\\db\\sql\\migrations\\update_permissions_6_up.sql"
+			],
+			[
+				"updaper",
+				"92fm\\db\\sql\\migrations\\update_permissions_2_down.sql"
+			],
+			[
+				"permissions",
+				"92fm\\db\\sql\\migrations\\update_permissions_2_up.sql"
+			],
+			[
+				"persons",
+				"92fm\\lib\\App\\Controller\\Persons.pm"
+			],
+			[
+				"inde",
+				"92fm\\templates\\index\\index.html.ep"
+			],
+			[
+				"ban",
+				"bank\\bank.conf"
+			],
+			[
+				"articels",
+				"92fm\\lib\\App\\Controller\\Cms\\Articles.pm"
+			],
+			[
+				"consta",
+				"92fm\\lib\\App\\Constants.pm"
+			],
+			[
+				"createa",
+				"92fm\\db\\sql\\migrations\\create_announcements_4_down.sql"
+			],
+			[
+				"list.html",
+				"92fm\\templates\\cms\\articles\\list.html.ep"
+			],
+			[
+				"list.",
+				"92fm\\templates\\articles\\list.html.ep"
+			],
+			[
+				"progra",
+				"92fm\\lib\\App\\Controller\\Cms\\Programs.pm"
+			],
+			[
+				"per",
+				"92fm\\lib\\App\\Model\\Permission.pm"
+			],
+			[
+				"permission",
+				"92fm\\lib\\App\\Model\\Permission.pm"
+			],
+			[
+				"usesr",
+				"92fm\\lib\\App\\Controller\\Cms\\Users.pm"
+			],
+			[
+				"program",
+				"92fm\\lib\\App\\Model\\Program.pm"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 222.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

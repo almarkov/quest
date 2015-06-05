@@ -1,0 +1,224 @@
+1) входная дверь
+	_entrance_door
+		web_server commands:
+			open  - открыть
+			close - закрыть
+		dev states: opened/closed
+
+2) таймер
+	_timer
+		web_server commands:
+			activate/:value - открыть
+			stop            - остановить
+		dev events:
+			ready - сработал
+		dev states: active/idle/ready
+		parameters:
+			current_value  - текущее значение таймера
+			value      - время, отсчитываемое таймером
+
+3) дверь в комнату 2
+	_room2_door
+		web_server commands:
+			open  - открыть
+			close - закрыть
+		dev states: opened/closed
+
+4) кнопка шкафа
+	_locker_button
+		web_server commands:
+			push - нажать
+		dev events:
+			pushed - была нажата
+		dev states: idle
+
+																	5) дверь шкафа
+																		_locker_door
+																			web_server commands:
+																				open  - открыть
+																				close - закрыть
+																			dev states: opened/closed
+
+																	6) подставка многогранника
+																		_polyhedron_rack
+																			dev events:
+																				activated   - многогранник поставлен на подставку
+																				deactivated - многогранник снят с подставки
+																			dev states: idle/active
+
+																	7) многогранник
+																		_polyhedron
+																			web_server commands:
+																				set_mode/:value - установить режим свечения(0-4)
+																			dev events:
+																				symbol/:value   - введён символ
+																			dev states: idle/mode1/mode2/mode3/mode4
+
+																	8) экран №1
+																		_screen1
+																			web_server commands:
+																				play/:value  - включить видео №value
+																			dev states: idle/playing
+
+9) свет
+	_light
+		web_server commands:
+			on           - включить
+			off          - выключить             
+		dev states: on/off
+
+																						10) экран №2
+																							_screen2
+																								web_server commands:
+																									open         - открыть заслонку
+																									close        - закрыть заслонку
+																									play/:value  - включить видео №value
+																								dev states: idle/playing
+
+																						11) ремни
+																							_seat_belt
+																								web_server commands:
+																								dev_events:
+																									fasten   - ремни присётнуты
+																								dev_states: fasten/not_fasten
+
+																						12) кресла
+																							_seat
+																								web_server commands:
+																									vibrate  - вибросигнал на кресла
+																								dev_events:
+																									ready    - игроки в креслах
+																								dev_states: empty/ready
+
+																						13) аудио
+																							_audio
+																								web_server commands:
+																									play/:value   - включить аудио№value
+		dev states: idle/playing
+
+14) дверь в комнату №3
+	_room3_door
+		web_server commands:
+			open  - открыть
+			close - закрыть
+		dev states: opened/closed
+
+15) дверь в комнату №4
+	_room4_door
+		web_server commands:
+			open  - открыть
+			close - закрыть
+		dev states: opened/closed
+
+16) дверь в комнату №5
+	_room5_door
+		web_server commands:
+			open  - открыть
+			close - закрыть
+		dev states: opened/closed
+
+17) дверь в комнату №6
+	_room6_door
+		web_server commands:
+			open  - открыть
+			close - закрыть
+		dev states: opened/closed
+
+																				18) экран №4
+																					_screen4
+																						web_server commands:
+																							play/:value  - включить видео №value
+																						dev states: idle/playing
+
+																				19) экран №5
+																					_screen5
+																						web_server commands:
+																							play/:value  - включить видео №value
+																						dev states: idle/playing
+
+																				20) штекер и разъёмы
+																					_plug
+																						web_server commands:
+																						dev events:
+																							connected    - штекер вставлен в нужный разъём  
+																						dev states: idle/connected
+
+																				21) микрофон
+																					_microphone
+																						web_server commands:
+																							activate     - включить
+																							deactivate   - выключить
+																						dev states: idle/active
+
+																				22) экран №6
+																					_screen6
+																						web_server commands:
+																							play/:value  - включить видео №value
+																						dev states: idle/playing
+
+																				23) ячейка
+																					_cell
+																						web_server commands:
+																							open         - открыть ячейку
+																							close        - закрыть ячейку
+																							signal       - сигнализировать о неправильном вводе
+																						dev events:
+																							code/:value  - введён код value
+																						dev states: opened/closed
+
+																				24) жетоны
+																					_tokens
+																						web_server commands:
+																						dev events:
+																							inserted  - все жетоны вставлены
+																						dev states: not_inserted/inserted
+
+																				25) люк
+																					_trapdoor
+																						web_server commands:
+																							open  - открыть
+																							close - закрыть
+																						dev states: opened/closed
+
+																				26) считыватель
+																					_cardreader
+																						web_server commands:
+																						dev events:
+																							read     - карта поднесена к считывателю
+																						dev states: idle/active
+
+27) дверь в комнату №7
+	_room7_door
+		web_server commands:
+			open  - открыть
+			close - закрыть
+		dev states: opened/closed
+
+																				28) дверь в комнату №8
+																					_room8_door
+																						web_server commands:
+																							open  - открыть
+																							close - закрыть
+																						dev states: opened/closed
+
+29) ячейка1
+	_cell1
+		web_server commands:
+		dev events:
+			enter/:value  - введён код value
+		dev states: idle
+
+30) ячейка2
+	_cell1
+		web_server commands:
+		dev events:
+			enter/:value  - введён код value
+		dev states: idle
+
+31) кнопка спасения
+	_save_button
+		web_server commands:
+			push - нажать
+		dev events:
+			pushed - была нажата
+		dev states: idle
