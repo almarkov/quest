@@ -1,4 +1,0 @@
-GET {"id": "2", "ip": "127.0.0.1", "port": "8083", "type": "timer", "state": "active|idle", "value": "%d", "current_value": "%d" }
-POST 
-	action=activate&value=%d
-	action=stop
