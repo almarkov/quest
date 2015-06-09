@@ -1,9 +1,0 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a.BType_01 {display:block;height:30px;text-align:center;font:bold 12px/12px arial;color:#000;text-decoration:none;background:#b9b9b9;background-image:linear-gradient(#f2f2f2, #b9b9b9);border:1px solid #bababa;border-radius:2px;behavior:url(/css3/PIE.htc)}
-a.BType_01 span {display:block;height:22px;padding:9px 0 0 0}
-a:hover.BType_01 {background-image:linear-gradient(#f2f2f2, #c9c9c9);color:#333;cursor:pointer}
-a:hover.BType_01 span {}

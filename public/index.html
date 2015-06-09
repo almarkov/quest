@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+	<title>Управление игрой</title>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<link href="/stylesheets/style.css" rel="stylesheet">
+
+	<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+</head>
+<body>
+	<div class="Content" style="position: relative;  height: 800px;">
+
+		<div id='Head' style="position: absolute;  height: 200px;">
+			<h1>Управление игрой</h1>
+				<label for="inpGamerCount" class="Label1">Число игроков</label>
+				<input type="text" name="_gamer_count" value="" id="inpGamerCount" class="Input1" />
+				<ul class='DashBoard'>
+					<li><a class="Start BType_01"><span>Начать</span></a></li>
+					<li><a class="Reset BType_01"><span>Сбросить</span></a></li>
+					<li><a class="StartScan BType_01"><span>Сканировать человека</span></a></li>
+					<li><a class="StopScan BType_01"><span>Закончить сканирование</span></a></li>
+				</ul>
+		</div>
+
+		<div id='Main' style="position: absolute; left: 0px; width:800px; top: 200px">
+
+			<!-- Входная дверь -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpEntranceDoor" class="Label1">Входная дверь</label>
+					<input type="text" name="_entrance_door" value="" id="inpEntranceDoor" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='EntranceDoor'>
+						<li><a class="Open BType_01"><span>Открыть</span></a></li>
+						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Таймер -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpTimer" class="Label1">Таймер</label>
+					<input type="text" name="_timer" value="" id="inpTimer" class="Input1" disabled/>
+					<input type="text" name="_timer_state" value="" id="inpTimerState" class="Input1" disabled/>
+				</div>
+				
+				<div class="Commands">
+					<ul class='Timer'>
+						<li><a class="Set BType_01"><span>Включить</span></a></li>
+						<li><a class="Stop BType_01"><span>Выключить</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Дверь в команту №2 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpRoom2Door" class="Label1">Дверь в команту №2</label>
+					<input type="text" name="_room2_door" value="" id="inpRoom2Door" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Room2Door'>
+						<li><a class="Open BType_01"><span>Открыть</span></a></li>
+						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Кнопка, открывающая шкаф -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpLockerButton" class="Label1">Кнопка, открывающая шкаф</label>
+				</div>
+
+				<div class="Commands">
+					<ul class='LockerButton'>
+						<li><a class="Push BType_01"><span>Нажать</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Дверь шкафа -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpLockerDoor" class="Label1">Дверь шкафа</label>
+					<input type="text" name="_locker_door" value="" id="inpLockerDoor" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='LockerDoor'>
+						<li><a class="Open BType_01"><span>Открыть</span></a></li>
+						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Подставка многогранника -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="PolyhedronRack" class="Label1">Подставка многогранника</label>
+					<input type="text" name="_polyhedron_rack" value="" id="inpPolyhedronRack" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='PolyhedronRack'>
+						<li><a class="On BType_01"><span>Активировать</span></a></li>
+						<li><a class="Off BType_01"><span>Деактивировать</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Свет -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpLight" class="Label1">Свет</label>
+					<input type="text" name="_light" value="" id="inpLight" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Light'>
+						<li><a class="On BType_01"><span>Включить</span></a></li>
+						<li><a class="Off BType_01"><span>Выключить</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Дверь в команту №3 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpRoom3Door" class="Label1">Дверь в команту №3</label>
+					<input type="text" name="_room3_door" value="" id="inpRoom3Door" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Room3Door'>
+						<li><a class="Open BType_01"><span>Открыть</span></a></li>
+						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Дверь в команту №4 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpRoom4Door" class="Label1">Дверь в команту №4</label>
+					<input type="text" name="_room4_door" value="" id="inpRoom4Door" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Room4Door'>
+						<li><a class="Open BType_01"><span>Открыть</span></a></li>
+						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Дверь в команту №5 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpRoom5Door" class="Label1">Дверь в команту №5</label>
+					<input type="text" name="_room5_door" value="" id="inpRoom5Door" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Room5Door'>
+						<li><a class="Open BType_01"><span>Открыть</span></a></li>
+						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Планшет -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpPersonalCodePad" class="Label1">Планшет</label>
+					<input type="text" name="_personal_code_pad" value="" id="inpPersonalCodePad" class="Input1" />
+					<input type="text" name="_personal_code_pad_state" value="" id="inpPersonalCodePadState" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='PersonalCodePad'>
+						<li><a class="SendRight BType_01"><span>Отправить код (без ошибки)</span></a></li>
+						<li><a class="SendWrong BType_01"><span>Отправить код (с ошибкой)</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Кнопка, спасения игрока -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpSaveButton" class="Label1">Кнопка, спасения предпоследнего игрока</label>
+				</div>
+
+				<div class="Commands">
+					<ul class='SaveButton'>
+						<li><a class="Push BType_01"><span>Нажать</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Дверь в команту №6 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpRoom6Door" class="Label1">Дверь в команту №6</label>
+					<input type="text" name="_room6_door" value="" id="inpRoom6Door" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Room6Door'>
+						<li><a class="Open BType_01"><span>Открыть</span></a></li>
+						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Ячейка №1 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpCell1" class="Label1">Ячейка №1</label>
+					<input type="text" name="_cell1" value="" id="inpCell1" class="Input1" />
+					<input type="text" name="_cell1_state" value="" id="inpCell1State" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Cell1'>
+						<li><a class="Send BType_01"><span>Отправить код</span></a></li>
+						<li><a class="Open BType_01"><span>Открыть</span></a></li>
+						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Ячейка №2 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpCell2" class="Label1">Ячейка №2</label>
+					<input type="text" name="_cell2" value="" id="inpCell2" class="Input1" />
+					<input type="text" name="_cell2_state" value="" id="inpCell2State" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Cell2'>
+						<li><a class="Send BType_01"><span>Отправить код</span></a></li>
+						<li><a class="Open BType_01"><span>Открыть</span></a></li>
+						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Дверь в команту №7 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpRoom7Door" class="Label1">Дверь в команту №7</label>
+					<input type="text" name="_room7_door" value="" id="inpRoom7Door" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Room7Door'>
+						<li><a class="Open BType_01"><span>Открыть</span></a></li>
+						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		<div id="Info" style="position:absolute; left:800px; width:400px; top: 200px">
+			<div class="Quest">
+				<label for="QuestState" class="Label2">Состояние квеста: </label>
+				<span id="QuestState">NA</span>
+			</div>
+
+			<div class="Quest">
+				<label for="QuestTimer" class="Label2">Обратный отсчёт: </label>
+				<span id="QuestTimer">NA</span>
+			</div>
+
+			<div class="Quest">
+				<label for="QuestError" class="Label2">Ошибка: </label>
+				<span id="QuestError">NA</span>
+			</div>
+
+			<div class="Quest">
+				<label for="QuestCodes" class="Label2">Коды игроков: </label>
+				<span id="QuestCodes">NA</span>
+			</div>
+		</div>
+
+	</div>
+</body>
+
+<script type="text/javascript" src="/javascripts/main.js"></script>
+
+</html>
