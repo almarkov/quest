@@ -16,6 +16,7 @@ var polyhedron_rack = require('./routes/polyhedron_rack');
 var scanner = require('./routes/scanner');
 var cell1   = require('./routes/cell1');
 var cell2   = require('./routes/cell2');
+var personal_code_pad = require('./routes/personal_code_pad');
 
 var app = express();
 
@@ -62,6 +63,7 @@ app.use('/polyhedron_rack', polyhedron_rack);
 app.use('/scanner', scanner);
 app.use('/cell1', cell1);
 app.use('/cell2', cell2);
+app.use('/personal_code_pad', personal_code_pad);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

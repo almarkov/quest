@@ -5,7 +5,7 @@ var http   = require('http');
 router.get('/enter/:code', function(req, res, next) {
 
 	// прислали верный код
-	if (req.params.code == '222') {
+	if (req.params.code == gamers.codes[2]) {
 		gamers.quest_state += 1;
 	}
 

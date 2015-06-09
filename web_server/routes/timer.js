@@ -42,7 +42,7 @@ router.get('/ready', function(req, res, next) {
 					devices._light.state = result.state.state;
 
 					// запускаем таймер на 10 секунд
-					http.get(devices._timer.url + "/timer/activate/10", function(res) {
+					http.get(devices._timer.url + "/timer/activate/"  + devices.default_timer_value, function(res) {
 							console.log("Got response on timer activation" );
 							res.on('data', function(data){
 
@@ -86,51 +86,51 @@ router.get('/ready', function(req, res, next) {
 		res.json(result);
 	}
 
-	// если ждали окончания сканирования не предпоследнего игрока
-	if (   ((gamers.quest_state / 10 | 0) == 9)
-		&& (gamers.quest_state % 10 != gamers.count-1))
-	{
-		// открываем дверь №4
-		http.get(devices._room4_door.url + "/room4_door/open", function(res) {
-				console.log("Got response on opening door 4" );
-				res.on('data', function(data){
+	// // если ждали окончания сканирования не предпоследнего игрока
+	// if (   ((gamers.quest_state / 10 | 0) == 9)
+	// 	&& (gamers.quest_state % 10 != gamers.count-1))
+	// {
+	// 	// открываем дверь №4
+	// 	http.get(devices._room4_door.url + "/room4_door/open", function(res) {
+	// 			console.log("Got response on opening door 4" );
+	// 			res.on('data', function(data){
 
-					// пришёл ответ - актуализируем состояние двери
-					var result = JSON.parse(data);
-					devices._room4_door.state = result.state.state;
+	// 				// пришёл ответ - актуализируем состояние двери
+	// 				var result = JSON.parse(data);
+	// 				devices._room4_door.state = result.state.state;
 
-					gamers.quest_state += 10; //'Игрок № прошёл сканирование, ожидание перехода'; 90->100
-				});
-			}).on('error', function(e) {
-				console.log("Got error on opening door 4");
-		});
+	// 				gamers.quest_state += 10; //'Игрок № прошёл сканирование, ожидание перехода'; 90->100
+	// 			});
+	// 		}).on('error', function(e) {
+	// 			console.log("Got error on opening door 4");
+	// 	});
 
-		var result = {success: 1};
-		res.json(result);
-	}
+	// 	var result = {success: 1};
+	// 	res.json(result);
+	// }
 
-	// если ждали окончания сканирования предпоследнего игрока
-	if (   ((gamers.quest_state / 10 | 0) == 9)
-		&& (gamers.quest_state % 10 == gamers.count-1))
-	{
-		// открываем дверь №5
-		http.get(devices._room5_door.url + "/room5_door/open", function(res) {
-				console.log("Got response on opening door 5" );
-				res.on('data', function(data){
+	// // если ждали окончания сканирования предпоследнего игрока
+	// if (   ((gamers.quest_state / 10 | 0) == 9)
+	// 	&& (gamers.quest_state % 10 == gamers.count-1))
+	// {
+	// 	// открываем дверь №5
+	// 	http.get(devices._room5_door.url + "/room5_door/open", function(res) {
+	// 			console.log("Got response on opening door 5" );
+	// 			res.on('data', function(data){
 
-					// пришёл ответ - актуализируем состояние двери
-					var result = JSON.parse(data);
-					devices._room5_door.state = result.state.state;
+	// 				// пришёл ответ - актуализируем состояние двери
+	// 				var result = JSON.parse(data);
+	// 				devices._room5_door.state = result.state.state;
 
-					gamers.quest_state += 10; //'Игрок № прошёл сканирование, ожидание перехода'; 90->100
-				});
-			}).on('error', function(e) {
-				console.log("Got error on opening door 5");
-		});
+	// 				gamers.quest_state += 10; //'Игрок № прошёл сканирование, ожидание перехода'; 90->100
+	// 			});
+	// 		}).on('error', function(e) {
+	// 			console.log("Got error on opening door 5");
+	// 	});
 
-		var result = {success: 1};
-		res.json(result);
-	}
+	// 	var result = {success: 1};
+	// 	res.json(result);
+	// }
 
 
 
@@ -141,6 +141,20 @@ router.get('/ready', function(req, res, next) {
 router.get('/current_value/:value', function(req, res, next) {
 	// обновляем модель
 	devices._timer.current_value = req.params.value;
+
+	var result = {success: 1};
+	res.json(result);
+});
+
+router.get('/activate/:value', function(req, res, next) {
+
+	devices._timer.state = 'active';
+	devices._timer.value = req.params.value;
+	devices._timer.current_value = req.params.value;
+
+	var result = {success: 1, state: devices._timer};
+	res.json(result);
+	
 });
 
 module.exports = router;

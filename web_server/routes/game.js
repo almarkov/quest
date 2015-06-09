@@ -24,7 +24,7 @@ router.get('/start/:count', function(req, res, next) {
 				devices._entrance_door.state = result.state.state;
 
 				// запускаем таймер
-				http.get(devices._timer.url + "/timer/activate/10", function(res) {
+				http.get(web_server_url + "/timer/activate/" + devices.default_timer_value, function(res) {
 						console.log("Got response on timer activation" );
 						res.on('data', function(data){
 
@@ -55,6 +55,7 @@ router.get('/reset', function(req, res, next) {
 
 	start_time = null;
 	devices.reset();
+	gamers.reset();
 
 	var result = {success: 1};
 	res.json(result);

@@ -15,7 +15,7 @@ router.get('/pushed', function(req, res, next) {
 				devices._locker_door.state = result.state.state;
 
 				// запускаем таймер на 10 секунд
-				http.get(devices._timer.url + "/timer/activate/10", function(res) {
+				http.get(devices._timer.url + "/timer/activate/"  + devices.default_timer_value, function(res) {
 						console.log("Got response on timer activation" );
 						res.on('data', function(data){
 

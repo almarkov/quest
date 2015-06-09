@@ -8,7 +8,7 @@ exports.dev_url = "http://localhost:3030";
 // входная дверь
 exports._entrance_door   = {id:  1, url: exports.dev_url, ip: "", port: "", state: "opened"}; // events:, actions: open|close|state
 // таймер
-exports._timer           = {id:  2, url: exports.dev_url, ip: "", port: "", state: "idle", value: 5, current_value: "" }; // events: ready
+exports._timer           = {id:  2, url: web_server_url, ip: "", port: "", state: "idle", value: 5, current_value: "" }; // events: ready
 // дверь в комнату №2
 exports._room2_door      = {id:  3, url: exports.dev_url, ip: "", port: "", state: "closed"}; // passive
 // кнопка, открывающая шкаф
@@ -35,3 +35,8 @@ exports._cell1           = {id: 13, url: exports.dev_url, ip: "", port: "", stat
 exports._cell2           = {id: 14, url: exports.dev_url, ip: "", port: "", state: "closed"}; // events: code_entered
 // дверь в комнату №7
 exports._room7_door      = {id: 15, url: exports.dev_url, ip: "", port: "", state: "closed"}; // passive
+// планшет
+exports._personal_code_pad= {id: 16, url: exports.dev_url, ip: "", port: "", state: "idle"}; // events: code_entered
+
+// время таймера
+exports.default_timer_value = '10';

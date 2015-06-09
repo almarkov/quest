@@ -216,6 +216,18 @@
 				</div>
 			</div>
 
+			<!-- Планшет -->
+			<div class='Device'>
+				<label for="inpPersonalCodePad" class="Label1">Планшет</label>
+				<input type="text" name="_personal_code_pad" value="" id="inpPersonalCodePad" class="Input1" />
+				<input type="text" name="_personal_code_pad_state" value="" id="inpPersonalCodePadState" class="Input1" disabled/>
+
+				<ul class='PersonalCodePad'>
+					<li><a class="SendRight" href="">Отправить код (без ошибки)</a></li>
+					<li><a class="SendWrong" href="">Отправить код (с ошибкой)</a></li>
+				</ul>
+			</div>
+
 			<!-- Кнопка, спасения игрока -->
 			<div class='Device'>
 
@@ -327,7 +339,13 @@
 			</div>
 
 			<div class="Quest">
+				<label for="QuestError" class="Label2">Ошибка: </label>
 				<span id="QuestError">NA</span>
+			</div>
+
+			<div class="Quest">
+				<label for="QuestCodes" class="Label2">Коды игроков: </label>
+				<span id="QuestCodes">NA</span>
 			</div>
 		</div>
 
@@ -497,7 +515,23 @@
 							$("#inpRoom7Door").val('Закрыта');
 						}
 
+						// планшет
+						if (response._personal_code_pad.state == "active") {
+							$("#inpPolyhedronRack").val('Активен');
+						} else if (response._personal_code_pad.state == "idle") {
+							$("#inpPolyhedronRack").val('Не активен');
+						}
+
 						$("#QuestState").text(response.quest_state);
+						$("#QuestError").text(response.quest_error);
+						if (response.codes) {
+							var codes = '';
+							for (var i = 0; i < response.codes.length; i++) {
+								codes += response.codes[i] + ',';
+							}
+							$("#QuestCodes").text(codes);
+						}
+						
 					},
 					error: function(error) {
 						console.log('ERROR:', error);
@@ -634,6 +668,40 @@
 						}
 				});
 			}
+		});
+		// Кнопка 'Отправить' - для отправки кода на планшете
+		$('#Main .PersonalCodePad .SendRight').click(function(e){
+			//if ($("#inpRoom2Door").val() == 'Открыта') {
+				$.ajax({
+					url: web_server_url + '/personal_code_pad/entered_code/' + $("#inpPersonalCodePad").val(),
+					type: "GET",
+					crossDomain: true,
+					dataType: "json",
+						success: function (response) {
+							console.log('cell enter');
+						},
+						error: function(error) {
+							console.log('ERROR:', error);
+						}
+				});
+			//}
+		});
+		// Кнопка 'Отправить' - для отправки неверного кода на планшете
+		$('#Main .PersonalCodePad .SendWrong').click(function(e){
+			//if ($("#inpRoom2Door").val() == 'Открыта') {
+				$.ajax({
+					url: web_server_url + '/personal_code_pad/code_enter_fail/' + $("#inpPersonalCodePad").val(),
+					type: "GET",
+					crossDomain: true,
+					dataType: "json",
+						success: function (response) {
+							console.log('cell enter');
+						},
+						error: function(error) {
+							console.log('ERROR:', error);
+						}
+				});
+			//}
 		});
 	</script>
 </body>

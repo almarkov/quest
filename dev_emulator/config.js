@@ -35,3 +35,5 @@ exports._cell1           = {id: 13, url: exports.dev_url, ip: "", port: "", stat
 exports._cell2           = {id: 14, url: exports.dev_url, ip: "", port: "", state: "closed"}; // events: code_entered
 // дверь в комнату №7
 exports._room7_door      = {id: 15, url: exports.dev_url, ip: "", port: "", state: "closed"}; // passive
+// планшет
+exports._personal_code_pad= {id: 16, url: exports.dev_url, ip: "", port: "", state: "idle"}; // events: code_entered

@@ -1,5 +1,5 @@
 //---------------------------------------------------------
-// состояния устройств в текущиц момент
+// состояния устройств в текущий момент
 //---------------------------------------------------------
 
 var config = require("./config.js");
@@ -42,6 +42,11 @@ exports._cell1           = simple_copy_obj(config._cell1);
 exports._cell2           = simple_copy_obj(config._cell2);
 // дверь в комнату №7
 exports._room7_door      = simple_copy_obj(config._room7_door);
+// планшет
+exports._personal_code_pad = simple_copy_obj(config._personal_code_pad);
+
+
+exports.default_timer_value = config.default_timer_value;
 
 // сброс значений до конфига
 exports.reset = function() {
@@ -60,4 +65,5 @@ exports.reset = function() {
 	exports._cell1           = simple_copy_obj(config._cell1);
 	exports._cell2           = simple_copy_obj(config._cell2);
 	exports._room7_door      = simple_copy_obj(config._room7_door);
+	exports._personal_code_pad = simple_copy_obj(config._personal_code_pad);
 }

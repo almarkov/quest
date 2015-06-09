@@ -6,6 +6,12 @@ var http   = require('http');
 router.get('/start', function(req, res, next) {
 console.log(gamers.quest_state);
 console.log(gamers.count);
+
+	if (gamers.quest_state > 110) {
+    	gamers.quest_state -= 30; // 110 -> 80
+    } 
+    gamers.quest_state += 1; //'Сканирование игрока №;
+
 	// закрываем дверь №3
 	http.get(devices._room3_door.url + "/room3_door/close", function(res) {
 			console.log("Got response: " );
@@ -15,26 +21,36 @@ console.log(gamers.count);
 		        var result = JSON.parse(data);
 		        devices._room3_door.state = result.state.state;
 
-		        if (gamers.quest_state > 110) {
-		        	gamers.quest_state -= 30; // 110 -> 80
-		        } 
-		        gamers.quest_state += 1; //'Сканирование игрока №;
-
-		        // запускаем таймер на 10 секунд
-				http.get(devices._timer.url + "/timer/activate/10", function(res) {
-						console.log("Got response on timer activation" );
+		        // пробуждаем планшет
+		        http.get(devices._personal_code_pad.url + "/personal_code_pad/activate", function(res) {
+						console.log("Got response: " );
 						res.on('data', function(data){
 
-							// пришёл ответ - актуализируем состояние таймера
-							var result = JSON.parse(data);
-							devices._timer.state = result.state.state;
+							// пришёл ответ  - актуализируем состояние планшета
+					        var result = JSON.parse(data);
+					        devices._personal_code_pad.state = result.state.state;
 
-							gamers.quest_state += 10;//'Сканирование игрока №, идёт сканирование' 80->90
+					        gamers.quest_state += 10;//'Игрок № вводит код 80->90
 
-						});
+					    });
 					}).on('error', function(e) {
-						console.log("timer activation error: ");
+						console.log("Got error on pad activation  ");
 				});
+		  //       // запускаем таймер на 10 секунд
+				// http.get(devices._timer.url + "/timer/activate/10", function(res) {
+				// 		console.log("Got response on timer activation" );
+				// 		res.on('data', function(data){
+
+				// 			// пришёл ответ - актуализируем состояние таймера
+				// 			var result = JSON.parse(data);
+				// 			devices._timer.state = result.state.state;
+
+				// 			gamers.quest_state += 10;//'Сканирование игрока №, идёт сканирование' 80->90
+
+				// 		});
+				// 	}).on('error', function(e) {
+				// 		console.log("timer activation error: ");
+				// });
 
 		    });
 		}).on('error', function(e) {
@@ -48,8 +64,20 @@ console.log(gamers.count);
 // нажата кнопка 'закончить сканирование''
 router.get('/stop', function(req, res, next) {
 
-console.log(gamers.quest_state);
-console.log(gamers.count);
+	// гасим планшет
+    http.get(devices._personal_code_pad.url + "/personal_code_pad/deactivate", function(res) {
+			console.log("Got response: " );
+			res.on('data', function(data){
+
+				// пришёл ответ  - актуализируем состояние планшета
+		        var result = JSON.parse(data);
+		        devices._personal_code_pad.state = result.state.state;
+
+		    });
+		}).on('error', function(e) {
+			console.log("Got error on pad deactivation  ");
+	});
+
 	// если не предпоследний
 	if (gamers.quest_state % 10 != gamers.count-1) {
 		// закрываем дверь №4
