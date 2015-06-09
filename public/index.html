@@ -11,10 +11,11 @@
 	<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
 </head>
 <body>
-	<div class="Content" style="position: relative;  height: 800px;">
+	<div class="Content">
 
-		<div id='Head' style="position: absolute;  height: 200px;">
-			<h1>Управление игрой</h1>
+		<h1>Управление игрой</h1>
+
+		<div id='Head'>
 				<label for="inpGamerCount" class="Label1">Число игроков</label>
 				<input type="text" name="_gamer_count" value="" id="inpGamerCount" class="Input1" />
 				<ul class='DashBoard'>
@@ -25,8 +26,30 @@
 				</ul>
 		</div>
 
-		<div id='Main' style="position: absolute; left: 0px; width:800px; top: 200px">
+		<div id="Info">
+			<div class="Quest">
+				<label for="QuestState" class="Label2">Состояние квеста: </label>
+				<span id="QuestState">NA</span>
+			</div>
 
+			<div class="Quest">
+				<label for="QuestTimer" class="Label2">Обратный отсчёт: </label>
+				<span id="QuestTimer">NA</span>
+			</div>
+
+			<div class="Quest">
+				<label for="QuestError" class="Label2">Ошибка: </label>
+				<span id="QuestError">NA</span>
+			</div>
+
+			<div class="Quest">
+				<label for="QuestCodes" class="Label2">Коды игроков: </label>
+				<span id="QuestCodes">NA</span>
+			</div>
+		</div>
+
+		<div id='Main'>
+		<div class="col1">
 			<!-- Входная дверь -->
 			<div class='Device'>
 
@@ -139,7 +162,6 @@
 					</ul>
 				</div>
 			</div>
-
 			<!-- Свет -->
 			<div class='Device'>
 
@@ -158,7 +180,8 @@
 					</ul>
 				</div>
 			</div>
-
+		</div>
+		<div class="col2">
 			<!-- Дверь в команту №3 -->
 			<div class='Device'>
 
@@ -292,7 +315,9 @@
 					</ul>
 				</div>
 			</div>
-
+		</div>
+		
+		<div class="col3">
 			<!-- Ячейка №2 -->
 			<div class='Device'>
 
@@ -332,29 +357,8 @@
 					</ul>
 				</div>
 			</div>
-
 		</div>
 
-		<div id="Info" style="position:absolute; left:800px; width:400px; top: 200px">
-			<div class="Quest">
-				<label for="QuestState" class="Label2">Состояние квеста: </label>
-				<span id="QuestState">NA</span>
-			</div>
-
-			<div class="Quest">
-				<label for="QuestTimer" class="Label2">Обратный отсчёт: </label>
-				<span id="QuestTimer">NA</span>
-			</div>
-
-			<div class="Quest">
-				<label for="QuestError" class="Label2">Ошибка: </label>
-				<span id="QuestError">NA</span>
-			</div>
-
-			<div class="Quest">
-				<label for="QuestCodes" class="Label2">Коды игроков: </label>
-				<span id="QuestCodes">NA</span>
-			</div>
 		</div>
 
 	</div>

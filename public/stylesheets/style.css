@@ -3,6 +3,11 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.Content {position: relative;  height: 800px;}
+.Content div#Head {position: absolute; left: 0px;  width:600px; height: 200px;}
+.Content div#Info {position: absolute; left: 600px; height: 200px;}
+.Content div#Main {position: absolute; top: 200px; width:1800px;}
+
 a.BType_01 {display:block;height:30px;text-align:center;font:bold 12px/12px arial;color:#000;text-decoration:none;background:#b9b9b9;background-image:linear-gradient(#f2f2f2, #b9b9b9);border:1px solid #bababa;border-radius:2px;behavior:url(/css3/PIE.htc)}
 a.BType_01 span {display:block;height:22px;padding:9px 0 0 0}
 a:hover.BType_01 {background-image:linear-gradient(#f2f2f2, #c9c9c9);color:#333;cursor:pointer}
@@ -10,16 +15,21 @@ a:hover.BType_01 span {}
 
 .Commands ul, ul.DashBoard {  list-style-type: none;}
 
-
+.col1 { position: absolute; width: 33%; }
+.col2 { position: absolute; left: 33%; width: 34%; }
+.col3 { position: absolute; right: 0; width: 33%; }
 
 ul.DashBoard li {
   display: inline-block;
 }
 
 .Device {
-	position: relative;
 	height: 100px;
+	width: 520px;
+}
 
+.Input1 {
+	width: 100px;
 }
 
 .Device div.Status {
@@ -32,17 +42,15 @@ ul.DashBoard li {
 .Device div.State {
 	position: absolute;
 	left: 20px;
-	width: 500px;
+	width: 300px;
 	height: 100px;
 }
-
 .Device div.Commands {
 	position: absolute;
-	left: 520px;
+	left: 320px;
 	width: 200px;
 	height: 100px;
 }
-
 
 .Device .Status {
     width: 100px;
