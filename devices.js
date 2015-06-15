@@ -2,8 +2,6 @@
 // состояния устройств в текущий момент
 //---------------------------------------------------------
 
-var config = require("./config.js");
-
 var simple_copy_obj = function(obj) {
 	var new_obj = {};
 	for (var k in obj) {
@@ -47,6 +45,32 @@ exports._personal_code_pad = simple_copy_obj(config._personal_code_pad);
 
 
 exports.default_timer_value = config.default_timer_value;
+
+exports.ext_url_for = function (object) {
+	return "http://" + object.ip + ":" + object.port + "/" + object.id;
+}
+
+exports.get_redirect_url = function (ip, device_id) {
+	var res = "";
+	[exports._entrance_door, exports._timer, exports._room2_door].forEach(function function_name (element) {
+		if (element.ip == ip && element.id == device_id) {
+			res = "/" + element.name;
+		}
+	});
+	return res;
+}
+
+
+exports.int_url_for = function (arduino_id, device_id) {
+	var res = "";
+	[exports._entrance_door, exports._timer, exports._room2_door].forEach(function function_name (element) {
+		if (element.arduino_id == arduino_id && element.id == device_id) {
+			res = "/" + element.name;
+		}
+	});
+	return res;
+	
+}
 
 // сброс значений до конфига
 exports.reset = function() {

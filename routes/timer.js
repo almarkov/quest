@@ -8,24 +8,49 @@ router.get('/ready', function(req, res, next) {
 	devices._timer.state = 'ready';
 	devices._timer.current_value = '';
 
-	// если ждали открытия двери 2
-	if (gamers.quest_state == 30) {
+	// если ждали закрытия входной двери
+	if (gamers.quest_state == 20) {
+		devices._entrance_door.state = "closed";
 		// открываем дверь в комнату №2
-		http.get(devices._room2_door.url + "/room2_door/open", function(res) {
+		var query = devices.ext_url_for(devices._room2_door) + "/" +  config.get_command_id("open") + "/0";
+		console.log(query);
+		http.get(query, function(res) {
 				console.log("Got response on opening room2_door" );
 				res.on('data', function(data){
 
 					// пришёл ответ - актуализируем состояние двери
-			        var result = JSON.parse(data);
-			        devices._room2_door.state = result.state.state;
+			        //var result = JSON.parse(data);
+			        // запускаем таймер
+					http.get(web_server_url + "/timer/activate/" + devices.default_timer_value, function(res) {
+							console.log("Got response on timer activation" );
+							res.on('data', function(data){
+
+								// пришёл ответ - актуализируем состояние таймера
+								var result = JSON.parse(data);
+								devices._timer.state = result.state.state;
+
+							});
+						}).on('error', function(e) {
+							console.log("timer activation error: ");
+					});
 			    });
-			    gamers.quest_state = 50; //'Поиск кнопки, открывающей шкаф с многогранником';
 			}).on('error', function(e) {
 				console.log("Got error: ");
 		});
 		
-		gamers.quest_state = 40; //'Дверь 2 открывается';
+		gamers.quest_state = 30; //'Ожидание открытия двери 2';
 		
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
+
+	// если ждали открытия двери 2
+	if (gamers.quest_state == 30) {
+		devices._room2_door.state = "opened";
+
+		gamers.quest_state = 40; //'Поиск кнопки, открывающей шкаф с многогранником';
+
 		var result = {success: 1};
 		res.json(result);
 	}

@@ -14,15 +14,16 @@ router.get('/start/:count', function(req, res, next) {
 	gamers.quest_state = 10;//'Начало игры';
 
 	//  закрываем дверь
-	http.get(devices._entrance_door.url + "/entrance_door/close", function(res) {
+	var query = devices.ext_url_for(devices._entrance_door) + "/" +  config.get_command_id("close") + "/0";
+	console.log(query);
+	http.get(query, function(res) {
 
 			console.log("Got response on closing entrance_door" );
 			res.on('data', function(data){
 
 				// пришёл ответ - актуализируем состояние двери
-				var result = JSON.parse(data);
-				devices._entrance_door.state = result.state.state;
-
+				//var result = JSON.parse(data);
+				
 				// запускаем таймер
 				http.get(web_server_url + "/timer/activate/" + devices.default_timer_value, function(res) {
 						console.log("Got response on timer activation" );
@@ -36,13 +37,13 @@ router.get('/start/:count', function(req, res, next) {
 					}).on('error', function(e) {
 						console.log("timer activation error: ");
 				});
-				gamers.quest_state = 30; // 'Игроки ждут открытия двери 2';
+				//gamers.quest_state = 30; // 'Игроки ждут открытия двери 2';
 
 			});
 		}).on('error', function(e) {
 			console.log("entrance_door activation error: ");
 	});
-	gamers.quest_state = 20; //'Закрытие входной двери';
+	gamers.quest_state = 20; //'Ожидание закрытия входной двери';
 
 	var result = {success: 1};
 	res.json(result);

@@ -3,15 +3,15 @@ var router = express.Router();
 //-----------------------------------------------------------------------------
 // эмулятор двери
 //-----------------------------------------------------------------------------
-router.get('/open', function(req, res, next) {
-	devices._room2_door.state = 'opened';
+router.get('/open/:parameter', function(req, res, next) {
+	//devices._room2_door.state = 'opened';
 
 	var result = {success: 1, state: devices._room2_door};
 	res.json(result);
 });
 
-router.get('/close', function(req, res, next) {
-	devices._room2_door.state = 'closed';
+router.get('/close/:parameter', function(req, res, next) {
+	//devices._room2_door.state = 'closed';
 
 	var result = {success: 1, state: devices._room2_door};
 	res.json(result);
