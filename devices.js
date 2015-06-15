@@ -10,49 +10,26 @@ var simple_copy_obj = function(obj) {
 	return new_obj;
 }
 
-// входная дверь
-exports._entrance_door   = simple_copy_obj(config._entrance_door);
-// таймер
-exports._timer           = simple_copy_obj(config._timer);
-// дверь в комнату №2
-exports._room2_door      = simple_copy_obj(config._room2_door);
-// кнопка, открывающая шкаф
-exports._locker_button   = simple_copy_obj(config._locker_button);
-// дверь шкафа
-exports._locker_door     = simple_copy_obj(config._locker_door);
-// подставка многогранника 
-exports._polyhedron_rack = simple_copy_obj(config._polyhedron_rack);
-// свет
-exports._light           = simple_copy_obj(config._light);
-// дверь в комнату №3
-exports._room3_door      = simple_copy_obj(config._room3_door);
-// дверь в комнату №4
-exports._room4_door      = simple_copy_obj(config._room4_door);
-// дверь в комнату №5
-exports._room5_door      = simple_copy_obj(config._room5_door);
-// кнопка спасения игрока
-exports._save_button     = simple_copy_obj(config._save_button);
-// дверь в комнату №6
-exports._room6_door      = simple_copy_obj(config._room6_door);
-// ячейка №1
-exports._cell1           = simple_copy_obj(config._cell1);
-// ячейка №2
-exports._cell2           = simple_copy_obj(config._cell2);
-// дверь в комнату №7
-exports._room7_door      = simple_copy_obj(config._room7_door);
-// планшет
-exports._personal_code_pad = simple_copy_obj(config._personal_code_pad);
+exports.list = [];
 
+
+for (var i = 0; i < config.list.length; i++) {
+	exports.list[i] = simple_copy_obj(config.list[i]);
+}
 
 exports.default_timer_value = config.default_timer_value;
 
-exports.ext_url_for = function (object) {
-	return "http://" + object.ip + ":" + object.port + "/" + object.id;
+exports.ext_url_for = function (object_name) {
+	for (var i = 0; i < config.list.length; i++) {
+		if (config.list[i].name == object_name) {
+			return "http://" + config.list[i].ip + ":" + config.list[i].port + "/" + config.list[i].id;
+		}
+	}
 }
 
 exports.get_redirect_url = function (ip, device_id) {
 	var res = "";
-	[exports._entrance_door, exports._timer, exports._room2_door].forEach(function function_name (element) {
+	config.list.forEach(function function_name (element) {
 		if (element.ip == ip && element.id == device_id) {
 			res = "/" + element.name;
 		}
@@ -63,7 +40,7 @@ exports.get_redirect_url = function (ip, device_id) {
 
 exports.int_url_for = function (arduino_id, device_id) {
 	var res = "";
-	[exports._entrance_door, exports._timer, exports._room2_door].forEach(function function_name (element) {
+	config.list.forEach(function function_name (element) {
 		if (element.arduino_id == arduino_id && element.id == device_id) {
 			res = "/" + element.name;
 		}
@@ -74,20 +51,21 @@ exports.int_url_for = function (arduino_id, device_id) {
 
 // сброс значений до конфига
 exports.reset = function() {
-	exports._entrance_door   = simple_copy_obj( config._entrance_door);
-	exports._timer           = simple_copy_obj( config._timer);
-	exports._room2_door      = simple_copy_obj( config._room2_door);
-	exports._locker_button   = simple_copy_obj( config._locker_button);
-	exports._locker_door     = simple_copy_obj( config._locker_door);
-	exports._polyhedron_rack = simple_copy_obj( config._polyhedron_rack);
-	exports._light           = simple_copy_obj(config._light);
-	exports._room3_door      = simple_copy_obj(config._room3_door);
-	exports._room4_door      = simple_copy_obj(config._room4_door);
-	exports._room5_door      = simple_copy_obj(config._room5_door);
-	exports._save_button     = simple_copy_obj(config._save_button);
-	exports._room6_door      = simple_copy_obj(config._room6_door);
-	exports._cell1           = simple_copy_obj(config._cell1);
-	exports._cell2           = simple_copy_obj(config._cell2);
-	exports._room7_door      = simple_copy_obj(config._room7_door);
-	exports._personal_code_pad = simple_copy_obj(config._personal_code_pad);
+	for (var i = 0; i < config.list.length; i++) {
+		exports.list[i] = simple_copy_obj(config.list[i]);
+	}
+}
+
+// таймер
+exports.timer = function() {
+	return exports.list[0];
+}
+
+// устройство по имени
+exports.get = function(name) {
+	for (var i = 0; i < exports.list.length; i++) {
+		if (exports.list[i].name == name) {
+			return exports.list[i];
+		}
+	}
 }

@@ -4,53 +4,31 @@ var http   = require('http');
 
 // нажата кнопка 'сканировать''
 router.get('/start', function(req, res, next) {
-console.log(gamers.quest_state);
-console.log(gamers.count);
 
-	if (gamers.quest_state > 110) {
-    	gamers.quest_state -= 30; // 110 -> 80
-    } 
-    gamers.quest_state += 1; //'Сканирование игрока №;
+	// if (gamers.quest_state > 110) {
+ //    	gamers.quest_state -= 30; // 110 -> 80
+ //    } 
+    //gamers.quest_state += 1; //'Сканирование игрока №;
 
 	// закрываем дверь №3
-	http.get(devices._room3_door.url + "/room3_door/close", function(res) {
+	var query = devices.ext_url_for('room3_door') + "/" +  config.get_command_id('close') + "/0";
+	http.get(query, function(res) {
 			console.log("Got response: " );
 			res.on('data', function(data){
 
-				// пришёл ответ  - актуализируем состояние двери
-		        var result = JSON.parse(data);
-		        devices._room3_door.state = result.state.state;
-
-		        // пробуждаем планшет
-		        http.get(devices._personal_code_pad.url + "/personal_code_pad/activate", function(res) {
-						console.log("Got response: " );
+				// запускаем таймер на 10 секунд
+				http.get(devices.timer().url + "/timer/activate/" + devices.default_timer_value, function(res) {
+						console.log("Got response on timer activation" );
 						res.on('data', function(data){
 
-							// пришёл ответ  - актуализируем состояние планшета
-					        var result = JSON.parse(data);
-					        devices._personal_code_pad.state = result.state.state;
+							// пришёл ответ - актуализируем состояние таймера
+							var result = JSON.parse(data);
+							devices.timer().state = result.state.state;
 
-					        gamers.quest_state += 10;//'Игрок № вводит код 80->90
-
-					    });
+						});
 					}).on('error', function(e) {
-						console.log("Got error on pad activation  ");
+						console.log("timer activation error: ");
 				});
-		  //       // запускаем таймер на 10 секунд
-				// http.get(devices._timer.url + "/timer/activate/10", function(res) {
-				// 		console.log("Got response on timer activation" );
-				// 		res.on('data', function(data){
-
-				// 			// пришёл ответ - актуализируем состояние таймера
-				// 			var result = JSON.parse(data);
-				// 			devices._timer.state = result.state.state;
-
-				// 			gamers.quest_state += 10;//'Сканирование игрока №, идёт сканирование' 80->90
-
-				// 		});
-				// 	}).on('error', function(e) {
-				// 		console.log("timer activation error: ");
-				// });
 
 		    });
 		}).on('error', function(e) {

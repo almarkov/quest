@@ -3,19 +3,16 @@ var router = express.Router();
 //-----------------------------------------------------------------------------
 // эмулятор света
 //-----------------------------------------------------------------------------
-router.get('/on', function(req, res, next) {
+router.get('/turn_on/0', function(req, res, next) {
 
-	devices._light.state = 'on';
-
-	var result = {success: 1, state: devices._light};
+	var result = {success: 1};
 	res.json(result);
 });
 
-router.get('/off', function(req, res, next) {
+router.get('/turn_off/0', function(req, res, next) {
 
-	devices._light.state = 'off';
 
-	var result = {success: 1, state: devices._light};
+	var result = {success: 1};
 	res.json(result);
 
 });

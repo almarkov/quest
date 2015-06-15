@@ -24,7 +24,11 @@ var room4_door = require('./routes/room4_door');
 var room5_door = require('./routes/room5_door');
 var room6_door = require('./routes/room6_door');
 var room7_door = require('./routes/room7_door');
-var light = require('./routes/light');
+var light      = require('./routes/light');
+var screen1    = require('./routes/screen1');
+var screen2    = require('./routes/screen2');
+var chairs     = require('./routes/chairs');
+var audio_controller  = require('./routes/audio_controller');
 
 var app = express();
 
@@ -84,6 +88,10 @@ app.use('/room6_door', room6_door);
 app.use('/room7_door', room7_door);
 app.use('/locker_door', locker_door);
 app.use('/light', light);
+app.use('/screen1', screen1);
+app.use('/screen2', screen2);
+app.use('/chairs', chairs);
+app.use('/audio_controller', audio_controller);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

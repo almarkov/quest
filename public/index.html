@@ -19,8 +19,9 @@
 				<label for="inpGamerCount" class="Label1">Число игроков</label>
 				<input type="text" name="_gamer_count" value="" id="inpGamerCount" class="Input1" />
 				<ul class='DashBoard'>
-					<li><a class="Start BType_01"><span>Начать</span></a></li>
+					<li><a class="Start BType_01 Active"><span>Начать</span></a></li>
 					<li><a class="Reset BType_01"><span>Сбросить</span></a></li>
+					<li><a class="Queue BType_01"><span>Аудио 'в очередь'</span></a></li>
 					<li><a class="StartScan BType_01"><span>Сканировать человека</span></a></li>
 					<li><a class="StopScan BType_01"><span>Закончить сканирование</span></a></li>
 				</ul>
@@ -151,7 +152,7 @@
 				</div>
 
 				<div class="State">
-					<label for="PolyhedronRack" class="Label1">Подставка многогранника</label>
+					<label for="inpPolyhedronRack" class="Label1">Подставка многогранника</label>
 					<input type="text" name="_polyhedron_rack" value="" id="inpPolyhedronRack" class="Input1" disabled/>
 				</div>
 
@@ -180,8 +181,78 @@
 					</ul>
 				</div>
 			</div>
+			<!-- Экран 1 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpScreen1" class="Label1">Экран1</label>
+					<input type="text" name="_screen1" value="" id="inpScreen1" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Screen1'>
+						<li><a class="Stopped BType_01"><span>Закончилось</span></a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- Экран 2 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpScreen2" class="Label1">Экран2</label>
+					<input type="text" name="_screen2" value="" id="inpScreen2" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Screen2'>
+						<li><a class="Stopped BType_01"><span>Закончилось</span></a></li>
+					</ul>
+				</div>
+			</div>
 		</div>
 		<div class="col2">
+			<!-- Кресла -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpChairs" class="Label1">Кресла</label>
+					<input type="text" name="_chairs" value="" id="inpChairs" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Chairs'>
+						<li><a class="Fasten BType_01"><span>Пристегнуть ремни</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Аудиоконтроллер -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpAudioController" class="Label1">Аудиоконтроллер</label>
+					<input type="text" name="_audio_controller" value="" id="inpAudioController" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='AudioController'>
+						<li><a class="Stopped BType_01"><span>Закончилось</span></a></li>
+					</ul>
+				</div>
+			</div>
+
 			<!-- Дверь в команту №3 -->
 			<div class='Device'>
 

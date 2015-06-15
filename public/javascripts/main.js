@@ -129,6 +129,36 @@ $(document).ready(function() {
 					$("#inpLight").val('Выключен');
 				}
 
+				// экран 1
+				if (response._screen1.state == "playing") {
+					$("#inpScreen1").val('Проигрывает');
+				} else if (response._screen1.state == "stop") {
+					$("#inpScreen1").val('Выключен');
+				}
+
+				// экран 2
+				if (response._screen2.state == "playing") {
+					$("#inpScreen2").val('Проигрывает');
+				} else if (response._screen2.state == "stop") {
+					$("#inpScreen2").val('Выключен');
+				}
+
+				// кресла
+				if (response._chairs.state == "fasten") {
+					$("#inpChairs").val('Ремни пристёгнуты');
+				} else if (response._chairs.state == "not_fasten") {
+					$("#inpChairs").val('Ремни не пристёгнуты');
+				} else if (response._chairs.state == "vibrating") {
+					$("#inpChairs").val('Вибрация');
+				}
+
+				// аудиоконтроллер
+				if (response._audio_controller.state == "playing") {
+					$("#inpAudioController").val('Проигрывает');
+				} else if (response._audio_controller.state == "stop") {
+					$("#inpAudioController").val('Выключен');
+				}
+
 				// дверь в комнату №3
 				if (response._room3_door.state == "opened") {
 					$("#inpRoom3Door").val('Открыта');
@@ -166,9 +196,9 @@ $(document).ready(function() {
 
 				// планшет
 				if (response._personal_code_pad.state == "active") {
-					$("#inpPolyhedronRack").val('Активен');
+					$("#inpPersonalCodePadState").val('Активен');
 				} else if (response._personal_code_pad.state == "idle") {
-					$("#inpPolyhedronRack").val('Не активен');
+					$("#inpPersonalCodePadState").val('Не активен');
 				}
 
 				$("#QuestState").text(response.quest_state);
@@ -234,6 +264,22 @@ $('#Head .DashBoard .Reset').click(function(e){
 	});
 });
 
+// Включить аудио 'В очередь'
+$('#Head .DashBoard .Queue').click(function(e){
+	$.ajax({
+		url: web_server_url + '/audio_controller/play/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('start audio');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+
 // Начать сканирование
 $('#Head .DashBoard .StartScan').click(function(e){
 	$.ajax({
@@ -282,7 +328,7 @@ $('#Head .DashBoard .StopScan').click(function(e){
 $('#Main .LockerButton .Push').click(function(e){
 	if ($("#inpRoom2Door").val() == 'Открыта') {
 		$.ajax({
-			url: web_server_url + '/locker_button/pushed',
+			url: web_server_url + '/locker_button/pushed/0',
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
@@ -300,7 +346,7 @@ $('#Main .LockerButton .Push').click(function(e){
 $('#Main .SaveButton .Push').click(function(e){
 	//if ($("#inpRoom2Door").val() == 'Открыта') {
 		$.ajax({
-			url: web_server_url + '/save_button/pushed',
+			url: web_server_url + '/save_button/pushed/0',
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
@@ -393,35 +439,97 @@ $('#Main .Cell2 .Send').click(function(e){
 });
 
 // Кнопки 'Активировать' и 'Деактивировать' - для моделирования подставки
-// $('#Main .PolyhedronRack .On').click(function(e){
-// 	if ($("#inpLockerDoor").val() == 'Открыта') {
-// 		$.ajax({
-// 			url: web_server_url + '/polyhedron_rack/activated',
-// 			type: "GET",
-// 			crossDomain: true,
-// 			dataType: "json",
-// 				success: function (response) {
-// 					console.log('rack activated');
-// 				},
-// 				error: function(error) {
-// 					console.log('ERROR:', error);
-// 				}
-// 		});
-// 	}
-// });
-// $('#Main .PolyhedronRack .Off').click(function(e){
-// 	if ($("#inpLockerDoor").val() == 'Открыта') {
-// 		$.ajax({
-// 			url: web_server_url + '/polyhedron_rack/deactivated',
-// 			type: "GET",
-// 			crossDomain: true,
-// 			dataType: "json",
-// 				success: function (response) {
-// 					console.log('rack deactivated');
-// 				},
-// 				error: function(error) {
-// 					console.log('ERROR:', error);
-// 				}
-// 		});
-// 	}
-// });
+$('#Main .PolyhedronRack .On').click(function(e){
+	if ($("#inpLockerDoor").val() == 'Открыта') {
+		$.ajax({
+			url: web_server_url + '/polyhedron_rack/activated/0',
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('rack activated');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	}
+});
+$('#Main .PolyhedronRack .Off').click(function(e){
+	if ($("#inpLockerDoor").val() == 'Открыта') {
+		$.ajax({
+			url: web_server_url + '/polyhedron_rack/deactivated/0',
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('rack deactivated');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	}
+});
+
+// эмуляция пристёгивания ремней
+$('#Main .Chairs .Fasten').click(function(e){
+	$.ajax({
+		url: web_server_url + '/chairs/fasten/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('rack deactivated');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+
+// эмуляция завершения видео на экранах
+$('#Main .Screen1 .Stopped').click(function(e){
+	$.ajax({
+		url: web_server_url + '/screen1/stopped/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('rack deactivated');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+$('#Main .Screen2 .Stopped').click(function(e){
+	$.ajax({
+		url: web_server_url + '/screen2/stopped/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('rack deactivated');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+
+// эмуляция завершения аудио
+$('#Main .AudioController .Stopped').click(function(e){
+	$.ajax({
+		url: web_server_url + '/audio_controller/stopped/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('rack deactivated');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});

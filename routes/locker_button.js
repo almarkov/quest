@@ -3,31 +3,16 @@ var router = express.Router();
 var http   = require('http');
 
 // нажата кнопка, открывающая шкаф
-router.get('/pushed', function(req, res, next) {
+router.get('/pushed/:parameter', function(req, res, next) {
 
 	// открываем дверь шкафа
-	http.get(devices._locker_door.url + "/locker_door/open", function(res) {
+	var query = devices.ext_url_for('locker_door') + "/" +  config.get_command_id('open') + "/0";
+	http.get(query, function(res) {
 			console.log("Got response: " );
 			res.on('data', function(data){
 
-				// пришёд ответ  - актуализируем состояние двери
-				var result = JSON.parse(data);
-				devices._locker_door.state = result.state.state;
-
-				// запускаем таймер на 10 секунд
-				http.get(devices._timer.url + "/timer/activate/"  + devices.default_timer_value, function(res) {
-						console.log("Got response on timer activation" );
-						res.on('data', function(data){
-
-							// пришёл ответ - актуализируем состояние таймера
-							var result = JSON.parse(data);
-							devices._timer.state = result.state.state;
-
-						});
-					}).on('error', function(e) {
-						console.log("timer activation error: ");
-				});
-				gamers.quest_state = 60;//'Подготовка к перелёту';
+				devices.get('locker_door').state = "opened";
+				gamers.quest_state = 50;//'Ожидание, пока игроки активируют многогранник';
 
 			});
 		}).on('error', function(e) {

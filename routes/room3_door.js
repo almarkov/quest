@@ -3,14 +3,14 @@ var router = express.Router();
 //-----------------------------------------------------------------------------
 // эмулятор двери
 //-----------------------------------------------------------------------------
-router.get('/open', function(req, res, next) {
+router.get('/open/0', function(req, res, next) {
 	devices._room3_door.state = 'opened';
 
 	var result = {success: 1, state: devices._room3_door};
 	res.json(result);
 });
 
-router.get('/close', function(req, res, next) {
+router.get('/close/0', function(req, res, next) {
 	devices._room3_door.state = 'closed';
 
 	var result = {success: 1, state: devices._room3_door};
