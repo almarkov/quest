@@ -61,6 +61,7 @@ router.get('/ready', function(req, res, next) {
 
 		var result = {success: 1};
 		res.json(result);
+		return;
 	}
 
 	// если ждали пока закроется дверь 3 
