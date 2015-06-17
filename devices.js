@@ -27,22 +27,24 @@ exports.ext_url_for = function (object_name) {
 	}
 }
 
-exports.get_redirect_url = function (ip, device_id) {
+exports.get_redirect_url = function (ip, device_id, command_id) {
 	var res = "";
 	config.list.forEach(function function_name (element) {
 		if (element.ip == ip && element.id == device_id) {
 			res = "/" + element.name;
+			res += "/" + element.commands[command_id];
 		}
 	});
 	return res;
 }
 
 
-exports.int_url_for = function (arduino_id, device_id) {
+exports.int_url_for = function (arduino_id, device_id, event_id) {
 	var res = "";
 	config.list.forEach(function function_name (element) {
 		if (element.arduino_id == arduino_id && element.id == device_id) {
-			res = "/" + element.name;
+			res =  "/" + element.name;
+			res += "/" + element.events[event_id];
 		}
 	});
 	return res;
@@ -69,3 +71,18 @@ exports.get = function(name) {
 		}
 	}
 }
+
+exports.get_command_id = function(device, command){
+	if (command == 'wd') {
+		return 255;
+	}
+	for (var i = 0; i < exports.list.length; i++) {
+		if (device == exports.list[i].name) {
+			for (var j = 0; j < exports.list[i].commands.length; j++) {
+				if (command == exports.list[i].commands[j]) {
+					return j;
+				}
+			}
+		}
+	}
+};

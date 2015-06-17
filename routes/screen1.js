@@ -13,7 +13,7 @@ router.get('/stopped/:parameter', function(req, res, next) {
 	if (gamers.quest_state == 100) {
 
 		//открываем дверь 3
-		var query = devices.ext_url_for('room3_door') + "/" +  config.get_command_id("open") + "/0";
+		var query = devices.ext_url_for('room3_door') + "/" +  devices.get_command_id('room3_door', "open") + "/0";
 		console.log(query);
 		http.get(query, function(res) {
 

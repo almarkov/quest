@@ -15,9 +15,9 @@ a:hover.BType_01 span {}
 
 .Commands ul, ul.DashBoard {  list-style-type: none;}
 
-.col1 { position: absolute; width: 320px; }
-.col2 { position: absolute; left: 320px; width: 320px; }
-.col3 { position: absolute; left: 640px; width: 320px; }
+.col1 { position: absolute; width: 324px; }
+.col2 { position: absolute; left: 324px; width: 324px; }
+.col3 { position: absolute; left: 648px; width: 324px; }
 
 ul.DashBoard li {
   display: inline-block;
@@ -26,6 +26,7 @@ ul.DashBoard li {
 .Device {
 	height: 66px;
 	width: 320px;
+	border: 2px solid black;
 }
 
 .Input1 {
@@ -34,26 +35,26 @@ ul.DashBoard li {
 
 .Device div.Status {
 	position: absolute;
-	left: 0px;
+	left: 2px;
 	width: 20px;
 	height: 66px;
 }
 
 .Device div.State {
 	position: absolute;
-	left: 20px;
+	left: 22px;
 	width: 300px;
 	height: 66px;
 }
 .Device div.Commands {
-	position: absolute;
-	left: 20px;
+	position: relative;
+	left: 22px;
 	width: 200px;
 	height: 66px;
 }
 
 .Device div.Commands ul {
-	margin-top: 25px;
+	margin-top: 22px;
 	padding-left: 2px;
 }
 

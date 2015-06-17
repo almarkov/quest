@@ -35,6 +35,36 @@ router.get('/all', function(req, res, next) {
 		}
 	}
 
+	// watchdog
+	if (config.watchdog_enabled) {
+		for (var i = 0; i < config.arduino_list.length; i++) {
+			var query = "http://" + config.arduino_list[i].ip + ":" +  config.arduino_list[i].port + "/255/0/0";
+			http.get(query, function(res) {
+					res.on('data', function(data){
+						//console.log("Got response on wd");
+						var result = JSON.parse(data);
+						if (result.success) {
+							//обновить статусы устройств
+							for (var j = 0; j < devices.list.length; j++) {
+								if (devices.list[j].arduino_id == i) {
+									devices.list[j].wd_state = 1;
+								}
+							}
+						} else {
+							// пометить неответившие устройства
+							for (var j = 0; j < devices.list.length; j++) {
+								if (devices.list[j].arduino_id == config.arduino_list[i].id) {
+									devices.list[j].wd_state = 0;
+								}
+							}
+						}
+					});
+				}).on('error', function(e) {
+					console.log("Got error on wd");
+			});
+		}
+	}
+
 	// передача модели в GUI
 	var result = {};
 	for (var i = 0; i < devices.list.length; i++) {

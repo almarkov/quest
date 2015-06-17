@@ -11,13 +11,13 @@ router.get('/start', function(req, res, next) {
     //gamers.quest_state += 1; //'Сканирование игрока №;
 
 	// закрываем дверь №3
-	var query = devices.ext_url_for('room3_door') + "/" +  config.get_command_id('close') + "/0";
+	var query = devices.ext_url_for('room3_door') + "/" +  devices.get_command_id('room3_door', 'close') + "/0";
 	http.get(query, function(res) {
 			console.log("Got response: " );
 			res.on('data', function(data){
 
 				// запускаем таймер на 10 секунд
-				http.get(devices.timer().url + "/timer/activate/" + devices.default_timer_value, function(res) {
+				http.get(web_server_url + "/timer/activate/" + devices.default_timer_value, function(res) {
 						console.log("Got response on timer activation" );
 						res.on('data', function(data){
 

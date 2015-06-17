@@ -12,7 +12,7 @@ router.get('/ready', function(req, res, next) {
 	if (gamers.quest_state == 20) {
 		devices.get('entrance_door').state = "closed";
 		// открываем дверь в комнату №2
-		var query = devices.ext_url_for('room2_door') + "/" +  config.get_command_id("open") + "/0";
+		var query = devices.ext_url_for('room2_door') + "/" +  devices.get_command_id('room2_door', "open") + "/0";
 		console.log(query);
 		http.get(query, function(res) {
 				console.log("Got response on opening room2_door" );
@@ -68,7 +68,7 @@ router.get('/ready', function(req, res, next) {
 	if (gamers.quest_state >= 110 && gamers.quest_state < 120) {
 		devices.get('room3_door').state = "closed";
 		// пробуждаем планшет
-		var query = devices.ext_url_for('personal_code_pad') + "/" +  config.get_command_id("activate") + "/0";
+		var query = devices.ext_url_for('personal_code_pad') + "/" +  devices.get_command_id('personal_code_pad', "activate") + "/0";
 		http.get(query, function(res) {
 				console.log("Got response: " );
 				res.on('data', function(data){
@@ -81,6 +81,7 @@ router.get('/ready', function(req, res, next) {
 			}).on('error', function(e) {
 				console.log("Got error on pad activation  ");
 		});
+		return;
 	}
 
 

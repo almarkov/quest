@@ -6,7 +6,7 @@ var http   = require('http');
 router.get('/pushed/:parameter', function(req, res, next) {
 
 	// открываем дверь шкафа
-	var query = devices.ext_url_for('locker_door') + "/" +  config.get_command_id('open') + "/0";
+	var query = devices.ext_url_for('locker_door') + "/" +  devices.get_command_id('locker_door', 'open') + "/0";
 	http.get(query, function(res) {
 			console.log("Got response: " );
 			res.on('data', function(data){

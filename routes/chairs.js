@@ -10,7 +10,7 @@ router.get('/fasten/:parameter', function(req, res, next) {
 	res.json(result);
 
 	// включаем звук
-	var query = devices.ext_url_for('audio_controller') + "/" +  config.get_command_id('play') + "/0";
+	var query = devices.ext_url_for('audio_controller') + "/" +  devices.get_command_id('audio_controller', 'play') + "/0";
 	http.get(query, function(res) {
 			console.log("Got response: " );
 			res.on('data', function(data){
@@ -23,7 +23,7 @@ router.get('/fasten/:parameter', function(req, res, next) {
 	});
 
 	// включаем видео на экране 2
-	var query = devices.ext_url_for('screen2') + "/" +  config.get_command_id('play') + "/file=\/storage\/emulated\/0\/Video\/4.mp4";
+	var query = devices.ext_url_for('screen2') + "/" +  devices.get_command_id('screen2', 'play') + "/file=\/storage\/emulated\/0\/Video\/4.mp4";
 	http.get(query, function(res) {
 			console.log("Got response: " );
 			res.on('data', function(data){
@@ -36,7 +36,7 @@ router.get('/fasten/:parameter', function(req, res, next) {
 	});
 
 	// включаем вибрацию
-	var query = devices.ext_url_for('chairs') + "/" +  config.get_command_id('vibrate') + "/0";
+	var query = devices.ext_url_for('chairs') + "/" +  devices.get_command_id('chairs', 'vibrate') + "/0";
 	http.get(query, function(res) {
 			console.log("Got response: " );
 			res.on('data', function(data){

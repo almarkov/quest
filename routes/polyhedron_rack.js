@@ -8,7 +8,7 @@ router.get('/activated/:parameter', function(req, res, next) {
 	devices.get('polyhedron_rack').state = 'active';
 
 	//выключаем свет
-	var query = devices.ext_url_for('light') + "/" +  config.get_command_id('turn_off') + "/0";
+	var query = devices.ext_url_for('light') + "/" +  devices.get_command_id('light', 'turn_off') + "/0";
 	http.get(query, function(res) {
 			console.log("Got response: " );
 			res.on('data', function(data){
@@ -21,7 +21,7 @@ router.get('/activated/:parameter', function(req, res, next) {
 	});
 
 	// включаем видео на экране 2
-	var query = devices.ext_url_for('screen2') + "/" +  config.get_command_id('play') + "/file=\/storage\/emulated\/0\/Video\/2.mp4";
+	var query = devices.ext_url_for('screen2') + "/" +  devices.get_command_id('screen2', 'play') + "/file=\/storage\/emulated\/0\/Video\/2.mp4";
 	http.get(query, function(res) {
 			console.log("Got response: " );
 			res.on('data', function(data){
@@ -34,7 +34,7 @@ router.get('/activated/:parameter', function(req, res, next) {
 	});
 
 	// включаем видео на экране 1
-	var query = devices.ext_url_for('screen1') + "/" +  config.get_command_id('play') + "/file=\/storage\/emulated\/0\/Video\/3.mp4";
+	var query = devices.ext_url_for('screen1') + "/" +  devices.get_command_id('screen1', 'play') + "/file=\/storage\/emulated\/0\/Video\/3.mp4";
 	http.get(query, function(res) {
 			console.log("Got response: " );
 			res.on('data', function(data){

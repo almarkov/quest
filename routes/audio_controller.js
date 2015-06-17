@@ -16,7 +16,7 @@ router.get('/stopped/:parameter', function(req, res, next) {
 
 	// закончилось и то и то
 	} else if (gamers.quest_state == 85) {
-		var query = devices.ext_url_for('audio_controller') + "/" +  config.get_command_id('play') + "/0";
+		var query = devices.ext_url_for('audio_controller') + "/" +  devices.get_command_id('audio_controller','play') + "/0";
 		http.get(query, function(res) {
 				console.log("Got response: " );
 				res.on('data', function(data){
@@ -33,7 +33,7 @@ router.get('/stopped/:parameter', function(req, res, next) {
 	} else if (gamers.quest_state == 90) {
 
 		// включаем свет
-		var query = devices.ext_url_for('light') + "/" +  config.get_command_id('turn_on') + "/0";
+		var query = devices.ext_url_for('light') + "/" +  devices.get_command_id('light', 'turn_on') + "/0";
 		http.get(query, function(res) {
 				console.log("Got response: " );
 				res.on('data', function(data){
@@ -46,7 +46,7 @@ router.get('/stopped/:parameter', function(req, res, next) {
 		});
 
 		// выключаем вибрацию
-		var query = devices.ext_url_for('chairs') + "/" +  config.get_command_id('stop_vibrate') + "/0";
+		var query = devices.ext_url_for('chairs') + "/" +  devices.get_command_id('chairs', 'stop_vibrate') + "/0";
 		http.get(query, function(res) {
 				console.log("Got response: " );
 				res.on('data', function(data){
@@ -59,7 +59,7 @@ router.get('/stopped/:parameter', function(req, res, next) {
 		});
 
 		// включаем видео на экране 1
-		var query = devices.ext_url_for('screen1') + "/" +  config.get_command_id('play') + "/file=\/storage\/emulated\/0\/Video\/6.mp4";
+		var query = devices.ext_url_for('screen1') + "/" +  devices.get_command_id('screen1', 'play') + "/file=\/storage\/emulated\/0\/Video\/6.mp4";
 		http.get(query, function(res) {
 				console.log("Got response: " );
 				res.on('data', function(data){

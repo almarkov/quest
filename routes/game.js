@@ -14,7 +14,7 @@ router.get('/start/:count', function(req, res, next) {
 	gamers.quest_state = 10;//'Начало игры';
 
 	//  закрываем дверь
-	var query = devices.ext_url_for('entrance_door') + "/" +  config.get_command_id("close") + "/0";
+	var query = devices.ext_url_for('entrance_door') + "/" +  devices.get_command_id('entrance_door', "close") + "/0";
 	console.log(query);
 	http.get(query, function(res) {
 
