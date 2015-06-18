@@ -24,11 +24,37 @@ var room4_door = require('./routes/room4_door');
 var room5_door = require('./routes/room5_door');
 var room6_door = require('./routes/room6_door');
 var room7_door = require('./routes/room7_door');
-var light      = require('./routes/light');
 var screen1    = require('./routes/screen1');
 var screen2    = require('./routes/screen2');
 var chairs     = require('./routes/chairs');
 var audio_controller  = require('./routes/audio_controller');
+
+// эмулятор для пассивных устройств
+var door   = require('./routes/door');
+
+// обработчики устройств
+var audio_player_1 = require('./routes/audio_player_1');
+var audio_player_2 = require('./routes/audio_player_2');
+var audio_player_3 = require('./routes/audio_player_3');
+var audio_player_4 = require('./routes/audio_player_4');
+var audio_player_5 = require('./routes/audio_player_5');
+
+var video_player_1 = require('./routes/video_player_1');
+var video_player_2 = require('./routes/video_player_2');
+var video_player_3 = require('./routes/video_player_3');
+var video_player_4 = require('./routes/video_player_4');
+
+var locker_1_button = require('./routes/locker_1_button');
+
+var locker_1     = require('./routes/locker_1');
+
+var light        = require('./routes/light');
+
+var polyhedron   = require('./routes/polyhedron');
+
+var safety_belts = require('./routes/safety_belts');
+
+var vibration    = require('./routes/vibration');
 
 var app = express();
 
@@ -87,11 +113,46 @@ app.use('/room5_door', room5_door);
 app.use('/room6_door', room6_door);
 app.use('/room7_door', room7_door);
 app.use('/locker_door', locker_door);
-app.use('/light', light);
+
 app.use('/screen1', screen1);
 app.use('/screen2', screen2);
 app.use('/chairs', chairs);
 app.use('/audio_controller', audio_controller);
+
+app.use('/door_1', door);
+app.use('/door_2', door);
+app.use('/door_3', door);
+app.use('/door_4', door);
+app.use('/door_5', door);
+app.use('/door_6', door);
+app.use('/door_7', door);
+app.use('/door_8', door);
+
+app.use('/audio_player_1', audio_player_1);
+app.use('/audio_player_2', audio_player_2);
+app.use('/audio_player_3', audio_player_3);
+app.use('/audio_player_4', audio_player_4);
+app.use('/audio_player_5', audio_player_5);
+
+app.use('/video_player_1', video_player_1);
+app.use('/video_player_2', video_player_2);
+app.use('/video_player_3', video_player_3);
+app.use('/video_player_4', video_player_4);
+
+app.use('/locker_1_button', locker_1_button);
+
+app.use('/locker_1', locker_1);
+
+app.use('/polyhedron', polyhedron);
+
+app.use('/light', light);
+
+app.use('/safety_belts', safety_belts);
+
+app.use('/vibration', vibration);
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

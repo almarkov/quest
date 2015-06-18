@@ -13,41 +13,88 @@ router.get('/start/:count', function(req, res, next) {
 
 	gamers.quest_state = 10;//'Начало игры';
 
-	//  закрываем дверь
-	var query = devices.ext_url_for('entrance_door') + "/" +  devices.get_command_id('entrance_door', "close") + "/0";
-	console.log(query);
+	//  открываем дверь 1
+	var query = devices.build_query('door_1', 'open', '0');
 	http.get(query, function(res) {
 
-			console.log("Got response on closing entrance_door" );
 			res.on('data', function(data){
 
 				// запускаем таймер
-				http.get(web_server_url + "/timer/activate/" + devices.default_timer_value, function(res) {
-						console.log("Got response on timer activation" );
+				http.get(devices.build_query('timer', 'activate', devices.default_timer_value), function(res) {
 						res.on('data', function(data){
 
 							// пришёл ответ - актуализируем состояние таймера
 							var result = JSON.parse(data);
-							devices.timer().state = result.state.state;
+							devices.get('timer').state = result.state.state;
 
 						});
 					}).on('error', function(e) {
-						console.log("timer activation error: ");
+						console.log("timer activate error: ");
 				});
 
 			});
 		}).on('error', function(e) {
-			console.log("entrance_door activation error: ");
+			console.log("door_1 close error: ");
 	});
-	gamers.quest_state = 20; //'Ожидание закрытия входной двери';
+
+	gamers.quest_state = 15; //'Ожидание открытия двери 1';
 
 	var result = {success: 1};
 	res.json(result);
 
 });
 
+// все игроки зашли в комнату
+router.get('/allin', function(req, res, next) {
 
-// стартовала игра
+	gamers.quest_state = 20; //'Ожидание закрытия двери 1';
+
+	//  закрываем дверь 1
+	var query = devices.build_query('door_1', 'close', '0');
+	http.get(query, function(res) {
+
+			res.on('data', function(data){
+
+				// запускаем таймер
+				http.get(devices.build_query('timer', 'activate', devices.default_timer_value), function(res) {
+						res.on('data', function(data){
+
+							// пришёл ответ - актуализируем состояние таймера
+							var result = JSON.parse(data);
+							devices.get('timer').state = result.state.state;
+
+						});
+					}).on('error', function(e) {
+						console.log("timer activate error: ");
+				});
+
+			});
+		}).on('error', function(e) {
+			console.log("door_1 close error: ");
+	});
+
+	var result = {success: 1};
+	res.json(result);
+
+});
+
+// подготовка устройств
+router.get('/get_ready', function(req, res, next) {
+
+	var result = {success: 1};
+	res.json(result);
+
+});
+
+// режим обслуживания
+router.get('/service_mode', function(req, res, next) {
+
+	var result = {success: 1};
+	res.json(result);
+
+});
+
+// перезапуск игры
 router.get('/reset', function(req, res, next) {
 
 	start_time = null;

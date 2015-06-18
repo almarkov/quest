@@ -5,13 +5,36 @@
 // url = "http://<ip>:<port>" || "<url>",	т.е. можно указать либо ip+port,	либо url
 exports.dev_url = "http://localhost:3000";
 
+exports.types = {
+	door: {
+		commands: [ "close", "open"],
+		events:   [ ],
+		states:   [ "closed", "opened"]
+	},
+	audio_player: {
+		commands: [ "stop_channel_1", "play_channel_1", "play_channel_2", "stop_channel_2" ],
+		events:   [ "ch1_playback_finished", "ch2_playback_finished" ],
+		states:   [ "ch1_stop_ch2_stop", "ch1_play_ch2_stop", "ch1_stop_ch2_play", "ch1_play_ch2_play" ]
+	},
+	video_player: {
+		commands: [ "stop", "play" ],
+		events:   [ "playback_finished" ],
+		states:   [ "stopped", "playing" ]
+	},
+	cell: {
+		commands: [ "close", "open" ],
+		events:   [ "code_entered"],
+		states:   [ "closed", "opened"],
+	}
+};
+
 // список устройств
 exports.list = [
 
 	// таймер
 	{
-		id:            1,
-		arduino_id:    1,
+		id:            127,
+		arduino_id:    127,
 		name:          "timer",
 		ip:            "localhost",
 		port:          "3000",
@@ -23,114 +46,296 @@ exports.list = [
 		events:        [ "ready" ]
 	},
 
-	// входная дверь
+	// дверь 1
 	{
-		id:            2,
+		id:            1,
 		arduino_id:    1,
-		name:          "entrance_door",
-		ip:            "localhost",
-		port:          "3000",
-		state:         "opened",
-		wd_state:      1,
-		commands:      [ "close", "open"]
-	},
-
-	// дверь в комнату №2
-	{
-		id:            3,
-		arduino_id:    1,
-		name:          "room2_door",
+		name:          "door_1",
+		type:          "door",
 		ip:            "localhost",
 		port:          "3000",
 		state:         "closed",
 		wd_state:      1,
-		commands:      [ "close", "open" ]
+	},
+
+	// дверь 2
+	{
+		id:            2,
+		arduino_id:    1,
+		name:          "door_2",
+		type:          "door",
+		ip:            "localhost",
+		port:          "3000",
+		state:         "closed",
+		wd_state:      1,
+	},
+
+	// дверь 3
+	{
+		id:            3,
+		arduino_id:    1,
+		name:          "door_3",
+		type:          "door",
+		ip:            "localhost",
+		port:          "3000",
+		state:         "closed",
+		wd_state:      1,
+	},
+
+	// дверь 4
+	{
+		id:            4,
+		arduino_id:    1,
+		name:          "door_4",
+		type:          "door",
+		ip:            "localhost",
+		port:          "3000",
+		state:         "closed",
+		wd_state:      1,
+	},
+
+	// дверь 5
+	{
+		id:            5,
+		arduino_id:    1,
+		name:          "door_5",
+		type:          "door",
+		ip:            "localhost",
+		port:          "3000",
+		state:         "closed",
+		wd_state:      1,
+	},
+
+	// дверь 6
+	{
+		id:            6,
+		arduino_id:    1,
+		name:          "door_6",
+		type:          "door",
+		ip:            "localhost",
+		port:          "3000",
+		state:         "closed",
+		wd_state:      1,
+	},
+
+	// дверь 7
+	{
+		id:            7,
+		arduino_id:    1,
+		name:          "door_7",
+		type:          "door",
+		ip:            "localhost",
+		port:          "3000",
+		state:         "closed",
+		wd_state:      1,
+	},
+
+	// дверь 8
+	{
+		id:            8,
+		arduino_id:    1,
+		name:          "door_8",
+		type:          "door",
+		ip:            "localhost",
+		port:          "3000",
+		state:         "closed",
+		wd_state:      1,
+	},
+
+	// аудиоплеер 1
+	{
+		id:            9,
+		arduino_id:    1,
+		name:          "audio_player_1",
+		type:          "audio_player",
+		ip:            "localhost",
+		port:          "3000",
+		state:         "ch1_stop_ch2_stop",
+		wd_state:      1,
+		value:         ""
+	},
+
+	// аудиоплеер 2
+	{
+		id:            10,
+		arduino_id:    1,
+		name:          "audio_player_2",
+		type:          "audio_player",
+		ip:            "localhost",
+		port:          "3000",
+		state:         "ch1_stop_ch2_stop",
+		wd_state:      1,
+		value:         ""
+	},
+
+	// аудиоплеер 3
+	{
+		id:            11,
+		arduino_id:    1,
+		name:          "audio_player_3",
+		type:          "audio_player",
+		ip:            "localhost",
+		port:          "3000",
+		state:         "ch1_stop_ch2_stop",
+		wd_state:      1,
+		value:         ""
+	},
+
+
+	// аудиоплеер 4
+	{
+		id:            12,
+		arduino_id:    1,
+		name:          "audio_player_4",
+		type:          "audio_player",
+		ip:            "localhost",
+		port:          "3000",
+		state:         "ch1_stop_ch2_stop",
+		wd_state:      1,
+		value:         ""
+	},
+
+	// аудиоплеер 5
+	{
+		id:            13,
+		arduino_id:    1,
+		name:          "audio_player_5",
+		type:          "audio_player",
+		ip:            "localhost",
+		port:          "3000",
+		state:         "ch1_stop_ch2_stop",
+		wd_state:      1,
+		value:         ""
+	},
+
+	// видеоплеер 1
+	{
+		id:            14,
+		arduino_id:    1,
+		name:          "video_player_1",
+		type:          "video_player",
+		ip:            "localhost",
+		port:          "3000",
+		state:         "stopped",
+		wd_state:      1,
+		value:         ""
+	},
+
+	// видеоплеер 2
+	{
+		id:            15,
+		arduino_id:    1,
+		name:          "video_player_2",
+		type:          "video_player",
+		ip:            "localhost",
+		port:          "3000",
+		state:         "stopped",
+		wd_state:      1,
+		value:         ""
+	},
+
+	// видеоплеер 3
+	{
+		id:            16,
+		arduino_id:    1,
+		name:          "video_player_3",
+		type:          "video_player",
+		ip:            "localhost",
+		port:          "3000",
+		state:         "stopped",
+		wd_state:      1,
+		value:         ""
+	},
+
+	// видеоплеер 4
+	{
+		id:            17,
+		arduino_id:    1,
+		name:          "video_player_4",
+		type:          "video_player",
+		ip:            "localhost",
+		port:          "3000",
+		state:         "stopped",
+		wd_state:      1,
+		value:         ""
 	},
 
 	// кнопка,	открывающая шкаф
 	{
-		id:            4,
+		id:            18,
 		arduino_id:    1,
-		name:          "locker_button",
+		name:          "locker_1_button",
 		ip:            "localhost",
 		port:          "3000",
-		state:         "idle",
+		state:         "not_pushed",
 		wd_state:      1,
-		commands:      [ "push" ],
-		events:        [ "pushed" ]
+		events:        [ "pushed" ],
+		states:        [ "not_pushed", "pushed" ],
 	},
 
 	// дверь шкафа
 	{
-		id:            5,
+		id:            19,
 		arduino_id:    1,
-		name:          "locker_door",
+		name:          "locker_1",
 		ip:            "localhost",
 		port:          "3000",
 		state:         "closed",
 	    wd_state:      1,
-		commands:      [ "close", "open" ]
+		commands:      [ "close", "open" ],
+		states:        [ "closed", "opened" ],
 	},
 
-	// подставка многогранника 
+	// многогранник 
 	{
-		id:            6,
+		id:            20,
 		arduino_id:    1,
-		name:          "polyhedron_rack",
+		name:          "polyhedron",
 		ip:            "localhost",
 		port:          "3000",
-		state:         "idle",
+		state:         "deactivated",
 	    wd_state:      1,
 		commands:      [ "deactivate", "activate" ],
-		events:        [ "activated" ]
+		events:        [ "deactivated", "activated" ]
 	},
 
 	// свет
 	{
-		id:            7,
+		id:            21,
 		arduino_id:    1,
 		name:          "light",
 		ip:            "localhost",
 		port:          "3000",
 		state:         "on",
 		wd_state:      1,
-		commands:      ["turn_off", "turn_on" ]
+		commands:      [ "off", "on" ],
+		events:        [ "off", "on" ],
 	},
 
-	// дверь в комнату №3
+	// ремни
 	{
-		id:            8,
+		id:            22,
 		arduino_id:    1,
-		name:          "room3_door",
+		name:          "safety_belts",
 		ip:            "localhost",
 		port:          "3000",
-		state:         "closed",
+		state:         "number_of_fastened",
+		value:         0,
 		wd_state:      1,
-		commands:      [ "close", "open" ]
+		events:        [ "number_of_fastened" ],
 	},
 
-	// дверь в комнату №4
+	// вибрация
 	{
-		id:            9,
+		id:            23,
 		arduino_id:    1,
-		name:          "room4_door",
+		name:          "vibration",
 		ip:            "localhost",
 		port:          "3000",
-		state:         "closed",
+		state:         "off",
 		wd_state:      1,
-		commands:      [ "close", "open" ]
-	},
-
-	// дверь в комнату №5
-	{
-		id:            10,
-		arduino_id:    1,
-		name:          "room5_door",
-		ip:            "localhost",
-		port:          "3000",
-		state:         "closed",
-		wd_state:      1,
-		commands:      [ "close", "open" ]
+		commands:      [ "off", "on" ],
+		events:        [ "off", "on" ],
 	},
 
 	// кнопка спасения игрока
@@ -144,18 +349,6 @@ exports.list = [
 		wd_state:      1,
 		commands:      [ "close", "open" ],
 		events:        [ "pushed" ]
-	},
-
-	// дверь в комнату №6
-	{
-		id:            12,
-		arduino_id:    1,
-		name:          "room6_door",
-		ip:            "localhost",
-		port:          "3000",
-		state:         "closed",
-		wd_state:      1,
-		commands:      [ "close", "open" ]
 	},
 
 	// ячейка №1
@@ -182,18 +375,6 @@ exports.list = [
 		wd_state:      1,
 		commands:      [ "close", "open" ],
 		events:        [ "code_entered" ],
-	},
-
-	// дверь в комнату №7
-	{
-		id:            15,
-		arduino_id:    1,
-		name:          "room7_door",
-		ip:            "localhost",
-		port:          "3000",
-		state:         "closed",
-		wd_state:      1,
-		commands:      [ "close", "open" ]
 	},
 
 	// планшет
@@ -261,6 +442,49 @@ exports.list = [
 	},
 
 ];
+
+
+// инициализируем типы
+for (var i = 0; i < exports.list.length; i++) {
+	var config_item = exports.list[i];
+	var type = config_item.type;
+	if (type) {
+		var type_item = exports.types[type];
+		config_item.commands = type_item.commands;
+		config_item.events   = type_item.events;
+		config_item.states   = type_item.states;
+	}
+}
+
+// для меня
+exports.files = [
+	'audio20', //0 
+	'video12',
+	'video2',
+	'video3',
+	'audio2',
+	'video4', //5
+	'audio3',
+	'video5',
+	'audio4', 
+];
+
+// для реальных файлов
+// exports.files = [
+// 	'file=\/storage\/emulated\/0\/Audio\/20.mp3\&repeat=1',
+// 	'file=\/storage\/emulated\/0\/Video\/12.mp4\&repeat=0',
+// 	'file=\/storage\/emulated\/0\/Video\/2.mp4\&repeat=0',
+// 	'file=\/storage\/emulated\/0\/Video\/3.mp4\&repeat=1',
+//  'file=\/storage\/emulated\/0\/Audio\/2.mp3\&repeat=0',
+//  'file=\/storage\/emulated\/0\/Video\/4.mp4\&repeat=0',
+//  'file=\/storage\/emulated\/0\/Audio\/3.mp3\&repeat=0',
+//  'file=/storage/emulated/0/Video/5.mp4&repeat=0',
+//  'file=/storage/emulated/0/Audio/4.mp3&repeat=0',
+// 	'audio5',
+// 	'video1',
+// 	'video2',
+// 	'video3'
+// ];
 
 // время таймера
 exports.default_timer_value = '3';

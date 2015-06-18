@@ -4,85 +4,165 @@ var http   = require('http');
 
 // сработал таймер
 router.get('/ready', function(req, res, next) {
-	// обновляем модель
-	devices.timer().state = 'ready';
-	devices.timer().current_value = '';
 
-	// если ждали закрытия входной двери
+	// обновляем модель
+	devices.get('timer').state         = 'ready';
+	devices.get('timer').current_value = '';
+
+	// если ждали открытия двери 1
+	if (gamers.quest_state == 15) {
+		devices.get('door_1').state = "opened";
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
+
+	// если ждали закрытия двери 1
 	if (gamers.quest_state == 20) {
-		devices.get('entrance_door').state = "closed";
-		// открываем дверь в комнату №2
-		var query = devices.ext_url_for('room2_door') + "/" +  devices.get_command_id('room2_door', "open") + "/0";
+		devices.get('door_1').state = "closed";
+
+		// запускаем аудио
+		var query = devices.build_query('audio_player_1', 'play_channel_1', config.files[0]);
+		console.log(i);
 		console.log(query);
 		http.get(query, function(res) {
-				console.log("Got response on opening room2_door" );
 				res.on('data', function(data){
 
-			        // запускаем таймер
-					http.get(web_server_url + "/timer/activate/" + devices.default_timer_value, function(res) {
-							console.log("Got response on timer activation" );
-							res.on('data', function(data){
-
-								// пришёл ответ - актуализируем состояние таймера
-								var result = JSON.parse(data);
-								devices.timer().state = result.state.state;
-
-							});
-						}).on('error', function(e) {
-							console.log("timer activation error: ");
-					});
-			    });
+					devices.get('audio_player_1').value = config.files[0];
+					if (devices.get('audio_player_1').state == "ch1_stop_ch2_play") {
+						devices.get('audio_player_1').state = "ch1_play_ch2_play";
+					} else {
+						devices.get('audio_player_1').state = "ch1_play_ch2_stop";	
+					}
+				});
 			}).on('error', function(e) {
-				console.log("Got error: ");
+				console.log("audio_player_1 play_channel_1 error: ");
 		});
-		
-		gamers.quest_state = 30; //'Ожидание открытия двери 2';
-		
+		var query = devices.build_query('audio_player_2', 'play_channel_1', config.files[0]);
+		console.log(i);
+		console.log(query);
+		http.get(query, function(res) {
+				res.on('data', function(data){
+
+					devices.get('audio_player_1').value = config.files[0];
+					if (devices.get('audio_player_2').state == "ch1_stop_ch2_play") {
+						devices.get('audio_player_2').state = "ch1_play_ch2_play";
+					} else {
+						devices.get('audio_player_2').state = "ch1_play_ch2_stop";	
+					}
+				});
+			}).on('error', function(e) {
+				console.log("audio_player_2 play_channel_1 error: ");
+		});
+		var query = devices.build_query('audio_player_3', 'play_channel_1', config.files[0]);
+		console.log(i);
+		console.log(query);
+		http.get(query, function(res) {
+				res.on('data', function(data){
+
+					devices.get('audio_player_1').value = config.files[0];
+					if (devices.get('audio_player_3').state == "ch1_stop_ch2_play") {
+						devices.get('audio_player_3').state = "ch1_play_ch2_play";
+					} else {
+						devices.get('audio_player_3').state = "ch1_play_ch2_stop";	
+					}
+				});
+			}).on('error', function(e) {
+				console.log("audio_player_3 play_channel_1 error: ");
+		});
+		var query = devices.build_query('audio_player_4', 'play_channel_1', config.files[0]);
+		console.log(i);
+		console.log(query);
+		http.get(query, function(res) {
+				res.on('data', function(data){
+
+					devices.get('audio_player_1').value = config.files[0];
+					if (devices.get('audio_player_4').state == "ch1_stop_ch2_play") {
+						devices.get('audio_player_4').state = "ch1_play_ch2_play";
+					} else {
+						devices.get('audio_player_4').state = "ch1_play_ch2_stop";	
+					}
+				});
+			}).on('error', function(e) {
+				console.log("audio_player_4 play_channel_1 error: ");
+		});
+		var query = devices.build_query('audio_player_5', 'play_channel_1', config.files[0]);
+		console.log(i);
+		console.log(query);
+		http.get(query, function(res) {
+				res.on('data', function(data){
+
+					devices.get('audio_player_1').value = config.files[0];
+					if (devices.get('audio_player_5').state == "ch1_stop_ch2_play") {
+						devices.get('audio_player_5').state = "ch1_play_ch2_play";
+					} else {
+						devices.get('audio_player_5').state = "ch1_play_ch2_stop";	
+					}
+				});
+			}).on('error', function(e) {
+				console.log("audio_player_5 play_channel_1 error: ");
+		});
+
+		// запускаем видео
+		for (var i = 1; i <= 1; i++) {
+			var query = devices.build_query('video_player_1', 'play', config.files[1]);
+			http.get(query, function(res) {
+					res.on('data', function(data){
+						devices.get('video_player_1').value = config.files[1];
+						devices.get('video_player_1').state = "playing";	
+					});
+				}).on('error', function(e) {
+					console.log("video_player_1 play_channel_1 error: ");
+			});
+		}
+
+
+		gamers.quest_state = 40; //'Поиск кнопки, открывающей шкаф с многогранником'
 		var result = {success: 1};
 		res.json(result);
 		return;
 	}
 
 	// если ждали открытия двери 2
-	if (gamers.quest_state == 30) {
-		devices.get('room2_door').state = "opened";
+	// if (gamers.quest_state == 30) {
+	// 	devices.get('room2_door').state = "opened";
 
-		gamers.quest_state = 40; //'Поиск кнопки, открывающей шкаф с многогранником';
+	// 	gamers.quest_state = 40; //'Поиск кнопки, открывающей шкаф с многогранником';
 
-		var result = {success: 1};
-		res.json(result);
-	}
+	// 	var result = {success: 1};
+	// 	res.json(result);
+	// }
 
 	// если ждали открытия двери 3
-	if (gamers.quest_state == 100) {
-		devices.get('room3_door').state = "opened";
+	// if (gamers.quest_state == 100) {
+	// 	devices.get('room3_door').state = "opened";
 
-		gamers.quest_state = 110; //'Требуется действие оператора. Убедитесь, что в комнате сканирования только один человек';
+	// 	gamers.quest_state = 110; //'Требуется действие оператора. Убедитесь, что в комнате сканирования только один человек';
 
-		var result = {success: 1};
-		res.json(result);
-		return;
-	}
+	// 	var result = {success: 1};
+	// 	res.json(result);
+	// 	return;
+	// }
 
 	// если ждали пока закроется дверь 3 
-	if (gamers.quest_state >= 110 && gamers.quest_state < 120) {
-		devices.get('room3_door').state = "closed";
-		// пробуждаем планшет
-		var query = devices.ext_url_for('personal_code_pad') + "/" +  devices.get_command_id('personal_code_pad', "activate") + "/0";
-		http.get(query, function(res) {
-				console.log("Got response: " );
-				res.on('data', function(data){
+	// if (gamers.quest_state >= 110 && gamers.quest_state < 120) {
+	// 	devices.get('room3_door').state = "closed";
+	// 	// пробуждаем планшет
+	// 	var query = devices.ext_url_for('personal_code_pad') + "/" +  devices.get_command_id('personal_code_pad', "activate") + "/0";
+	// 	http.get(query, function(res) {
+	// 			console.log("Got response: " );
+	// 			res.on('data', function(data){
 
-					devices.get('personal_code_pad').state = 'active';
+	// 				devices.get('personal_code_pad').state = 'active';
 
-			        gamers.quest_state += 10;//'Идет сканирование игрока X из Y. 120-129
+	// 		        gamers.quest_state += 10;//'Идет сканирование игрока X из Y. 120-129
 
-			    });
-			}).on('error', function(e) {
-				console.log("Got error on pad activation  ");
-		});
-		return;
-	}
+	// 		    });
+	// 		}).on('error', function(e) {
+	// 			console.log("Got error on pad activation  ");
+	// 	});
+	// 	return;
+	// }
 
 
 

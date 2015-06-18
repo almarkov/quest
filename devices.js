@@ -38,6 +38,25 @@ exports.get_redirect_url = function (ip, device_id, command_id) {
 	return res;
 }
 
+exports.build_query = function(device, command, parameter) {
+	if (device == 'timer') {
+		return web_server_url + '/timer/'+ command + '/' + parameter;
+	}
+	for (var i = 0; i < config.list.length; i++) {
+		if (config.list[i].name == device) {
+			for (var j = 0; j < config.list[i].commands.length; j++) {
+				if (command == config.list[i].commands[j]) {
+					return "http://"
+						+ config.list[i].ip + ":"
+						+ config.list[i].port + "/" 
+						+ config.list[i].id + "/"
+						+ parseInt(j) + "/"
+						+ parameter;
+				}
+			}
+		}
+	}
+}
 
 exports.int_url_for = function (arduino_id, device_id, event_id) {
 	var res = "";

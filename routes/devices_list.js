@@ -68,7 +68,7 @@ router.get('/all', function(req, res, next) {
 	// передача модели в GUI
 	var result = {};
 	for (var i = 0; i < devices.list.length; i++) {
-		result["_" + devices.list[i].name] = devices.list[i];
+		result[devices.list[i].name] = devices.list[i];
 	}
 
 	// переменные статусы

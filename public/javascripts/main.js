@@ -82,122 +82,119 @@ $(document).ready(function() {
 		dataType: "json",
 			success: function (response) {
 				console.log('Devices state');
-				// входная дверь
-				if (response._entrance_door.state == "opened") {
-					$("#inpEntranceDoor").val('Открыта');
-				} else if (response._entrance_door.state == "closed") {
-					$("#inpEntranceDoor").val('Закрыта');
+				// двери
+				for (var i = 1; i <= 8; i++) {
+					if (response["door_" + i].state == "opened") {
+						$("#inpDoor" + i).val('Открыта');
+					} else if (response["door_" + i].state == "closed") {
+						$("#inpDoor" + i).val('Закрыта');
+					}
 				}
 
-				// таймер
-				$("#inpTimer").val(response._timer.current_value.toString());
-				if (response._timer.state == "active") {
-					$("#inpTimerState").val('Активен');
-				} else if (response._timer.state == "ready") {
-					$("#inpTimerState").val('Готов');
-				} else if (response._timer.state == "idle") {
-					$("#inpTimerState").val('Неактивен');
+				// аудиоплееры
+				for (var i = 1; i <= 5; i++) {
+					if (response["audio_player_" + i].state == "ch1_stop_ch2_stop") {
+						$("#inpAudioPlayer" + i).val('Оба канала выключены');
+					} else if (response["audio_player_" + i].state == "ch1_play_ch2_stop") {
+						$("#inpAudioPlayer" + i).val('Только канал 1 включён' + response["audio_player_" + i].value);
+					} else if (response["audio_player_" + i].state == "ch1_stop_ch2_play") {
+						$("#inpAudioPlayer" + i).val('Только канал 2 включён' + response["audio_player_" + i].value);
+					} else if (response["audio_player_" + i].state == "ch1_play_ch2_play") {
+						$("#inpAudioPlayer" + i).val('Оба канала включены' + response["audio_player_" + i].value);
+					}
 				}
 
-				// дверь в комнату №2 
-				if (response._room2_door.state == "opened") {
-					$("#inpRoom2Door").val('Открыта');
-				} else if (response._room2_door.state == "closed") {
-					$("#inpRoom2Door").val('Закрыта');
+				// видеооплееры
+				for (var i = 1; i <= 1; i++) {
+					if (response["video_player_" + i].state == "playing") {
+						$("#inpVideoPlayer" + i).val('Играет видео' + response["video_player_" + i].value);
+					} else if (response["video_player_" + i].state == "stopped") {
+						$("#inpVideoPlayer" + i).val('Показывает чёрный экран');
+					}
 				}
 
 				// кнопка, открывающая шкаф
-
-				// дверь шкафа
-				if (response._locker_door.state == "opened") {
-					$("#inpLockerDoor").val('Открыта');
-				} else if (response._locker_door.state == "closed") {
-					$("#inpLockerDoor").val('Закрыта');
+				if (response["locker_1_button"].state == "pushed") {
+					$("#inpLocker1Button").val('Уже была нажата');
+				} else if (response["locker_1_button"].state == "not_pushed") {
+					$("#inpLocker1Button").val('Ещё не была нажата');
 				}
 
-				// подставка многогранника
-				if (response._polyhedron_rack.state == "active") {
-					$("#inpPolyhedronRack").val('Активна');
-				} else if (response._polyhedron_rack.state == "idle") {
-					$("#inpPolyhedronRack").val('Не активна');
+				// таймер
+				$("#inpTimer").val(response.timer.current_value.toString());
+				if (response.timer.state == "active") {
+					$("#inpTimerState").val('Активен');
+				} else if (response.timer.state == "ready") {
+					$("#inpTimerState").val('Готов');
+				} else if (response.timer.state == "idle") {
+					$("#inpTimerState").val('Неактивен');
+				}
+
+				// дверь шкафа
+				if (response['locker_1'].state == "opened") {
+					$("#inpLocker1").val('Открыт');
+				} else if (response['locker_1'].state == "closed") {
+					$("#inpLocker1").val('Закрыт');
+				}
+
+				// многогранник
+				if (response['polyhedron'].state == "activated") {
+					$("#inpPolyhedron").val('Активен');
+				} else if (response['polyhedron'].state == "deactivated") {
+					$("#inpPolyhedron").val('Неактивен');
 				}
 
 				// свет
-				if (response._light.state == "on") {
+				if (response['light'].state == "on") {
 					$("#inpLight").val('Включён');
-				} else if (response._light.state == "off") {
+				} else if (response['light'].state == "off") {
 					$("#inpLight").val('Выключен');
 				}
 
+				// ремни
+				$("#inpSafetyBelts").val('Пристёгнуто ' + response['safety_belts'].value + ' игроков');
+
+				// вибрация
+				if (response['vibration'].state == "on") {
+					$("#inpVibration").val('Включёна');
+				} else if (response['vibration'].state == "off") {
+					$("#inpVibration").val('Выключена');
+				}
+
 				// экран 1
-				if (response._screen1.state == "playing") {
+				if (response.screen1.state == "playing") {
 					$("#inpScreen1").val('Проигрывает');
-				} else if (response._screen1.state == "stop") {
+				} else if (response.screen1.state == "stop") {
 					$("#inpScreen1").val('Выключен');
 				}
 
 				// экран 2
-				if (response._screen2.state == "playing") {
+				if (response.screen2.state == "playing") {
 					$("#inpScreen2").val('Проигрывает');
-				} else if (response._screen2.state == "stop") {
+				} else if (response.screen2.state == "stop") {
 					$("#inpScreen2").val('Выключен');
 				}
 
 				// кресла
-				if (response._chairs.state == "fasten") {
+				if (response.chairs.state == "fasten") {
 					$("#inpChairs").val('Ремни пристёгнуты');
-				} else if (response._chairs.state == "not_fasten") {
+				} else if (response.chairs.state == "not_fasten") {
 					$("#inpChairs").val('Ремни не пристёгнуты');
-				} else if (response._chairs.state == "vibrating") {
+				} else if (response.chairs.state == "vibrating") {
 					$("#inpChairs").val('Вибрация');
 				}
 
 				// аудиоконтроллер
-				if (response._audio_controller.state == "playing") {
+				if (response.audio_controller.state == "playing") {
 					$("#inpAudioController").val('Проигрывает');
-				} else if (response._audio_controller.state == "stop") {
+				} else if (response.audio_controller.state == "stop") {
 					$("#inpAudioController").val('Выключен');
 				}
 
-				// дверь в комнату №3
-				if (response._room3_door.state == "opened") {
-					$("#inpRoom3Door").val('Открыта');
-				} else if (response._room3_door.state == "closed") {
-					$("#inpRoom3Door").val('Закрыта');
-				}
-
-				// дверь в комнату №4
-				if (response._room4_door.state == "opened") {
-					$("#inpRoom4Door").val('Открыта');
-				} else if (response._room4_door.state == "closed") {
-					$("#inpRoom4Door").val('Закрыта');
-				}
-
-				// дверь в комнату №5
-				if (response._room5_door.state == "opened") {
-					$("#inpRoom5Door").val('Открыта');
-				} else if (response._room5_door.state == "closed") {
-					$("#inpRoom5Door").val('Закрыта');
-				}
-
-				// дверь в комнату №6
-				if (response._room6_door.state == "opened") {
-					$("#inpRoom6Door").val('Открыта');
-				} else if (response._room6_door.state == "closed") {
-					$("#inpRoom6Door").val('Закрыта');
-				}
-
-				// дверь в комнату №7
-				if (response._room7_door.state == "opened") {
-					$("#inpRoom7Door").val('Открыта');
-				} else if (response._room7_door.state == "closed") {
-					$("#inpRoom7Door").val('Закрыта');
-				}
-
 				// планшет
-				if (response._personal_code_pad.state == "active") {
+				if (response.personal_code_pad.state == "active") {
 					$("#inpPersonalCodePadState").val('Активен');
-				} else if (response._personal_code_pad.state == "idle") {
+				} else if (response.personal_code_pad.state == "idle") {
 					$("#inpPersonalCodePadState").val('Не активен');
 				}
 
@@ -223,6 +220,21 @@ $(document).ready(function() {
 //-----------------------------------------------------------------------------
 // Кнопкки управления игрой
 //-----------------------------------------------------------------------------
+// Подготовка устройств
+$('#Head .DashBoard .GetReady').click(function(e){
+	$.ajax({
+		url: web_server_url + '/game/get_ready',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('get ready');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
 // Инициализация игры
 $('#Head .DashBoard .Start').click(function(e){
 	if (!$("#inpGamerCount").val()) {
@@ -246,6 +258,22 @@ $('#Head .DashBoard .Start').click(function(e){
 	});
 });
 
+// режим обслуживания
+$('#Head .DashBoard .ServiceMode').click(function(e){
+	$.ajax({
+		url: web_server_url + '/game/service_mode',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('service mode');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+
 // Восстанавливаем в модели значения по умолчанию
 $('#Head .DashBoard .Reset').click(function(e){
 	$.ajax({
@@ -257,6 +285,22 @@ $('#Head .DashBoard .Reset').click(function(e){
 				$("#inpGamerCount").prop('disabled', false);
 				console.log('game reset');
 				restart_timer();
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+
+// Включить аудио 'В очередь'
+$('#Head .DashBoard .AllIn').click(function(e){
+	$.ajax({
+		url: web_server_url + '/game/allin',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('start audio');
 			},
 			error: function(error) {
 				console.log('ERROR:', error);
@@ -317,18 +361,13 @@ $('#Head .DashBoard .StopScan').click(function(e){
 });
 
 //-----------------------------------------------------------------------------
-// Управление дверями
+// Кнопки, эмулирующие двери
 //-----------------------------------------------------------------------------
-
-
-//-----------------------------------------------------------------------------
-// Кнопки, эмулирующие кнопки
-//-----------------------------------------------------------------------------
-// Кнопка открывающая шкаф
-$('#Main .LockerButton .Push').click(function(e){
-	if ($("#inpRoom2Door").val() == 'Открыта') {
+for (var i = 1; i < 8; i++) {
+	// Кнопка открывающая дверь
+	$('#Main .Door' + i + ' .Open').click(function(e){
 		$.ajax({
-			url: web_server_url + '/locker_button/pushed/0',
+			url: web_server_url + '/door_' + i + '/open/0',
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
@@ -339,7 +378,162 @@ $('#Main .LockerButton .Push').click(function(e){
 					console.log('ERROR:', error);
 				}
 		});
-	}
+	});
+	// Кнопка закрывающая дверь
+	$('#Main .Door' + i + ' .Close').click(function(e){
+		$.ajax({
+			url: web_server_url + '/door_' + i + '/close/0',
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('button pushed');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	});
+}
+
+//-----------------------------------------------------------------------------
+// Кнопки, эмулирующие события аудиоплеера
+//-----------------------------------------------------------------------------
+for (var i = 1; i <= 5; i++) {
+	// Кнопка окончания канала 1
+	$('#Main .AudioPlayer' + i + ' .Stopped1').click(function(e){
+		$.ajax({
+			url: web_server_url + '/audio_player_' + i + '/ch1_playback_finished/0',
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('button pushed');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	});
+	// Кнопка окончания канала 2
+	$('#Main .AudioPlayer' + i + ' .Stopped2').click(function(e){
+		$.ajax({
+			url: web_server_url + '/audio_player_' + i + '/ch2_playback_finished/0',
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('button pushed');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	});
+}
+
+//-----------------------------------------------------------------------------
+// Кнопки, эмулирующие события видеоплеера
+//-----------------------------------------------------------------------------
+for (var i = 1; i <= 1; i++) {
+	// Кнопка окончания видео
+	$('#Main .VideoPlayer' + i + ' .Stopped').click(function(e){
+		$.ajax({
+			url: web_server_url + '/video_player_' + i + '/playback_finished/0',
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('button pushed');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	});
+}
+
+//-----------------------------------------------------------------------------
+// Кнопки, эмулирующие кнопки
+//-----------------------------------------------------------------------------
+// Кнопка открывающая шкаф
+$('#Main .Locker1Button .Push').click(function(e){
+	$.ajax({
+		url: web_server_url + '/locker_1_button/pushed/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('button pushed');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+
+//-----------------------------------------------------------------------------
+// Кнопки, эмулирующие устройства
+//-----------------------------------------------------------------------------
+// Кнопка 'Активировать многогранник
+$('#Main .Polyhedron .On').click(function(e){
+	$.ajax({
+		url: web_server_url + '/polyhedron/activated/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('rack activated');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+// Кнопка 'Деактивировать многогранник'
+$('#Main .Polyhedron .Off').click(function(e){
+	$.ajax({
+		url: web_server_url + '/polyhedron/deactivated/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('rack deactivated');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+// Кнопка 'пристегнуть ремни'
+$('#Main .SafetyBelts .On').click(function(e){
+	$.ajax({
+		url: web_server_url + '/safety_belts/number_of_fastened/10',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('button pushed');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+// Кнопка 'отстегнуть ремни'
+$('#Main .SafetyBelts .Off').click(function(e){
+	$.ajax({
+		url: web_server_url + '/safety_belts/number_of_fastened/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('button pushed');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
 });
 
 // Кнопка спасения предпоследнего игрока

@@ -19,8 +19,11 @@
 				<label for="inpGamerCount" class="Label1">Число игроков</label>
 				<input type="text" name="_gamer_count" value="" id="inpGamerCount" class="Input1" />
 				<ul class='DashBoard'>
+					<li><a class="GetReady BType_01 Active"><span>Приготовиться к началу квеста</span></a></li>
 					<li><a class="Start BType_01 Active"><span>Начать</span></a></li>
+					<li><a class="ServiceMode BType_01 Active"><span>Включить режим обслуживания</span></a></li>
 					<li><a class="Reset BType_01"><span>Сбросить</span></a></li>
+					<li><a class="AllIn BType_01"><span>Все зашли внутрь</span></a></li>
 					<li><a class="Queue BType_01"><span>Аудио 'в очередь'</span></a></li>
 					<li><a class="StartScan BType_01"><span>Сканировать человека</span></a></li>
 					<li><a class="StopScan BType_01"><span>Закончить сканирование</span></a></li>
@@ -51,19 +54,19 @@
 
 		<div id='Main'>
 		<div class="col1">
-			<!-- Входная дверь -->
+			<!-- Дверь 1 -->
 			<div class='Device'>
 
 				<div class="Status Online">
 				</div>
 
 				<div class="State">
-					<label for="inpEntranceDoor" class="Label1">Входная дверь</label>
-					<input type="text" name="_entrance_door" value="" id="inpEntranceDoor" class="Input1" disabled/>
+					<label for="inpDoor1" class="Label1">Дверь 1</label>
+					<input type="text" name="door1" value="" id="inpDoor1" class="Input1" disabled/>
 				</div>
 
 				<div class="Commands">
-					<ul class='EntranceDoor'>
+					<ul class='Door1'>
 						<li><a class="Open BType_01"><span>Открыть</span></a></li>
 						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
 					</ul>
@@ -90,24 +93,119 @@
 				</div>
 			</div>
 
-			<!-- Дверь в команту №2 -->
+			<!-- Аудиоплеер 1 -->
 			<div class='Device'>
 
 				<div class="Status Online">
 				</div>
 
 				<div class="State">
-					<label for="inpRoom2Door" class="Label1">Дверь в команту №2</label>
-					<input type="text" name="_room2_door" value="" id="inpRoom2Door" class="Input1" disabled/>
+					<label for="inpAudioPlayer1" class="Label1">Аудиоплеер 1</label>
+					<input type="text" name="audio_player1" value="" id="inpAudioPlayer1" class="Input1" disabled/>
 				</div>
 
 				<div class="Commands">
-					<ul class='Room2Door'>
-						<li><a class="Open BType_01"><span>Открыть</span></a></li>
-						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					<ul class='AudioPlayer1'>
+						<li><a class="Stopped1 BType_01"><span>Закончилось 1</span></a></li>
+						<li><a class="Stopped2 BType_01"><span>Закончилось 2</span></a></li>
 					</ul>
 				</div>
 			</div>
+
+			<!-- Аудиоплеер 2 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpAudioPlayer2" class="Label1">Аудиоплеер 2</label>
+					<input type="text" name="audio_player2" value="" id="inpAudioPlayer2" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='AudioPlayer2'>
+						<li><a class="Stopped1 BType_01"><span>Закончилось 1</span></a></li>
+						<li><a class="Stopped2 BType_01"><span>Закончилось 2</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Аудиоплеер 3 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpAudioPlayer3" class="Label1">Аудиоплеер 3</label>
+					<input type="text" name="audio_player3" value="" id="inpAudioPlayer3" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='AudioPlayer3'>
+						<li><a class="Stopped1 BType_01"><span>Закончилось 1</span></a></li>
+						<li><a class="Stopped2 BType_01"><span>Закончилось 2</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Аудиоплеер 4 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpAudioPlayer4" class="Label1">Аудиоплеер 4</label>
+					<input type="text" name="audio_player4" value="" id="inpAudioPlayer4" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='AudioPlayer4'>
+						<li><a class="Stopped1 BType_01"><span>Закончилось 1</span></a></li>
+						<li><a class="Stopped2 BType_01"><span>Закончилось 2</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Аудиоплеер 5 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpAudioPlayer5" class="Label1">Аудиоплеер 5</label>
+					<input type="text" name="audio_player5" value="" id="inpAudioPlayer5" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='AudioPlayer5'>
+						<li><a class="Stopped1 BType_01"><span>Закончилось 1</span></a></li>
+						<li><a class="Stopped2 BType_01"><span>Закончилось 2</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Видеоплеер 1 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpVideoPlayer1" class="Label1">Видеоплеер 1</label>
+					<input type="text" name="video_player1" value="" id="inpVideoPlayer1" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='VideoPlayer1'>
+						<li><a class="Stopped BType_01"><span>Закончилось</span></a></li>
+					</ul>
+				</div>
+			</div>
+
 
 			<!-- Кнопка, открывающая шкаф -->
 			<div class='Device'>
@@ -116,53 +214,55 @@
 				</div>
 
 				<div class="State">
-					<label for="inpLockerButton" class="Label1">Кнопка, открывающая шкаф</label>
+					<label for="inpLocker1Button" class="Label1">Кнопка, открывающая шкаф</label>
+					<input type="text" name="locker_1_button" value="" id="inpLocker1Button" class="Input1" disabled/>
 				</div>
 
 				<div class="Commands">
-					<ul class='LockerButton'>
+					<ul class='Locker1Button'>
 						<li><a class="Push BType_01"><span>Нажать</span></a></li>
 					</ul>
 				</div>
 			</div>
 
-			<!-- Дверь шкафа -->
+			<!-- шкаф -->
 			<div class='Device'>
 
 				<div class="Status Online">
 				</div>
 
 				<div class="State">
-					<label for="inpLockerDoor" class="Label1">Дверь шкафа</label>
-					<input type="text" name="_locker_door" value="" id="inpLockerDoor" class="Input1" disabled/>
+					<label for="inpLocker1" class="Label1">Шкаф</label>
+					<input type="text" name="locker_1" value="" id="inpLocker1" class="Input1" disabled/>
 				</div>
 
 				<div class="Commands">
-					<ul class='LockerDoor'>
+					<ul class='Locker1'>
 						<li><a class="Open BType_01"><span>Открыть</span></a></li>
 						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
 					</ul>
 				</div>
 			</div>
 
-			<!-- Подставка многогранника -->
+			<!-- Многогранник -->
 			<div class='Device'>
 
 				<div class="Status Online">
 				</div>
 
 				<div class="State">
-					<label for="inpPolyhedronRack" class="Label1">Подставка многогранника</label>
-					<input type="text" name="_polyhedron_rack" value="" id="inpPolyhedronRack" class="Input1" disabled/>
+					<label for="inpPolyhedron" class="Label1">Многогранник</label>
+					<input type="text" name="polyhedron" value="" id="inpPolyhedron" class="Input1" disabled/>
 				</div>
 
 				<div class="Commands">
-					<ul class='PolyhedronRack'>
+					<ul class='Polyhedron'>
 						<li><a class="On BType_01"><span>Активировать</span></a></li>
 						<li><a class="Off BType_01"><span>Деактивировать</span></a></li>
 					</ul>
 				</div>
 			</div>
+
 			<!-- Свет -->
 			<div class='Device'>
 
@@ -171,7 +271,7 @@
 
 				<div class="State">
 					<label for="inpLight" class="Label1">Свет</label>
-					<input type="text" name="_light" value="" id="inpLight" class="Input1" disabled/>
+					<input type="text" name="light" value="" id="inpLight" class="Input1" disabled/>
 				</div>
 
 				<div class="Commands">
@@ -181,6 +281,45 @@
 					</ul>
 				</div>
 			</div>
+
+			<!-- Ремни -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpSafetyBelts" class="Label1">Ремни</label>
+					<input type="text" name="safety_belts" value="" id="inpSafetyBelts" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='SafetyBelts'>
+						<li><a class="On BType_01"><span>Застегнуть</span></a></li>
+						<li><a class="Off BType_01"><span>Отстегнуть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Вибрация -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpVibration" class="Label1">Вибрация</label>
+					<input type="text" name="vibration" value="" id="inpVibration" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Vibration'>
+						<li><a class="On BType_01"><span>Включить</span></a></li>
+						<li><a class="Off BType_01"><span>Выключить</span></a></li>
+					</ul>
+				</div>
+			</div>
+
 			<!-- Экран 1 -->
 			<div class='Device'>
 
@@ -235,24 +374,6 @@
 				</div>
 			</div>
 
-			<!-- Аудиоконтроллер -->
-			<div class='Device'>
-
-				<div class="Status Online">
-				</div>
-
-				<div class="State">
-					<label for="inpAudioController" class="Label1">Аудиоконтроллер</label>
-					<input type="text" name="_audio_controller" value="" id="inpAudioController" class="Input1" disabled/>
-				</div>
-
-				<div class="Commands">
-					<ul class='AudioController'>
-						<li><a class="Stopped BType_01"><span>Закончилось</span></a></li>
-					</ul>
-				</div>
-			</div>
-
 			<!-- Дверь в команту №3 -->
 			<div class='Device'>
 
@@ -260,50 +381,50 @@
 				</div>
 
 				<div class="State">
-					<label for="inpRoom3Door" class="Label1">Дверь в команту №3</label>
-					<input type="text" name="_room3_door" value="" id="inpRoom3Door" class="Input1" disabled/>
+					<label for="inpDoor3" class="Label1">Дверь 3</label>
+					<input type="text" name="door3" value="" id="inpDoor3" class="Input1" disabled/>
 				</div>
 
 				<div class="Commands">
-					<ul class='Room3Door'>
+					<ul class='Door3'>
 						<li><a class="Open BType_01"><span>Открыть</span></a></li>
 						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
 					</ul>
 				</div>
 			</div>
 
-			<!-- Дверь в команту №4 -->
+			<!-- Дверь  №4 -->
 			<div class='Device'>
 
 				<div class="Status Online">
 				</div>
 
 				<div class="State">
-					<label for="inpRoom4Door" class="Label1">Дверь в команту №4</label>
-					<input type="text" name="_room4_door" value="" id="inpRoom4Door" class="Input1" disabled/>
+					<label for="inpDoor4" class="Label1">Дверь 4</label>
+					<input type="text" name="door4" value="" id="inpDoor4" class="Input1" disabled/>
 				</div>
 
 				<div class="Commands">
-					<ul class='Room4Door'>
+					<ul class='Door4'>
 						<li><a class="Open BType_01"><span>Открыть</span></a></li>
 						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
 					</ul>
 				</div>
 			</div>
 
-			<!-- Дверь в команту №5 -->
+			<!-- Дверь  №5 -->
 			<div class='Device'>
 
 				<div class="Status Online">
 				</div>
 
 				<div class="State">
-					<label for="inpRoom5Door" class="Label1">Дверь в команту №5</label>
-					<input type="text" name="_room5_door" value="" id="inpRoom5Door" class="Input1" disabled/>
+					<label for="inpDoor5" class="Label1">Дверь 5</label>
+					<input type="text" name="door5" value="" id="inpDoor5" class="Input1" disabled/>
 				</div>
 
 				<div class="Commands">
-					<ul class='Room5Door'>
+					<ul class='Door5'>
 						<li><a class="Open BType_01"><span>Открыть</span></a></li>
 						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
 					</ul>
@@ -347,19 +468,19 @@
 				</div>
 			</div>
 
-			<!-- Дверь в команту №6 -->
+			<!-- Дверь №6 -->
 			<div class='Device'>
 
 				<div class="Status Online">
 				</div>
 
 				<div class="State">
-					<label for="inpRoom6Door" class="Label1">Дверь в команту №6</label>
-					<input type="text" name="_room6_door" value="" id="inpRoom6Door" class="Input1" disabled/>
+					<label for="inpDoor6" class="Label1">Дверь 6</label>
+					<input type="text" name="door6" value="" id="inpDoor6" class="Input1" disabled/>
 				</div>
 
 				<div class="Commands">
-					<ul class='Room6Door'>
+					<ul class='Door6'>
 						<li><a class="Open BType_01"><span>Открыть</span></a></li>
 						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
 					</ul>
@@ -409,20 +530,57 @@
 					</ul>
 				</div>
 			</div>
-
-			<!-- Дверь в команту №7 -->
+			<!-- Дверь 2 -->
 			<div class='Device'>
 
 				<div class="Status Online">
 				</div>
 
 				<div class="State">
-					<label for="inpRoom7Door" class="Label1">Дверь в команту №7</label>
-					<input type="text" name="_room7_door" value="" id="inpRoom7Door" class="Input1" disabled/>
+					<label for="inpDoor2" class="Label1">Дверь 2</label>
+					<input type="text" name="door2" value="" id="inpDoor2" class="Input1" disabled/>
 				</div>
 
 				<div class="Commands">
-					<ul class='Room7Door'>
+					<ul class='Door2'>
+						<li><a class="Open BType_01"><span>Открыть</span></a></li>
+						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Дверь  №7 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpDoor7" class="Label1">Дверь 7</label>
+					<input type="text" name="door7" value="" id="inpDoor7" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Door7'>
+						<li><a class="Open BType_01"><span>Открыть</span></a></li>
+						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Дверь  №8 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpDoor8" class="Label1">Дверь 8</label>
+					<input type="text" name="door8" value="" id="inpDoor8" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Door8'>
 						<li><a class="Open BType_01"><span>Открыть</span></a></li>
 						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
 					</ul>
