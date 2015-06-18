@@ -81,6 +81,20 @@ router.get('/allin', function(req, res, next) {
 // подготовка устройств
 router.get('/get_ready', function(req, res, next) {
 
+	// закрываем двери
+	for (var i = 0; i < config.list.length; i++) {
+		var query = devices.build_query('door_' + i, 'close', '0');
+		http.get(query, function(res) {
+				res.on('data', function(data){
+
+					devices.get('door_' + i).state = 'closed';
+
+				});
+			}).on('error', function(e) {
+				console.log("audio_player_3 play_channel_1 error: ");
+		});
+	}
+
 	var result = {success: 1};
 	res.json(result);
 
