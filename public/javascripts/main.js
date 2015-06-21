@@ -105,11 +105,29 @@ $(document).ready(function() {
 				}
 
 				// видеооплееры
-				for (var i = 1; i <= 1; i++) {
+				for (var i = 1; i <= 4; i++) {
 					if (response["video_player_" + i].state == "playing") {
 						$("#inpVideoPlayer" + i).val('Играет видео' + response["video_player_" + i].value);
 					} else if (response["video_player_" + i].state == "stopped") {
 						$("#inpVideoPlayer" + i).val('Показывает чёрный экран');
+					}
+				}
+
+				// ячейки
+				for (var i = 1; i <= 5; i++) {
+					if (response["cell_" + i].state == "opened") {
+						$("#inpCell" + i + "State").val('Открыта');
+					} else if (response["cell_" + i].state == "closed") {
+						$("#inpCell" + i + "State").val('Закрыта');
+					}
+				}
+
+				// терминалы
+				for (var i = 1; i <= 4; i++) {
+					if (response["terminal_" + i].state == "active") {
+						$("#inpTerminal" + i + "State").val('Игра');
+					} else if (response["terminal_" + i].state == "sleep") {
+						$("#inpTerminal" + i + "State").val('Сон');
 					}
 				}
 
@@ -161,42 +179,45 @@ $(document).ready(function() {
 					$("#inpVibration").val('Выключена');
 				}
 
-				// экран 1
-				if (response.screen1.state == "playing") {
-					$("#inpScreen1").val('Проигрывает');
-				} else if (response.screen1.state == "stop") {
-					$("#inpScreen1").val('Выключен');
+				// подсветка
+				if (response['inf_mirror_backlight'].state == "on") {
+					$("#inpInfMirrorBacklightState").val('Светится ' + response['inf_mirror_backlight'].value);
+				} else if (response['inf_mirror_backlight'].state == "off") {
+					$("#inpInfMirrorBacklightState").val('Не светится');
 				}
 
-				// экран 2
-				if (response.screen2.state == "playing") {
-					$("#inpScreen2").val('Проигрывает');
-				} else if (response.screen2.state == "stop") {
-					$("#inpScreen2").val('Выключен');
+				// статуя
+				$("#inpFigureState").val('Вставлено ' + response['figure'].value + ' жетонов');
+
+				// шкаф RFID
+				if (response['locker_2'].state == "opened") {
+					$("#inpLocker2").val('Открыт');
+				} else if (response['locker_2'].state == "closed") {
+					$("#inpLocker2").val('Закрыт');
 				}
 
-				// кресла
-				if (response.chairs.state == "fasten") {
-					$("#inpChairs").val('Ремни пристёгнуты');
-				} else if (response.chairs.state == "not_fasten") {
-					$("#inpChairs").val('Ремни не пристёгнуты');
-				} else if (response.chairs.state == "vibrating") {
-					$("#inpChairs").val('Вибрация');
+				// RFID карта
+				if (response['card'].state == "given") {
+					$("#inpCard").val('Выдана');
+				} else if (response['card'].state == "not_given") {
+					$("#inpCard").val('Не выдана');
 				}
 
-				// аудиоконтроллер
-				if (response.audio_controller.state == "playing") {
-					$("#inpAudioController").val('Проигрывает');
-				} else if (response.audio_controller.state == "stop") {
-					$("#inpAudioController").val('Выключен');
+				// считыватель карты
+				if (response['card_reader'].state == "passed") {
+					$("#inpCardReader").val('Пройдено');
+				} else if (response['card_reader'].state == "not_passed") {
+					$("#inpCardReader").val('Не пройдено');
 				}
 
-				// планшет
-				if (response.personal_code_pad.state == "active") {
-					$("#inpPersonalCodePadState").val('Активен');
-				} else if (response.personal_code_pad.state == "idle") {
-					$("#inpPersonalCodePadState").val('Не активен');
+				// энергостена
+				if (response['power_wall'].state == "passed") {
+					$("#inpPowerWall").val('Пройдено');
+				} else if (response['power_wall'].state == "not_passed") {
+					$("#inpPowerWall").val('Не пройдено');
 				}
+
+
 
 				$("#QuestState").text(response.quest_state);
 				$("#QuestError").text(response.quest_error);
@@ -435,7 +456,7 @@ for (var i = 1; i <= 5; i++) {
 //-----------------------------------------------------------------------------
 // Кнопки, эмулирующие события видеоплеера
 //-----------------------------------------------------------------------------
-for (var i = 1; i <= 1; i++) {
+for (var i = 1; i <= 4; i++) {
 	// Кнопка окончания видео
 	$('#Main .VideoPlayer' + i + ' .Stopped').click(function(e){
 		$.ajax({
@@ -597,10 +618,10 @@ $('#Main .PersonalCodePad .SendWrong').click(function(e){
 // Кнопки, эмулирующие ячейки
 //-----------------------------------------------------------------------------
 // Кнопка 'Отправить' - для отправки значения ячейки
-$('#Main .Cell1 .Send').click(function(e){
-	//if ($("#inpRoom2Door").val() == 'Открыта') {
+for (var i = 1; i <= 5; i++) {
+	$('#Main .Cell' + i + ' .Send').click(function(e){
 		$.ajax({
-			url: web_server_url + '/cell1/enter/' + $("#inpCell1").val(),
+			url: web_server_url + '/cell_' + i +'/code_entered/' + $("#inpCell" + i).val(),
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
@@ -610,27 +631,9 @@ $('#Main .Cell1 .Send').click(function(e){
 				error: function(error) {
 					console.log('ERROR:', error);
 				}
-		});
-	//}
-});
-
-// Кнопка 'Отправить' - для отправки значения ячейки
-$('#Main .Cell2 .Send').click(function(e){
-	//if ($("#inpRoom2Door").val() == 'Открыта') {
-		$.ajax({
-			url: web_server_url + '/cell2/enter/' + $("#inpCell2").val(),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('cell enter');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
-	//}
-});
+			});
+	});
+}
 
 // Кнопки 'Активировать' и 'Деактивировать' - для моделирования подставки
 $('#Main .PolyhedronRack .On').click(function(e){
@@ -726,4 +729,24 @@ $('#Main .AudioController .Stopped').click(function(e){
 				console.log('ERROR:', error);
 			}
 	});
+});
+
+
+// перезагрузка устройства
+$('#Main .Device .Status').click(function(e){
+	if (confirm("Подтвердите перезагрузку")){
+		debugger;
+		$.ajax({
+			url: web_server_url + '/game/reload/' + e.srcElement.parentElement.children[1].children[1].name,
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('reloaded');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	}
 });

@@ -18,6 +18,7 @@ a:hover.BType_01 span {}
 .col1 { position: absolute; width: 324px; }
 .col2 { position: absolute; left: 324px; width: 324px; }
 .col3 { position: absolute; left: 648px; width: 324px; }
+.col4 { position: absolute; left: 972px; width: 324px; }
 
 ul.DashBoard li {
   display: inline-block;

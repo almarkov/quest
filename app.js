@@ -56,6 +56,12 @@ var safety_belts = require('./routes/safety_belts');
 
 var vibration    = require('./routes/vibration');
 
+var cell_1       = require('./routes/cell_1');
+var cell_2       = require('./routes/cell_2');
+var cell_3       = require('./routes/cell_3');
+var cell_4       = require('./routes/cell_4');
+var cell_5       = require('./routes/cell_5');
+
 var app = express();
 
 // адрес самого сервера
@@ -151,7 +157,11 @@ app.use('/safety_belts', safety_belts);
 
 app.use('/vibration', vibration);
 
-
+app.use('/cell_1', cell_1);
+app.use('/cell_2', cell_2);
+app.use('/cell_3', cell_3);
+app.use('/cell_4', cell_4);
+app.use('/cell_5', cell_5);
 
 
 // catch 404 and forward to error handler

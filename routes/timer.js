@@ -9,6 +9,14 @@ router.get('/ready', function(req, res, next) {
 	devices.get('timer').state         = 'ready';
 	devices.get('timer').current_value = '';
 
+	// если ждали начала игры
+	if (gamers.quest_state == 1) {
+		gamers.quest_state = 5;
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
+
 	// если ждали открытия двери 1
 	if (gamers.quest_state == 15) {
 		devices.get('door_1').state = "opened";
@@ -20,88 +28,6 @@ router.get('/ready', function(req, res, next) {
 	// если ждали закрытия двери 1
 	if (gamers.quest_state == 20) {
 		devices.get('door_1').state = "closed";
-
-		// запускаем аудио
-		var query = devices.build_query('audio_player_1', 'play_channel_1', config.files[0]);
-		console.log(i);
-		console.log(query);
-		http.get(query, function(res) {
-				res.on('data', function(data){
-
-					devices.get('audio_player_1').value = config.files[0];
-					if (devices.get('audio_player_1').state == "ch1_stop_ch2_play") {
-						devices.get('audio_player_1').state = "ch1_play_ch2_play";
-					} else {
-						devices.get('audio_player_1').state = "ch1_play_ch2_stop";	
-					}
-				});
-			}).on('error', function(e) {
-				console.log("audio_player_1 play_channel_1 error: ");
-		});
-		var query = devices.build_query('audio_player_2', 'play_channel_1', config.files[0]);
-		console.log(i);
-		console.log(query);
-		http.get(query, function(res) {
-				res.on('data', function(data){
-
-					devices.get('audio_player_1').value = config.files[0];
-					if (devices.get('audio_player_2').state == "ch1_stop_ch2_play") {
-						devices.get('audio_player_2').state = "ch1_play_ch2_play";
-					} else {
-						devices.get('audio_player_2').state = "ch1_play_ch2_stop";	
-					}
-				});
-			}).on('error', function(e) {
-				console.log("audio_player_2 play_channel_1 error: ");
-		});
-		var query = devices.build_query('audio_player_3', 'play_channel_1', config.files[0]);
-		console.log(i);
-		console.log(query);
-		http.get(query, function(res) {
-				res.on('data', function(data){
-
-					devices.get('audio_player_1').value = config.files[0];
-					if (devices.get('audio_player_3').state == "ch1_stop_ch2_play") {
-						devices.get('audio_player_3').state = "ch1_play_ch2_play";
-					} else {
-						devices.get('audio_player_3').state = "ch1_play_ch2_stop";	
-					}
-				});
-			}).on('error', function(e) {
-				console.log("audio_player_3 play_channel_1 error: ");
-		});
-		var query = devices.build_query('audio_player_4', 'play_channel_1', config.files[0]);
-		console.log(i);
-		console.log(query);
-		http.get(query, function(res) {
-				res.on('data', function(data){
-
-					devices.get('audio_player_1').value = config.files[0];
-					if (devices.get('audio_player_4').state == "ch1_stop_ch2_play") {
-						devices.get('audio_player_4').state = "ch1_play_ch2_play";
-					} else {
-						devices.get('audio_player_4').state = "ch1_play_ch2_stop";	
-					}
-				});
-			}).on('error', function(e) {
-				console.log("audio_player_4 play_channel_1 error: ");
-		});
-		var query = devices.build_query('audio_player_5', 'play_channel_1', config.files[0]);
-		console.log(i);
-		console.log(query);
-		http.get(query, function(res) {
-				res.on('data', function(data){
-
-					devices.get('audio_player_1').value = config.files[0];
-					if (devices.get('audio_player_5').state == "ch1_stop_ch2_play") {
-						devices.get('audio_player_5').state = "ch1_play_ch2_play";
-					} else {
-						devices.get('audio_player_5').state = "ch1_play_ch2_stop";	
-					}
-				});
-			}).on('error', function(e) {
-				console.log("audio_player_5 play_channel_1 error: ");
-		});
 
 		// запускаем видео
 		for (var i = 1; i <= 1; i++) {

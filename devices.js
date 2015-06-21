@@ -15,6 +15,7 @@ exports.list = [];
 
 for (var i = 0; i < config.list.length; i++) {
 	exports.list[i] = simple_copy_obj(config.list[i]);
+	exports.list[i].mutex = 0;
 }
 
 exports.default_timer_value = config.default_timer_value;
@@ -86,6 +87,15 @@ exports.timer = function() {
 exports.get = function(name) {
 	for (var i = 0; i < exports.list.length; i++) {
 		if (exports.list[i].name == name) {
+			return exports.list[i];
+		}
+	}
+}
+
+// устройство по id + arduino_id
+exports.get_by_id = function(arduino_id, id) {
+	for (var i = 0; i < exports.list.length; i++) {
+		if (exports.list[i].arduino_id == arduino_id && exports.list[i].id == id) {
 			return exports.list[i];
 		}
 	}
