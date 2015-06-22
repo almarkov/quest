@@ -87,6 +87,40 @@ router.get('/ch1_playback_finished/:parameter', function(req, res, next) {
 router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 	var result = {success: 1};
 	res.json(result);
+
+	// если закончился звук аннигиляции
+	if (devices.get('audio_player_4').value == config.files[13]) {
+		var query = devices.build_query('audio_player_4', 'play_channel_2', config.files[14]);
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
+
+					devices.get('audio_player_4').value = config.files[14];
+					devices.get('audio_player_4').state = "ch1_play_ch2_play";
+
+				});
+			}).on('error', function(e) {
+				console.log("Got error: ");
+		});
+	// если закончился звук 'укажите квадраты'
+	} else if (devices.get('audio_player_4').value == config.files[14]){
+		devices.get('audio_player_4').value = "";
+		devices.get('audio_player_4').state = "ch1_play_ch2_stop";
+		// пробуждаем планшет
+		var query = devices.build_query('terminal_2', "activate") + "/0";
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
+
+					devices.get('terminal_2').state = 'active';
+
+
+			    });
+			}).on('error', function(e) {
+				console.log("Got error on pad activation  ");
+		});
+	}
+
 });
 
 //-----------------------------------------------------------------------------

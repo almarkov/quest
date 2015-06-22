@@ -59,37 +59,260 @@ router.get('/ready', function(req, res, next) {
 	// 	res.json(result);
 	// }
 
-	// если ждали открытия двери 3
-	// if (gamers.quest_state == 100) {
-	// 	devices.get('room3_door').state = "opened";
+	// если ждали открытия двери 2
+	if (gamers.quest_state == 100) {
+		devices.get('door_2').state = 'opened';
 
-	// 	gamers.quest_state = 110; //'Требуется действие оператора. Убедитесь, что в комнате сканирования только один человек';
+		gamers.quest_state = 110; //'Требуется действие оператора. Убедитесь, что в комнате сканирования только один человек';
 
-	// 	var result = {success: 1};
-	// 	res.json(result);
-	// 	return;
-	// }
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
 
-	// если ждали пока закроется дверь 3 
-	// if (gamers.quest_state >= 110 && gamers.quest_state < 120) {
-	// 	devices.get('room3_door').state = "closed";
-	// 	// пробуждаем планшет
-	// 	var query = devices.ext_url_for('personal_code_pad') + "/" +  devices.get_command_id('personal_code_pad', "activate") + "/0";
-	// 	http.get(query, function(res) {
-	// 			console.log("Got response: " );
-	// 			res.on('data', function(data){
+	// если ждали пока закроется дверь 2
+	if (gamers.quest_state >= 110 && gamers.quest_state < 120) {
+		devices.get('door_2').state = 'closed';
+		// пробуждаем планшет
+		var query = devices.build_query('terminal_1', "activate") + "/0";
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
 
-	// 				devices.get('personal_code_pad').state = 'active';
+					devices.get('terminal_1').state = 'active';
 
-	// 		        gamers.quest_state += 10;//'Идет сканирование игрока X из Y. 120-129
+			        gamers.quest_state += 10;//'Идет сканирование игрока X из Y. 120-129
 
-	// 		    });
-	// 		}).on('error', function(e) {
-	// 			console.log("Got error on pad activation  ");
-	// 	});
-	// 	return;
-	// }
+			    });
+			}).on('error', function(e) {
+				console.log("Got error on pad activation  ");
+		});
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
 
+	// если ждали пока откроется дверь 4
+	if (gamers.quest_state >= 120 && gamers.quest_state < 130
+		&& gamers.quest_state % 10 != gamers.count-2) {
+		devices.get('door_4').state = 'opened';
+
+		gamers.quest_state += 10; //'Игрко X прощёл сканирование игрока X из Y. 130-139
+
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
+
+	// если ждали пока откроется дверь 3 (предпоследний)
+	if (gamers.quest_state >= 120 && gamers.quest_state < 130
+		&& gamers.quest_state % 10 == gamers.count-2) {
+		devices.get('door_3').state = 'opened';
+
+		gamers.quest_state += 10; //'Игрко X прощёл сканирование игрока X из Y. 130-139
+
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
+
+	// если ждали пока закроется дверь 3 (предпоследний)
+	if (gamers.quest_state >= 130 && gamers.quest_state < 140
+		&& gamers.quest_state % 10 == gamers.count-2) {
+		devices.get('door_3').state = 'closed';
+
+		// включаем звук на канале 2 плеера 4
+		var query = devices.build_query('audio_player_4', 'play_channel_2', config.files[13]);
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
+
+					devices.get('audio_player_4').value = config.files[13];
+					devices.get('audio_player_4').state = "ch1_play_ch2_play";
+
+				});
+			}).on('error', function(e) {
+				console.log("Got error: ");
+		});
+
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
+
+
+	// если ждали пока откроется дверь 4 (не предпоследний)
+	if (gamers.quest_state >= 120 && gamers.quest_state < 130
+		&& gamers.quest_state % 10 != gamers.count-2) {
+		devices.get('door_4').state = 'opened';
+
+		gamers.quest_state += 10; //'Игрко X прощёл сканирование игрока X из Y. 130-139
+
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
+
+
+	// если ждали пока закроется дверь 4
+	if (gamers.quest_state >= 130 && gamers.quest_state < 140
+		&& gamers.quest_state % 10 != gamers.count-2) {
+		devices.get('door_4').state = 'closed';
+
+		// тушим подсветку
+		var query = devices.build_query('inf_mirror_backlight', 'off', config.colors[gamers.quest_state % 10]);
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
+
+					devices.get('inf_mirror_backlight').value = "";
+					devices.get('inf_mirror_backlight').state = "off";
+
+				});
+			}).on('error', function(e) {
+				console.log("Got error: ");
+		});
+
+		// открываем дверь 2 
+		var query = devices.build_query('door_2', 'open', '0');
+		devices.get('door_2').mutex = 1;
+		http.get(query, function(res) {
+				devices.get('door_2').mutex = 0;
+				res.on('data', function(data){
+					devices.get('door_2').state = "closed";
+				});
+			}).on('error', function(e) {
+				devices.get('door_2').mutex = 0;
+				console.log("door_2 close error: ");
+		});
+
+		// включаем звук на канале 2 плеера 3
+		var query = devices.build_query('audio_player_3', 'play_channel_2', config.files[12]);
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
+
+					devices.get('audio_player_3').value = config.files[12];
+					devices.get('audio_player_3').state = "ch1_play_ch2_play";
+
+				});
+			}).on('error', function(e) {
+				console.log("Got error: ");
+		});
+
+		if (gamers.quest_state % 10  == gamers.count - 1 ) {
+			gamers.quest_state = 140;
+		} else {
+			gamers.quest_state -= 20;
+			gamers.quest_state += 1;
+		}
+
+
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
+
+	// если ждали пока откроются дверь 4 и 3
+	if (gamers.quest_state == 141) {
+		devices.get('door_4').state = 'opened';
+		devices.get('door_3').state = 'opened';
+		gamers.quest_state = 110 + gamers.count - 1;
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
+
+	// если ждали пока закроется дверь 4 после окончания сканирования
+	if (gamers.quest_state == 140) {
+		gamers.quest_state = 145;
+		// клип на экран 3
+		var query = devices.build_query('video_player_3', 'play', config.files[17]);
+		http.get(query, function(res) {
+				res.on('data', function(data){
+					devices.get('video_player_3').value = config.files[17];
+					devices.get('video_player_3').state = "playing";	
+				});
+			}).on('error', function(e) {
+				console.log("video_player_3 play error: ");
+		});
+	}
+
+	// ждали открытия  ядвери 5
+	if (gamers.quest_state == 145) {
+		devices.get('door_5').state = "opened";
+		gamers.quest_state = 150;
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
+
+	// ждали открытия  ядвери 6
+	if (gamers.quest_state == 170) {
+		devices.get('door_6').state = "opened";
+		gamers.quest_state = 180;
+
+		// пробуждаем планшет-светялчок
+		var query = devices.build_query('terminal_3', "activate") + "/0";
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
+
+					devices.get('terminal_3').state = 'active';
+
+
+			    });
+			}).on('error', function(e) {
+				console.log("Got error on pad activation  ");
+		});
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
+
+	// ждали открытия  ядвери 7
+	if (gamers.quest_state == 180) {
+		devices.get('door_7').state = "opened";
+		gamers.quest_state = 190;
+
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
+
+	// ждали открытия  ядвери 8
+	if (gamers.quest_state == 190) {
+		devices.get('door_8').state = "opened";
+		gamers.quest_state = 200;
+
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
+
+	// ждали закрытия  ядвери 8
+	if (gamers.quest_state == 200) {
+		devices.get('door_8').state = "closed";
+
+		// включаем видео на экране 2
+		var query = devices.build_query('video_player_2', 'play', config.files[19]);
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
+
+					devices.get('video_player_2').state = "playing";
+					devices.get('video_player_2').value = config.files[19];
+					
+				});
+			}).on('error', function(e) {
+				console.log("Got error: ");
+		});
+
+
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
 
 
 

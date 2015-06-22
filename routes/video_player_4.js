@@ -43,6 +43,9 @@ var http   = require('http');
 // });
 
 router.get('/playback_finished/:parameter', function(req, res, next) {
+
+	gamers.quest_state = 170;//Игроки получили ключ от двери в коридор
+
 	var result = {success: 1};
 	res.json(result);
 });

@@ -85,8 +85,78 @@ router.get('/ch1_playback_finished/:parameter', function(req, res, next) {
 
 
 router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
+
 	var result = {success: 1};
 	res.json(result);
+	// видео ещё не закончилось
+	if (gamers.quest_state == 80) {
+		gamers.quest_state = 85; // Стыковка(фикт)
+
+	// закончилось и то и то
+	} else if (gamers.quest_state == 85) {
+
+		// включаем звук  стыковки
+		var query = devices.build_query('audio_player_1', 'play_channel_2', config.files[8]);
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
+
+					devices.get('audio_player_1').state = "ch1_play_ch2_play";
+					devices.get('audio_player_1').value = config.files[8];
+
+				});
+			}).on('error', function(e) {
+				console.log("Got error: ");
+		});
+		gamers.quest_state = 90; // стыковка
+	// закончилось аудио стыковки
+	} else if (gamers.quest_state == 90) {
+
+		// включаем свет
+		var query = devices.build_query('light', 'on', "0");
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
+
+					devices.get('light').state = "on";
+
+				});
+			}).on('error', function(e) {
+				console.log("Got error: ");
+		});
+
+		// выключаем вибрацию
+		var query = devices.build_query('vibration', 'off', '0');
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
+
+					devices.get('vibration').state = "on";
+					
+				});
+			}).on('error', function(e) {
+				console.log("Got error: ");
+		});
+
+		// включаем видео на экране 1
+		var query = devices.build_query('video_player_2', 'play', config.files[9]);
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
+
+					devices.get('video_player_2').state = "playing";
+					devices.get('video_player_2').value = config.files[9];
+					
+				});
+			}).on('error', function(e) {
+				console.log("Got error: ");
+		});
+
+
+		gamers.quest_state = 100; // Приглашение на сканирование
+	}
+
+
 });
 
 //-----------------------------------------------------------------------------

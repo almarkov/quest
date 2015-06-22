@@ -363,7 +363,7 @@ $('#Head .DashBoard .StartScan').click(function(e){
 	});
 });
 
-// Завершить сканирование
+// Завершить сканирование игрока
 $('#Head .DashBoard .StopScan').click(function(e){
 	$.ajax({
 		url: web_server_url + '/scanner/stop',
@@ -381,14 +381,53 @@ $('#Head .DashBoard .StopScan').click(function(e){
 	});
 });
 
+
+// Завершить сканирование
+$('#Head .DashBoard .StopScanAll').click(function(e){
+	$.ajax({
+		url: web_server_url + '/scanner/stop_all',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				//$("#inpGamerCount").prop('disabled', false);
+				console.log('stop scan');
+				//restart_timer();
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+
+// Завершить сканирование
+$('#Head .DashBoard .ClosePowerWall').click(function(e){
+	$.ajax({
+		url: web_server_url + '/game/close_power_wall',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				//$("#inpGamerCount").prop('disabled', false);
+				console.log('stop scan');
+				//restart_timer();
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+
+
 //-----------------------------------------------------------------------------
 // Кнопки, эмулирующие двери
 //-----------------------------------------------------------------------------
 for (var i = 1; i < 8; i++) {
 	// Кнопка открывающая дверь
 	$('#Main .Door' + i + ' .Open').click(function(e){
+		var name = $(e.srcElement).parents(".Device").find(".Input1")[0].name;
 		$.ajax({
-			url: web_server_url + '/door_' + i + '/open/0',
+			url: web_server_url + '/' + name + '/open/0',
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
@@ -402,8 +441,9 @@ for (var i = 1; i < 8; i++) {
 	});
 	// Кнопка закрывающая дверь
 	$('#Main .Door' + i + ' .Close').click(function(e){
+		var name = $(e.srcElement).parents(".Device").find(".Input1")[0].name;
 		$.ajax({
-			url: web_server_url + '/door_' + i + '/close/0',
+			url: web_server_url + '/' + name + '/close/0',
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
@@ -423,8 +463,9 @@ for (var i = 1; i < 8; i++) {
 for (var i = 1; i <= 5; i++) {
 	// Кнопка окончания канала 1
 	$('#Main .AudioPlayer' + i + ' .Stopped1').click(function(e){
+		var name = $(e.srcElement).parents(".Device").find(".Input3")[0].name;
 		$.ajax({
-			url: web_server_url + '/audio_player_' + i + '/ch1_playback_finished/0',
+			url: web_server_url + '/' + name + '/ch1_playback_finished/0',
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
@@ -438,8 +479,9 @@ for (var i = 1; i <= 5; i++) {
 	});
 	// Кнопка окончания канала 2
 	$('#Main .AudioPlayer' + i + ' .Stopped2').click(function(e){
+		var name = $(e.srcElement).parents(".Device").find(".Input3")[0].name;
 		$.ajax({
-			url: web_server_url + '/audio_player_' + i + '/ch2_playback_finished/0',
+			url: web_server_url + '/' + name + '/ch2_playback_finished/0',
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
@@ -459,8 +501,9 @@ for (var i = 1; i <= 5; i++) {
 for (var i = 1; i <= 4; i++) {
 	// Кнопка окончания видео
 	$('#Main .VideoPlayer' + i + ' .Stopped').click(function(e){
+		var name = $(e.srcElement).parents(".Device").find(".Input3")[0].name;
 		$.ajax({
-			url: web_server_url + '/video_player_' + i + '/playback_finished/0',
+			url: web_server_url + '/' + name + '/playback_finished/0',
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",

@@ -29,6 +29,8 @@ var screen2    = require('./routes/screen2');
 var chairs     = require('./routes/chairs');
 var audio_controller  = require('./routes/audio_controller');
 
+
+
 // эмулятор для пассивных устройств
 var door   = require('./routes/door');
 
@@ -56,11 +58,26 @@ var safety_belts = require('./routes/safety_belts');
 
 var vibration    = require('./routes/vibration');
 
+var terminal_1   = require('./routes/terminal_1');
+var terminal_2   = require('./routes/terminal_2');
+var terminal_3   = require('./routes/terminal_3');
+var terminal_4   = require('./routes/terminal_4');
+
 var cell_1       = require('./routes/cell_1');
 var cell_2       = require('./routes/cell_2');
 var cell_3       = require('./routes/cell_3');
 var cell_4       = require('./routes/cell_4');
 var cell_5       = require('./routes/cell_5');
+
+var figure       = require('./routes/figure');
+
+var locker_2     = require('./routes/locker_2');
+
+var card         = require('./routes/card');
+
+var card_reader  = require('./routes/card_reader');
+
+var power_wall   = require('./routes/power_wall');
 
 var app = express();
 
@@ -157,11 +174,26 @@ app.use('/safety_belts', safety_belts);
 
 app.use('/vibration', vibration);
 
+app.use('/terminal_1', terminal_1);
+app.use('/terminal_2', terminal_2);
+app.use('/terminal_3', terminal_3);
+app.use('/terminal_4', terminal_4);
+
 app.use('/cell_1', cell_1);
 app.use('/cell_2', cell_2);
 app.use('/cell_3', cell_3);
 app.use('/cell_4', cell_4);
 app.use('/cell_5', cell_5);
+
+app.use('/figure', figure);
+
+app.use('/locker_2', locker_2);
+
+app.use('/card', card);
+
+app.use('/card_reader', card_reader);
+
+app.use('/power_wall', power_wall);
 
 
 // catch 404 and forward to error handler

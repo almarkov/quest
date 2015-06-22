@@ -668,6 +668,14 @@ for (var i = 0; i < exports.list.length; i++) {
 	}
 }
 
+exports.colors = [
+	'red', //0 
+	'green',
+	'blue',
+	'',
+	'yellow',
+];
+
 // для меня
 exports.files = [
 	'audio20', //0 
@@ -678,7 +686,21 @@ exports.files = [
 	'video4', //5
 	'audio3',
 	'video5',
-	'audio4', 
+	'audio4',
+	'video6', 
+	'audio6', //10
+	'audio7',
+	'audio8',
+	'audio9',
+	'audio10',
+	'audio11',//15
+	'audio12',
+	'video8',
+	'video9',
+	'video10',
+	'audio13',//20
+	'video11',
+	'video12',
 ];
 
 // для реальных файлов
@@ -692,6 +714,20 @@ exports.files = [
 //  'file=\/storage\/emulated\/0\/Audio\/3.mp3\&repeat=0',
 //  'file=/storage/emulated/0/Video/5.mp4&repeat=0',
 //  'file=/storage/emulated/0/Audio/4.mp3&repeat=0',
+//  'file=/storage/emulated/0/Video/6.mp4&repeat=0',
+//  'file=/storage/emulated/0/Audio/6.mp3&repeat=0',
+//  'file=/storage/emulated/0/Audio/7.mp3&repeat=0',
+//  'file=/storage/emulated/0/Audio/8.mp3&repeat=0',
+//  'file=/storage/emulated/0/Audio/9.mp3&repeat=0',
+//  'file=/storage/emulated/0/Audio/10.mp3&repeat=0',
+//  'file=/storage/emulated/0/Audio/11.mp3&repeat=0',
+//  'file=/storage/emulated/0/Audio/12.mp3&repeat=0',
+//  'file=/storage/emulated/0/Video/8.mp4&repeat=0',
+//  'file=/storage/emulated/0/Video/9.mp4&repeat=0',
+//  'file=/storage/emulated/0/Video/10.mp4&repeat=0',
+//  'file=/storage/emulated/0/Audio/13.mp3&repeat=0',
+//  'file=/storage/emulated/0/Video/11.mp4&repeat=0',
+//  'file=/storage/emulated/0/Video/12.mp4&repeat=0'
 // 	'audio5',
 // 	'video1',
 // 	'video2',
@@ -703,3 +739,6 @@ exports.default_timer_value = '3';
 
 // watchdog
 exports.watchdog_enabled = 0;
+
+// правильные координаты
+exports.coordinates = '666';

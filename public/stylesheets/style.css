@@ -32,6 +32,17 @@ ul.DashBoard li {
 
 .Input1 {
 	width: 110px;
+	font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.Input2 {
+	width: 110px;
+	font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.Input3 {
+	font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
+	width: 190px;
 }
 
 .Device div.Status {

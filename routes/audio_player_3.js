@@ -87,6 +87,9 @@ router.get('/ch1_playback_finished/:parameter', function(req, res, next) {
 router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 	var result = {success: 1};
 	res.json(result);
+
+	
+
 });
 
 //-----------------------------------------------------------------------------

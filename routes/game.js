@@ -15,6 +15,33 @@ router.get('/reload/:name', function(req, res, next) {
 	res.json(result);
 });
 
+// вернулись в команут2
+router.get('/close_power_wall', function(req, res, next) {
+	//  закрываем дверь 8
+	var query = devices.build_query('door_8', 'close', '0');
+	devices.get('door_8').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('door_8').mutex = 0;
+			res.on('data', function(data){
+
+				// запускаем таймер
+				http.get(devices.build_query('timer', 'activate', devices.default_timer_value), function(res) {
+						res.on('data', function(data){
+							// пришёл ответ - актуализируем состояние таймера
+							var result = JSON.parse(data);
+							devices.get('timer').state = result.state.state;
+						});
+					}).on('error', function(e) {
+						console.log("timer activate error: ");
+				});
+
+			});
+		}).on('error', function(e) {
+			devices.get('door_8').mutex = 0;
+			console.log("door_8 close error: ");
+	});
+}
+
 // стартовала игра
 router.get('/start/:count', function(req, res, next) {
 

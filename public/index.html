@@ -26,7 +26,9 @@
 					<li><a class="AllIn BType_01"><span>Все зашли внутрь</span></a></li>
 					<li><a class="Queue BType_01"><span>Аудио 'в очередь'</span></a></li>
 					<li><a class="StartScan BType_01"><span>Сканировать человека</span></a></li>
-					<li><a class="StopScan BType_01"><span>Закончить сканирование</span></a></li>
+					<li><a class="StopScan BType_01"><span>Закончить сканирование игрока</span></a></li>
+					<li><a class="StopScanAll BType_01"><span>Закончить процедуру сканирования</span></a></li>
+					<li><a class="ClosePowerWall BType_01"><span>Закрыть дверь в комнату с энергостеной и продолжить</span></a></li>
 				</ul>
 		</div>
 
@@ -62,7 +64,7 @@
 
 				<div class="State">
 					<label for="inpTimer" class="Label1">Таймер</label>
-					<input type="text" name="_timer" value="" id="inpTimer" class="Input1" disabled/>
+					<input type="text" name="_timer" value="" id="inpTimer" class="Input2" disabled/>
 					<input type="text" name="_timer_state" value="" id="inpTimerState" class="Input1" disabled/>
 				</div>
 				
@@ -74,11 +76,6 @@
 				</div>
 			</div>
 			
-
-			
-			
-
-
 			<!-- Кнопка, открывающая шкаф -->
 			<div class='Device'>
 
@@ -200,7 +197,7 @@
 
 				<div class="State">
 					<label for="inpInfMirrorBacklight" class="Label1">Подсветка</label>
-					<input type="text" name="inf_mirror_backlight" value="" id="inpInfMirrorBacklight" class="Input1" />
+					<input type="text" name="inf_mirror_backlight" value="" id="inpInfMirrorBacklight" class="Input2" />
 					<input type="text" name="inf_mirror_backlight_state" value="" id="inpInfMirrorBacklightState" class="Input1" disabled/>
 				</div>
 
@@ -220,7 +217,7 @@
 
 				<div class="State">
 					<label for="inpFigure" class="Label1">Статуя</label>
-					<input type="text" name="figure" value="" id="inpFigure" class="Input1" />
+					<input type="text" name="figure" value="" id="inpFigure" class="Input2" />
 					<input type="text" name="figure_state" value="" id="inpFigureState" class="Input1" disabled/>
 				</div>
 
@@ -651,7 +648,7 @@
 
 				<div class="State">
 					<label for="inpAudioPlayer1" class="Label1">Аудиоплеер 1</label>
-					<input type="text" name="audio_player1" value="" id="inpAudioPlayer1" class="Input1" disabled/>
+					<input type="text" name="audio_player_1" value="" id="inpAudioPlayer1" class="Input3" disabled/>
 				</div>
 
 				<div class="Commands">
@@ -670,7 +667,7 @@
 
 				<div class="State">
 					<label for="inpAudioPlayer2" class="Label1">Аудиоплеер 2</label>
-					<input type="text" name="audio_player2" value="" id="inpAudioPlayer2" class="Input1" disabled/>
+					<input type="text" name="audio_player_2" value="" id="inpAudioPlayer2" class="Input3" disabled/>
 				</div>
 
 				<div class="Commands">
@@ -689,7 +686,7 @@
 
 				<div class="State">
 					<label for="inpAudioPlayer3" class="Label1">Аудиоплеер 3</label>
-					<input type="text" name="audio_player3" value="" id="inpAudioPlayer3" class="Input1" disabled/>
+					<input type="text" name="audio_player_3" value="" id="inpAudioPlayer3" class="Input3" disabled/>
 				</div>
 
 				<div class="Commands">
@@ -708,7 +705,7 @@
 
 				<div class="State">
 					<label for="inpAudioPlayer4" class="Label1">Аудиоплеер 4</label>
-					<input type="text" name="audio_player4" value="" id="inpAudioPlayer4" class="Input1" disabled/>
+					<input type="text" name="audio_player_4" value="" id="inpAudioPlayer4" class="Input3" disabled/>
 				</div>
 
 				<div class="Commands">
@@ -727,7 +724,7 @@
 
 				<div class="State">
 					<label for="inpAudioPlayer5" class="Label1">Аудиоплеер 5</label>
-					<input type="text" name="audio_player5" value="" id="inpAudioPlayer5" class="Input1" disabled/>
+					<input type="text" name="audio_player_5" value="" id="inpAudioPlayer5" class="Input3" disabled/>
 				</div>
 
 				<div class="Commands">
@@ -746,7 +743,7 @@
 
 				<div class="State">
 					<label for="inpVideoPlayer1" class="Label1">Видеоплеер 1</label>
-					<input type="text" name="video_player1" value="" id="inpVideoPlayer1" class="Input1" disabled/>
+					<input type="text" name="video_player_1" value="" id="inpVideoPlayer1" class="Input3" disabled/>
 				</div>
 
 				<div class="Commands">
@@ -763,7 +760,7 @@
 
 				<div class="State">
 					<label for="inpVideoPlayer2" class="Label1">Видеоплеер 2</label>
-					<input type="text" name="video_player1" value="" id="inpVideoPlayer2" class="Input1" disabled/>
+					<input type="text" name="video_player_2" value="" id="inpVideoPlayer2" class="Input3" disabled/>
 				</div>
 
 				<div class="Commands">
@@ -780,7 +777,7 @@
 
 				<div class="State">
 					<label for="inpVideoPlayer3" class="Label1">Видеоплеер 3</label>
-					<input type="text" name="video_player3" value="" id="inpVideoPlayer3" class="Input1" disabled/>
+					<input type="text" name="video_player_3" value="" id="inpVideoPlayer3" class="Input3" disabled/>
 				</div>
 
 				<div class="Commands">
@@ -798,7 +795,7 @@
 
 				<div class="State">
 					<label for="inpVideoPlayer4" class="Label1">Видеоплеер 4</label>
-					<input type="text" name="video_player4" value="" id="inpVideoPlayer4" class="Input1" disabled/>
+					<input type="text" name="video_player_4" value="" id="inpVideoPlayer4" class="Input3" disabled/>
 				</div>
 
 				<div class="Commands">

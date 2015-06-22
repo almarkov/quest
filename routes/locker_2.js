@@ -5,11 +5,13 @@ var router = express.Router();
 //-----------------------------------------------------------------------------
 router.get('/open', function(req, res, next) {
 
+
 	var result = {success: 1};
 	res.json(result);
 });
 
 router.get('/close', function(req, res, next) {
+
 
 	var result = {success: 1};
 	res.json(result);
