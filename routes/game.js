@@ -40,7 +40,7 @@ router.get('/close_power_wall', function(req, res, next) {
 			devices.get('door_8').mutex = 0;
 			console.log("door_8 close error: ");
 	});
-}
+});
 
 // стартовала игра
 router.get('/start/:count', function(req, res, next) {

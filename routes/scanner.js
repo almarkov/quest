@@ -43,7 +43,7 @@ router.get('/stop', function(req, res, next) {
 	// если не предпоследний
 	if (gamers.quest_state % 10 != gamers.count-2) {
 		// гасим планшет
-		var query = devices.build_query('terminal_1', "deactivate") + "/0";
+		var query = devices.build_query('terminal_1', "deactivate", "0");
 		http.get(query, function(res) {
 				console.log("Got response: " );
 				res.on('data', function(data){

@@ -89,7 +89,7 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 	// закончилось видео 
 	} else if (gamers.quest_state == 200) {
 		// пробуждаем планшет-координаты
-		var query = devices.build_query('terminal_4', "activate") + "/0";
+		var query = devices.build_query('terminal_4', "activate", "0");
 		http.get(query, function(res) {
 				console.log("Got response: " );
 				res.on('data', function(data){
@@ -135,7 +135,7 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 			});
 
 			// пробуждаем планшет-координаты
-			var query = devices.build_query('terminal_4', "activate") + "/0";
+			var query = devices.build_query('terminal_4', "activate", "0");
 			http.get(query, function(res) {
 					console.log("Got response: " );
 					res.on('data', function(data){

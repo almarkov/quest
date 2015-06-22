@@ -483,7 +483,7 @@ exports.list = [
 		wd_state:      1,
 		value:         "",
 		events:        [ "code_entered" ],
-		commands:      [ "black_screen", "go"],
+		commands:      [ "deactivate", "activate"],
 		states:        [ "sleep", "active" ],	
 	},
 
@@ -498,7 +498,7 @@ exports.list = [
 		wd_state:      1,
 		value:         "",
 		events:        [ "game_not_passed", "game_passed" ],
-		commands:      [ "black_screen", "go"],
+		commands:      [ "deactivate", "activate"],
 		states:        [ "sleep", "active" ],	
 	},
 
@@ -513,7 +513,7 @@ exports.list = [
 		wd_state:      1,
 		value:         "",
 		events:        [ "game passed" ],
-		commands:      [ "black_screen", "go"],
+		commands:      [ "deactivate", "activate"],
 		states:        [ "sleep", "active" ],	
 	},
 
@@ -528,7 +528,7 @@ exports.list = [
 		wd_state:      1,
 		value:         "",
 		events:        [ "coordinates_entered" ],
-		commands:      [ "black_screen", "go"],
+		commands:      [ "deactivate", "activate"],
 		states:        [ "sleep", "active" ],	
 	},
 

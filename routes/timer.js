@@ -74,7 +74,8 @@ router.get('/ready', function(req, res, next) {
 	if (gamers.quest_state >= 110 && gamers.quest_state < 120) {
 		devices.get('door_2').state = 'closed';
 		// пробуждаем планшет
-		var query = devices.build_query('terminal_1', "activate") + "/0";
+		var query = devices.build_query('terminal_1', "activate", "0");
+		console.log(query);
 		http.get(query, function(res) {
 				console.log("Got response: " );
 				res.on('data', function(data){
@@ -253,7 +254,7 @@ router.get('/ready', function(req, res, next) {
 		gamers.quest_state = 180;
 
 		// пробуждаем планшет-светялчок
-		var query = devices.build_query('terminal_3', "activate") + "/0";
+		var query = devices.build_query('terminal_3', "activate","0");
 		http.get(query, function(res) {
 				console.log("Got response: " );
 				res.on('data', function(data){

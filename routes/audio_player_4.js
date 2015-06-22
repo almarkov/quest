@@ -107,7 +107,7 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 		devices.get('audio_player_4').value = "";
 		devices.get('audio_player_4').state = "ch1_play_ch2_stop";
 		// пробуждаем планшет
-		var query = devices.build_query('terminal_2', "activate") + "/0";
+		var query = devices.build_query('terminal_2', "activate", "0");
 		http.get(query, function(res) {
 				console.log("Got response: " );
 				res.on('data', function(data){

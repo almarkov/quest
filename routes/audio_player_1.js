@@ -131,7 +131,7 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 				console.log("Got response: " );
 				res.on('data', function(data){
 
-					devices.get('vibration').state = "on";
+					devices.get('vibration').state = "off";
 					
 				});
 			}).on('error', function(e) {

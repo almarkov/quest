@@ -52,7 +52,7 @@ router.get('/number_of_fastened/:parameter', function(req, res, next) {
 			});
 
 			// усыпляем планшет-координат
-			var query = devices.build_query('terminal_4', "deactivate") + "/0";
+			var query = devices.build_query('terminal_4', "deactivate", "0");
 			http.get(query, function(res) {
 					console.log("Got response: " );
 					res.on('data', function(data){
