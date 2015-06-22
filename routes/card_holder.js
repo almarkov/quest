@@ -4,7 +4,7 @@ var http   = require('http');
 
 router.get('/given/:parameter', function(req, res, next) {
 
-	devices.get('card').state = "given";
+	devices.get('card_holder').state = "given";
 
 	// включаем видео на экране 4
 	var query = devices.build_query('video_player_4', 'play', config.files[18]);

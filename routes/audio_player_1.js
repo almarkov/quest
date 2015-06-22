@@ -86,10 +86,45 @@ router.get('/ch1_playback_finished/:parameter', function(req, res, next) {
 
 router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 
+	devices.get('audio_player_1').state = "ch1_play_ch2_stop";
+	devices.get('audio_player_1').value = config.files[0];
+
 	var result = {success: 1};
 	res.json(result);
+
+	// подготовка к перелёту
+	if (gamers.quest_state == 60) {
+		// включаем видео на экране 2
+		var query = devices.build_query('video_player_2', 'play', config.files[5]);
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
+
+					devices.get('video_player_2').state = "playing";
+					devices.get('video_player_2').value = config.files[5];
+					
+				});
+			}).on('error', function(e) {
+				console.log("Got error: ");
+		});
+
+		// включаем вибрацию
+		var query = devices.build_query('vibration', 'on', '0');
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
+
+					devices.get('vibration').state = "on";
+					
+				});
+			}).on('error', function(e) {
+				console.log("Got error: ");
+		});
+
+		gamers.quest_state = 70; //'Перелёт';
+
 	// видео ещё не закончилось
-	if (gamers.quest_state == 80) {
+	} else if (gamers.quest_state == 80) {
 		gamers.quest_state = 85; // Стыковка(фикт)
 
 	// закончилось и то и то
@@ -139,21 +174,19 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 		});
 
 		// включаем видео на экране 1
-		var query = devices.build_query('video_player_2', 'play', config.files[9]);
+		var query = devices.build_query('video_player_1', 'play', config.files[9]);
 		http.get(query, function(res) {
 				console.log("Got response: " );
 				res.on('data', function(data){
 
-					devices.get('video_player_2').state = "playing";
-					devices.get('video_player_2').value = config.files[9];
+					devices.get('video_player_1').state = "playing";
+					devices.get('video_player_1').value = config.files[9];
 					
 				});
 			}).on('error', function(e) {
 				console.log("Got error: ");
 		});
-
-
-		gamers.quest_state = 100; // Приглашение на сканирование
+		
 	}
 
 

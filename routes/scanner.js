@@ -119,6 +119,8 @@ router.get('/stop', function(req, res, next) {
 // нажата кнопка 'закончить поцедуру сканирование''
 router.get('/stop_all', function(req, res, next) {
 
+	gamers.quest_state = 142;//Все игроки снова собрались вместе и приглашаются во дворец благоденствия»
+
 	// закрываем дверь 4
 	var query = devices.build_query('door_4', 'close', '0');
 	devices.get('door_3').mutex = 1;

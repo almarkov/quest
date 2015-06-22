@@ -67,50 +67,25 @@ router.get('/number_of_fastened/:parameter', function(req, res, next) {
 
 			gamers.quest_state = 230; //'Перелёт';
 
-		} else {
+		// если подготовка к перелёту(1)
+		} else if (gamers.quest_state == 60) {
 
 			// включаем звук на канале 2 плеера 1
 			var query = devices.build_query('audio_player_1', 'play_channel_2', config.files[4]);
+			devices.get('audio_player_1').mutex = 1;
 			http.get(query, function(res) {
 					console.log("Got response: " );
 					res.on('data', function(data){
-
+						devices.get('audio_player_1').mutex = 0;
 						devices.get('audio_player_1').value = config.files[4];
 						devices.get('audio_player_1').state = "ch1_play_ch2_play";
 
 					});
 				}).on('error', function(e) {
+					devices.get('audio_player_1').mutex = 0;
 					console.log("Got error: ");
 			});
 
-			// включаем видео на экране 2
-			var query = devices.build_query('video_player_2', 'play', config.files[5]);
-			http.get(query, function(res) {
-					console.log("Got response: " );
-					res.on('data', function(data){
-
-						devices.get('video_player_2').state = "playing";
-						devices.get('video_player_2').value = config.files[5];
-						
-					});
-				}).on('error', function(e) {
-					console.log("Got error: ");
-			});
-
-			// включаем вибрацию
-			var query = devices.build_query('vibration', 'on', '0');
-			http.get(query, function(res) {
-					console.log("Got response: " );
-					res.on('data', function(data){
-
-						devices.get('vibration').state = "on";
-						
-					});
-				}).on('error', function(e) {
-					console.log("Got error: ");
-			});
-
-			gamers.quest_state = 70; //'Перелёт';
 		}
 
 	}

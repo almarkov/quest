@@ -20,6 +20,7 @@ router.get('/ready', function(req, res, next) {
 	// если ждали открытия двери 1
 	if (gamers.quest_state == 15) {
 		devices.get('door_1').state = "opened";
+		gamers.quest_state = 16; //Ожидание, пока все игроки войдут внутрь. Требуется действие оператора. Когда все игроки войдут – нажмите кнопку «Все игроки зашли внутрь»
 		var result = {success: 1};
 		res.json(result);
 		return;
@@ -29,21 +30,8 @@ router.get('/ready', function(req, res, next) {
 	if (gamers.quest_state == 20) {
 		devices.get('door_1').state = "closed";
 
-		// запускаем видео
-		for (var i = 1; i <= 1; i++) {
-			var query = devices.build_query('video_player_1', 'play', config.files[1]);
-			http.get(query, function(res) {
-					res.on('data', function(data){
-						devices.get('video_player_1').value = config.files[1];
-						devices.get('video_player_1').state = "playing";	
-					});
-				}).on('error', function(e) {
-					console.log("video_player_1 play_channel_1 error: ");
-			});
-		}
 
-
-		gamers.quest_state = 40; //'Поиск кнопки, открывающей шкаф с многогранником'
+		gamers.quest_state = 45; //'Ожидание, пока игроки поставят многогранник на подставку'
 		var result = {success: 1};
 		res.json(result);
 		return;
@@ -60,10 +48,25 @@ router.get('/ready', function(req, res, next) {
 	// }
 
 	// если ждали открытия двери 2
-	if (gamers.quest_state == 100) {
+	if (gamers.quest_state >= 100 && gamers.quest_state < 110) {
 		devices.get('door_2').state = 'opened';
 
-		gamers.quest_state = 110; //'Требуется действие оператора. Убедитесь, что в комнате сканирования только один человек';
+		// включаем звук для номера игрока
+		var query = devices.build_query('audio_player_1', 'play_channel_2', config.player_files[gamers.quest_state%10]);
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
+
+					devices.get('audio_player_1').state = "ch1_play_ch2_play";
+					devices.get('audio_player_1').value = config.player_files[gamers.quest_state%10];
+
+				});
+			}).on('error', function(e) {
+				console.log("Got error: ");
+		});
+
+
+		gamers.quest_state += 10; //'Требуется действие оператора. Убедитесь, что в комнате сканирования только один человек';
 
 		var result = {success: 1};
 		res.json(result);
@@ -82,23 +85,26 @@ router.get('/ready', function(req, res, next) {
 
 					devices.get('terminal_1').state = 'active';
 
-			        gamers.quest_state += 10;//'Идет сканирование игрока X из Y. 120-129
-
 			    });
 			}).on('error', function(e) {
 				console.log("Got error on pad activation  ");
 		});
-		var result = {success: 1};
-		res.json(result);
-		return;
-	}
 
-	// если ждали пока откроется дверь 4
-	if (gamers.quest_state >= 120 && gamers.quest_state < 130
-		&& gamers.quest_state % 10 != gamers.count-2) {
-		devices.get('door_4').state = 'opened';
+		// включаем звук 'введите код'
+		var query = devices.build_query('audio_player_2', 'play_channel_2', config.files[10]);
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
 
-		gamers.quest_state += 10; //'Игрко X прощёл сканирование игрока X из Y. 130-139
+					devices.get('audio_player_2').state = "ch1_play_ch2_play";
+					devices.get('audio_player_2').value = config.files[10];
+
+				});
+			}).on('error', function(e) {
+				console.log("Got error: ");
+		});
+
+		gamers.quest_state += 10;//'Идет сканирование игрока X из Y. 120-129
 
 		var result = {success: 1};
 		res.json(result);
@@ -122,14 +128,14 @@ router.get('/ready', function(req, res, next) {
 		&& gamers.quest_state % 10 == gamers.count-2) {
 		devices.get('door_3').state = 'closed';
 
-		// включаем звук на канале 2 плеера 4
-		var query = devices.build_query('audio_player_4', 'play_channel_2', config.files[13]);
+		// включаем звук на канале 2 плеера 3 (будете аннигилированы)
+		var query = devices.build_query('audio_player_3', 'play_channel_2', config.files[13]);
 		http.get(query, function(res) {
 				console.log("Got response: " );
 				res.on('data', function(data){
 
-					devices.get('audio_player_4').value = config.files[13];
-					devices.get('audio_player_4').state = "ch1_play_ch2_play";
+					devices.get('audio_player_3').value = config.files[13];
+					devices.get('audio_player_3').state = "ch1_play_ch2_play";
 
 				});
 			}).on('error', function(e) {
@@ -155,7 +161,7 @@ router.get('/ready', function(req, res, next) {
 	}
 
 
-	// если ждали пока закроется дверь 4
+	// если ждали пока закроется дверь 4 (не предпоследний)
 	if (gamers.quest_state >= 130 && gamers.quest_state < 140
 		&& gamers.quest_state % 10 != gamers.count-2) {
 		devices.get('door_4').state = 'closed';
@@ -175,26 +181,26 @@ router.get('/ready', function(req, res, next) {
 		});
 
 		// открываем дверь 2 
-		var query = devices.build_query('door_2', 'open', '0');
-		devices.get('door_2').mutex = 1;
-		http.get(query, function(res) {
-				devices.get('door_2').mutex = 0;
-				res.on('data', function(data){
-					devices.get('door_2').state = "closed";
-				});
-			}).on('error', function(e) {
-				devices.get('door_2').mutex = 0;
-				console.log("door_2 close error: ");
-		});
+		// var query = devices.build_query('door_2', 'open', '0');
+		// devices.get('door_2').mutex = 1;
+		// http.get(query, function(res) {
+		// 		devices.get('door_2').mutex = 0;
+		// 		res.on('data', function(data){
+		// 			devices.get('door_2').state = "closed";
+		// 		});
+		// 	}).on('error', function(e) {
+		// 		devices.get('door_2').mutex = 0;
+		// 		console.log("door_2 close error: ");
+		// });
 
-		// включаем звук на канале 2 плеера 3
-		var query = devices.build_query('audio_player_3', 'play_channel_2', config.files[12]);
+		// включаем звук на канале 2 плеера 4 (подождите других игроков)
+		var query = devices.build_query('audio_player_4', 'play_channel_2', config.files[12]);
 		http.get(query, function(res) {
 				console.log("Got response: " );
 				res.on('data', function(data){
 
-					devices.get('audio_player_3').value = config.files[12];
-					devices.get('audio_player_3').state = "ch1_play_ch2_play";
+					devices.get('audio_player_4').value = config.files[12];
+					devices.get('audio_player_4').state = "ch1_play_ch2_play";
 
 				});
 			}).on('error', function(e) {
@@ -204,7 +210,7 @@ router.get('/ready', function(req, res, next) {
 		if (gamers.quest_state % 10  == gamers.count - 1 ) {
 			gamers.quest_state = 140;
 		} else {
-			gamers.quest_state -= 20;
+			gamers.quest_state -= 30;
 			gamers.quest_state += 1;
 		}
 
@@ -214,28 +220,30 @@ router.get('/ready', function(req, res, next) {
 		return;
 	}
 
-	// если ждали пока откроются дверь 4 и 3
+	// если ждали пока откроются дверь 4 и 3  - переходим к дворцу благоденсвтия
 	if (gamers.quest_state == 141) {
 		devices.get('door_4').state = 'opened';
 		devices.get('door_3').state = 'opened';
-		gamers.quest_state = 110 + gamers.count - 1;
 		var result = {success: 1};
 		res.json(result);
 		return;
 	}
 
 	// если ждали пока закроется дверь 4 после окончания сканирования
-	if (gamers.quest_state == 140) {
+	if (gamers.quest_state == 142) {
 		gamers.quest_state = 145;
-		// клип на экран 3
-		var query = devices.build_query('video_player_3', 'play', config.files[17]);
+		// включаем звук  стыковки сейчас вы попадете во дворец
+		var query = devices.build_query('audio_player_4', 'play_channel_2', config.files[14]);
 		http.get(query, function(res) {
+				console.log("Got response: " );
 				res.on('data', function(data){
-					devices.get('video_player_3').value = config.files[17];
-					devices.get('video_player_3').state = "playing";	
+
+					devices.get('audio_player_4').state = "ch1_play_ch2_play";
+					devices.get('audio_player_4').value = config.files[14];
+
 				});
 			}).on('error', function(e) {
-				console.log("video_player_3 play error: ");
+				console.log("Got error: ");
 		});
 	}
 
@@ -254,7 +262,7 @@ router.get('/ready', function(req, res, next) {
 		gamers.quest_state = 180;
 
 		// пробуждаем планшет-светялчок
-		var query = devices.build_query('terminal_3', "activate","0");
+		var query = devices.build_query('terminal_3', "activate","field=2,540,180;3,240,60;3,120,360;6,660,0;3,660,300;9,720,360;@2,70,0,140;1,70,140,140;1,215,140,430;2,430,140,200;1,430,70,585;2,585,70,140;1,585,140,730;2,730,0,70;2,215,200,345;1,290,270,800;2,800,470,480");
 		http.get(query, function(res) {
 				console.log("Got response: " );
 				res.on('data', function(data){
@@ -296,13 +304,13 @@ router.get('/ready', function(req, res, next) {
 		devices.get('door_8').state = "closed";
 
 		// включаем видео на экране 2
-		var query = devices.build_query('video_player_2', 'play', config.files[19]);
+		var query = devices.build_query('video_player_1', 'play', config.files[19]);
 		http.get(query, function(res) {
 				console.log("Got response: " );
 				res.on('data', function(data){
 
-					devices.get('video_player_2').state = "playing";
-					devices.get('video_player_2').value = config.files[19];
+					devices.get('video_player_1').state = "playing";
+					devices.get('video_player_1').value = config.files[19];
 					
 				});
 			}).on('error', function(e) {

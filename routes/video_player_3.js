@@ -44,20 +44,7 @@ var http   = require('http');
 
 router.get('/playback_finished/:parameter', function(req, res, next) {
 
-	if (gamers.quest_state == 145) {
-		// открываем дверь 5
-		var query = devices.build_query('door_5', 'open', '0');
-		devices.get('door_5').mutex = 1;
-		http.get(query, function(res) {
-				devices.get('door_5').mutex = 0;
-				res.on('data', function(data){
-					
-				});
-			}).on('error', function(e) {
-				devices.get('door_5').mutex = 0;
-				console.log("door_5 close error: ");
-		});
-	}
+
 
 	var result = {success: 1};
 	res.json(result);

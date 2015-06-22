@@ -61,47 +61,7 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 		});
 		gamers.quest_state = 90; // стыковка фикт
 
-	 // закончилось видео приглашения на сканирование
-	} else if (gamers.quest_state == 100) {
-
-		//открываем дверь 2
-		var query = devices.build_query('door_2', 'open', '0');
-		devices.get('door_2').mutex = 1;
-		http.get(query, function(res) {
-				devices.get('door_2').mutex = 0;
-				res.on('data', function(data){
-
-					// запускаем таймер
-					http.get(devices.build_query('timer', 'activate', devices.default_timer_value), function(res) {
-							res.on('data', function(data){
-								// пришёл ответ - актуализируем состояние таймера
-								var result = JSON.parse(data);
-								devices.get('timer').state = result.state.state;
-							});
-						}).on('error', function(e) {
-							console.log("timer activate error: ");
-					});
-				});
-			}).on('error', function(e) {
-				devices.get('door_2').mutex = 0;
-				console.log("door_2 closing error");
-		});
-	// закончилось видео 
-	} else if (gamers.quest_state == 200) {
-		// пробуждаем планшет-координаты
-		var query = devices.build_query('terminal_4', "activate", "0");
-		http.get(query, function(res) {
-				console.log("Got response: " );
-				res.on('data', function(data){
-
-					devices.get('terminal_4').state = 'active';
-					gamers.quest_state == 210;//вводят координаты
-
-
-			    });
-			}).on('error', function(e) {
-				console.log("Got error on pad activation  ");
-		});
+	
 
 	// закончился обратный перелёт
 	} else if (gamers.quest_state == 230) {
@@ -117,38 +77,52 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 			}).on('error', function(e) {
 				console.log("Got error: ");
 		});
-		if (gamers.coordinates == config.coordinates) {
-			gamers.quest_state = 240;
-		} else {
-			// включаем видео на экране 2
-			var query = devices.build_query('video_player_2', 'play', config.files[22]);
-			http.get(query, function(res) {
-					console.log("Got response: " );
-					res.on('data', function(data){
 
-						devices.get('video_player_2').state = "playing";
-						devices.get('video_player_2').value = config.files[22];
+		var query = devices.build_query('door_1', 'open', '0');
+		devices.get('door_1').mutex = 1;
+		http.get(query, function(res) {
+				devices.get('door_1').mutex = 0;
+				res.on('data', function(data){
+					devices.get('door_1').state = 'closed';
+				});
+			}).on('error', function(e) {
+				devices.get('door_1').mutex = 0;
+				console.log("door_1 closing error");
+		});
+		gamers.quest_state = 240;
+
+		// if (gamers.coordinates == config.coordinates) {
+		// 	gamers.quest_state = 240;
+		// } else {
+		// 	// включаем видео на экране 2
+		// 	var query = devices.build_query('video_player_2', 'play', config.files[22]);
+		// 	http.get(query, function(res) {
+		// 			console.log("Got response: " );
+		// 			res.on('data', function(data){
+
+		// 				devices.get('video_player_2').state = "playing";
+		// 				devices.get('video_player_2').value = config.files[22];
 						
-					});
-				}).on('error', function(e) {
-					console.log("Got error: ");
-			});
+		// 			});
+		// 		}).on('error', function(e) {
+		// 			console.log("Got error: ");
+		// 	});
 
-			// пробуждаем планшет-координаты
-			var query = devices.build_query('terminal_4', "activate", "0");
-			http.get(query, function(res) {
-					console.log("Got response: " );
-					res.on('data', function(data){
+		// 	// пробуждаем планшет-координаты
+		// 	var query = devices.build_query('terminal_4', "activate", "0");
+		// 	http.get(query, function(res) {
+		// 			console.log("Got response: " );
+		// 			res.on('data', function(data){
 
-						devices.get('terminal_4').state = 'active';
-						gamers.quest_state == 210;//вводят координаты
+		// 				devices.get('terminal_4').state = 'active';
+		// 				gamers.quest_state == 210;//вводят координаты
 
 
-				    });
-				}).on('error', function(e) {
-					console.log("Got error on pad activation  ");
-			});
-		}
+		// 		    });
+		// 		}).on('error', function(e) {
+		// 			console.log("Got error on pad activation  ");
+		// 	});
+		// }
 	}
 });
 

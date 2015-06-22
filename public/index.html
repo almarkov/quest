@@ -27,7 +27,7 @@
 					<li><a class="Queue BType_01"><span>Аудио 'в очередь'</span></a></li>
 					<li><a class="StartScan BType_01"><span>Сканировать человека</span></a></li>
 					<li><a class="StopScan BType_01"><span>Закончить сканирование игрока</span></a></li>
-					<li><a class="StopScanAll BType_01"><span>Закончить процедуру сканирования</span></a></li>
+					<li><a class="StopScanAll BType_01"><span>Продолжить квест</span></a></li>
 					<li><a class="ClosePowerWall BType_01"><span>Закрыть дверь в комнату с энергостеной и продолжить</span></a></li>
 				</ul>
 		</div>
@@ -128,6 +128,7 @@
 					<ul class='Polyhedron'>
 						<li><a class="On BType_01"><span>Активировать</span></a></li>
 						<li><a class="Off BType_01"><span>Деактивировать</span></a></li>
+						<li><a class="Stand BType_01"><span>Поставить</span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -254,12 +255,12 @@
 				</div>
 
 				<div class="State">
-					<label for="inpCard" class="Label1">RFID карта</label>
-					<input type="text" name="card" value="" id="inpCard" class="Input1" disabled />
+					<label for="inpCardHolder" class="Label1">RFID карта</label>
+					<input type="text" name="card_holder" value="" id="inpCardHolder" class="Input1" disabled />
 				</div>
 
 				<div class="Commands">
-					<ul class='Card'>
+					<ul class='CardHolder'>
 						<li><a class="Insert BType_01"><span>Вставить</span></a></li>
 					</ul>
 				</div>

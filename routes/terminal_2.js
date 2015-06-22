@@ -4,6 +4,7 @@ var http   = require('http');
 
 router.get('/game_passed/:code', function(req, res, next) {
 
+	gamers.last_player_pass = 1;
 	gamers.quest_state = 141;
 	// включаем звук  прошёл
 	var query = devices.build_query('audio_player_4', 'play_channel_2', config.files[16]);
@@ -19,6 +20,21 @@ router.get('/game_passed/:code', function(req, res, next) {
 			console.log("Got error: ");
 	});
 
+	// зажигаем подсветку
+	var query = devices.build_query('inf_mirror_backlight', 'on', 'blue');
+	http.get(query, function(res) {
+			console.log("Got response: " );
+			res.on('data', function(data){
+
+				devices.get('inf_mirror_backlight').value = 'blue';
+				devices.get('inf_mirror_backlight').state = "on";
+
+			});
+		}).on('error', function(e) {
+			console.log("Got error: ");
+	});
+
+
 	//  открываем дверь 3
 	var query = devices.build_query('door_3', 'open', '0');
 	devices.get('door_3').mutex = 1;
@@ -26,7 +42,7 @@ router.get('/game_passed/:code', function(req, res, next) {
 			devices.get('door_3').mutex = 0;
 			res.on('data', function(data){
 
-				
+			
 			});
 		}).on('error', function(e) {
 			devices.get('door_3').mutex = 0;

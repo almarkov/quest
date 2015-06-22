@@ -89,6 +89,9 @@ router.get('/all', function(req, res, next) {
 
 	// переменные статусы
 	var str = " " + gamers.quest_state + gamers.quest_states[gamers.quest_state];
+	if (gamers.quest_state >= 100 && gamers.quest_state < 110) {
+		str += ' Осталось просканировать ' + parseInt(gamers.count - gamers.quest_state % 10) + ' человек из ' + parseInt(gamers.count);
+	}
 	if (gamers.quest_state >= 110 && gamers.quest_state < 120) {
 		str += ' ' + parseInt(gamers.count - gamers.quest_state % 10) + ' человек из ' + parseInt(gamers.count);
 	}

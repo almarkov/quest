@@ -73,7 +73,7 @@ var figure       = require('./routes/figure');
 
 var locker_2     = require('./routes/locker_2');
 
-var card         = require('./routes/card');
+var card_holder  = require('./routes/card_holder');
 
 var card_reader  = require('./routes/card_reader');
 
@@ -189,7 +189,7 @@ app.use('/figure', figure);
 
 app.use('/locker_2', locker_2);
 
-app.use('/card', card);
+app.use('/card_holder', card_holder);
 
 app.use('/card_reader', card_reader);
 

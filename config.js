@@ -297,11 +297,11 @@ exports.list = [
 		name:          "polyhedron",
 		ip:            "localhost",
 		port:          "3000",
-		state:         "deactivated",
+		state:         "disconnected",
 	    wd_state:      1,
 		commands:      [ "deactivate", "activate" ],
-		events:        [ "deactivated", "activated" ],
-		states:        [ "deactivated", "activated" ],
+		events:        [ "disconnected", "activated", "connected" ],
+		states:        [ "disconnected", "activated",  "connected"],
 	},
 
 	// свет
@@ -437,7 +437,7 @@ exports.list = [
 	{
 		id:            31,
 		arduino_id:    1,
-		name:          "card",
+		name:          "card_holder",
 		ip:            "localhost",
 		port:          "3000",
 		state:         "not_given",
@@ -671,8 +671,8 @@ for (var i = 0; i < exports.list.length; i++) {
 exports.colors = [
 	'red', //0 
 	'green',
+	'yellow',
 	'blue',
-	'',
 	'yellow',
 ];
 
@@ -702,6 +702,24 @@ exports.files = [
 	'video11',
 	'video12',
 ];
+
+exports.player_files =[
+	"pl_audio1",
+	"pl_audio2",
+	"pl_audio3",
+	"pl_audio4",
+	"pl_audio5",
+];
+
+exports.color_files =[
+	"col_audio1",
+	"col_audio2",
+	"col_audio3",
+	"col_audio4",
+	"col_audio5",
+];
+
+
 
 // для реальных файлов
 // exports.files = [
@@ -733,6 +751,26 @@ exports.files = [
 // 	'video2',
 // 	'video3'
 // ];
+
+// файлы игроков
+// exports.player_files =[
+// 	"file=/storage/emulated/0/Audio/1.mp3&repeat=0",
+// 	"file=/storage/emulated/0/Audio/2.mp3&repeat=0",
+// 	"file=/storage/emulated/0/Audio/3.mp3&repeat=0",
+// 	"file=/storage/emulated/0/Audio/4.mp3&repeat=0",
+// 	"file=/storage/emulated/0/Audio/5.mp3&repeat=0",
+// ];
+
+// файлы цветов
+// exports.color_files =[
+// 	"file=/storage/emulated/0/Audio/1.mp3&repeat=0",
+// 	"file=/storage/emulated/0/Audio/2.mp3&repeat=0",
+// 	"file=/storage/emulated/0/Audio/3.mp3&repeat=0",
+// 	"file=/storage/emulated/0/Audio/4.mp3&repeat=0",
+// 	"file=/storage/emulated/0/Audio/5.mp3&repeat=0",
+// ];
+
+
 
 // время таймера
 exports.default_timer_value = '3';

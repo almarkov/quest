@@ -158,8 +158,10 @@ $(document).ready(function() {
 				// многогранник
 				if (response['polyhedron'].state == "activated") {
 					$("#inpPolyhedron").val('Активен');
-				} else if (response['polyhedron'].state == "deactivated") {
+				} else if (response['polyhedron'].state == "disconnected") {
 					$("#inpPolyhedron").val('Неактивен');
+				} else if (response['polyhedron'].state == "connected") {
+					$("#inpPolyhedron").val('На подставке');
 				}
 
 				// свет
@@ -197,10 +199,10 @@ $(document).ready(function() {
 				}
 
 				// RFID карта
-				if (response['card'].state == "given") {
-					$("#inpCard").val('Выдана');
-				} else if (response['card'].state == "not_given") {
-					$("#inpCard").val('Не выдана');
+				if (response['card_holder'].state == "given") {
+					$("#inpCardHolder").val('Выдана');
+				} else if (response['card_holder'].state == "not_given") {
+					$("#inpCardJolder").val('Не выдана');
 				}
 
 				// считыватель карты
@@ -557,7 +559,7 @@ $('#Main .Polyhedron .On').click(function(e){
 // Кнопка 'Деактивировать многогранник'
 $('#Main .Polyhedron .Off').click(function(e){
 	$.ajax({
-		url: web_server_url + '/polyhedron/deactivated/0',
+		url: web_server_url + '/polyhedron/disconnected/0',
 		type: "GET",
 		crossDomain: true,
 		dataType: "json",
@@ -569,6 +571,23 @@ $('#Main .Polyhedron .Off').click(function(e){
 			}
 	});
 });
+// Кнопка 'Поставить многогранник'
+$('#Main .Polyhedron .Stand').click(function(e){
+	$.ajax({
+		url: web_server_url + '/polyhedron/connected/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('rack deactivated');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+
+
 // Кнопка 'пристегнуть ремни'
 $('#Main .SafetyBelts .On').click(function(e){
 	$.ajax({
