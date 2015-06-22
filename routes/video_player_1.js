@@ -90,6 +90,7 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 			}).on('error', function(e) {
 				console.log("Got error on pad activation  ");
 		});
+	}
 	var result = {success: 1};
 	res.json(result);
 });

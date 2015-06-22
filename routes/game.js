@@ -210,6 +210,63 @@ router.get('/get_ready', function(req, res, next) {
 			console.log("door_6 closing error");
 	});
 
+	// закрываем ячейки
+	var query = devices.build_query('cell_1', 'close', '0');
+	devices.get('cell_1').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('cell_1').mutex = 0;
+			res.on('data', function(data){
+				devices.get('cell_1').state = 'closeed';
+			});
+		}).on('error', function(e) {
+			devices.get('cell_1').mutex = 0;
+			console.log("cell_1 closing error");
+	});
+	var query = devices.build_query('cell_2', 'close', '0');
+	devices.get('cell_2').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('cell_2').mutex = 0;
+			res.on('data', function(data){
+				devices.get('cell_2').state = 'closeed';
+			});
+		}).on('error', function(e) {
+			devices.get('cell_2').mutex = 0;
+			console.log("cell_2 closing error");
+	});
+	var query = devices.build_query('cell_3', 'close', '0');
+	devices.get('cell_3').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('cell_3').mutex = 0;
+			res.on('data', function(data){
+				devices.get('cell_3').state = 'closeed';
+			});
+		}).on('error', function(e) {
+			devices.get('cell_3').mutex = 0;
+			console.log("cell_3 closing error");
+	});
+	var query = devices.build_query('cell_4', 'close', '0');
+	devices.get('cell_4').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('cell_4').mutex = 0;
+			res.on('data', function(data){
+				devices.get('cell_4').state = 'closeed';
+			});
+		}).on('error', function(e) {
+			devices.get('cell_4').mutex = 0;
+			console.log("cell_4 closing error");
+	});
+	var query = devices.build_query('cell_5', 'close', '0');
+	devices.get('cell_5').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('cell_5').mutex = 0;
+			res.on('data', function(data){
+				devices.get('cell_5').state = 'closeed';
+			});
+		}).on('error', function(e) {
+			devices.get('cell_5').mutex = 0;
+			console.log("cell_5 closing error");
+	});
+
 	// запускаем аудио на первом канале
 	var query = devices.build_query('audio_player_1', 'play_channel_1', config.files[0]);
 	http.get(query, function(res) {
@@ -364,6 +421,31 @@ router.get('/get_ready', function(req, res, next) {
 			console.log("video_player_4 stop error: ");
 	});
 
+	var query = devices.build_query('locker_2', 'close', '0');
+	devices.get('locker_2').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('locker_2').mutex = 0;
+			res.on('data', function(data){
+				devices.get('locker_2').state = 'closed';
+			});
+		}).on('error', function(e) {
+			devices.get('locker_2').mutex = 0;
+			console.log("locker_2 closing error");
+	});
+
+	var query = devices.build_query('card_holder', 'not_given', '0');
+	devices.get('card_holder').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('card_holder').mutex = 0;
+			res.on('data', function(data){
+				devices.get('card_holder').state = 'not_given';
+			});
+		}).on('error', function(e) {
+			devices.get('card_holder').mutex = 0;
+			console.log("card_holder closing error");
+	});
+
+
 	// запускаем таймер
 	http.get(devices.build_query('timer', 'activate', devices.default_timer_value), function(res) {
 			res.on('data', function(data){
@@ -384,6 +466,181 @@ router.get('/get_ready', function(req, res, next) {
 
 // режим обслуживания
 router.get('/service_mode', function(req, res, next) {
+
+	// открываем ячейки
+	var query = devices.build_query('door_7', 'open', '0');
+	devices.get('door_7').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('door_7').mutex = 0;
+			res.on('data', function(data){
+				devices.get('door_7').state = 'opened';
+			});
+		}).on('error', function(e) {
+			devices.get('door_7').mutex = 0;
+			console.log("door_7 closing error");
+	});
+	var query = devices.build_query('door_8', 'open', '0');
+	devices.get('door_8').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('door_8').mutex = 0;
+			res.on('data', function(data){
+				devices.get('door_8').state = 'opened';
+			});
+		}).on('error', function(e) {
+			devices.get('door_8').mutex = 0;
+			console.log("door_8 closing error");
+	});
+	var query = devices.build_query('door_1', 'open', '0');
+	devices.get('door_1').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('door_1').mutex = 0;
+			res.on('data', function(data){
+				devices.get('door_1').state = 'opened';
+			});
+		}).on('error', function(e) {
+			devices.get('door_1').mutex = 0;
+			console.log("door_1 closing error");
+	});
+	var query = devices.build_query('door_2', 'open', '0');
+	devices.get('door_2').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('door_2').mutex = 0;
+			res.on('data', function(data){
+				devices.get('door_2').state = 'opened';
+			});
+		}).on('error', function(e) {
+			devices.get('door_2').mutex = 0;
+			console.log("door_2 closing error");
+	});
+	var query = devices.build_query('door_3', 'open', '0');
+	devices.get('door_3').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('door_3').mutex = 0;
+			res.on('data', function(data){
+				devices.get('door_3').state = 'opened';
+			});
+		}).on('error', function(e) {
+			devices.get('door_3').mutex = 0;
+			console.log("door_3 closing error");
+	});
+	var query = devices.build_query('door_4', 'open', '0');
+	devices.get('door_4').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('door_4').mutex = 0;
+			res.on('data', function(data){
+				devices.get('door_4').state = 'opened';
+			});
+		}).on('error', function(e) {
+			devices.get('door_4').mutex = 0;
+			console.log("door_4 closing error");
+	});
+	var query = devices.build_query('door_5', 'open', '0');
+	devices.get('door_5').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('door_5').mutex = 0;
+			res.on('data', function(data){
+				devices.get('door_5').state = 'opened';
+			});
+		}).on('error', function(e) {
+			devices.get('door_5').mutex = 0;
+			console.log("door_5 closing error");
+	});
+	var query = devices.build_query('door_6', 'open', '0');
+	devices.get('door_6').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('door_6').mutex = 0;
+			res.on('data', function(data){
+				devices.get('door_6').state = 'opened';
+			});
+		}).on('error', function(e) {
+			devices.get('door_6').mutex = 0;
+			console.log("door_6 closing error");
+	});
+
+	// открываем ячейки
+	var query = devices.build_query('cell_1', 'open', '0');
+	devices.get('cell_1').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('cell_1').mutex = 0;
+			res.on('data', function(data){
+				devices.get('cell_1').state = 'opened';
+			});
+		}).on('error', function(e) {
+			devices.get('cell_1').mutex = 0;
+			console.log("cell_1 closing error");
+	});
+	var query = devices.build_query('cell_2', 'open', '0');
+	devices.get('cell_2').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('cell_2').mutex = 0;
+			res.on('data', function(data){
+				devices.get('cell_2').state = 'opened';
+			});
+		}).on('error', function(e) {
+			devices.get('cell_2').mutex = 0;
+			console.log("cell_2 closing error");
+	});
+	var query = devices.build_query('cell_3', 'open', '0');
+	devices.get('cell_3').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('cell_3').mutex = 0;
+			res.on('data', function(data){
+				devices.get('cell_3').state = 'opened';
+			});
+		}).on('error', function(e) {
+			devices.get('cell_3').mutex = 0;
+			console.log("cell_3 closing error");
+	});
+	var query = devices.build_query('cell_4', 'open', '0');
+	devices.get('cell_4').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('cell_4').mutex = 0;
+			res.on('data', function(data){
+				devices.get('cell_4').state = 'opened';
+			});
+		}).on('error', function(e) {
+			devices.get('cell_4').mutex = 0;
+			console.log("cell_4 closing error");
+	});
+	var query = devices.build_query('cell_5', 'open', '0');
+	devices.get('cell_5').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('cell_5').mutex = 0;
+			res.on('data', function(data){
+				devices.get('cell_5').state = 'opened';
+			});
+		}).on('error', function(e) {
+			devices.get('cell_5').mutex = 0;
+			console.log("cell_5 closing error");
+	});
+
+	// открвыаем шкаф
+	var query = devices.build_query('locker_2', 'open', '0');
+	devices.get('locker_2').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('locker_2').mutex = 0;
+			res.on('data', function(data){
+				devices.get('locker_2').state = 'opened';
+			});
+		}).on('error', function(e) {
+			devices.get('locker_2').mutex = 0;
+			console.log("locker_2 closing error");
+	});
+
+	var query = devices.build_query('card_holder', 'not_given', '0');
+	devices.get('card_holder').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('card_holder').mutex = 0;
+			res.on('data', function(data){
+				devices.get('card_holder').state = 'not_given';
+			});
+		}).on('error', function(e) {
+			devices.get('card_holder').mutex = 0;
+			console.log("card_holder closing error");
+	});
+
+
+	gamers.quest_state = 2;
 
 	var result = {success: 1};
 	res.json(result);

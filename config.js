@@ -442,6 +442,7 @@ exports.list = [
 		port:          "3000",
 		state:         "not_given",
 		wd_state:      1,
+		commands:      [ "not_given", "given" ], 
 		events:        [ "not_given", "given" ], 
 		states:        [ "not_given", "given" ],	
 	},
