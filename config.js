@@ -703,6 +703,7 @@ exports.files = [
 	'video11',
 	'video12',
 	'video1',
+	'audio21',
 ];
 
 exports.player_files =[
@@ -725,7 +726,7 @@ exports.color_files =[
 
 // для реальных файлов
 // exports.files = [
-// 	'file=\/storage\/emulated\/0\/Audio\/20.mp3\&repeat=1',
+// 	'file=\/storage\/emulated\/0\/Audio\/20.mp3\&repeat=1',//0
 // 	'file=\/storage\/emulated\/0\/Video\/12.mp4\&repeat=0',
 // 	'file=\/storage\/emulated\/0\/Video\/2.mp4\&repeat=0',
 // 	'file=\/storage\/emulated\/0\/Video\/3.mp4\&repeat=1',
@@ -735,7 +736,7 @@ exports.color_files =[
 //  'file=/storage/emulated/0/Video/5.mp4&repeat=0',
 //  'file=/storage/emulated/0/Audio/4.mp3&repeat=0',
 //  'file=/storage/emulated/0/Video/6.mp4&repeat=0',
-//  'file=/storage/emulated/0/Audio/6.mp3&repeat=0',
+//  'file=/storage/emulated/0/Audio/6.mp3&repeat=0',//10
 //  'file=/storage/emulated/0/Audio/7.mp3&repeat=0',
 //  'file=/storage/emulated/0/Audio/8.mp3&repeat=0',
 //  'file=/storage/emulated/0/Audio/9.mp3&repeat=0',
@@ -745,10 +746,11 @@ exports.color_files =[
 //  'file=/storage/emulated/0/Video/8.mp4&repeat=0',
 //  'file=/storage/emulated/0/Video/9.mp4&repeat=0',
 //  'file=/storage/emulated/0/Video/10.mp4&repeat=0',
-//  'file=/storage/emulated/0/Audio/13.mp3&repeat=0',
+//  'file=/storage/emulated/0/Audio/13.mp3&repeat=0',//20
 //  'file=/storage/emulated/0/Video/11.mp4&repeat=0',
 //  'file=/storage/emulated/0/Video/12.mp4&repeat=0',
 //  'file=/storage/emulated/0/Video/1.mp4&repeat=1',
+//  'file=/storage/emulated/0/Audio/21.mp3&repeat=0',
 // 	'audio5',
 // 	'video1',
 // 	'video2',

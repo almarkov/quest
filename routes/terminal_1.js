@@ -13,12 +13,12 @@ router.get('/code_entered/:code', function(req, res, next) {
 	if (   (gamers.quest_state / 10 | 0) == 12){
 
 		// включаем звук на канале 2 плеера 2
-		var query = devices.build_query('audio_player_2', 'play_channel_2', config.files[10]);
+		var query = devices.build_query('audio_player_2', 'play_channel_2', config.files[24]);
 		http.get(query, function(res) {
 				console.log("Got response: " );
 				res.on('data', function(data){
 
-					devices.get('audio_player_2').value = config.files[10];
+					devices.get('audio_player_2').value = config.files[24];
 					devices.get('audio_player_2').state = "ch1_play_ch2_play";
 
 				});

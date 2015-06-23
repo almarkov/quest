@@ -15,6 +15,9 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 	res.json(result);
 	var backlight_state = devices.get('inf_mirror_backlight').state;
 
+	devices.get('audio_player_2').state = "ch1_play_ch2_stop";
+	devices.get('audio_player_2').value = config.files[0];
+
 	// если не предпоследний игрок 
 	if (   ((gamers.quest_state / 10 | 0) == 12)
 		&& (gamers.quest_state % 10 != gamers.count-2)

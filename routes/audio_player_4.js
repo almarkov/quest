@@ -88,6 +88,9 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 	var result = {success: 1};
 	res.json(result);
 
+	devices.get('audio_player_4').state = "ch1_play_ch2_stop";
+	devices.get('audio_player_4').value = config.files[0];
+
 	if (gamers.quest_state == 145) {
 		// открываем дверь 5
 		var query = devices.build_query('door_5', 'open', '0');

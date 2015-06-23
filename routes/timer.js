@@ -10,7 +10,7 @@ router.get('/ready', function(req, res, next) {
 	devices.get('timer').current_value = '';
 
 	// если ждали начала игры
-	if (gamers.quest_state == 1) {
+	if (gamers.quest_state == 1 || gamers.quest_state == 2) {
 		gamers.quest_state = 5;
 		var result = {success: 1};
 		res.json(result);
