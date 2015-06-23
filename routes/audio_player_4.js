@@ -95,7 +95,16 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 		http.get(query, function(res) {
 				devices.get('door_5').mutex = 0;
 				res.on('data', function(data){
-					
+					// запускаем таймер
+					http.get(devices.build_query('timer', 'activate', devices.default_timer_value), function(res) {
+							res.on('data', function(data){
+								// пришёл ответ - актуализируем состояние таймера
+								var result = JSON.parse(data);
+								devices.get('timer').state = result.state.state;
+							});
+						}).on('error', function(e) {
+							console.log("timer activate error: ");
+					});
 				});
 			}).on('error', function(e) {
 				devices.get('door_5').mutex = 0;

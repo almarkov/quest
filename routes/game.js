@@ -678,6 +678,21 @@ router.get('/point1', function(req, res, next) {
 	gamers.codes[2] = '333';
 	gamers.codes[3] = '444';
 	gamers.codes[4] = '735';
+
+	//  закрываем дверь 1
+	var query = devices.build_query('door_1', 'close', '0');
+	devices.get('door_1').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('door_1').mutex = 0;
+			res.on('data', function(data){
+
+			
+			});
+		}).on('error', function(e) {
+			devices.get('door_1').mutex = 0;
+			console.log("door_1 close error: ");
+	});
+
 	//  открываем дверь 3
 	var query = devices.build_query('door_3', 'open', '0');
 	devices.get('door_3').mutex = 1;

@@ -3,6 +3,7 @@ var router = express.Router();
 var http   = require('http');
 
 router.get('/power_ok/:code', function(req, res, next) {
+	devices.get('power_wall').state = 'passed';
 	//  открываем дверь 8
 	var query = devices.build_query('door_8', 'open', '0');
 	devices.get('door_8').mutex = 1;

@@ -5,7 +5,7 @@ var http   = require('http');
 router.get('/code_entered/:code', function(req, res, next) {
 
 	// прислали верный код
-	if (req.params.code == gamers.codes[0]) {
+	if (req.params.code == gamers.codes[2]) {
 		gamers.quest_state += 1;
 		devices.get('cell_3').state = 'opened';
 	}
