@@ -781,7 +781,7 @@ exports.color_files =[
 exports.default_timer_value = '3';
 
 // watchdog
-exports.watchdog_enabled = 0;
+exports.watchdog_enabled = 1;
 
 // правильные координаты
 exports.coordinates = '666';
