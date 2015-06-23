@@ -216,7 +216,7 @@ router.get('/get_ready', function(req, res, next) {
 	http.get(query, function(res) {
 			devices.get('cell_1').mutex = 0;
 			res.on('data', function(data){
-				devices.get('cell_1').state = 'closeed';
+				devices.get('cell_1').state = 'closed';
 			});
 		}).on('error', function(e) {
 			devices.get('cell_1').mutex = 0;
@@ -227,7 +227,7 @@ router.get('/get_ready', function(req, res, next) {
 	http.get(query, function(res) {
 			devices.get('cell_2').mutex = 0;
 			res.on('data', function(data){
-				devices.get('cell_2').state = 'closeed';
+				devices.get('cell_2').state = 'closed';
 			});
 		}).on('error', function(e) {
 			devices.get('cell_2').mutex = 0;
@@ -238,7 +238,7 @@ router.get('/get_ready', function(req, res, next) {
 	http.get(query, function(res) {
 			devices.get('cell_3').mutex = 0;
 			res.on('data', function(data){
-				devices.get('cell_3').state = 'closeed';
+				devices.get('cell_3').state = 'closed';
 			});
 		}).on('error', function(e) {
 			devices.get('cell_3').mutex = 0;
@@ -249,7 +249,7 @@ router.get('/get_ready', function(req, res, next) {
 	http.get(query, function(res) {
 			devices.get('cell_4').mutex = 0;
 			res.on('data', function(data){
-				devices.get('cell_4').state = 'closeed';
+				devices.get('cell_4').state = 'closed';
 			});
 		}).on('error', function(e) {
 			devices.get('cell_4').mutex = 0;
@@ -260,7 +260,7 @@ router.get('/get_ready', function(req, res, next) {
 	http.get(query, function(res) {
 			devices.get('cell_5').mutex = 0;
 			res.on('data', function(data){
-				devices.get('cell_5').state = 'closeed';
+				devices.get('cell_5').state = 'closed';
 			});
 		}).on('error', function(e) {
 			devices.get('cell_5').mutex = 0;
@@ -666,6 +666,59 @@ router.get('/start_time', function(req, res, next) {
 	} else {
 		res.json({date: null});
 	}
+});
+
+// точка сбора
+router.get('/point1', function(req, res, next) {
+
+	gamers.quest_state = 141;
+
+	gamers.codes[0] = '111';
+	gamers.codes[1] = '222';
+	gamers.codes[2] = '333';
+	gamers.codes[3] = '444';
+	gamers.codes[4] = '735';
+	//  открываем дверь 3
+	var query = devices.build_query('door_3', 'open', '0');
+	devices.get('door_3').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('door_3').mutex = 0;
+			res.on('data', function(data){
+
+			
+			});
+		}).on('error', function(e) {
+			devices.get('door_3').mutex = 0;
+			console.log("door_3 close error: ");
+	});
+
+	//  открываем дверь 4
+	var query = devices.build_query('door_4', 'open', '0');
+	devices.get('door_4').mutex = 1;
+	http.get(query, function(res) {
+			devices.get('door_4').mutex = 0;
+			res.on('data', function(data){
+
+				// запускаем таймер
+				http.get(devices.build_query('timer', 'activate', devices.default_timer_value), function(res) {
+						res.on('data', function(data){
+							// пришёл ответ - актуализируем состояние таймера
+							var result = JSON.parse(data);
+							devices.get('timer').state = result.state.state;
+						});
+					}).on('error', function(e) {
+						console.log("timer activate error: ");
+				});
+
+			});
+		}).on('error', function(e) {
+			devices.get('door_4').mutex = 0;
+			console.log("door_4 close error: ");
+	});
+
+
+	var result = {success: 1};
+	res.json(result);
 });
 
 module.exports = router;

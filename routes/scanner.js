@@ -123,7 +123,7 @@ router.get('/stop_all', function(req, res, next) {
 
 	// закрываем дверь 4
 	var query = devices.build_query('door_4', 'close', '0');
-	devices.get('door_3').mutex = 1;
+	devices.get('door_4').mutex = 1;
 	http.get(query, function(res) {
 			devices.get('door_4').mutex = 0;
 			res.on('data', function(data){

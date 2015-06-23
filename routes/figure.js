@@ -7,19 +7,25 @@ router.get('/number_of_inserted/:value', function(req, res, next) {
 	devices.get('figure').state = "number_of_inserted";
 	devices.get('figure').value = req.params.value;
 
+	var count = 5;
+	if (gamers.count < count) {
+		count = gamers.count;
+	}
 
-	// открываем шкаф с картой
-	var query = devices.build_query('locker_2', 'open', '0');
-	http.get(query, function(res) {
-			console.log("Got response: " );
-			res.on('data', function(data){
+	if (count == parseInt(req.params.value)) {
+		// открываем шкаф с картой
+		var query = devices.build_query('locker_2', 'open', '0');
+		http.get(query, function(res) {
+				console.log("Got response: " );
+				res.on('data', function(data){
 
-				devices.get('locker_2').state = "opened";
+					devices.get('locker_2').state = "opened";
 
-			});
-		}).on('error', function(e) {
-			console.log("Got error: ");
-	});
+				});
+			}).on('error', function(e) {
+				console.log("Got error: ");
+		});
+	}
 
 	var result = {success: 1};
 	res.json(result);

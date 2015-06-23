@@ -105,6 +105,8 @@ router.get('/all', function(req, res, next) {
 
 	result.quest_error = gamers.quest_error;
 
+	result.last_player_pass = gamers.last_player_pass;
+
 	res.json(result);
 
 });

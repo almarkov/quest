@@ -62,12 +62,12 @@ router.get('/connected/:parameter', function(req, res, next) {
 
 	devices.get('polyhedron').state = 'connected';
 	// запускаем видео с бегущими символами
-	var query = devices.build_query('video_player_1', 'play', config.files[1]);
+	var query = devices.build_query('video_player_1', 'play', config.files[23]);
 	devices.get('video_player_1').mutex = 1;
 	http.get(query, function(res) {
 			res.on('data', function(data){
 				devices.get('video_player_1').mutex = 0;
-				devices.get('video_player_1').value = config.files[1];
+				devices.get('video_player_1').value = config.files[23];
 				devices.get('video_player_1').state = "playing";	
 			});
 		}).on('error', function(e) {

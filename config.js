@@ -702,6 +702,7 @@ exports.files = [
 	'audio13',//20
 	'video11',
 	'video12',
+	'video1',
 ];
 
 exports.player_files =[
@@ -746,7 +747,8 @@ exports.color_files =[
 //  'file=/storage/emulated/0/Video/10.mp4&repeat=0',
 //  'file=/storage/emulated/0/Audio/13.mp3&repeat=0',
 //  'file=/storage/emulated/0/Video/11.mp4&repeat=0',
-//  'file=/storage/emulated/0/Video/12.mp4&repeat=0'
+//  'file=/storage/emulated/0/Video/12.mp4&repeat=0',
+//  'file=/storage/emulated/0/Video/1.mp4&repeat=1',
 // 	'audio5',
 // 	'video1',
 // 	'video2',

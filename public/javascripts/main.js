@@ -202,7 +202,7 @@ $(document).ready(function() {
 				if (response['card_holder'].state == "given") {
 					$("#inpCardHolder").val('Выдана');
 				} else if (response['card_holder'].state == "not_given") {
-					$("#inpCardJolder").val('Не выдана');
+					$("#inpCardHolder").val('Не выдана');
 				}
 
 				// считыватель карты
@@ -230,7 +230,8 @@ $(document).ready(function() {
 					}
 					$("#QuestCodes").text(codes);
 				}
-				
+				$("#LastPlayerPass").text(response.last_player_pass ? "Прошёл" : "Не прошёл");
+
 			},
 			error: function(error) {
 				console.log('ERROR:', error);
@@ -402,7 +403,6 @@ $('#Head .DashBoard .StopScanAll').click(function(e){
 	});
 });
 
-// Завершить сканирование
 $('#Head .DashBoard .ClosePowerWall').click(function(e){
 	$.ajax({
 		url: web_server_url + '/game/close_power_wall',
@@ -419,6 +419,25 @@ $('#Head .DashBoard .ClosePowerWall').click(function(e){
 			}
 	});
 });
+
+//кнопки для тестирования
+$('#Head .DashBoard .Test1').click(function(e){
+	$.ajax({
+		url: web_server_url + '/game/point1',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				//$("#inpGamerCount").prop('disabled', false);
+				console.log('stop scan');
+				//restart_timer();
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+
 
 
 //-----------------------------------------------------------------------------
@@ -619,6 +638,70 @@ $('#Main .SafetyBelts .Off').click(function(e){
 	});
 });
 
+// Кнопка 'вставить жетоны'
+$('#Main .Figure .Insert').click(function(e){
+	$.ajax({
+		url: web_server_url + '/figure/number_of_inserted/10',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('button pushed');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+
+// Кнопка 'получить карту'
+$('#Main .CardHolder .Insert').click(function(e){
+	$.ajax({
+		url: web_server_url + '/card_holder/given/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('button pushed');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+
+// Кнопка 'приложить карту'
+$('#Main .CardReader .Ok').click(function(e){
+	$.ajax({
+		url: web_server_url + '/card_reader/card_ok/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('button pushed');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+
+// Кнопка 'энергостена пройдена'
+$('#Main .PowerWall .Ok').click(function(e){
+	$.ajax({
+		url: web_server_url + '/power_wall/power_ok/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('button pushed');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+
 // Кнопка спасения предпоследнего игрока
 $('#Main .SaveButton .Push').click(function(e){
 	//if ($("#inpRoom2Door").val() == 'Открыта') {
@@ -638,52 +721,139 @@ $('#Main .SaveButton .Push').click(function(e){
 });
 
 //-----------------------------------------------------------------------------
-// Кнопки, эмулирующие планшет
+// Кнопки, эмулирующие планшеты
 //-----------------------------------------------------------------------------
-// Кнопка 'Отправить' - для отправки кода на планшете
-$('#Main .PersonalCodePad .SendRight').click(function(e){
-	//if ($("#inpRoom2Door").val() == 'Открыта') {
-		$.ajax({
-			url: web_server_url + '/personal_code_pad/entered_code/' + $("#inpPersonalCodePad").val(),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('cell enter');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
-	//}
-});
-// Кнопка 'Отправить' - для отправки неверного кода на планшете
-$('#Main .PersonalCodePad .SendWrong').click(function(e){
-	//if ($("#inpRoom2Door").val() == 'Открыта') {
-		$.ajax({
-			url: web_server_url + '/personal_code_pad/code_enter_fail/' + $("#inpPersonalCodePad").val(),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('cell enter');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
-	//}
+// Кнопка 'Отправить' - для отправки кода на планшете1
+$('#Main .Terminal1 .SendRight').click(function(e){
+	$.ajax({
+		url: web_server_url + '/terminal_1/code_entered/' + $("#inpTerminal1").val(),
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('cell enter');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
 });
 
+// Кнопка 'Игра пройдена' - для прохождения игры на планшете2
+$('#Main .Terminal2 .SendRight').click(function(e){
+	$.ajax({
+		url: web_server_url + '/terminal_2/game_passed/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('cell enter');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+// Кнопка 'Игра не пройдена' - для прохождения игры на планшете2
+$('#Main .Terminal2 .SendWrong').click(function(e){
+	$.ajax({
+		url: web_server_url + '/terminal_2/game_not_passed/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('cell enter');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+// Кнопка 'Игра пройдена' - для прохождения игры на планшете3
+$('#Main .Terminal3 .SendRight').click(function(e){
+	$.ajax({
+		url: web_server_url + '/terminal_3/game_passed/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('cell enter');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+// Кнопка 'Игра не пройдена' - для прохождения игры на планшете3
+$('#Main .Terminal3 .SendWrong').click(function(e){
+	$.ajax({
+		url: web_server_url + '/terminal_3/game_not_passed/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('cell enter');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
 
+// Кнопка 'Отправить' - для отправки координат на планшете4
+$('#Main .Terminal4 .SendRight').click(function(e){
+	$.ajax({
+		url: web_server_url + '/terminal_4/cooridnates_entered/' + $("#inpTerminal4").val(),
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('cell enter');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
 //-----------------------------------------------------------------------------
 // Кнопки, эмулирующие ячейки
 //-----------------------------------------------------------------------------
-// Кнопка 'Отправить' - для отправки значения ячейки
+// Кнопки 'Отправить' - для отправки значения ячейки, 'Закрыть', 'Открыть'
 for (var i = 1; i <= 5; i++) {
 	$('#Main .Cell' + i + ' .Send').click(function(e){
+		var element = $(e.srcElement).parents(".Device").find(".Input2")[0];
 		$.ajax({
-			url: web_server_url + '/cell_' + i +'/code_entered/' + $("#inpCell" + i).val(),
+			url: web_server_url + '/' + element.name +'/code_entered/' +  element.value,
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('cell enter');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+			});
+	});
+	$('#Main .Cell' + i + ' .Open').click(function(e){
+		var element = $(e.srcElement).parents(".Device").find(".Input2")[0];
+		$.ajax({
+			url: web_server_url + '/' + element.name +'/open/0',
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('cell enter');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+			});
+	});
+	$('#Main .Cell' + i + ' .Close').click(function(e){
+		var element = $(e.srcElement).parents(".Device").find(".Input2")[0];
+		$.ajax({
+			url: web_server_url + '/' + element.name +'/close/0',
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",

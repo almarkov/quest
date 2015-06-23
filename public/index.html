@@ -29,6 +29,7 @@
 					<li><a class="StopScan BType_01"><span>Закончить сканирование игрока</span></a></li>
 					<li><a class="StopScanAll BType_01"><span>Продолжить квест</span></a></li>
 					<li><a class="ClosePowerWall BType_01"><span>Закрыть дверь в комнату с энергостеной и продолжить</span></a></li>
+					<li><a class="Test1 BType_01"><span>Проскочить к моменту сбора после сканирования</span></a></li>
 				</ul>
 		</div>
 
@@ -51,6 +52,11 @@
 			<div class="Quest">
 				<label for="QuestCodes" class="Label2">Коды игроков: </label>
 				<span id="QuestCodes">NA</span>
+			</div>
+
+			<div class="Quest">
+				<label for="LastPlayerPass" class="Label2">Предпоследний игрок: </label>
+				<span id="LastPlayerPass">NA</span>
 			</div>
 		</div>
 
@@ -319,7 +325,6 @@
 				<div class="Commands">
 					<ul class='Terminal1'>
 						<li><a class="SendRight BType_01"><span>Отправить код (без ошибки)</span></a></li>
-						<li><a class="SendWrong BType_01"><span>Отправить код (с ошибкой)</span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -389,7 +394,7 @@
 
 				<div class="State">
 					<label for="inpCell1" class="Label1">Ячейка №1</label>
-					<input type="text" name="cell_1" value="" id="inpCell1" class="Input1" />
+					<input type="text" name="cell_1" value="" id="inpCell1" class="Input2" />
 					<input type="text" name="cell_1_state" value="" id="inpCell1State" class="Input1" disabled/>
 				</div>
 
@@ -409,7 +414,7 @@
 
 				<div class="State">
 					<label for="inpCell2" class="Label1">Ячейка №2</label>
-					<input type="text" name="cell_2" value="" id="inpCell2" class="Input1" />
+					<input type="text" name="cell_2" value="" id="inpCell2" class="Input2" />
 					<input type="text" name="cell_2_state" value="" id="inpCell2State" class="Input1" disabled/>
 				</div>
 
@@ -429,7 +434,7 @@
 
 				<div class="State">
 					<label for="inpCell3" class="Label1">Ячейка №3</label>
-					<input type="text" name="cell_3" value="" id="inpCell3" class="Input1" />
+					<input type="text" name="cell_3" value="" id="inpCell3" class="Input2" />
 					<input type="text" name="cell_3_state" value="" id="inpCell3State" class="Input1" disabled/>
 				</div>
 
@@ -450,7 +455,7 @@
 
 				<div class="State">
 					<label for="inpCell4" class="Label1">Ячейка №4</label>
-					<input type="text" name="cell_4" value="" id="inpCell4" class="Input1" />
+					<input type="text" name="cell_4" value="" id="inpCell4" class="Input2" />
 					<input type="text" name="cell_4_state" value="" id="inpCell4State" class="Input1" disabled/>
 				</div>
 
@@ -472,7 +477,7 @@
 
 				<div class="State">
 					<label for="inpCell5" class="Label1">Ячейка №5</label>
-					<input type="text" name="cell_5" value="" id="inpCell5" class="Input1" />
+					<input type="text" name="cell_5" value="" id="inpCell5" class="Input2" />
 					<input type="text" name="cell_5_state" value="" id="inpCell5State" class="Input1" disabled/>
 				</div>
 
