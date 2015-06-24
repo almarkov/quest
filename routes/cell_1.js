@@ -24,8 +24,7 @@ router.get('/code_entered/:code', function(req, res, next) {
 		}
 	}
 
-	var result = {success: 1};
-	res.json(result);
+	res.json({success: 1});
 	
 });
 

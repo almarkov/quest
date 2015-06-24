@@ -10,7 +10,7 @@ router.get('/ready', function(req, res, next) {
 	devices.get('timer').current_value = '';
 
 	// если ждали окончания подгтовки устройств
-	if (gamers.quest_state == 1) {
+	if (gamers.quest_state == 1 || gamers.quest_state == 2) {
 		gamers.quest_state = 5;
 
 		for (var i = 1; i <= 8; i++) {
@@ -21,24 +21,6 @@ router.get('/ready', function(req, res, next) {
 			devices.get('cell_' + i).state = 'closed';
 		}
 		devices.get('locker_2').state    = 'closed';
-		devices.get('card_holder').state = 'not_given';
-
-		var result = {success: 1};
-		res.json(result);
-		return;
-	}
-
-	if (gamers.quest_state == 2) {
-		gamers.quest_state = 1;
-
-		for (var i = 1; i <= 8; i++) {
-			devices.get('door_' + i).state = 'opened';
-		}
-
-		for (var i = 1; i <= 5; i++) {
-			devices.get('cell_' + i).state = 'opened';
-		}
-		devices.get('locker_2').state    = 'opened';
 		devices.get('card_holder').state = 'not_given';
 
 		var result = {success: 1};
@@ -68,33 +50,18 @@ router.get('/ready', function(req, res, next) {
 	}
 
 	// если ждали открытия двери 2
-	// if (gamers.quest_state == 30) {
-	// 	devices.get('room2_door').state = "opened";
-
-	// 	gamers.quest_state = 40; //'Поиск кнопки, открывающей шкаф с многогранником';
-
-	// 	var result = {success: 1};
-	// 	res.json(result);
-	// }
-
-	// если ждали открытия двери 2
 	if (gamers.quest_state >= 100 && gamers.quest_state < 110) {
 		devices.get('door_2').state = 'opened';
 
 		// включаем звук для номера игрока
-		var query = devices.build_query('audio_player_1', 'play_channel_2', config.player_files[gamers.quest_state%10]);
-		http.get(query, function(res) {
-				console.log("Got response: " );
-				res.on('data', function(data){
-
-					devices.get('audio_player_1').state = "ch1_play_ch2_play";
-					devices.get('audio_player_1').value = config.player_files[gamers.quest_state%10];
-
-				});
-			}).on('error', function(e) {
-				console.log("Got error: ");
-		});
-
+		var audio_file = config.player_files[gamers.quest_state%10]; 
+		helpers.send_get('audio_player_1', 'play_channel_2', audio_file, DISABLE_TIMER, ENABLE_MUTEX,
+			function(params){
+				var device   = devices.get('audio_player_1');
+				device.value = audio_file;
+				device.state = "ch1_play_ch2_stop";
+			}, {}
+		);
 
 		gamers.quest_state += 10; //'Требуется действие оператора. Убедитесь, что в комнате сканирования только один человек';
 

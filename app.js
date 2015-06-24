@@ -63,11 +63,8 @@ var terminal_2   = require('./routes/terminal_2');
 var terminal_3   = require('./routes/terminal_3');
 var terminal_4   = require('./routes/terminal_4');
 
-var cell_1       = require('./routes/cell_1');
-var cell_2       = require('./routes/cell_2');
-var cell_3       = require('./routes/cell_3');
-var cell_4       = require('./routes/cell_4');
-var cell_5       = require('./routes/cell_5');
+var cell         = require('./routes/cell');
+
 
 var figure       = require('./routes/figure');
 
@@ -212,11 +209,11 @@ app.use('/terminal_2', terminal_2);
 app.use('/terminal_3', terminal_3);
 app.use('/terminal_4', terminal_4);
 
-app.use('/cell_1', cell_1);
-app.use('/cell_2', cell_2);
-app.use('/cell_3', cell_3);
-app.use('/cell_4', cell_4);
-app.use('/cell_5', cell_5);
+app.use('/cell_1', cell);
+app.use('/cell_2', cell);
+app.use('/cell_3', cell);
+app.use('/cell_4', cell);
+app.use('/cell_5', cell);
 
 app.use('/figure', figure);
 

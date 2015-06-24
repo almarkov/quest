@@ -96,9 +96,7 @@ router.get('/get_ready', function(req, res, next) {
 			var device = devices.get('video_player_3');
 			device.value = config.files[3];
 			device.state = 'playing';
-		},
-		{
-		}
+		},{}
 	);
 
 	// выключаем экраны 1,2,4
@@ -162,13 +160,11 @@ router.get('/service_mode', function(req, res, next) {
 	for (var i = 1; i <= 8; i++) {
 		devices.get('door_' + i).state = 'opened';
 	}
-
 	for (var i = 1; i <= 5; i++) {
 		devices.get('cell_' + i).state = 'opened';
 	}
 	devices.get('locker_2').state    = 'closed';
 	devices.get('card_holder').state = 'not_given';
-
 
 
 	gamers.quest_state = 2;
@@ -185,13 +181,11 @@ router.get('/reset', function(req, res, next) {
 	devices.reset();
 	gamers.reset();
 
-	var result = {success: 1};
-	res.json(result);
+	res.json({success: 1});
 });
 
-// время начал игры
+// время начала игры
 router.get('/start_time', function(req, res, next) {
-	console.log(start_time);
 	if (start_time) {
 		res.json({date: start_time.toUTCString()});
 	} else {
@@ -199,7 +193,7 @@ router.get('/start_time', function(req, res, next) {
 	}
 });
 
-// точка сбора
+// точка сбора(для тестов)
 router.get('/point1', function(req, res, next) {
 
 	gamers.quest_state = 141;
@@ -210,61 +204,17 @@ router.get('/point1', function(req, res, next) {
 	gamers.codes[3] = '444';
 	gamers.codes[4] = '735';
 
-	//  закрываем дверь 1
-	var query = devices.build_query('door_1', 'close', '0');
-	devices.get('door_1').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('door_1').mutex = 0;
-			res.on('data', function(data){
+	// закрываем дверь 1
+	helpers.send_get('door_1', 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);
+	devices.get('door_1').state = 'closed';
 
-			
-			});
-		}).on('error', function(e) {
-			devices.get('door_1').mutex = 0;
-			console.log("door_1 close error: ");
-	});
+	// открываем дверь 3
+	helpers.send_get('door_3', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX);
 
-	//  открываем дверь 3
-	var query = devices.build_query('door_3', 'open', '0');
-	devices.get('door_3').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('door_3').mutex = 0;
-			res.on('data', function(data){
+	// открываем дверь 4
+	helpers.send_get('door_4', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
 
-			
-			});
-		}).on('error', function(e) {
-			devices.get('door_3').mutex = 0;
-			console.log("door_3 close error: ");
-	});
-
-	//  открываем дверь 4
-	var query = devices.build_query('door_4', 'open', '0');
-	devices.get('door_4').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('door_4').mutex = 0;
-			res.on('data', function(data){
-
-				// запускаем таймер
-				http.get(devices.build_query('timer', 'activate', devices.default_timer_value), function(res) {
-						res.on('data', function(data){
-							// пришёл ответ - актуализируем состояние таймера
-							var result = JSON.parse(data);
-							devices.get('timer').state = result.state.state;
-						});
-					}).on('error', function(e) {
-						console.log("timer activate error: ");
-				});
-
-			});
-		}).on('error', function(e) {
-			devices.get('door_4').mutex = 0;
-			console.log("door_4 close error: ");
-	});
-
-
-	var result = {success: 1};
-	res.json(result);
+	res.json({success: 1});
 });
 
 module.exports = router;

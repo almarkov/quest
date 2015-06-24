@@ -12,7 +12,6 @@ var simple_copy_obj = function(obj) {
 
 exports.list = [];
 
-
 for (var i = 0; i < config.list.length; i++) {
 	exports.list[i] = simple_copy_obj(config.list[i]);
 	exports.list[i].mutex = 0;
@@ -75,6 +74,7 @@ exports.int_url_for = function (arduino_id, device_id, event_id) {
 exports.reset = function() {
 	for (var i = 0; i < config.list.length; i++) {
 		exports.list[i] = simple_copy_obj(config.list[i]);
+		exports.list[i].mutex = 0;
 	}
 }
 
