@@ -81,6 +81,11 @@ var power_wall   = require('./routes/power_wall');
 
 var app = express();
 
+ENABLE_TIMER  = 1;
+DISABLE_TIMER = 0;
+
+ENABLE_MUTEX  = 1;
+DISABLE_MUTEX = 0;
 // адрес самого сервера
 web_server_url = "http://localhost:3000";
 
@@ -110,11 +115,11 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 var fs = require('fs');
 var util = require('util');
-var log_file = fs.createWriteStream(__dirname + '/debug.log', {flags : 'w'});
+var log_file = fs.createWriteStream(__dirname + '/' + (new Date()).toDateString() + 'debug.log', {flags : 'a'});
 var log_stdout = process.stdout;
 
 console.log = function(d) { //
-    log_file.write(util.format(d) + '\r\n');
+    log_file.write((new Date()).toISOString() + "       " + util.format(d) + '\r\n');
     log_stdout.write(util.format(d) + '\n');
 };
 app.use(bodyParser.json());

@@ -53,28 +53,7 @@ router.get('/start/:count', function(req, res, next) {
 	gamers.quest_state = 10;//'Начало игры';
 
 	//  открываем дверь 1
-	var query = devices.build_query('door_1', 'open', '0');
-	devices.get('door_1').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('door_1').mutex = 0;
-			res.on('data', function(data){
-
-				// запускаем таймер
-				http.get(devices.build_query('timer', 'activate', devices.default_timer_value), function(res) {
-						res.on('data', function(data){
-							// пришёл ответ - актуализируем состояние таймера
-							var result = JSON.parse(data);
-							devices.get('timer').state = result.state.state;
-						});
-					}).on('error', function(e) {
-						console.log("timer activate error: ");
-				});
-
-			});
-		}).on('error', function(e) {
-			devices.get('door_1').mutex = 0;
-			console.log("door_1 open error: ");
-	});
+	helpers.send_get('door_1', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
 
 	gamers.quest_state = 15; //'Ожидание открытия двери 1';
 
@@ -89,28 +68,7 @@ router.get('/allin', function(req, res, next) {
 	gamers.quest_state = 20; //'Ожидание закрытия двери 1';
 
 	//  закрываем дверь 1
-	var query = devices.build_query('door_1', 'close', '0');
-	devices.get('door_1').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('door_1').mutex = 0;
-			res.on('data', function(data){
-
-				// запускаем таймер
-				http.get(devices.build_query('timer', 'activate', devices.default_timer_value), function(res) {
-						res.on('data', function(data){
-							// пришёл ответ - актуализируем состояние таймера
-							var result = JSON.parse(data);
-							devices.get('timer').state = result.state.state;
-						});
-					}).on('error', function(e) {
-						console.log("timer activate error: ");
-				});
-
-			});
-		}).on('error', function(e) {
-			devices.get('door_1').mutex = 0;
-			console.log("door_1 close error: ");
-	});
+	helpers.send_get('door_1', 'close', '0', ENABLE_TIMER, ENABLE_MUTEX);
 
 	var result = {success: 1};
 	res.json(result);
