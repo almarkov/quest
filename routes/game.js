@@ -17,45 +17,28 @@ router.get('/reload/:name', function(req, res, next) {
 
 // вернулись в команут2
 router.get('/close_power_wall', function(req, res, next) {
+
 	//  закрываем дверь 8
-	var query = devices.build_query('door_8', 'close', '0');
-	devices.get('door_8').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('door_8').mutex = 0;
-			res.on('data', function(data){
+	helpers.send_get('door_8', 'close', '0', ENABLE_TIMER, ENABLE_MUTEX);
 
-				// запускаем таймер
-				http.get(devices.build_query('timer', 'activate', devices.default_timer_value), function(res) {
-						res.on('data', function(data){
-							// пришёл ответ - актуализируем состояние таймера
-							var result = JSON.parse(data);
-							devices.get('timer').state = result.state.state;
-						});
-					}).on('error', function(e) {
-						console.log("timer activate error: ");
-				});
-
-			});
-		}).on('error', function(e) {
-			devices.get('door_8').mutex = 0;
-			console.log("door_8 close error: ");
-	});
 });
 
 // стартовала игра
 router.get('/start/:count', function(req, res, next) {
+	if (gamers.quest_state == 5) { // квест готов к запуску
 
-	// начинаем часовой отсчёт
-	start_time = new Date();
-	// фиксируем число игроков
-	gamers.count = req.params.count;
+		// начинаем часовой отсчёт
+		start_time = new Date();
+		// фиксируем число игроков
+		gamers.count = req.params.count;
 
-	gamers.quest_state = 10;//'Начало игры';
+		gamers.quest_state = 10;//'Начало игры';
 
-	//  открываем дверь 1
-	helpers.send_get('door_1', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
+		//  открываем дверь 1
+		helpers.send_get('door_1', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
 
-	gamers.quest_state = 15; //'Ожидание открытия двери 1';
+		gamers.quest_state = 15; //'Ожидание открытия двери 1';
+	}
 
 	var result = {success: 1};
 	res.json(result);
@@ -79,223 +62,97 @@ router.get('/allin', function(req, res, next) {
 router.get('/get_ready', function(req, res, next) {
 
 	// закрываем двери
-	var query = devices.build_query('door_7', 'close', '0');
-	devices.get('door_7').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('door_7').mutex = 0;
-			res.on('data', function(data){
-				devices.get('door_7').state = 'closed';
-			});
-		}).on('error', function(e) {
-			devices.get('door_7').mutex = 0;
-			console.log("door_7 closing error");
-	});
-	var query = devices.build_query('door_8', 'close', '0');
-	devices.get('door_8').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('door_8').mutex = 0;
-			res.on('data', function(data){
-				devices.get('door_8').state = 'closed';
-			});
-		}).on('error', function(e) {
-			devices.get('door_8').mutex = 0;
-			console.log("door_8 closing error");
-	});
-	var query = devices.build_query('door_1', 'close', '0');
-	devices.get('door_1').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('door_1').mutex = 0;
-			res.on('data', function(data){
-				devices.get('door_1').state = 'closed';
-			});
-		}).on('error', function(e) {
-			devices.get('door_1').mutex = 0;
-			console.log("door_1 closing error");
-	});
-	var query = devices.build_query('door_2', 'close', '0');
-	devices.get('door_2').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('door_2').mutex = 0;
-			res.on('data', function(data){
-				devices.get('door_2').state = 'closed';
-			});
-		}).on('error', function(e) {
-			devices.get('door_2').mutex = 0;
-			console.log("door_2 closing error");
-	});
-	var query = devices.build_query('door_3', 'close', '0');
-	devices.get('door_3').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('door_3').mutex = 0;
-			res.on('data', function(data){
-				devices.get('door_3').state = 'closed';
-			});
-		}).on('error', function(e) {
-			devices.get('door_3').mutex = 0;
-			console.log("door_3 closing error");
-	});
-	var query = devices.build_query('door_4', 'close', '0');
-	devices.get('door_4').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('door_4').mutex = 0;
-			res.on('data', function(data){
-				devices.get('door_4').state = 'closed';
-			});
-		}).on('error', function(e) {
-			devices.get('door_4').mutex = 0;
-			console.log("door_4 closing error");
-	});
-	var query = devices.build_query('door_5', 'close', '0');
-	devices.get('door_5').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('door_5').mutex = 0;
-			res.on('data', function(data){
-				devices.get('door_5').state = 'closed';
-			});
-		}).on('error', function(e) {
-			devices.get('door_5').mutex = 0;
-			console.log("door_5 closing error");
-	});
-	var query = devices.build_query('door_6', 'close', '0');
-	devices.get('door_6').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('door_6').mutex = 0;
-			res.on('data', function(data){
-				devices.get('door_6').state = 'closed';
-			});
-		}).on('error', function(e) {
-			devices.get('door_6').mutex = 0;
-			console.log("door_6 closing error");
-	});
+	for (var i = 1; i <= 8; i++) {
+		helpers.send_get('door_' + i, 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);
+	}
 
 	// закрываем ячейки
-	var query = devices.build_query('cell_1', 'close', '0');
-	devices.get('cell_1').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('cell_1').mutex = 0;
-			res.on('data', function(data){
-				devices.get('cell_1').state = 'closed';
-			});
-		}).on('error', function(e) {
-			devices.get('cell_1').mutex = 0;
-			console.log("cell_1 closing error");
-	});
-	var query = devices.build_query('cell_2', 'close', '0');
-	devices.get('cell_2').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('cell_2').mutex = 0;
-			res.on('data', function(data){
-				devices.get('cell_2').state = 'closed';
-			});
-		}).on('error', function(e) {
-			devices.get('cell_2').mutex = 0;
-			console.log("cell_2 closing error");
-	});
-	var query = devices.build_query('cell_3', 'close', '0');
-	devices.get('cell_3').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('cell_3').mutex = 0;
-			res.on('data', function(data){
-				devices.get('cell_3').state = 'closed';
-			});
-		}).on('error', function(e) {
-			devices.get('cell_3').mutex = 0;
-			console.log("cell_3 closing error");
-	});
-	var query = devices.build_query('cell_4', 'close', '0');
-	devices.get('cell_4').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('cell_4').mutex = 0;
-			res.on('data', function(data){
-				devices.get('cell_4').state = 'closed';
-			});
-		}).on('error', function(e) {
-			devices.get('cell_4').mutex = 0;
-			console.log("cell_4 closing error");
-	});
-	var query = devices.build_query('cell_5', 'close', '0');
-	devices.get('cell_5').mutex = 1;
-	http.get(query, function(res) {
-			devices.get('cell_5').mutex = 0;
-			res.on('data', function(data){
-				devices.get('cell_5').state = 'closed';
-			});
-		}).on('error', function(e) {
-			devices.get('cell_5').mutex = 0;
-			console.log("cell_5 closing error");
-	});
+	for (var i = 1; i <= 5; i++) {
+		helpers.send_get('cell_' + i, 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);
+	}
 
 	// запускаем аудио на первом канале
-	var query = devices.build_query('audio_player_1', 'play_channel_1', config.files[0]);
-	http.get(query, function(res) {
-			res.on('data', function(data){
-
-				devices.get('audio_player_1').value = config.files[0];
-				if (devices.get('audio_player_1').state == "ch1_stop_ch2_play") {
-					devices.get('audio_player_1').state = "ch1_play_ch2_play";
-				} else {
-					devices.get('audio_player_1').state = "ch1_play_ch2_stop";	
-				}
+	for (var i = 1; i <= 5; i++) {
+		helpers.send_get('audio_player_' + i, 'close', config.files[0], DISABLE_TIMER, ENABLE_MUTEX,
+			function(params){
+				devices.get('audio_player_' + params.index).value = config.files[0];
+				devices.get('audio_player_' + params.index).state = "ch1_play_ch2_stop";
+			}, 
+			{
+				index: i
 			});
-		}).on('error', function(e) {
-			console.log("audio_player_1 play_channel_1 error: ");
-	});
-	var query = devices.build_query('audio_player_2', 'play_channel_1', config.files[0]);
-	http.get(query, function(res) {
-			res.on('data', function(data){
+		
+	}
+	// var query = devices.build_query('audio_player_1', 'play_channel_1', config.files[0]);
+	// http.get(query, function(res) {
+	// 		res.on('data', function(data){
 
-				devices.get('audio_player_2').value = config.files[0];
-				if (devices.get('audio_player_2').state == "ch1_stop_ch2_play") {
-					devices.get('audio_player_2').state = "ch1_play_ch2_play";
-				} else {
-					devices.get('audio_player_2').state = "ch1_play_ch2_stop";	
-				}
-			});
-		}).on('error', function(e) {
-			console.log("audio_player_2 play_channel_1 error: ");
-	});
-	var query = devices.build_query('audio_player_3', 'play_channel_1', config.files[0]);
-	http.get(query, function(res) {
-			res.on('data', function(data){
+	// 			devices.get('audio_player_1').value = config.files[0];
+	// 			if (devices.get('audio_player_1').state == "ch1_stop_ch2_play") {
+	// 				devices.get('audio_player_1').state = "ch1_play_ch2_play";
+	// 			} else {
+	// 				devices.get('audio_player_1').state = "ch1_play_ch2_stop";	
+	// 			}
+	// 		});
+	// 	}).on('error', function(e) {
+	// 		console.log("audio_player_1 play_channel_1 error: ");
+	// });
+	// var query = devices.build_query('audio_player_2', 'play_channel_1', config.files[0]);
+	// http.get(query, function(res) {
+	// 		res.on('data', function(data){
 
-				devices.get('audio_player_3').value = config.files[0];
-				if (devices.get('audio_player_3').state == "ch1_stop_ch2_play") {
-					devices.get('audio_player_3').state = "ch1_play_ch2_play";
-				} else {
-					devices.get('audio_player_3').state = "ch1_play_ch2_stop";	
-				}
-			});
-		}).on('error', function(e) {
-			console.log("audio_player_3 play_channel_1 error: ");
-	});
-	var query = devices.build_query('audio_player_4', 'play_channel_1', config.files[0]);
-	http.get(query, function(res) {
-			res.on('data', function(data){
+	// 			devices.get('audio_player_2').value = config.files[0];
+	// 			if (devices.get('audio_player_2').state == "ch1_stop_ch2_play") {
+	// 				devices.get('audio_player_2').state = "ch1_play_ch2_play";
+	// 			} else {
+	// 				devices.get('audio_player_2').state = "ch1_play_ch2_stop";	
+	// 			}
+	// 		});
+	// 	}).on('error', function(e) {
+	// 		console.log("audio_player_2 play_channel_1 error: ");
+	// });
+	// var query = devices.build_query('audio_player_3', 'play_channel_1', config.files[0]);
+	// http.get(query, function(res) {
+	// 		res.on('data', function(data){
 
-				devices.get('audio_player_4').value = config.files[0];
-				if (devices.get('audio_player_4').state == "ch1_stop_ch2_play") {
-					devices.get('audio_player_4').state = "ch1_play_ch2_play";
-				} else {
-					devices.get('audio_player_4').state = "ch1_play_ch2_stop";	
-				}
-			});
-		}).on('error', function(e) {
-			console.log("audio_player_4 play_channel_1 error: ");
-	});
-	var query = devices.build_query('audio_player_5', 'play_channel_1', config.files[0]);
-	http.get(query, function(res) {
-			res.on('data', function(data){
+	// 			devices.get('audio_player_3').value = config.files[0];
+	// 			if (devices.get('audio_player_3').state == "ch1_stop_ch2_play") {
+	// 				devices.get('audio_player_3').state = "ch1_play_ch2_play";
+	// 			} else {
+	// 				devices.get('audio_player_3').state = "ch1_play_ch2_stop";	
+	// 			}
+	// 		});
+	// 	}).on('error', function(e) {
+	// 		console.log("audio_player_3 play_channel_1 error: ");
+	// });
+	// var query = devices.build_query('audio_player_4', 'play_channel_1', config.files[0]);
+	// http.get(query, function(res) {
+	// 		res.on('data', function(data){
 
-				devices.get('audio_player_5').value = config.files[0];
-				if (devices.get('audio_player_5').state == "ch1_stop_ch2_play") {
-					devices.get('audio_player_5').state = "ch1_play_ch2_play";
-				} else {
-					devices.get('audio_player_5').state = "ch1_play_ch2_stop";	
-				}
-			});
-		}).on('error', function(e) {
-			console.log("audio_player_5 play_channel_1 error: ");
-	});
+	// 			devices.get('audio_player_4').value = config.files[0];
+	// 			if (devices.get('audio_player_4').state == "ch1_stop_ch2_play") {
+	// 				devices.get('audio_player_4').state = "ch1_play_ch2_play";
+	// 			} else {
+	// 				devices.get('audio_player_4').state = "ch1_play_ch2_stop";	
+	// 			}
+	// 		});
+	// 	}).on('error', function(e) {
+	// 		console.log("audio_player_4 play_channel_1 error: ");
+	// });
+	// var query = devices.build_query('audio_player_5', 'play_channel_1', config.files[0]);
+	// http.get(query, function(res) {
+	// 		res.on('data', function(data){
+
+	// 			devices.get('audio_player_5').value = config.files[0];
+	// 			if (devices.get('audio_player_5').state == "ch1_stop_ch2_play") {
+	// 				devices.get('audio_player_5').state = "ch1_play_ch2_play";
+	// 			} else {
+	// 				devices.get('audio_player_5').state = "ch1_play_ch2_stop";	
+	// 			}
+	// 		});
+	// 	}).on('error', function(e) {
+	// 		console.log("audio_player_5 play_channel_1 error: ");
+	// });
 
 	// выключаем аудио на втором канале
 	var query = devices.build_query('audio_player_1', 'stop_channel_2', config.files[0]);
@@ -415,7 +272,9 @@ router.get('/get_ready', function(req, res, next) {
 			});
 		}).on('error', function(e) {
 			console.log("timer activate error: ");
-	});	
+	});
+
+	gamers.quest_state = 1;
 
 	var result = {success: 1};
 	res.json(result);

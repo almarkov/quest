@@ -9,9 +9,18 @@ router.get('/ready', function(req, res, next) {
 	devices.get('timer').state         = 'ready';
 	devices.get('timer').current_value = '';
 
-	// если ждали начала игры
+	// если ждали окончания подгтовки устройств
 	if (gamers.quest_state == 1 || gamers.quest_state == 2) {
 		gamers.quest_state = 5;
+
+		for (var i = 1; i <= 8; i++) {
+			devices.get('door_' + i).state = 'closed';
+		}
+
+		for (var i = 1; i <= 5; i++) {
+			devices.get('cell_' + i).state = 'closed';
+		}
+
 		var result = {success: 1};
 		res.json(result);
 		return;

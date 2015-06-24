@@ -86,6 +86,12 @@ DISABLE_TIMER = 0;
 
 ENABLE_MUTEX  = 1;
 DISABLE_MUTEX = 0;
+
+DEV_MODE      = 1;
+PROD_MODE     = 0;
+
+// вспомогат. ф-ции
+routines       = require("./routines.js");
 // адрес самого сервера
 web_server_url = "http://localhost:3000";
 
@@ -103,7 +109,7 @@ devices = require("./devices.js");
 // игроки
 gamers = require("./gamers.js");
 
-// вспомогат. ф-ции
+// ф-ции, сокращающие запросы
 helpers = require("./helpers.js");
 
 // view engine setup
@@ -115,13 +121,23 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 var fs = require('fs');
 var util = require('util');
-var log_file = fs.createWriteStream(__dirname + '/' + (new Date()).toDateString() + 'debug.log', {flags : 'a'});
+var log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'debug.log', {flags : 'a'});
 var log_stdout = process.stdout;
 
-console.log = function(d) { //
-    log_file.write((new Date()).toISOString() + "       " + util.format(d) + '\r\n');
+
+
+console.log = function(d) {
+    log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n');
     log_stdout.write(util.format(d) + '\n');
 };
+
+simple_log = function(d) {
+  log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n');
+  if (DEV_MODE) {
+    log_stdout.write(util.format(d) + '\n');
+  } 
+};
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
