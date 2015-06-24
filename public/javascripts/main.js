@@ -219,7 +219,10 @@ $(document).ready(function() {
 					$("#inpPowerWall").val('Не пройдено');
 				}
 
-
+				$(".DashBoard").find(".BType_01").removeClass("Active");
+				if (response.active_button) {
+					$("." + response.active_button).addClass("Active");
+				}
 
 				$("#QuestState").text(response.quest_state);
 				$("#QuestError").text(response.quest_error);
@@ -245,7 +248,7 @@ $(document).ready(function() {
 // Кнопкки управления игрой
 //-----------------------------------------------------------------------------
 // Подготовка устройств
-$('#Head .DashBoard .GetReady').click(function(e){
+$('.DashBoard .GetReady').click(function(e){
 	$.ajax({
 		url: web_server_url + '/game/get_ready',
 		type: "GET",
@@ -260,7 +263,7 @@ $('#Head .DashBoard .GetReady').click(function(e){
 	});
 });
 // Инициализация игры
-$('#Head .DashBoard .Start').click(function(e){
+$('.DashBoard .Start').click(function(e){
 	if (!$("#inpGamerCount").val()) {
 		alert ('Введите количество игроков');
 		return;
@@ -283,7 +286,7 @@ $('#Head .DashBoard .Start').click(function(e){
 });
 
 // режим обслуживания
-$('#Head .DashBoard .ServiceMode').click(function(e){
+$('.DashBoard .ServiceMode').click(function(e){
 	$.ajax({
 		url: web_server_url + '/game/service_mode',
 		type: "GET",
@@ -299,7 +302,7 @@ $('#Head .DashBoard .ServiceMode').click(function(e){
 });
 
 // Восстанавливаем в модели значения по умолчанию
-$('#Head .DashBoard .Reset').click(function(e){
+$('.DashBoard .Reset').click(function(e){
 	$.ajax({
 		url: web_server_url + '/game/reset',
 		type: "GET",
@@ -317,7 +320,7 @@ $('#Head .DashBoard .Reset').click(function(e){
 });
 
 // Включить аудио 'В очередь'
-$('#Head .DashBoard .AllIn').click(function(e){
+$('.DashBoard .AllIn').click(function(e){
 	$.ajax({
 		url: web_server_url + '/game/allin',
 		type: "GET",
@@ -333,7 +336,7 @@ $('#Head .DashBoard .AllIn').click(function(e){
 });
 
 // Включить аудио 'В очередь'
-$('#Head .DashBoard .Queue').click(function(e){
+$('.DashBoard .Queue').click(function(e){
 	$.ajax({
 		url: web_server_url + '/audio_controller/play/0',
 		type: "GET",
@@ -349,7 +352,7 @@ $('#Head .DashBoard .Queue').click(function(e){
 });
 
 // Начать сканирование
-$('#Head .DashBoard .StartScan').click(function(e){
+$('.DashBoard .StartScan').click(function(e){
 	$.ajax({
 		url: web_server_url + '/scanner/start',
 		type: "GET",
@@ -367,7 +370,7 @@ $('#Head .DashBoard .StartScan').click(function(e){
 });
 
 // Завершить сканирование игрока
-$('#Head .DashBoard .StopScan').click(function(e){
+$('.DashBoard .StopScan').click(function(e){
 	$.ajax({
 		url: web_server_url + '/scanner/stop',
 		type: "GET",
@@ -386,7 +389,7 @@ $('#Head .DashBoard .StopScan').click(function(e){
 
 
 // Завершить сканирование
-$('#Head .DashBoard .StopScanAll').click(function(e){
+$('.DashBoard .StopScanAll').click(function(e){
 	$.ajax({
 		url: web_server_url + '/scanner/stop_all',
 		type: "GET",
@@ -403,7 +406,7 @@ $('#Head .DashBoard .StopScanAll').click(function(e){
 	});
 });
 
-$('#Head .DashBoard .ClosePowerWall').click(function(e){
+$('.DashBoard .ClosePowerWall').click(function(e){
 	$.ajax({
 		url: web_server_url + '/game/close_power_wall',
 		type: "GET",
@@ -421,7 +424,7 @@ $('#Head .DashBoard .ClosePowerWall').click(function(e){
 });
 
 //кнопки для тестирования
-$('#Head .DashBoard .Test1').click(function(e){
+$('.DashBoard .Test1').click(function(e){
 	$.ajax({
 		url: web_server_url + '/game/point1',
 		type: "GET",

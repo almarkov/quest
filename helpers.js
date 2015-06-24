@@ -30,7 +30,7 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 				});
 			} 
 			if (cb) {
-				cb(params);
+				cb(params || {});
 			}
 		}).on('error', function(e) {
 

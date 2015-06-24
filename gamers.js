@@ -119,6 +119,9 @@ exports.codes = ['', '', '', '', '735', '', '', '', ''];
 
 exports.coordinates = '';
 
+// активная кнопка для оператора
+exports.active_button = '';
+
 
 
 // сброс значений
@@ -128,6 +131,7 @@ exports.reset = function() {
 	exports.quest_error = '';
 	exports.codes = ['', '', '', '', '735', '', '', '', ''];
 	exports.count = 0;
+	exports.active_button = '';
 }
 
 // exports.get_quest_state = function() {

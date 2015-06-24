@@ -10,7 +10,7 @@ router.get('/ready', function(req, res, next) {
 	devices.get('timer').current_value = '';
 
 	// если ждали окончания подгтовки устройств
-	if (gamers.quest_state == 1 || gamers.quest_state == 2) {
+	if (gamers.quest_state == 1) {
 		gamers.quest_state = 5;
 
 		for (var i = 1; i <= 8; i++) {
@@ -20,6 +20,26 @@ router.get('/ready', function(req, res, next) {
 		for (var i = 1; i <= 5; i++) {
 			devices.get('cell_' + i).state = 'closed';
 		}
+		devices.get('locker_2').state    = 'closed';
+		devices.get('card_holder').state = 'not_given';
+
+		var result = {success: 1};
+		res.json(result);
+		return;
+	}
+
+	if (gamers.quest_state == 2) {
+		gamers.quest_state = 1;
+
+		for (var i = 1; i <= 8; i++) {
+			devices.get('door_' + i).state = 'opened';
+		}
+
+		for (var i = 1; i <= 5; i++) {
+			devices.get('cell_' + i).state = 'opened';
+		}
+		devices.get('locker_2').state    = 'opened';
+		devices.get('card_holder').state = 'not_given';
 
 		var result = {success: 1};
 		res.json(result);
@@ -30,6 +50,7 @@ router.get('/ready', function(req, res, next) {
 	if (gamers.quest_state == 15) {
 		devices.get('door_1').state = "opened";
 		gamers.quest_state = 16; //Ожидание, пока все игроки войдут внутрь. Требуется действие оператора. Когда все игроки войдут – нажмите кнопку «Все игроки зашли внутрь»
+		gamers.active_button = 'AllIn';
 		var result = {success: 1};
 		res.json(result);
 		return;

@@ -13,51 +13,65 @@
 <body>
 	<div class="Content">
 
-		<h1>Управление игрой</h1>
-
-		<div id='Head'>
-				<label for="inpGamerCount" class="Label1">Число игроков</label>
-				<input type="text" name="_gamer_count" value="" id="inpGamerCount" class="Input1" />
-				<ul class='DashBoard'>
-					<li><a class="GetReady BType_01 Active"><span>Приготовиться к началу квеста</span></a></li>
-					<li><a class="Start BType_01 Active"><span>Начать</span></a></li>
-					<li><a class="ServiceMode BType_01 Active"><span>Включить режим обслуживания</span></a></li>
-					<li><a class="Reset BType_01"><span>Сбросить</span></a></li>
-					<li><a class="AllIn BType_01"><span>Все зашли внутрь</span></a></li>
-					<li><a class="Queue BType_01"><span>Аудио 'в очередь'</span></a></li>
-					<li><a class="StartScan BType_01"><span>Сканировать человека</span></a></li>
-					<li><a class="StopScan BType_01"><span>Закончить сканирование игрока</span></a></li>
-					<li><a class="StopScanAll BType_01"><span>Продолжить квест</span></a></li>
-					<li><a class="ClosePowerWall BType_01"><span>Закрыть дверь в комнату с энергостеной и продолжить</span></a></li>
-					<li><a class="Test1 BType_01"><span>Проскочить к моменту сбора после сканирования</span></a></li>
-				</ul>
+		<div id='Service'>
+			<ul class="State">
+				<li>
+					<label for="inpGamerCount" class="Label1">Число игроков</label>
+					<input type="text" name="_gamer_count" value="" id="inpGamerCount" class="Input1" />
+				</li>
+				<li>
+					<label for="QuestState" class="Label2">Состояние квеста: </label>
+					<span id="QuestState">NA</span>
+				</li>
+			</ul>
+			
+			<ul class='DashBoard'>
+				<li><a class="GetReady BType_01 "><span>Приготовиться к началу квеста</span></a></li>
+				<li><a class="Start BType_01 "><span>Начать</span></a></li>
+				<li><a class="ServiceMode BType_01 "><span>Включить режим обслуживания</span></a></li>
+				<li><a class="Reset BType_01"><span>Сбросить</span></a></li>
+				
+				
+			</ul>
 		</div>
 
-		<div id="Info">
-			<div class="Quest">
-				<label for="QuestState" class="Label2">Состояние квеста: </label>
-				<span id="QuestState">NA</span>
-			</div>
+		<div id="Quest">
+			<ul class="States">
+				<li>
+					<label for="QuestTimer" class="Label2">Обратный отсчёт: </label>
+					<span id="QuestTimer">NA</span>
+				</li>
+				<li>
+					<label for="QuestError" class="Label2">Ошибка: </label>
+					<span id="QuestError">NA</span>
+				</li>
+				<li>
+					<label for="QuestCodes" class="Label2">Коды игроков: </label>
+					<span id="QuestCodes">NA</span>
+				</li>
+				<li>
+					<label for="LastPlayerPass" class="Label2">Предпоследний игрок: </label>
+					<span id="LastPlayerPass">NA</span>
+				</li>
+			</ul>
 
-			<div class="Quest">
-				<label for="QuestTimer" class="Label2">Обратный отсчёт: </label>
-				<span id="QuestTimer">NA</span>
-			</div>
+			<ul class='DashBoard'>
+				<li><a class="AllIn BType_01"><span>Все зашли внутрь</span></a></li>
+				<li><a class="Queue BType_01"><span>Аудио 'в очередь'</span></a></li>
+				<li><a class="StartScan BType_01"><span>Сканировать человека</span></a></li>
+				<li><a class="StopScan BType_01"><span>Закончить сканирование игрока</span></a></li>
+				<li><a class="StopScanAll BType_01"><span>Продолжить квест</span></a></li>
+				<li><a class="ClosePowerWall BType_01"><span>Закрыть дверь в комнату с энергостеной и продолжить</span></a></li>
+			</ul>
+		</div>
 
-			<div class="Quest">
-				<label for="QuestError" class="Label2">Ошибка: </label>
-				<span id="QuestError">NA</span>
-			</div>
+		<div id="Test">
+			<ul class="States">
+			</ul>
 
-			<div class="Quest">
-				<label for="QuestCodes" class="Label2">Коды игроков: </label>
-				<span id="QuestCodes">NA</span>
-			</div>
-
-			<div class="Quest">
-				<label for="LastPlayerPass" class="Label2">Предпоследний игрок: </label>
-				<span id="LastPlayerPass">NA</span>
-			</div>
+			<ul class='DashBoard'>
+				<li><a class="Test1 BType_01"><span>Проскочить к моменту сбора после сканирования</span></a></li>
+			</ul>
 		</div>
 
 		<div id='Main'>

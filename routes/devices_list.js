@@ -101,11 +101,15 @@ router.get('/all', function(req, res, next) {
 
 	result.quest_state = str;
 
+	result.quest_state_num = gamers.quest_state;
+
 	result.codes = gamers.codes;
 
 	result.quest_error = gamers.quest_error;
 
 	result.last_player_pass = gamers.last_player_pass;
+
+	result.active_button = gamers.active_button;
 
 	res.json(result);
 
