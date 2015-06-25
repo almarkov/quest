@@ -6,15 +6,13 @@ var router = express.Router();
 //-----------------------------------------------------------------------------
 router.get('/open/:parameter', function(req, res, next) {
 
-	var result = {success: 1};
-	res.json(result);
+	res.json({success: 1});
 
 });
 
 router.get('/close/:parameter', function(req, res, next) {
 
-	var result = {success: 1};
-	res.json(result);
+	res.json({success: 1});
 
 });
 

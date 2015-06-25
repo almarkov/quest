@@ -35,10 +35,8 @@ router.get('/:device_id/:action/:parameter', function(req, res, next) {
 			req_ip = "localhost";
 		} 
 		if (req.params.device_id == 255) {
-			console.log('+-+');
 			res.redirect(301, "/wd/0/0");
 		} else {
-			console.log('-+-');
 			var url = devices.get_redirect_url(req_ip, parseInt(req.params.device_id), req.params.action);
 			url += "/" + req.params.parameter;
 			console.log(url);

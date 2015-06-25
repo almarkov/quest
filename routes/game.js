@@ -49,6 +49,7 @@ router.get('/start/:count', function(req, res, next) {
 router.get('/allin', function(req, res, next) {
 
 	gamers.quest_state = 20; //'Ожидание закрытия двери 1';
+	gamers.active_button = '';
 
 	//  закрываем дверь 1
 	helpers.send_get('door_1', 'close', '0', ENABLE_TIMER, ENABLE_MUTEX);

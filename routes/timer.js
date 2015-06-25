@@ -63,6 +63,7 @@ router.get('/ready', function(req, res, next) {
 			}, {}
 		);
 
+		gamers.active_button = 'StartScan';
 		gamers.quest_state += 10; //'Требуется действие оператора. Убедитесь, что в комнате сканирования только один человек';
 
 		var result = {success: 1};

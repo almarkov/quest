@@ -11,6 +11,7 @@ router.get('/start', function(req, res, next) {
     //gamers.quest_state += 1; //'Сканирование игрока №;
 
 	// закрываем дверь №2
+	gamers.active_button = '';
 	var query = devices.build_query('door_2', 'close', '0');
 	devices.get('door_2').mutex = 1;
 	http.get(query, function(res) {
