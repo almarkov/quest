@@ -2,7 +2,7 @@ var http   = require('http');
 
 exports.send_get = function(device_name, command, parameter, enable_timer, enable_mutex, cb, params) {
 
-	simple_log(device_name + ' ' + command + ' ' + parameter);
+	simple_log('-> ' + device_name + ' ' + command + ' ' + parameter);
 
 	var query  = devices.build_query(device_name, command, parameter);
 	var device = devices.get(device_name);
