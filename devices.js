@@ -14,16 +14,6 @@ exports.list = [];
 exports.list_by_name = {};
 exports.list_by_id_arduiono_id = {};
 
-// копируем из config + создаём хэши для быстрого доступа
-for (var i = 0; i < config.list.length; i++) {
-	exports.list[i] = simple_copy_obj(config.list[i]);
-	exports.list[i].mutex = 0;
-	exports.list_by_name[exports.list[i].name] = exports.list[i];
-	exports.list_by_id_arduiono_id[exports.list[i].arduino_id + '_' + exports.list[i].id] = exports.list[i];
-}
-
-exports.default_timer_value = config.default_timer_value;
-
 exports.ext_url_for = function (object_name) {
 	for (var i = 0; i < config.list.length; i++) {
 		if (config.list[i].name == object_name) {
@@ -82,9 +72,13 @@ exports.int_url_for = function (arduino_id, device_id, event_id) {
 // сброс значений до конфига
 exports.reset = function() {
 	for (var i = 0; i < config.list.length; i++) {
+		// копируем из config + создаём хэши для быстрого доступа
 		exports.list[i] = simple_copy_obj(config.list[i]);
 		exports.list[i].mutex = 0;
+		exports.list_by_name[exports.list[i].name] = exports.list[i];
+		exports.list_by_id_arduiono_id[exports.list[i].arduino_id + '_' + exports.list[i].id] = exports.list[i];
 	}
+	exports.default_timer_value = config.default_timer_value;
 }
 
 // таймер
