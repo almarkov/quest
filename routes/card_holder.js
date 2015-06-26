@@ -7,22 +7,15 @@ router.get('/given/:parameter', function(req, res, next) {
 	devices.get('card_holder').state = "given";
 
 	// включаем видео на экране 4
-	var query = devices.build_query('video_player_4', 'play', config.files[18]);
-	http.get(query, function(res) {
-			console.log("Got response: " );
-			res.on('data', function(data){
+	helpers.send_get('video_player_4', 'play', config.files[18], DISABLE_TIMER, ENABLE_MUTEX,
+		function (params) {
+			var device = devices.get('video_player_4');
+			device.value = config.files[18];
+			device.state = 'playing';
+		},{}
+	);
 
-				devices.get('video_player_4').state = "playing";
-				devices.get('video_player_4').value = config.files[18];
-				
-			});
-		}).on('error', function(e) {
-			console.log("Got error: ");
-	});
-
-	var result = {success: 1};
-	res.json(result);
-	
+	res.json({success: 1});
 });
 
 module.exports = router;

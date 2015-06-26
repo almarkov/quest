@@ -9,61 +9,40 @@ router.get('/number_of_fastened/:parameter', function(req, res, next) {
 
 	// все пристёгнуты?
 	if (parseInt(gamers.count) <= parseInt(req.params.parameter)) {
+		// если подготовка к обратному перелёту
 		if (gamers.quest_state == 220) {
+
 			// включаем звук на канале 2 плеера 1
-			var query = devices.build_query('audio_player_1', 'play_channel_2', config.files[20]);
-			http.get(query, function(res) {
-					console.log("Got response: " );
-					res.on('data', function(data){
-
-						devices.get('audio_player_1').value = config.files[20];
-						devices.get('audio_player_1').state = "ch1_play_ch2_play";
-
-					});
-				}).on('error', function(e) {
-					console.log("Got error: ");
-			});
+			helpers.send_get('audio_player_1', 'play_channel_2', config.files[20], DISABLE_TIMER, ENABLE_MUTEX,
+				function (params) {
+					var device = devices.get('audio_player_1');
+					device.value = config.files[20];
+					device.state = 'ch1_play_ch2_play';
+				},{}
+			);
 
 			// включаем видео на экране 2
-			var query = devices.build_query('video_player_2', 'play', config.files[21]);
-			http.get(query, function(res) {
-					console.log("Got response: " );
-					res.on('data', function(data){
-
-						devices.get('video_player_2').state = "playing";
-						devices.get('video_player_2').value = config.files[21];
-						
-					});
-				}).on('error', function(e) {
-					console.log("Got error: ");
-			});
+			helpers.send_get('video_player_2', 'play', config.files[21], DISABLE_TIMER, ENABLE_MUTEX,
+				function (params) {
+					var device = devices.get('video_player_2');
+					device.value = config.files[21];
+					device.state = 'playing';
+				},{}
+			);
 
 			// включаем вибрацию
-			var query = devices.build_query('vibration', 'on', '0');
-			http.get(query, function(res) {
-					console.log("Got response: " );
-					res.on('data', function(data){
-
-						devices.get('vibration').state = "on";
-						
-					});
-				}).on('error', function(e) {
-					console.log("Got error: ");
-			});
+			helpers.send_get('vibration', 'on', '0', DISABLE_TIMER, ENABLE_MUTEX,
+				function (params) {
+					devices.get('vibration').state = "on";
+				},{}
+			);
 
 			// усыпляем планшет-координат
-			var query = devices.build_query('terminal_4', "deactivate", "0");
-			http.get(query, function(res) {
-					console.log("Got response: " );
-					res.on('data', function(data){
-
-						devices.get('terminal_4').state = 'sleep';
-
-
-				    });
-				}).on('error', function(e) {
-					console.log("Got error on pad activation  ");
-			});
+			helpers.send_get('terminal_4', 'deactivate', '0', DISABLE_TIMER, ENABLE_MUTEX,
+				function (params) {
+					devices.get('terminal_4').state = "sleep";
+				},{}
+			);
 
 			gamers.quest_state = 230; //'Перелёт';
 
@@ -71,27 +50,17 @@ router.get('/number_of_fastened/:parameter', function(req, res, next) {
 		} else if (gamers.quest_state == 60) {
 
 			// включаем звук на канале 2 плеера 1
-			var query = devices.build_query('audio_player_1', 'play_channel_2', config.files[4]);
-			devices.get('audio_player_1').mutex = 1;
-			http.get(query, function(res) {
-					console.log("Got response: " );
-					res.on('data', function(data){
-						devices.get('audio_player_1').mutex = 0;
-						devices.get('audio_player_1').value = config.files[4];
-						devices.get('audio_player_1').state = "ch1_play_ch2_play";
-
-					});
-				}).on('error', function(e) {
-					devices.get('audio_player_1').mutex = 0;
-					console.log("Got error: ");
-			});
-
+			helpers.send_get('audio_player_1', 'play_channel_2', config.files[4], DISABLE_TIMER, ENABLE_MUTEX,
+				function (params) {
+					var device = devices.get('audio_player_1');
+					device.value = config.files[4];
+					device.state = 'ch1_play_ch2_play';
+				},{}
+			);
 		}
-
 	}
 
-	var result = {success: 1};
-	res.json(result);
+	res.json({success: 1});
 
 });
 

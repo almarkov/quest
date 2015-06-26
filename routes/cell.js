@@ -17,10 +17,10 @@ router.get('/code_entered/:code', function(req, res, next) {
 		if (gamers.count < cell_count) {
 			cell_count = 1 + parseInt(gamers.count);
 		}
-		// 5 верных кодов
+		// необходимое верных кодов
 		if (gamers.quest_state % 10 == cell_count) {
 			
-			gamers.quest_state = 160;
+			gamers.quest_state = 160; // игроки достали жетоны, им необходимо вставить их в статую 
 
 		}
 	}

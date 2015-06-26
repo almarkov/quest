@@ -7,53 +7,33 @@ router.get('/cooridnates_entered/:coordinates', function(req, res, next) {
 	gamers.coordinates = req.params.coordinates;
 
 	if (gamers.coordinates == config.coordinates) {
-		
 
-		gamers.quest_state = 220;
+		gamers.quest_state = 220; // подготовка к перелёту
 
 		// включаем звук пристегните ремни
-		var query = devices.build_query('audio_player_1', 'play_channel_2', config.files[20]);
-		http.get(query, function(res) {
-				console.log("Got response: " );
-				res.on('data', function(data){
-
-					devices.get('audio_player_1').state = "ch1_play_ch2_play";
-					devices.get('audio_player_1').value = config.files[20];
-
-				});
-			}).on('error', function(e) {
-				console.log("Got error: ");
-		});
-
+		helpers.send_get('audio_player_1', 'play_channel_2', config.files[20], DISABLE_TIMER, ENABLE_MUTEX,
+			function (params) {
+				var device = devices.get('audio_player_1');
+				device.value = config.files[20];
+				device.state = 'ch1_play_ch2_play';
+			},{}
+		);
 	}
 
-	var result = {success: 1};
-	res.json(result);
-	
-});
-
-router.get('/code_enter_fail', function(req, res, next) {
-
-	var result = {success: 1};
-	res.json(result);
-	
+	res.json({success: 1});
 });
 
 //-----------------------------------------------------------------------------
 // эмулятор планшета
 //-----------------------------------------------------------------------------
 // активирован планшет
-router.get('/activate/0', function(req, res, next) {
-
-	var result = {success: 1};
-	res.json(result);
+router.get('/activate/:parameter', function(req, res, next) {
+	res.json({success: 1});
 });
 
 // деактивирован планшет
-router.get('/deactivate/0', function(req, res, next) {
-
-	var result = {success: 1};
-	res.json(result);
+router.get('/deactivate/:parameter', function(req, res, next) {
+	res.json({success: 1});
 });
 
 

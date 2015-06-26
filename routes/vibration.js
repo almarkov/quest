@@ -1,16 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var http   = require('http');
 
-// эмуляция ыибрации 
+//-----------------------------------------------------------------------------
+// эмулятор вибрации
+//-----------------------------------------------------------------------------
 router.get('/on/:parameter', function(req, res, next) {
-	var result = {success: 1};
-	res.json(result);
+	res.json({success: 1});
 
 });
 router.get('/off/:parameter', function(req, res, next) {
-	var result = {success: 1};
-	res.json(result);
+	res.json({success: 1});
 });
 
 module.exports = router;

@@ -4,8 +4,10 @@ var http   = require('http');
 
 router.get('/number_of_inserted/:value', function(req, res, next) {
 
-	devices.get('figure').state = "number_of_inserted";
-	devices.get('figure').value = req.params.value;
+	var device = devices.get('figure');
+
+	device.state = "number_of_inserted";
+	device.value = req.params.value;
 
 	var count = 5;
 	if (gamers.count < count) {
@@ -14,22 +16,14 @@ router.get('/number_of_inserted/:value', function(req, res, next) {
 
 	if (count <= parseInt(req.params.value)) {
 		// открываем шкаф с картой
-		var query = devices.build_query('locker_2', 'open', '0');
-		http.get(query, function(res) {
-				console.log("Got response: " );
-				res.on('data', function(data){
-
-					devices.get('locker_2').state = "opened";
-
-				});
-			}).on('error', function(e) {
-				console.log("Got error: ");
-		});
+		helpers.send_get('locker_2', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX,
+			function (params) {
+				devices.get('locker_2').state = "opened";
+			},{}
+		);
 	}
 
-	var result = {success: 1};
-	res.json(result);
-	
+	res.json({success: 1});
 });
 
 module.exports = router;

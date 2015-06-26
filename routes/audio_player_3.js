@@ -41,13 +41,11 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 // эмулятор аудиоплеера
 //-----------------------------------------------------------------------------
 router.get('/play_channel_1/:parameter', function(req, res, next) {
-	var result = {success: 1};
-	res.json(result);
+	res.json({success: 1});
 });
 
 router.get('/play_channel_2/:parameter', function(req, res, next) {
-	var result = {success: 1};
-	res.json(result);
+	res.json({success: 1});
 });
 
 module.exports = router;
