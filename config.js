@@ -615,7 +615,7 @@ if (EMULATOR_MODE) {
 			ip:            "localhost",
 			port:          "3000",
 			state:         "closed",
-				wd_state:      1,
+			wd_state:      1,
 		},
 
 		// дверь 5

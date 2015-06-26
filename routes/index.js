@@ -36,7 +36,7 @@ router.get('/:device_id/:action/:parameter', function(req, res, next) {
 	if (parseInt(req.params.device_id) || parseInt(req.params.device_id) == "0") {
 		// эмуляция обработки запросов
 		var req_ip = req.ip;
-		if (req_ip == "::1") {
+		if (req_ip == "::1" || req_ip == "::ffff:127.0.0.1") {
 			req_ip = "localhost";
 		} 
 
