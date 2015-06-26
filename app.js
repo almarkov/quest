@@ -123,8 +123,6 @@ var util = require('util');
 var log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'debug.log', {flags : 'a'});
 var log_stdout = process.stdout;
 
-
-
 console.log = function(d) {
     log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n');
     log_stdout.write(util.format(d) + '\n');
