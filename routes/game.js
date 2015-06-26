@@ -7,19 +7,18 @@ var child_process = require('child_process');
 router.get('/reload/:name', function(req, res, next) {
 	var num = devices.get(req.params.name).arduino_id;
 	child_process.exec('sendcom.exe ' + num, function(error, stdout, stderr){
-		console.log(stdout);
+		simple_log('reloaded: ' + req.params.name + ', carrier_id: ' + num);
 	});
-
 	
-	var result = {success: 1};
-	res.json(result);
+	res.json({success: 1});
 });
 
-// вернулись в команут2
+// вернулись в команту 2
 router.get('/close_power_wall', function(req, res, next) {
 
 	//  закрываем дверь 8
 	helpers.send_get('door_8', 'close', '0', ENABLE_TIMER, ENABLE_MUTEX);
+	res.json({success: 1});
 
 });
 
@@ -40,8 +39,7 @@ router.get('/start/:count', function(req, res, next) {
 		gamers.quest_state = 15; //'Ожидание открытия двери 1';
 	}
 
-	var result = {success: 1};
-	res.json(result);
+	res.json({success: 1});
 
 });
 
@@ -54,8 +52,7 @@ router.get('/allin', function(req, res, next) {
 	//  закрываем дверь 1
 	helpers.send_get('door_1', 'close', '0', ENABLE_TIMER, ENABLE_MUTEX);
 
-	var result = {success: 1};
-	res.json(result);
+	res.json({success: 1});
 
 });
 
@@ -79,7 +76,7 @@ router.get('/get_ready', function(req, res, next) {
 				var device = devices.get('audio_player_' + params.index);
 				device.value = config.files[0];
 				device.state = "ch1_play_ch2_stop";
-			}, 
+			},
 			{
 				index: i
 			}
@@ -134,8 +131,7 @@ router.get('/get_ready', function(req, res, next) {
 
 	gamers.quest_state = 1;
 
-	var result = {success: 1};
-	res.json(result);
+	res.json({success: 1});
 
 });
 
@@ -170,9 +166,7 @@ router.get('/service_mode', function(req, res, next) {
 
 	gamers.quest_state = 2;
 
-	var result = {success: 1};
-	res.json(result);
-
+	res.json({success: 1});
 });
 
 // перезапуск игры

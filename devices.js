@@ -11,7 +11,10 @@ var simple_copy_obj = function(obj) {
 }
 
 exports.list = [];
+exports.list_by_name = {};
+exports.list_by_id_arduiono_id = {};
 
+// копируем из config + создаём хэши для быстрого доступа
 for (var i = 0; i < config.list.length; i++) {
 	exports.list[i] = simple_copy_obj(config.list[i]);
 	exports.list[i].mutex = 0;

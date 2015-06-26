@@ -16,21 +16,21 @@ router.get('/all', function(req, res, next) {
 			// отправляем на сервер текущее значение
 			http.get(web_server_url + "/timer/current_value/" + new_current_value.toString(),
 					function(res) {
-						console.log("Got response: " );
+						simple_log("timer current_value: " + new_current_value.toString());
 					}).on('error', function(e) {
-						console.log("Got error: ");
+						simple_log("timer send current_value error");
 			});
 		// если таймер досчитал - обнуляем, 
 		} else {
-			console.log('sending ready');
 			devices.timer().state         = 'ready';
 			devices.timer().current_value = '';
 
 			// отправляем событие ready
+			simple_log('sending timer ready');
 			http.get(web_server_url + "/timer/ready", function(res) {
-					console.log("Got response: " );
+					simple_log('sent timer ready');
 				}).on('error', function(e) {
-					console.log("Got error: ");
+					simple_log('error sending ready');
 			});
 		}
 	}
@@ -43,7 +43,6 @@ router.get('/all', function(req, res, next) {
 				if (!devices.list[i].mutex) {
 					http.get(query, function(res) {
 							res.on('data', function(data){
-								//console.log("Got response on wd");
 								var result = JSON.parse(data);
 								if (result.success) {
 									//обновить статусы устройств
@@ -62,21 +61,22 @@ router.get('/all', function(req, res, next) {
 								}
 							});
 						}).on('error', function(e) {
-							console.log("Got error on wd");
+							simple_log("watchdog error");
 					});
 				}
 			}
 		}
 	}
 
+	// проверка работоспосбоности
 	if (gamers.quest_state == 0) {
-		var next = 1;
+		var flag = 1;
 		for (var i = 0; i < devices.list.length; i++) {
 			if (!devices.list[i].wd_state) {
-				next = 0;
+				flag = 0;
 			}
 		}
-		if (next) {
+		if (flag) {
 			gamers.quest_state = 1;
 		}
 	}
