@@ -57,10 +57,10 @@ exports.build_query = function(device, command, parameter) {
 	}
 }
 
-exports.int_url_for = function (arduino_id, device_id, event_id) {
+exports.int_url_for = function (carrier_id, device_id, event_id) {
 	var res = "";
 	config.list.forEach(function function_name (element) {
-		if (element.arduino_id == arduino_id && element.id == device_id) {
+		if (element.carrier_id == carrier_id && element.id == device_id) {
 			res =  "/" + element.name;
 			res += "/" + element.events[event_id];
 		}
@@ -76,7 +76,7 @@ exports.reset = function() {
 		exports.list[i] = simple_copy_obj(config.list[i]);
 		exports.list[i].mutex = 0;
 		exports.list_by_name[exports.list[i].name] = exports.list[i];
-		exports.list_by_id_arduiono_id[exports.list[i].arduino_id + '_' + exports.list[i].id] = exports.list[i];
+		exports.list_by_id_arduiono_id[exports.list[i].carrier_id + '_' + exports.list[i].id] = exports.list[i];
 	}
 	exports.default_timer_value = config.default_timer_value;
 }
@@ -91,9 +91,9 @@ exports.get = function(name) {
 	return exports.list_by_name[name];
 }
 
-// устройство по id + arduino_id
-exports.get_by_id = function(arduino_id, id) {
-	return exports.list_by_id_arduiono_id[arduino_id + '_' + id];
+// устройство по id + carrier_id
+exports.get_by_id = function(carrier_id, id) {
+	return exports.list_by_id_arduiono_id[carrier_id + '_' + id];
 }
 
 exports.get_command_id = function(device, command){

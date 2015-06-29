@@ -132,11 +132,11 @@ $(document).ready(function() {
 				}
 
 				// кнопка, открывающая шкаф
-				if (response["locker_1_button"].state == "pushed") {
-					$("#inpLocker1Button").val('Уже была нажата');
-				} else if (response["locker_1_button"].state == "not_pushed") {
-					$("#inpLocker1Button").val('Ещё не была нажата');
-				}
+				// if (response["locker_1_button"].state == "pushed") {
+				// 	$("#inpLocker1Button").val('Уже была нажата');
+				// } else if (response["locker_1_button"].state == "not_pushed") {
+				// 	$("#inpLocker1Button").val('Ещё не была нажата');
+				// }
 
 				// таймер
 				$("#inpTimer").val(response.timer.current_value.toString());
@@ -149,11 +149,11 @@ $(document).ready(function() {
 				}
 
 				// дверь шкафа
-				if (response['locker_1'].state == "opened") {
-					$("#inpLocker1").val('Открыт');
-				} else if (response['locker_1'].state == "closed") {
-					$("#inpLocker1").val('Закрыт');
-				}
+				// if (response['locker_1'].state == "opened") {
+				// 	$("#inpLocker1").val('Открыт');
+				// } else if (response['locker_1'].state == "closed") {
+				// 	$("#inpLocker1").val('Закрыт');
+				// }
 
 				// многогранник
 				if (response['polyhedron'].state == "activated") {

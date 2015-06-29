@@ -20,8 +20,9 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 
 	var player_number = gamers.quest_state % 10;
 
-	// если идёт сканирование, игрок не предпоследний, а подсветка не горит
+	// если идёт сканирование, игрок не предпоследний, подсветка не горит, и код введён
 	if (   ((gamers.quest_state / 10 | 0) == 12)
+		&& gamers.codes[player_number]
 		&& (player_number != gamers.count-2)
 		&& backlight_state == "off" )
 	{
@@ -47,7 +48,8 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 
 	// если идёт сканирование, игрок не предпоследний и подсветка горит
 	} else if (   ((gamers.quest_state / 10 | 0) == 12)
-		&& (gamers.quest_state % 10 != gamers.count-2)
+		&& gamers.codes[player_number]
+		&& (player_number != gamers.count-2)
 		&& backlight_state == "on" )
 	{
 		//  открываем дверь 4
@@ -55,7 +57,8 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 
 	// если идёт сканирование и игрок предпоследний
 	} else if (   ((gamers.quest_state / 10 | 0) == 12)
-		&& (gamers.quest_state % 10 == gamers.count-2))
+		&& gamers.codes[player_number]
+		&& (player_number == gamers.count-2))
 	{
 		//  открываем дверь 3
 		helpers.send_get('door_3', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);

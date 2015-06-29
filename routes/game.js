@@ -5,7 +5,7 @@ var child_process = require('child_process');
 
 // перезагрузка arduino 
 router.get('/reload/:name', function(req, res, next) {
-	var num = devices.get(req.params.name).arduino_id;
+	var num = devices.get(req.params.name).carrier_id;
 	child_process.exec('sendcom.exe ' + num, function(error, stdout, stderr){
 		simple_log('reloaded: ' + req.params.name + ', carrier_id: ' + num);
 	});

@@ -87,7 +87,7 @@ DEV_MODE      = 1;
 PROD_MODE     = 0;
 
 EMULATOR_MODE = 1;
-REAL_MODE     = 1;
+REAL_MODE     = 0;
 
 // вспомогат. ф-ции
 routines       = require("./routines.js");

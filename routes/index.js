@@ -7,14 +7,14 @@ router.get('/', function(req, res, next) {
 });
 
 // редирект по обработчикам событий от устройств
-router.get('/:arduino_id/:device_id/:action/:parameter', function(req, res, next) {
+router.get('/:carrier_id/:device_id/:action/:parameter', function(req, res, next) {
 
-	var query = devices.int_url_for(req.params.arduino_id, parseInt(req.params.device_id), req.params.action) + "/" + req.params.parameter;
+	var query = devices.int_url_for(req.params.carrier_id, parseInt(req.params.device_id), req.params.action) + "/" + req.params.parameter;
 
 	var url = web_server_url + query;
 
 	simple_log('<-'
-		+ ' ' + req.params.arduino_id
+		+ ' ' + req.params.carrier_id
 		+ ' ' + req.params.device_id
 		+ ' ' + req.params.action
 		+ ' ' + req.params.parameter 
