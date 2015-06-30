@@ -12,7 +12,7 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 
 	var device = devices.get('audio_player_4');
 	device.state = "ch1_play_ch2_stop";
-	device.value = config.files[0];
+	device.value = config.audio_files[19].alias;
 
 	// Все игроки снова собрались вместе и приглашаются во дворец благоденствия»
 	if (gamers.quest_state == 145) {
@@ -30,6 +30,14 @@ router.get('/play_channel_1/:parameter', function(req, res, next) {
 });
 
 router.get('/play_channel_2/:parameter', function(req, res, next) {
+	res.json({success: 1});
+});
+
+router.get('/stop_channel_1/:parameter', function(req, res, next) {
+	res.json({success: 1});
+});
+
+router.get('/stop_channel_2/:parameter', function(req, res, next) {
 	res.json({success: 1});
 });
 

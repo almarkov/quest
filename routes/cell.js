@@ -15,7 +15,7 @@ router.get('/code_entered/:code', function(req, res, next) {
 
 		var cell_count = 5;
 		if (gamers.count < cell_count) {
-			cell_count = 1 + parseInt(gamers.count);
+			cell_count = 1 + (gamers.count);
 		}
 		// необходимое верных кодов
 		if (gamers.quest_state % 10 == cell_count) {
@@ -27,6 +27,21 @@ router.get('/code_entered/:code', function(req, res, next) {
 
 	res.json({success: 1});
 	
+});
+
+//-----------------------------------------------------------------------------
+// эмулятор ячейки
+//-----------------------------------------------------------------------------
+router.get('/open/:parameter', function(req, res, next) {
+
+	res.json({success: 1});
+
+});
+
+router.get('/close/:parameter', function(req, res, next) {
+
+	res.json({success: 1});
+
 });
 
 module.exports = router;

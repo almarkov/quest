@@ -22,4 +22,12 @@ router.get('/play_channel_2/:parameter', function(req, res, next) {
 	res.json({success: 1});
 });
 
+router.get('/stop_channel_1/:parameter', function(req, res, next) {
+	res.json({success: 1});
+});
+
+router.get('/stop_channel_2/:parameter', function(req, res, next) {
+	res.json({success: 1});
+});
+
 module.exports = router;

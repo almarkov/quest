@@ -8,7 +8,7 @@ router.get('/number_of_fastened/:parameter', function(req, res, next) {
 	devices.get('safety_belts').value = req.params.parameter;
 
 	// все пристёгнуты?
-	if (parseInt(gamers.count) <= parseInt(req.params.parameter)) {
+	if (gamers.count <= parseInt(req.params.parameter)) {
 		// если подготовка к обратному перелёту
 		if (gamers.quest_state == 220) {
 
@@ -50,10 +50,10 @@ router.get('/number_of_fastened/:parameter', function(req, res, next) {
 		} else if (gamers.quest_state == 60) {
 
 			// включаем звук на канале 2 плеера 1
-			helpers.send_get('audio_player_1', 'play_channel_2', config.files[4], DISABLE_TIMER, ENABLE_MUTEX,
+			helpers.send_get('audio_player_1', 'play_channel_2', config.audio_files[1].value, DISABLE_TIMER, ENABLE_MUTEX,
 				function (params) {
 					var device = devices.get('audio_player_1');
-					device.value = config.files[4];
+					device.value = config.audio_files[1].alias;
 					device.state = 'ch1_play_ch2_play';
 				},{}
 			);

@@ -29,7 +29,7 @@ router.get('/start/:count', function(req, res, next) {
 		// начинаем часовой отсчёт
 		start_time = new Date();
 		// фиксируем число игроков
-		gamers.count = req.params.count;
+		gamers.count = parseInt(req.params.count);
 
 		gamers.quest_state = 10;//'Начало игры';
 

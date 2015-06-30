@@ -212,6 +212,13 @@ $(document).ready(function() {
 					$("#inpCardReader").val('Не пройдено');
 				}
 
+				// дым-машина
+				if (response['smoke'].state == "on") {
+					$("#inpSmoke").val('Включена');
+				} else if (response['smoke'].state == "off") {
+					$("#inpSmoke").val('Выключена');
+				}
+
 				// энергостена
 				if (response['power_wall'].state == "passed") {
 					$("#inpPowerWall").val('Пройдено');
@@ -689,6 +696,67 @@ $('#Main .CardReader .Ok').click(function(e){
 	});
 });
 
+// Кнопка 'включить свет'
+$('#Main .Light .On').click(function(e){
+	$.ajax({
+		url: web_server_url + '/light/on/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('button pushed');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+// Кнопка 'выключить свет'
+$('#Main .Light .Off').click(function(e){
+	$.ajax({
+		url: web_server_url + '/light/off/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('button pushed');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+// Кнопка 'включить дым'
+$('#Main .Smoke .On').click(function(e){
+	$.ajax({
+		url: web_server_url + '/smoke/on/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('button pushed');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+// Кнопка 'выключить дым'
+$('#Main .Smoke .Off').click(function(e){
+	$.ajax({
+		url: web_server_url + '/smoke/off/0',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				console.log('button pushed');
+			},
+			error: function(error) {
+				console.log('ERROR:', error);
+			}
+	});
+});
+
 // Кнопка 'энергостена пройдена'
 $('#Main .PowerWall .Ok').click(function(e){
 	$.ajax({
@@ -760,7 +828,7 @@ $('#Main .Terminal2 .SendRight').click(function(e){
 // Кнопка 'Игра не пройдена' - для прохождения игры на планшете2
 $('#Main .Terminal2 .SendWrong').click(function(e){
 	$.ajax({
-		url: web_server_url + '/terminal_2/game_not_passed/0',
+		url: web_server_url + '/terminal_2/game_failed/0',
 		type: "GET",
 		crossDomain: true,
 		dataType: "json",

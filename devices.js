@@ -41,19 +41,24 @@ exports.build_query = function(device, command, parameter) {
 	if (device == 'timer') {
 		return web_server_url + '/timer/'+ command + '/' + parameter;
 	}
-	for (var i = 0; i < config.list.length; i++) {
-		if (config.list[i].name == device) {
-			for (var j = 0; j < config.list[i].commands.length; j++) {
-				if (command == config.list[i].commands[j]) {
-					return "http://"
-						+ config.list[i].ip + ":"
-						+ config.list[i].port + "/" 
-						+ config.list[i].id + "/"
-						+ parseInt(j) + "/"
-						+ parameter;
+	if (REAL_MODE) {
+		for (var i = 0; i < config.list.length; i++) {
+			if (config.list[i].name == device) {
+				for (var j = 0; j < config.list[i].commands.length; j++) {
+					if (command == config.list[i].commands[j]) {
+						return "http://"
+							+ config.list[i].ip + ":"
+							+ config.list[i].port + "/" 
+							+ config.list[i].id + "/"
+							+ parseInt(j) + "/"
+							+ parameter;
+					}
 				}
 			}
 		}
+	}
+	if (EMULATOR_MODE) {
+		return web_server_url + '/' + device + '/'+ command + '/' + parameter;
 	}
 }
 

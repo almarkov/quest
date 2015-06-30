@@ -343,7 +343,7 @@ if (EMULATOR_MODE) {
 			port:          "3000",
 			state:         "not_given",
 			wd_state:      1,
-			commands:      [ "not_given", "given" ], 
+			commands:      [ "take", "give" ], 
 			events:        [ "not_given", "given" ], 
 			states:        [ "not_given", "given" ],	
 		},
@@ -437,7 +437,7 @@ if (EMULATOR_MODE) {
 			wd_state:      1,
 			value:         "",
 			events:        [ "code_entered" ],
-			commands:      [ "deactivate", "activate"],
+			commands:      [ "black_screen", "go" ],
 			states:        [ "sleep", "active" ],	
 		},
 
@@ -451,8 +451,8 @@ if (EMULATOR_MODE) {
 			state:         "sleep",
 			wd_state:      1,
 			value:         "",
-			events:        [ "game_not_passed", "game_passed" ],
-			commands:      [ "deactivate", "activate"],
+			events:        [ "game_failed", "game_passed" ],
+			commands:      [ "black_screen", "go" ],
 			states:        [ "sleep", "active" ],	
 		},
 
@@ -467,7 +467,7 @@ if (EMULATOR_MODE) {
 			wd_state:      1,
 			value:         "",
 			events:        [ "game passed" ],
-			commands:      [ "deactivate", "activate"],
+			commands:      [ "black_screen", "go" ],
 			states:        [ "sleep", "active" ],	
 		},
 
@@ -482,7 +482,7 @@ if (EMULATOR_MODE) {
 			wd_state:      1,
 			value:         "",
 			events:        [ "coordinates_entered" ],
-			commands:      [ "deactivate", "activate"],
+			commands:      [ "black_screen", "go" ],
 			states:        [ "sleep", "active" ],	
 		},
 
@@ -552,6 +552,19 @@ if (EMULATOR_MODE) {
 			value:         ""
 		},
 
+		// дым машина
+		{
+			id:            0,
+			carrier_id:    21,
+			name:          "smoke",
+			ip:            "localhost",
+			port:          "3000",
+			state:         "off",
+			wd_state:      1,
+			commands:      [ "off", "on" ], 
+			states:        [ "off", "on" ],	
+		},
+
 	];
 }
 
@@ -570,9 +583,9 @@ for (var i = 0; i < exports.list.length; i++) {
 exports.colors = [
 	'red', //0 
 	'green',
-	'yellow',
 	'blue',
 	'yellow',
+	'diff',
 ];
 
 // для меня
@@ -620,7 +633,153 @@ exports.color_files =[
 	"col_audio5",
 ];
 
+exports.video_files = [
+	{}, // empty
+	{
+		alias:       'video1',
+		description: 'подсказка о том, как активировать многогранник',
+		value:       'mnt/sdcard/TV/1.mp4&repeat=1',
+	},
+	{
+		alias:       'video2',
+		description: 'видео с говноклипами',
+		value:       'mnt/sdcard/TV/2.mp4&repeat=1',
+	},
+	{
+		alias:       'video3',
+		description: 'звездное небо',
+		value:       'mnt/sdcard/TV/3.mp4&repeat=1',
+	},
+	{
+		alias:       'video4',
+		description: 'не считайте себя похищенными, пристегните ремни',
+		value:       'mnt/sdcard/TV/4.mp4&repeat=0',
+	},
+	{
+		alias:       'video5',
+		description: 'межзвездный прыжок',
+		value:       'mnt/sdcard/TV/5.mp4&repeat=0',
+	},
+	{
+		alias:       'video6',
+		description: 'прилетели, ннада подтвердить избранность',
+		value:       'mnt/sdcard/TV/6.mp4&repeat=10',
+	},
+	{
+		alias:       'video7',
+		description: 'посмотрите свои любимые клипы',
+		value:       'mnt/sdcard/TV/7.mp4&repeat=0',
+	},
+	{
+		alias:       'video8',
+		description: 'отдохните',
+		value:       'mnt/sdcard/TV/8.mp4&repeat=0',
+	},
+	{
+		alias:       'video8',
+		description: 'вам угрожает опасность',
+		value:       'mnt/sdcard/TV/9.mp4&repeat=0',
+	},
+];
 
+exports.audio_files = [
+	{}, // empty
+	{
+		alias:       'audio1',
+		description: 'экипаж готов, начинаем межзвездный перелет',
+		value:       'mnt/sdcard/Audio/1.mp3&repeat=0',
+	},
+	{
+		alias:       'audio2',
+		description: 'прилетели',
+		value:       'mnt/sdcard/Audio/2.mp3&repeat=0',
+	},
+	{
+		alias:       'audio3',
+		description: 'игрок 1, го сканироваться',
+		value:       'mnt/sdcard/Audio/3.mp3&repeat=0',
+	},
+	{
+		alias:       'audio4',
+		description: 'игрок 2, го сканироваться',
+		value:       'mnt/sdcard/Audio/4.mp3&repeat=0',
+	},
+	{
+		alias:       'audio5',
+		description: 'игрок 3, го сканироваться',
+		value:       'mnt/sdcard/Audio/5.mp3&repeat=0',
+	},
+	{
+		alias:       'audio6',
+		description: 'игрок 4, го сканироваться',
+		value:       'mnt/sdcard/Audio/6.mp3&repeat=0',
+	},
+	{
+		alias:       'audio7',
+		description: 'придумайте и введите пароль',
+		value:       'mnt/sdcard/Audio/7.mp3&repeat=0',
+	},
+	{
+		alias:       'audio8',
+		description: 'в очередь, сукины дети',
+		value:       'mnt/sdcard/Audio/8.mp3&repeat=0',
+	},
+	{
+		alias:       'audio9',
+		description: 'предварительное сканирование завершено, ты красный',
+		value:       'mnt/sdcard/Audio/9.mp3&repeat=0',
+	},
+	{
+		alias:       'audio10',
+		description: 'предварительное сканирование завершено, ты зеленый',
+		value:       'mnt/sdcard/Audio/10.mp3&repeat=0',
+	},
+	{
+		alias:       'audio11',
+		description: 'предварительное сканирование завершено, ты желтый',
+		value:       'mnt/sdcard/Audio/11.mp3&repeat=0',
+	},
+	{
+		alias:       'audio12',
+		description: 'подождите минутку',
+		value:       'mnt/sdcard/Audio/12.mp3&repeat=0',
+	},
+	{
+		alias:       'audio13',
+		description: 'вы не прошли сканирование',
+		value:       'mnt/sdcard/Audio/13.mp3&repeat=0',
+	},
+	{
+		alias:       'audio14',
+		description: 'укажите зеленые квадраты',
+		value:       'mnt/sdcard/Audio/14.mp3&repeat=0',
+	},
+	{
+		alias:       'audio15',
+		description: 'неверно введены квадратики',
+		value:       'mnt/sdcard/Audio/15.mp3&repeat=0',
+	},
+	{
+		alias:       'audio16',
+		description: 'верно введены квадратики',
+		value:       'mnt/sdcard/Audio/16.mp3&repeat=0',
+	},
+	{
+		alias:       'audio17',
+		description: 'восстание',
+		value:       'mnt/sdcard/Audio/17.mp3&repeat=0',
+	},
+	{
+		alias:       'audio18',
+		description: 'квест пройден',
+		value:       'mnt/sdcard/Audio/18.mp3&repeat=0',
+	},
+	{
+		alias:       'audio19',
+		description: 'фоновый звук',
+		value:       'mnt/sdcard/Audio/19.mp3&repeat=1',
+	},
+];
 
 // для реальных файлов
 // exports.files = [
