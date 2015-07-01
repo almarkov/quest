@@ -21,8 +21,15 @@ router.get('/ready', function(req, res, next) {
 		for (var i = 1; i <= 5; i++) {
 			devices.get('cell_' + i).state = 'closed';
 		}
+		for (var i = 1; i <= 4; i++) {
+			devices.get('terminal_' + i).state = 'sleep';
+		}
 		devices.get('locker_2').state    = 'closed';
 		devices.get('card_holder').state = 'not_given';
+
+		devices.get('light').state    = 'on';
+		devices.get('inf_mirror_backlight').state = 'off';
+		devices.get('vibration').state    = 'off';
 
 		res.json({success: 1});
 		return;
@@ -52,16 +59,6 @@ router.get('/ready', function(req, res, next) {
 	if (gamers.quest_state >= 100 && gamers.quest_state < 110) {
 		devices.get('door_2').state = 'opened';
 
-		// включаем звук для номера игрока
-		var audio_file = config.player_files[gamers.quest_state%10]; 
-		helpers.send_get('audio_player_1', 'play_channel_2', audio_file, DISABLE_TIMER, ENABLE_MUTEX,
-			function(params){
-				var device   = devices.get('audio_player_1');
-				device.value = audio_file;
-				device.state = "ch1_play_ch2_stop";
-			}, {}
-		);
-
 		gamers.active_button = 'StartScan';
 		gamers.quest_state  += 10; //'Требуется действие оператора. Убедитесь, что в комнате сканирования только один человек';
 
@@ -73,20 +70,30 @@ router.get('/ready', function(req, res, next) {
 	if (gamers.quest_state >= 110 && gamers.quest_state < 120) {
 		devices.get('door_2').state = 'closed';
 		// пробуждаем планшет
-		helpers.send_get('terminal_1', 'activate', '0', DISABLE_TIMER, ENABLE_MUTEX,
+		helpers.send_get('terminal_1', 'go', '0', DISABLE_TIMER, ENABLE_MUTEX,
 			function(params){
 				devices.get('terminal_1').state = 'active';
 			}, {}
 		);
 
 		// включаем звук 'введите код'
-		helpers.send_get('audio_player_2', 'play_channel_2', config.files[10], DISABLE_TIMER, ENABLE_MUTEX,
+		helpers.send_get('audio_player_2', 'play_channel_2', config.audio_files[7], DISABLE_TIMER, ENABLE_MUTEX,
 			function(params){
 				var device   = devices.get('audio_player_2');
-				device.value = config.files[10];
+				device.value = config.audio_files[7];
 				device.state = "ch1_play_ch2_stop";
 			}, {}
 		);
+
+		// бесконечное зеркало переливается
+		helpers.send_get('inf_mirror_backlight', 'on', 'diff', DISABLE_TIMER, ENABLE_MUTEX,
+			function(params){
+				var device   = devices.get('inf_mirror_backlight');
+				device.value = 'diff';
+				device.state = "on";
+			}, {}
+		);
+
 
 		gamers.quest_state += 10;//'Идет сканирование игрока X из Y. 120-129
 
@@ -100,6 +107,7 @@ router.get('/ready', function(req, res, next) {
 		devices.get('door_3').state = 'opened';
 
 		gamers.quest_state += 10; //'Игрко X прощёл сканирование игрока X из Y. 130-139
+		gamers.active_button = "StopScan";
 
 		res.json({success: 1});
 		return;
@@ -112,19 +120,19 @@ router.get('/ready', function(req, res, next) {
 		devices.get('door_3').state = 'closed';
 
 		// включаем звук на канале 2 плеера 3 (будете аннигилированы)
-		helpers.send_get('audio_player_3', 'play_channel_2', config.files[13], DISABLE_TIMER, ENABLE_MUTEX,
+		helpers.send_get('audio_player_3', 'play_channel_2', config.audio_files[13].value, DISABLE_TIMER, ENABLE_MUTEX,
 			function(params){
 				var device   = devices.get('audio_player_3');
-				device.value = config.files[13];
+				device.value = config.audio_files[13].alias;
 				device.state = "ch1_play_ch2_stop";
 			}, {}
 		);
 
-		gamers.quest_state -= 30;
-		gamers.quest_state += 1;
+		// gamers.quest_state -= 30;
+		// gamers.quest_state += 1;
 
-		//открываем дверь 2
-		helpers.send_get('door_2', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
+		// //открываем дверь 2
+		// helpers.send_get('door_2', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
 
 		res.json({success: 1});
 		return;
@@ -137,6 +145,7 @@ router.get('/ready', function(req, res, next) {
 		devices.get('door_4').state = 'opened';
 
 		gamers.quest_state += 10; //'Игрко X прощёл сканирование игрока X из Y. 130-139
+		gamers.active_button = "StopScan";
 
 		var result = {success: 1};
 		res.json({success: 1});
@@ -159,28 +168,40 @@ router.get('/ready', function(req, res, next) {
 		);
 
 		// включаем звук на канале 2 плеера 4 (подождите других игроков)
-		helpers.send_get('audio_player_4', 'play_channel_2', config.files[12], DISABLE_TIMER, ENABLE_MUTEX,
+		helpers.send_get('audio_player_4', 'play_channel_2', config.audio_files[12].value, DISABLE_TIMER, ENABLE_MUTEX,
 			function(params){
 				var device   = devices.get('audio_player_4');
-				device.value = config.files[12];
+				device.value = config.audio_files[12].alias;
 				device.state = "ch1_play_ch2_stop";
 			}, {}
 		);
 
 		// если последний
 		if (gamers.quest_state % 10  == gamers.count - 1 ) {
-			// если предпоследний прошёл игру
-			if (gamers.last_player_pass) {
-				gamers.quest_state = 141;	
-				//  открываем дверь 3
-				helpers.send_get('door_3', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX);
 
-				//  открываем дверь 4
-				helpers.send_get('door_4', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
+			gamers.quest_state = 140; //Сканирование закончено. Игроки должны спасти коллегу, попавшего в комнату аннигиляции
+		
+			// включаем видео на экране 2
+			helpers.send_get('video_player_2', 'play', config.video_files[7].value, DISABLE_TIMER, ENABLE_MUTEX,
+				function (params) {
+					var device = devices.get('video_player_2');
+					device.value = config.video_files[7].alias;
+					device.state = 'playing';
+				},{}
+			);
 
-			} else {
-				gamers.quest_state = 140;
-			}
+			// // если предпоследний прошёл игру
+			// if (gamers.last_player_pass) {
+			// 	gamers.quest_state = 141;	
+			// 	// //  открываем дверь 3
+			// 	// helpers.send_get('door_3', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX);
+
+			// 	// //  открываем дверь 4
+			// 	// helpers.send_get('door_4', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
+
+			// } else {
+			// 	gamers.quest_state = 140;
+			// }
 			
 		// если не последний
 		} else {
@@ -189,6 +210,16 @@ router.get('/ready', function(req, res, next) {
 
 			//открываем дверь 2
 			helpers.send_get('door_2', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
+
+			// включаем звук для номера игрока
+			var audio_file = config.audio_files[gamers.quest_state%10 + 3]; 
+			helpers.send_get('audio_player_1', 'play_channel_2', audio_file.value, DISABLE_TIMER, ENABLE_MUTEX,
+				function(params){
+					var device   = devices.get('audio_player_1');
+					device.value = audio_file.alias;
+					device.state = "ch1_play_ch2_stop";
+				}, {}
+			);
 		}
 
 		res.json({success: 1});
@@ -200,32 +231,47 @@ router.get('/ready', function(req, res, next) {
 		devices.get('door_4').state = 'opened';
 		devices.get('door_3').state = 'opened';
 
-		res.json({success: 1});
-		return;
-	}
+		gamers.quest_state = 142;
 
-	// если ждали пока закроется дверь 4 после окончания сканирования
-	if (gamers.quest_state == 142) {
-		gamers.quest_state = 145;
-		devices.get('door_4').state = 'closed';
-
-		// включаем звук  стыковки сейчас вы попадете во дворец
-		helpers.send_get('audio_player_4', 'play_channel_2', config.files[14], DISABLE_TIMER, ENABLE_MUTEX,
-			function(params){
-				var device   = devices.get('audio_player_4');
-				device.value = config.files[14];
-				device.state = "ch1_play_ch2_stop";
-			}, {}
-		);
+		// открываем дверь 5
+		helpers.send_get('door_5', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
 
 		res.json({success: 1});
 		return;
 	}
+
+	// // если ждали пока закроется дверь 4 после окончания сканирования
+	// if (gamers.quest_state == 142) {
+	// 	gamers.quest_state = 145;
+	// 	devices.get('door_4').state = 'closed';
+
+	// 	// включаем звук  стыковки сейчас вы попадете во дворец
+	// 	helpers.send_get('audio_player_4', 'play_channel_2', config.files[14], DISABLE_TIMER, ENABLE_MUTEX,
+	// 		function(params){
+	// 			var device   = devices.get('audio_player_4');
+	// 			device.value = config.files[14];
+	// 			device.state = "ch1_play_ch2_stop";
+	// 		}, {}
+	// 	);
+
+	// 	res.json({success: 1});
+	// 	return;
+	// }
 
 	// ждали открытия  ядвери 5
-	if (gamers.quest_state == 145) {
+	if (gamers.quest_state == 142) {
 		devices.get('door_5').state = "opened";
 		gamers.quest_state = 150;
+
+		// включаем видео на экране 3
+		helpers.send_get('video_player_3', 'play', config.video_files[8].value, DISABLE_TIMER, ENABLE_MUTEX,
+			function (params) {
+				var device = devices.get('video_player_3');
+				device.value = config.video_files[8].alias;
+				device.state = 'playing';
+			},{}
+		);
+
 
 		res.json({success: 1});
 		return;
@@ -236,8 +282,11 @@ router.get('/ready', function(req, res, next) {
 		devices.get('door_6').state = "opened";
 		gamers.quest_state = 180;
 
+		// выключаем дым-машину
+		helpers.send_get('smoke', 'off', '0', DISABLE_TIMER, ENABLE_MUTEX);
+
 		// пробуждаем планшет-светялчок
-		helpers.send_get('terminal_3', 'activate', '0', DISABLE_TIMER, ENABLE_MUTEX,
+		helpers.send_get('terminal_3', 'go', 'field=2,540,180;3,240,60;3,120,360;6,660,0;3,660,300;9,720,360;@2,70,0,140;1,70,140,140;1,215,140,430;2,430,140,200;1,430,70,585;2,585,70,140;1,585,140,730;2,730,0,70;2,215,200,345;1,290,270,800;2,800,470,480', DISABLE_TIMER, ENABLE_MUTEX,
 			function(params){
 				devices.get('terminal_3').state = 'active';
 			}, {}
@@ -261,6 +310,15 @@ router.get('/ready', function(req, res, next) {
 		devices.get('door_8').state = "opened";
 		gamers.quest_state = 200;
 
+		// включаем видео на экране 1
+		helpers.send_get('video_player_1', 'play', config.video_files[9].value, DISABLE_TIMER, ENABLE_MUTEX,
+			function(params){
+				var device   = devices.get('video_player_1');
+				device.value = config.video_files[9].alias;
+				device.state = "playing";
+			}, {}
+		);
+
 		res.json({success: 1});
 		return;
 	}
@@ -269,14 +327,14 @@ router.get('/ready', function(req, res, next) {
 	if (gamers.quest_state == 200) {
 		devices.get('door_8').state = "closed";
 
-		// включаем видео на экране 2
-		helpers.send_get('video_player_1', 'play', config.files[19], DISABLE_TIMER, ENABLE_MUTEX,
-			function(params){
-				var device   = devices.get('video_player_1');
-				device.value = config.files[19];
-				device.state = "playing";
-			}, {}
-		);
+		// // включаем видео на экране 2
+		// helpers.send_get('video_player_1', 'play', config.files[19], DISABLE_TIMER, ENABLE_MUTEX,
+		// 	function(params){
+		// 		var device   = devices.get('video_player_1');
+		// 		device.value = config.files[19];
+		// 		device.state = "playing";
+		// 	}, {}
+		// );
 
 
 		res.json({success: 1});

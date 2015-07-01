@@ -7,10 +7,10 @@ router.get('/game_passed/:code', function(req, res, next) {
 	gamers.last_player_pass = 1;
 
 	// включаем звук  прошёл
-	helpers.send_get('audio_player_4', 'play_channel_2', config.files[16], DISABLE_TIMER, ENABLE_MUTEX,
+	helpers.send_get('audio_player_3', 'play_channel_2', config.audio_files[16].value, DISABLE_TIMER, ENABLE_MUTEX,
 		function (params) {
-			var device = devices.get('audio_player_4');
-			device.value = config.files[16];
+			var device = devices.get('audio_player_3');
+			device.value = config.audio_files[16].alias;
 			device.state = 'ch1_play_ch2_play';
 		},{}
 	);
@@ -37,13 +37,13 @@ router.get('/game_passed/:code', function(req, res, next) {
 	res.json({success: 1});
 });
 
-router.get('/game_not_passed/:code', function(req, res, next) {
+router.get('/game_failed/:code', function(req, res, next) {
 
 	// включаем звук не прошёл
-	helpers.send_get('audio_player_4', 'play_channel_2', config.files[15], DISABLE_TIMER, ENABLE_MUTEX,
+	helpers.send_get('audio_player_3', 'play_channel_2', config.audio_files[15].value, DISABLE_TIMER, ENABLE_MUTEX,
 		function (params) {
-			var device = devices.get('audio_player_4');
-			device.value = config.files[15];
+			var device = devices.get('audio_player_3');
+			device.value = config.audio_files[15].alias;
 			device.state = 'ch1_play_ch2_play';
 		},{}
 	);

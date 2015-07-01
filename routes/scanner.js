@@ -18,14 +18,16 @@ router.get('/stop', function(req, res, next) {
 	// если не предпоследний
 	if (gamers.quest_state % 10 != gamers.count-2) {
 		// гасим планшет
-		helpers.send_get('terminal_1', 'deactivate', '0', DISABLE_TIMER, ENABLE_MUTEX,
-			function (params) {
-				devices.get('terminal_1').state = "sleep";
-			},{}
-		);
+		// helpers.send_get('terminal_1', 'deactivate', '0', DISABLE_TIMER, ENABLE_MUTEX,
+		// 	function (params) {
+		// 		devices.get('terminal_1').state = "sleep";
+		// 	},{}
+		// );
 
 		// закрываем дверь №4
 		helpers.send_get('door_4', 'close', '0', ENABLE_TIMER, ENABLE_MUTEX);
+
+		gamers.active_button = "";
 
 		res.json({success: 1});
 	}
@@ -33,6 +35,8 @@ router.get('/stop', function(req, res, next) {
 	if (gamers.quest_state % 10 == gamers.count-2) {
 		// закрываем дверь 3
 		helpers.send_get('door_3', 'close', '0', ENABLE_TIMER, ENABLE_MUTEX);
+
+		gamers.active_button = "";
 
 		res.json({success: 1});
 	}

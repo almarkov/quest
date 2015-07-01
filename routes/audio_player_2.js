@@ -21,33 +21,35 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 	var player_number = gamers.quest_state % 10;
 
 	// если идёт сканирование, игрок не предпоследний, подсветка не горит, и код введён
-	if (   ((gamers.quest_state / 10 | 0) == 12)
-		&& gamers.codes[player_number]
-		&& (player_number != gamers.count-2)
-		&& backlight_state == "off" )
-	{
-		// включаем звук на канале 2 плеера 2
-		var audio_file = config.color_files[gamers.quest_state % 10];
-		helpers.send_get('audio_player_2', 'play_channel_2', audio_file, DISABLE_TIMER, ENABLE_MUTEX,
-			function (params) {
-				var device = devices.get('audio_player_2');
-				device.value = audio_file;
-				device.state = 'ch1_play_ch2_play';
-			},{}
-		);
+	// if (   ((gamers.quest_state / 10 | 0) == 12)
+	// 	&& gamers.codes[player_number]
+	// 	&& (player_number != gamers.count-2)
+	// 	&& backlight_state == "off" )
+	// {
+	// 	// включаем звук на канале 2 плеера 2
+	// 	var audio_file = config.color_files[gamers.quest_state % 10];
+	// 	helpers.send_get('audio_player_2', 'play_channel_2', audio_file, DISABLE_TIMER, ENABLE_MUTEX,
+	// 		function (params) {
+	// 			var device = devices.get('audio_player_2');
+	// 			device.value = audio_file;
+	// 			device.state = 'ch1_play_ch2_play';
+	// 		},{}
+	// 	);
 
-		// зажигаем подсветку
-		var color = config.colors[player_number];
-		helpers.send_get('inf_mirror_backlight', 'on', color, DISABLE_TIMER, ENABLE_MUTEX,
-			function (params) {
-				var device = devices.get('inf_mirror_backlight');
-				device.value = color;
-				device.state = 'on';
-			},{}
-		);
+	// 	// зажигаем подсветку
+	// 	var color = config.colors[player_number];
+	// 	helpers.send_get('inf_mirror_backlight', 'on', color, DISABLE_TIMER, ENABLE_MUTEX,
+	// 		function (params) {
+	// 			var device = devices.get('inf_mirror_backlight');
+	// 			device.value = color;
+	// 			device.state = 'on';
+	// 		},{}
+	// 	);
 
+	// // если идёт сканирование, игрок не предпоследний и подсветка горит
+	// } else
 	// если идёт сканирование, игрок не предпоследний и подсветка горит
-	} else if (   ((gamers.quest_state / 10 | 0) == 12)
+	if (   ((gamers.quest_state / 10 | 0) == 12)
 		&& gamers.codes[player_number]
 		&& (player_number != gamers.count-2)
 		&& backlight_state == "on" )

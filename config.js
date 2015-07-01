@@ -583,9 +583,7 @@ for (var i = 0; i < exports.list.length; i++) {
 exports.colors = [
 	'red', //0 
 	'green',
-	'blue',
 	'yellow',
-	'diff',
 ];
 
 // для меня
@@ -841,4 +839,4 @@ exports.default_timer_value = '3';
 exports.watchdog_enabled = 0;
 
 // правильные координаты
-exports.coordinates = '666';
+exports.coordinates = '65732274';

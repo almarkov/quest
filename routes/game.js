@@ -56,6 +56,29 @@ router.get('/allin', function(req, res, next) {
 
 });
 
+// 'в очередь' 
+router.get('/queue', function(req, res, next) {
+
+	helpers.send_get('audio_player_1', 'play_channel_2', config.audio_files[8].value, DISABLE_TIMER, ENABLE_MUTEX,
+		function(params){
+			var device   = devices.get('audio_player_1');
+			device.value = config.audio_files[8].alias;
+			device.state = "ch1_play_ch2_stop";
+		}, {}
+	);
+
+	helpers.send_get('audio_player_2', 'play_channel_2', config.audio_files[8].value, DISABLE_TIMER, ENABLE_MUTEX,
+		function(params){
+			var device   = devices.get('audio_player_2');
+			device.value = config.audio_files[8].alias;
+			device.state = "ch1_play_ch2_stop";
+		}, {}
+	);
+
+	res.json({success: 1});
+
+});
+
 // подготовка устройств
 router.get('/get_ready', function(req, res, next) {
 
@@ -71,10 +94,10 @@ router.get('/get_ready', function(req, res, next) {
 
 	// запускаем аудио на первом канале
 	for (var i = 1; i <= 5; i++) {
-		helpers.send_get('audio_player_' + i, 'play_channel_1', config.files[0], DISABLE_TIMER, ENABLE_MUTEX,
+		helpers.send_get('audio_player_' + i, 'play_channel_1', config.audio_files[19].value, DISABLE_TIMER, ENABLE_MUTEX,
 			function(params){
 				var device = devices.get('audio_player_' + params.index);
-				device.value = config.files[0];
+				device.value = config.audio_files[19].alias;
 				device.state = "ch1_play_ch2_stop";
 			},
 			{
@@ -88,36 +111,48 @@ router.get('/get_ready', function(req, res, next) {
 		helpers.send_get('audio_player_' + i, 'stop_channel_2', '0', DISABLE_TIMER, ENABLE_MUTEX);
 	}
 
-	// клип на экран 3
-	helpers.send_get('video_player_3', 'play', config.files[3], DISABLE_TIMER, ENABLE_MUTEX,
+	// включаем экран 4
+	helpers.send_get('video_player_4', 'stop', '0', DISABLE_TIMER, ENABLE_MUTEX,
 		function (params) {
-			var device = devices.get('video_player_3');
-			device.value = config.files[3];
-			device.state = 'playing';
+			var device = devices.get('video_player_4');
+			device.value = '';
+			device.state = 'stopped';
 		},{}
 	);
 
-	// выключаем экраны 1,2,4
-	for (var i = 1; i <= 4; i++) {
-		if (i != 3) {
-			helpers.send_get('video_player_' + i, 'stop', '0', DISABLE_TIMER, ENABLE_MUTEX,
-				function(params){
+	// включаем экраны 1,2,3
+	for (var i = 1; i <= 3; i++) {
+		helpers.send_get('video_player_' + i, 'play', config.video_files[3].value, DISABLE_TIMER, ENABLE_MUTEX,
+			function(params){
 				var device = devices.get('video_player_' + params.index);
-				device.value = '';
-				device.state = 'stopped';
+				device.value = config.video_files[3].alias;
+				device.state = 'playing';
 			}, 
 			{
 				index: i
 			}
 		);
-		}
 	}
+
+	// выключаем подсветку
+	helpers.send_get('inf_mirror_backlight', 'off', '0', DISABLE_TIMER, ENABLE_MUTEX);
+
+	// включаем свет
+	helpers.send_get('light', 'on', '0', DISABLE_TIMER, ENABLE_MUTEX);
+
+	// выключаем вибрацию
+	helpers.send_get('vibration', 'off', '0', DISABLE_TIMER, ENABLE_MUTEX);
 
 	// закрываем шкаф с картой
 	helpers.send_get('locker_2', 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);
 
 	// заряжаем карту
-	helpers.send_get('card_holder', 'not_given', '0', DISABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('card_holder', 'take', '0', DISABLE_TIMER, ENABLE_MUTEX);
+
+	// выключаем планешеты
+	for (var i = 1; i <= 4; i++) {
+		helpers.send_get('terminal_' + i, 'black_screen', '0', DISABLE_TIMER, ENABLE_MUTEX);
+	}
 
 	// запускаем таймер
 	http.get(devices.build_query('timer', 'activate', devices.default_timer_value), function(res) {
@@ -152,7 +187,7 @@ router.get('/service_mode', function(req, res, next) {
 	helpers.send_get('locker_2', 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);
 
 	// заряжаем карту
-	helpers.send_get('card_holder', 'not_given', '0', DISABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('card_holder', 'give', '0', DISABLE_TIMER, ENABLE_MUTEX);
 
 	for (var i = 1; i <= 8; i++) {
 		devices.get('door_' + i).state = 'opened';

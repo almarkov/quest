@@ -326,7 +326,7 @@ $('.DashBoard .Reset').click(function(e){
 	});
 });
 
-// Включить аудио 'В очередь'
+// Все зашли
 $('.DashBoard .AllIn').click(function(e){
 	$.ajax({
 		url: web_server_url + '/game/allin',
@@ -345,7 +345,7 @@ $('.DashBoard .AllIn').click(function(e){
 // Включить аудио 'В очередь'
 $('.DashBoard .Queue').click(function(e){
 	$.ajax({
-		url: web_server_url + '/audio_controller/play/0',
+		url: web_server_url + '/game/queue',
 		type: "GET",
 		crossDomain: true,
 		dataType: "json",

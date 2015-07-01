@@ -6,14 +6,16 @@ router.get('/given/:parameter', function(req, res, next) {
 
 	devices.get('card_holder').state = "given";
 
-	// включаем видео на экране 4
-	helpers.send_get('video_player_4', 'play', config.files[18], DISABLE_TIMER, ENABLE_MUTEX,
-		function (params) {
-			var device = devices.get('video_player_4');
-			device.value = config.files[18];
-			device.state = 'playing';
-		},{}
-	);
+	// // включаем видео на экране 4
+	// helpers.send_get('video_player_4', 'play', config.files[18], DISABLE_TIMER, ENABLE_MUTEX,
+	// 	function (params) {
+	// 		var device = devices.get('video_player_4');
+	// 		device.value = config.files[18];
+	// 		device.state = 'playing';
+	// 	},{}
+	// );
+
+	gamers.quest_state = 170;
 
 	res.json({success: 1});
 });
