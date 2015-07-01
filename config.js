@@ -674,7 +674,7 @@ exports.video_files = [
 		value:       'mnt/sdcard/TV/8.mp4&repeat=0',
 	},
 	{
-		alias:       'video8',
+		alias:       'video9',
 		description: 'вам угрожает опасность',
 		value:       'mnt/sdcard/TV/9.mp4&repeat=0',
 	},

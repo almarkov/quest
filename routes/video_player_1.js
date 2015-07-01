@@ -98,7 +98,7 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 			function(params){
 				var device   = devices.get('audio_player_1');
 				device.value = audio_file.alias;
-				device.state = "ch1_play_ch2_stop";
+				device.state = "ch1_play_ch2_play";
 			}, {}
 		);
 
