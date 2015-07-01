@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var http   = require('http');
 
+//-----------------------------------------------------------------------------
+// события
+//-----------------------------------------------------------------------------
 // активирована подставка
 router.get('/activated/:parameter', function(req, res, next) {
 
@@ -39,7 +42,6 @@ router.get('/connected/:parameter', function(req, res, next) {
 
 	res.json({success: 1});
 });
-
 
 // деактивирована подставка
 router.get('/disconnected/:parameter', function(req, res, next) {

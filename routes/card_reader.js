@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var http   = require('http');
 
+//-----------------------------------------------------------------------------
+// события
+//-----------------------------------------------------------------------------
 router.get('/card_ok/:parameter', function(req, res, next) {
 
 	devices.get('card_reader').state = "passed";

@@ -2,10 +2,12 @@ var express = require('express');
 var router = express.Router();
 var http   = require('http');
 
+//-----------------------------------------------------------------------------
+// события
+//-----------------------------------------------------------------------------
 router.get('/ch1_playback_finished/:parameter', function(req, res, next) {
 	res.json({success: 1});
 });
-
 
 router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 	res.json({success: 1});

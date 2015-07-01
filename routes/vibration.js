@@ -6,8 +6,8 @@ var router = express.Router();
 //-----------------------------------------------------------------------------
 router.get('/on/:parameter', function(req, res, next) {
 	res.json({success: 1});
-
 });
+
 router.get('/off/:parameter', function(req, res, next) {
 	res.json({success: 1});
 });

@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var http   = require('http');
 
+//-----------------------------------------------------------------------------
+// события
+//-----------------------------------------------------------------------------
 router.get('/code_entered/:code', function(req, res, next) {
 
 	gamers.quest_error = '';
@@ -62,13 +65,11 @@ router.get('/code_enter_fail', function(req, res, next) {
 //-----------------------------------------------------------------------------
 // эмулятор планшета
 //-----------------------------------------------------------------------------
-// активирован планшет
-router.get('/activate/0', function(req, res, next) {
+router.get('/go/:parameter', function(req, res, next) {
 	res.json({success: 1});
 });
 
-// деактивирован планшет
-router.get('/deactivate/0', function(req, res, next) {
+router.get('/black_screen/:parameter', function(req, res, next) {
 	res.json({success: 1});
 });
 

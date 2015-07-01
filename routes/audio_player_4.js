@@ -2,10 +2,12 @@ var express = require('express');
 var router = express.Router();
 var http   = require('http');
 
+//-----------------------------------------------------------------------------
+// события
+//-----------------------------------------------------------------------------
 router.get('/ch1_playback_finished/:parameter', function(req, res, next) {
 	res.json({success: 1});
 });
-
 
 router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 	res.json({success: 1});
@@ -19,7 +21,6 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 		// открываем дверь 5
 		helpers.send_get('door_5', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
 	}
-
 });
 
 //-----------------------------------------------------------------------------

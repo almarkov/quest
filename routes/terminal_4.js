@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var http   = require('http');
 
+//-----------------------------------------------------------------------------
+// события
+//-----------------------------------------------------------------------------
 router.get('/cooridnates_entered/:coordinates', function(req, res, next) {
 
 	gamers.coordinates = req.params.coordinates;
@@ -29,13 +32,11 @@ router.get('/cooridnates_entered/:coordinates', function(req, res, next) {
 //-----------------------------------------------------------------------------
 // эмулятор планшета
 //-----------------------------------------------------------------------------
-// активирован планшет
-router.get('/activate/:parameter', function(req, res, next) {
+router.get('/go/:parameter', function(req, res, next) {
 	res.json({success: 1});
 });
 
-// деактивирован планшет
-router.get('/deactivate/:parameter', function(req, res, next) {
+router.get('/black_screen/:parameter', function(req, res, next) {
 	res.json({success: 1});
 });
 

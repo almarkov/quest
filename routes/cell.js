@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var http   = require('http');
 
+//-----------------------------------------------------------------------------
+// события
+//-----------------------------------------------------------------------------
 router.get('/code_entered/:code', function(req, res, next) {
 
 	var device_name = req.baseUrl.substring(1,7);
@@ -33,15 +36,11 @@ router.get('/code_entered/:code', function(req, res, next) {
 // эмулятор ячейки
 //-----------------------------------------------------------------------------
 router.get('/open/:parameter', function(req, res, next) {
-
 	res.json({success: 1});
-
 });
 
 router.get('/close/:parameter', function(req, res, next) {
-
 	res.json({success: 1});
-
 });
 
 module.exports = router;

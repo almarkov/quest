@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var http   = require('http');
 
+//-----------------------------------------------------------------------------
+// события
+//-----------------------------------------------------------------------------
 router.get('/power_ok/:code', function(req, res, next) {
 	devices.get('power_wall').state = 'passed';
 	//  открываем дверь 8

@@ -2,12 +2,15 @@ var express = require('express');
 var router = express.Router();
 var http   = require('http');
 
+//-----------------------------------------------------------------------------
+// события
+//-----------------------------------------------------------------------------
 router.get('/number_of_inserted/:value', function(req, res, next) {
 
-	var device = devices.get('figure');
+	var figure = devices.get('figure');
 
-	device.state = "number_of_inserted";
-	device.value = req.params.value;
+	figure.state = "number_of_inserted";
+	figure.value = req.params.value;
 
 	var count = 5;
 	if (gamers.count < count) {
@@ -22,7 +25,6 @@ router.get('/number_of_inserted/:value', function(req, res, next) {
 			},{}
 		);
 	}
-
 	res.json({success: 1});
 });
 
