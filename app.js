@@ -75,6 +75,8 @@ var card_reader  = require('./routes/card_reader');
 
 var power_wall   = require('./routes/power_wall');
 
+var wd           = require('./routes/wd');
+
 var app = express();
 
 ENABLE_TIMER  = 1;
@@ -86,8 +88,8 @@ DISABLE_MUTEX = 0;
 DEV_MODE      = 1;
 PROD_MODE     = 0;
 
-EMULATOR_MODE = 1;
-REAL_MODE     = 0;
+EMULATOR_MODE = 0;
+REAL_MODE     = 1;
 
 // вспомогат. ф-ции
 routines       = require("./routines.js");
@@ -224,6 +226,8 @@ app.use('/card_holder', card_holder);
 app.use('/card_reader', card_reader);
 
 app.use('/power_wall', power_wall);
+
+app.use('/wd', wd);
 
 
 // catch 404 and forward to error handler

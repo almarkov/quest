@@ -25,7 +25,7 @@ exports.ext_url_for = function (object_name) {
 exports.get_redirect_url = function (ip, device_id, command_id) {
 	var res = "";
 	if (device_id == 255) {
-		return "/wd/0/0";
+		return "/wd/0";
 	} else {
 		config.list.forEach(function function_name (element) {
 			if (element.ip == ip && element.id == device_id) {

@@ -37,35 +37,43 @@ router.get('/all', function(req, res, next) {
 
 	// watchdog
 	if (config.watchdog_enabled) {
-		for (var i = 1; i < devices.list.length; i++) {
-			if (devices.list[i].id == 0) {
-				var query = "http://" + devices.list[i].ip + ":" +  devices.list[i].port + "/255/0/0";
-				if (!devices.list[i].mutex) {
-					http.get(query, function(res) {
-							res.on('data', function(data){
-								var result = JSON.parse(data);
-								if (result.success) {
-									//обновить статусы устройств
-									for (var j = 0; j < result.onboard_devices.length; j++) {
-										var device = devices.get_by_id(result.carrier_id, result.onboard_devices[j].id);
-										device.wd_state = 1;
-										device.state = device.states[result.onboard_devices[j].state];
+
+			devices.list.forEach(function function_name (_device) {
+				if (_device.id == 0 && _device.wd_enabled) {
+					var query = "http://" + _device.ip + ":" +  _device.port + "/255/0/0";
+					if (!_device.mutex) {
+						var request =http.get(query, function(res) {
+								res.on('data', function(data){
+									var result = JSON.parse(data);
+									if (result.success) {
+										//обновить статусы устройств
+										for (var j = 0; j < result.onboard_devices.length; j++) {
+											var device = devices.get_by_id(result.carrier_id, result.onboard_devices[j].id);
+											device.wd_state = 1;
+											device.state = device.states[result.onboard_devices[j].state];
+										}
+									} else {
+										// пометить неответившие устройства
+										for (var j = 0; j < result.onboard_devices.length; j++) {
+											var device = devices.get_by_id(result.carrier_id, result.onboard_devices[j].id);
+											device.wd_state = 0;
+											device.state = device.states[result.onboard_devices[j].state];
+										}
 									}
-								} else {
-									// пометить неответившие устройства
-									for (var j = 0; j < result.onboard_devices.length; j++) {
-										var device = devices.get_by_id(result.carrier_id, result.onboard_devices[j].id);
-										device.wd_state = 0;
-										device.state = device.states[result.onboard_devices[j].state];
-									}
-								}
-							});
-						}).on('error', function(e) {
+								});
+							}).on('error', function(e) {
+								simple_log("watchdog error");
+						});
+						request.setTimeout( 5000, function( ) {
 							simple_log("watchdog error");
-					});
+						    simple_log(_device.ip);
+						    _device.wd_state = 0;
+						});
+
+
+					}
 				}
-			}
-		}
+			});
 	}
 
 	// проверка работоспосбоности
