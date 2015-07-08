@@ -5,6 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// Database
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/quest');
+
 var routes = require('./routes/index');
 var game = require('./routes/game');
 var timer = require('./routes/timer');
@@ -77,6 +82,9 @@ var power_wall   = require('./routes/power_wall');
 
 var wd           = require('./routes/wd');
 
+var devices_     = require('./routes/devices');
+var device_types = require('./routes/device_types');
+
 var app = express();
 
 ENABLE_TIMER  = 1;
@@ -147,6 +155,11 @@ app.all('/*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
+});
+
+app.use(function(req,res,next){
+    req.db = db;
+    next();
 });
 
 app.use('/', routes);
@@ -228,6 +241,9 @@ app.use('/card_reader', card_reader);
 app.use('/power_wall', power_wall);
 
 app.use('/wd', wd);
+
+app.use('/devices',      devices_);
+app.use('/device_types', device_types);
 
 
 // catch 404 and forward to error handler

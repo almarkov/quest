@@ -57,7 +57,6 @@ router.get('/all', function(req, res, next) {
 											device.wd_state = 1;
 											device.state = device.states[result.onboard_devices[j].state];
 										}
-										}
 									} else {
 										// пометить неответившие устройства
 										for (var j = 0; j < result.onboard_devices.length; j++) {

@@ -2,8 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 // запуск GUI
-router.get('/', function(req, res, next) {
-	res.render('index.html', {site: siate});
+// router.get('/', function(req, res, next) {
+// 	res.render('index.html', {site: siate});
+// });
+
+// главное меню
+router.get('/', function(req, res) {
+    res.render('index', { title: 'Express' });
 });
 
 // редирект по обработчикам событий от устройств
