@@ -50,12 +50,13 @@ router.get('/all', function(req, res, next) {
 						var request =http.get(query, function(res) {
 								res.on('data', function(data){
 									var result = JSON.parse(data);
-									if (result.success) {
+									if (result.success && result.onboard_devices) {
 										//обновить статусы устройств
 										for (var j = 0; j < result.onboard_devices.length; j++) {
 											var device = devices.get_by_id(result.carrier_id, result.onboard_devices[j].id);
 											device.wd_state = 1;
 											device.state = device.states[result.onboard_devices[j].state];
+										}
 										}
 									} else {
 										// пометить неответившие устройства
