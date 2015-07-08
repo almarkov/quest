@@ -3,6 +3,11 @@ var router = express.Router();
 var http   = require('http');
 //var devices = require('./devices.js');
 
+// запрос состояния конфига
+router.get('/config', function(req, res, next) {
+	res.json(config.list);
+});
+
 // запрос состояния модели
 router.get('/all', function(req, res, next) {
 
