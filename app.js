@@ -75,6 +75,8 @@ var card_reader  = require('./routes/card_reader');
 
 var power_wall   = require('./routes/power_wall');
 
+var smoke        = require('./routes/smoke');
+
 var wd           = require('./routes/wd');
 
 var app = express();
@@ -226,6 +228,8 @@ app.use('/card_holder', card_holder);
 app.use('/card_reader', card_reader);
 
 app.use('/power_wall', power_wall);
+
+app.use('/smoke', smoke);
 
 app.use('/wd', wd);
 
