@@ -125,7 +125,9 @@ $(document).ready(function() {
 	if (!start_time) {
 		restart_timer();
 	}
-
+	for (var i = 1; i < 99999; i++) {
+        window.clearInterval(i);
+	}
 	// проверяем состояние устройств
 	// в данном случае - читаем коллекцию devices из mongo
 	setInterval(function(){
@@ -139,10 +141,13 @@ $(document).ready(function() {
 				$(".Status").removeClass("Offline");
 				external_config.forEach(function f(device) {
 					var element = device.name;
+					var element_state = $("[name=" + element + "]").parent().parent().find(".Status");
 					if (response[element].wd_state == 0) {
-						var element_state = $("[name=" + element + "]").parent().parent().find(".Status");
 						element_state.removeClass("Online");
 						element_state.addClass("Offline");
+					} else {
+						element_state.removeClass("Offline");
+						element_state.addClass("Online");
 					}
 				});
 				// двери
@@ -310,7 +315,7 @@ $(document).ready(function() {
 				console.log('ERROR:', error);
 			}
 		});
-	}, 500);
+	}, 1000);
 
 });
 
@@ -518,7 +523,7 @@ function set_handlers() {
 	//-----------------------------------------------------------------------------
 	// Кнопки, эмулирующие двери
 	//-----------------------------------------------------------------------------
-	for (var i = 1; i < 8; i++) {
+	for (var i = 1; i <= 8; i++) {
 		// Кнопка открывающая дверь
 		$('#Main .Door' + i + ' .Open').click(function(e){
 			var name = $(e.srcElement).parents(".Device").find(".Input1")[0].name;
