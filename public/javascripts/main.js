@@ -138,18 +138,6 @@ $(document).ready(function() {
 		dataType: "json",
 			success: function (response) {
 				console.log('Devices state');
-				$(".Status").removeClass("Offline");
-				external_config.forEach(function f(device) {
-					var element = device.name;
-					var element_state = $("[name=" + element + "]").parent().parent().find(".Status");
-					if (response[element].wd_state == 0) {
-						element_state.removeClass("Online");
-						element_state.addClass("Offline");
-					} else {
-						element_state.removeClass("Offline");
-						element_state.addClass("Online");
-					}
-				});
 				// двери
 				for (var i = 1; i <= 8; i++) {
 					if (response["door_" + i].state == "opened") {
@@ -199,13 +187,6 @@ $(document).ready(function() {
 					}
 				}
 
-				// кнопка, открывающая шкаф
-				// if (response["locker_1_button"].state == "pushed") {
-				// 	$("#inpLocker1Button").val('Уже была нажата');
-				// } else if (response["locker_1_button"].state == "not_pushed") {
-				// 	$("#inpLocker1Button").val('Ещё не была нажата');
-				// }
-
 				// таймер
 				$("#inpTimer").val(response.timer.current_value.toString());
 				if (response.timer.state == "active") {
@@ -215,13 +196,6 @@ $(document).ready(function() {
 				} else if (response.timer.state == "idle") {
 					$("#inpTimerState").val('Неактивен');
 				}
-
-				// дверь шкафа
-				// if (response['locker_1'].state == "opened") {
-				// 	$("#inpLocker1").val('Открыт');
-				// } else if (response['locker_1'].state == "closed") {
-				// 	$("#inpLocker1").val('Закрыт');
-				// }
 
 				// многогранник
 				if (response['polyhedron'].state == "activated") {
@@ -293,6 +267,27 @@ $(document).ready(function() {
 				} else if (response['power_wall'].state == "not_passed") {
 					$("#inpPowerWall").val('Не пройдено');
 				}
+
+				// статусы устройств
+				$(".Status").removeClass("Offline");
+				external_config.forEach(function f(device) {
+					var element = device.name;
+					// хак
+					var device_element = $("[name=" + element + "]");
+					if (!device_element.length) {
+						device_element = $("[name=" + element + "_state]");
+					}
+					// хак
+					var element_state = $("[name=" + element + "]").parent().parent().find(".Status");
+					if (response[element].wd_state == 0) {
+						element_state.removeClass("Online");
+						element_state.addClass("Offline");
+						device_element.val('Не определён');
+					} else {
+						element_state.removeClass("Offline");
+						element_state.addClass("Online");
+					}
+				});
 
 				$(".DashBoard").find(".BType_01").removeClass("Active");
 				if (response.active_button) {
