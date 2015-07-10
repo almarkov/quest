@@ -37,7 +37,7 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 			if (enable_mutex) {
 				device.mutex = 0;
 			}
-
 			simple_log(device_name +  " " + command + " error");
+			simple_log(e);
 	});
 }
