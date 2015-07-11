@@ -34,7 +34,6 @@ router.get('/ready', function(req, res, next) {
 			devices.get('terminal_' + i).state = 'sleep';
 		}
 		devices.get('locker_2').state    = 'closed';
-		devices.get('card_holder').state = 'not_given';
 
 		devices.get('light').state    = 'on';
 		devices.get('inf_mirror_backlight').state = 'off';

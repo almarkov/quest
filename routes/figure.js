@@ -24,8 +24,6 @@ router.get('/number_of_inserted/:value', function(req, res, next) {
 				devices.get('locker_2').state = "opened";
 			},{}
 		);
-		
-		devices.get('card_holder').state = "given";
 
 		gamers.quest_state = 170; // Игроки получили ключ от двери в коридор
 	}

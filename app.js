@@ -49,8 +49,6 @@ var figure       = require('./routes/figure');
 
 var locker_2     = require('./routes/locker_2');
 
-var card_holder  = require('./routes/card_holder');
-
 var card_reader  = require('./routes/card_reader');
 
 var power_wall   = require('./routes/power_wall');
@@ -181,8 +179,6 @@ app.use('/cell_5', cell);
 app.use('/figure', figure);
 
 app.use('/locker_2', locker_2);
-
-app.use('/card_holder', card_holder);
 
 app.use('/card_reader', card_reader);
 

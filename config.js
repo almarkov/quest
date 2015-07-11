@@ -353,21 +353,6 @@ if (REAL_MODE) {
 			states:        [ "closed", "opened" ],	
 		},
 
-		// RFID карта
-		{
-			id:            1,
-			carrier_id:    18,
-			name:          "card_holder",
-			ip:            "localhost",
-			port:          "3000",
-			state:         "not_given",
-			wd_state:      1,
-			wd_enabled:    1,
-			commands:      [ "take", "give" ], 
-			events:        [ "not_given", "given" ], 
-			states:        [ "not_given", "given" ],	
-		},
-
 		// считыватель RFID-карты
 		{
 			id:            0,
@@ -897,21 +882,6 @@ if (EMULATOR_MODE) {
 			wd_enabled:    1,
 			commands:      [ "close", "open" ],
 			states:        [ "closed", "opened" ],	
-		},
-
-		// RFID карта
-		{
-			id:            1,
-			carrier_id:    18,
-			name:          "card_holder",
-			ip:            "localhost",
-			port:          "3000",
-			state:         "not_given",
-			wd_state:      1,
-			wd_enabled:    1,
-			commands:      [ "take", "give" ], 
-			events:        [ "not_given", "given" ], 
-			states:        [ "not_given", "given" ],	
 		},
 
 		// считыватель RFID-карты

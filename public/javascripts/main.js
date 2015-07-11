@@ -240,13 +240,6 @@ $(document).ready(function() {
 					$("#inpLocker2").val('Закрыт');
 				}
 
-				// RFID карта
-				if (response['card_holder'].state == "given") {
-					$("#inpCardHolder").val('Выдана');
-				} else if (response['card_holder'].state == "not_given") {
-					$("#inpCardHolder").val('Не выдана');
-				}
-
 				// считыватель карты
 				if (response['card_reader'].state == "passed") {
 					$("#inpCardReader").val('Пройдено');
@@ -733,22 +726,6 @@ function set_handlers() {
 	$('#Main .Figure .Insert').click(function(e){
 		$.ajax({
 			url: build_query('figure', 'number_of_inserted', '10'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
-	});
-
-	// Кнопка 'получить карту'
-	$('#Main .CardHolder .Insert').click(function(e){
-		$.ajax({
-			url: build_query('card_holder', 'given', '0'),
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
