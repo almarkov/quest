@@ -148,7 +148,7 @@ $(document).ready(function() {
 				}
 
 				// аудиоплееры
-				for (var i = 1; i <= 5; i++) {
+				for (var i = 1; i <= 4; i++) {
 					if (response["audio_player_" + i].state == "ch1_stop_ch2_stop") {
 						$("#inpAudioPlayer" + i).val('Оба канала выключены');
 					} else if (response["audio_player_" + i].state == "ch1_play_ch2_stop") {
@@ -161,7 +161,7 @@ $(document).ready(function() {
 				}
 
 				// видеооплееры
-				for (var i = 1; i <= 4; i++) {
+				for (var i = 1; i <= 3; i++) {
 					if (response["video_player_" + i].state == "playing") {
 						$("#inpVideoPlayer" + i).val('Играет видео' + response["video_player_" + i].value);
 					} else if (response["video_player_" + i].state == "stopped") {
@@ -373,6 +373,22 @@ function set_handlers() {
 		});
 	});
 
+	// калибровка цветовых сенсоров
+	$('.DashBoard .Calibrate').click(function(e){
+		$.ajax({
+			url: build_query('figure', 'calibrate', '0'),
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('service mode');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	});
+
 	// Восстанавливаем в модели значения по умолчанию
 	$('.DashBoard .Reset').click(function(e){
 		$.ajax({
@@ -556,7 +572,7 @@ function set_handlers() {
 	//-----------------------------------------------------------------------------
 	// Кнопки, эмулирующие события аудиоплеера
 	//-----------------------------------------------------------------------------
-	for (var i = 1; i <= 5; i++) {
+	for (var i = 1; i <= 4; i++) {
 		// Кнопка окончания канала 1
 		$('#Main .AudioPlayer' + i + ' .Stopped1').click(function(e){
 			var name = $(e.srcElement).parents(".Device").find(".Input3")[0].name;
@@ -594,7 +610,7 @@ function set_handlers() {
 	//-----------------------------------------------------------------------------
 	// Кнопки, эмулирующие события видеоплеера
 	//-----------------------------------------------------------------------------
-	for (var i = 1; i <= 4; i++) {
+	for (var i = 1; i <= 3; i++) {
 		// Кнопка окончания видео
 		$('#Main .VideoPlayer' + i + ' .Stopped').click(function(e){
 			var name = $(e.srcElement).parents(".Device").find(".Input3")[0].name;

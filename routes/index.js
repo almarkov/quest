@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 
 // редирект по обработчикам событий от устройств
 router.get('/:carrier_id/:device_id/:action/:parameter', function(req, res, next) {
-
+	res.send(1);
 	var query = devices.int_url_for(req.params.carrier_id, parseInt(req.params.device_id), req.params.action) + "/" + req.params.parameter;
 
 	var url = web_server_url + query;
@@ -26,7 +26,6 @@ router.get('/:carrier_id/:device_id/:action/:parameter', function(req, res, next
 		}).on('error', function(e) {
 			simple_log("Got error ");
 	});
-	res.send(1);
 });
 
 // редирект по эмуляторам устройств
