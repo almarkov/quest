@@ -936,7 +936,7 @@ function set_handlers() {
 	// Кнопка 'Отправить' - для отправки координат на планшете4
 	$('#Main .Terminal4 .SendRight').click(function(e){
 		$.ajax({
-			url: build_query('terminal_4', 'cooridnates_entered', $("#inpTerminal4").val()),
+			url: build_query('terminal_4', 'coordinates_entered', $("#inpTerminal4").val()),
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
