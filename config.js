@@ -1300,13 +1300,18 @@ exports.audio_files = [
 		description: 'фоновый звук',
 		value:       'file=mnt/sdcard/Audio/audio19.mp3&repeat=1',
 	},
+	{
+		alias:       'audio20',
+		description: 'предварительное сканирование завершено для изгоя, без озвучивания цвета',
+		value:       'file=mnt/sdcard/Audio/audio20.mp3&repeat=0',
+	},
 ];
 
 // время таймера
 exports.default_timer_value = '3';
 
 // watchdog
-exports.watchdog_enabled = 1;
+exports.watchdog_enabled = 0;
 
 // правильные координаты
 exports.coordinates = '65732274';

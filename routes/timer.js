@@ -91,10 +91,10 @@ router.get('/ready', function(req, res, next) {
 		);
 
 		// включаем звук 'введите код'
-		helpers.send_get('audio_player_2', 'play_channel_2', config.audio_files[7], DISABLE_TIMER, ENABLE_MUTEX,
+		helpers.send_get('audio_player_2', 'play_channel_2', config.audio_files[7].value, DISABLE_TIMER, ENABLE_MUTEX,
 			function(params){
 				var device   = devices.get('audio_player_2');
-				device.value = config.audio_files[7];
+				device.value = config.audio_files[7].alias;
 				device.state = "ch1_play_ch2_stop";
 			}, {}
 		);
