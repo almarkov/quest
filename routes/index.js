@@ -22,7 +22,7 @@ router.get('/:carrier_id/:device_id/:action/:parameter', function(req, res, next
 		+ '  decoded: ' + query
 	);
 
-	http.get(query, function(res1) {
+	http.get(url, function(res1) {
 			simple_log("Got response" );
 		}).on('error', function(e) {
 			simple_log("Got error ");
