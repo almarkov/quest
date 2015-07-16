@@ -1,4 +1,31 @@
 extends ../../views/layout
 
+
+var device_types= device_types;
 block content
+
+	script(src='/javascripts/device_types.js')
+
 	h2 Типы устройств
+
+	#menu
+		a(href='/device_types/add') Добавить
+
+	#deviceTypeList
+		table
+			thead
+				th Название
+				th Имя
+				th Команды
+				th События
+				th Состояния
+				th foo
+			tbody
+				each device_type in device_types
+					tr
+						td= device_type.title
+						td= device_type.name
+						td bar
+						td bar
+						td bar
+						td bar

@@ -1,7 +1,13 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+
+		script(src='/javascripts/jquery.min.js')
+	body
+		#menu
+			a(href='/device_types') Типы устройств
+			a(href='/quests')       Квесты
+	
+		block content

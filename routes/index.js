@@ -9,7 +9,7 @@ var http   = require('http');
 
 // главное меню
 router.get('/', function(req, res) {
-    res.render('index', { title: 'Express' });
+    res.render('index', { title: 'Управление квестами' });
 });
 
 // редирект по обработчикам событий от устройств
