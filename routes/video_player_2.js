@@ -7,11 +7,12 @@ var http   = require('http');
 //-----------------------------------------------------------------------------
 router.get('/playback_finished/:parameter', function(req, res, next) {
 
-	devices.get('video_player_2').state = 'stopped';
+	var device = devices.get('video_player_2');
+	device.state = 'stopped';
 
 	res.json({success: 1});
 
-	if (gamers.quest_state >= 130 && gamers.quest_state < 142) {
+	if (device.value == config.video_files[7].alias) {
 		// включаем клипы
 		helpers.send_get('video_player_2', 'play', config.video_files[2].value, DISABLE_TIMER, ENABLE_MUTEX,
 			function (params) {
