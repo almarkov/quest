@@ -594,6 +594,8 @@ if (EMULATOR_MODE) {
 			state:         "closed",
 			wd_state:      1,
 			wd_enabled:    1,
+			x_position:    665,
+			y_position:    465,
 		},
 
 		// дверь 2
