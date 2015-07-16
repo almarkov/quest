@@ -93,32 +93,22 @@ router.get('/get_ready', function(req, res, next) {
 	}
 
 	// запускаем аудио на первом канале
-	for (var i = 1; i <= 5; i++) {
-		helpers.send_get('audio_player_' + i, 'play_channel_1', config.audio_files[19].value, DISABLE_TIMER, ENABLE_MUTEX,
-			function(params){
-				var device = devices.get('audio_player_' + params.index);
-				device.value = config.audio_files[19].alias;
-				device.state = "ch1_play_ch2_stop";
-			},
-			{
-				index: i
-			}
-		);
+	helpers.send_get('audio_player_4', 'play_channel_1', config.audio_files[19].value, DISABLE_TIMER, ENABLE_MUTEX,
+		function(params){
+			var device = devices.get('audio_player_4');
+			device.value = config.audio_files[19].alias;
+			device.state = "ch1_play_ch2_stop";
+		}, {}
+	);
+	// выключаем аудио на первом канале
+	for (var i = 1; i <= 3; i++) {
+		helpers.send_get('audio_player_' + i, 'stop_channel_1', '0', DISABLE_TIMER, ENABLE_MUTEX);
 	}
 
 	// выключаем аудио на втором канале
-	for (var i = 1; i <= 5; i++) {
+	for (var i = 1; i <= 4; i++) {
 		helpers.send_get('audio_player_' + i, 'stop_channel_2', '0', DISABLE_TIMER, ENABLE_MUTEX);
 	}
-
-	// включаем экран 4
-	helpers.send_get('video_player_4', 'stop', '0', DISABLE_TIMER, ENABLE_MUTEX,
-		function (params) {
-			var device = devices.get('video_player_4');
-			device.value = '';
-			device.state = 'stopped';
-		},{}
-	);
 
 	// включаем экраны 1,2,3
 	for (var i = 1; i <= 3; i++) {
@@ -142,12 +132,6 @@ router.get('/get_ready', function(req, res, next) {
 
 	// выключаем вибрацию
 	helpers.send_get('vibration', 'off', '0', DISABLE_TIMER, ENABLE_MUTEX);
-
-	// закрываем шкаф с картой
-	helpers.send_get('locker_2', 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);
-
-	// заряжаем карту
-	helpers.send_get('card_holder', 'take', '0', DISABLE_TIMER, ENABLE_MUTEX);
 
 	// выключаем планешеты
 	for (var i = 1; i <= 4; i++) {
@@ -184,10 +168,7 @@ router.get('/service_mode', function(req, res, next) {
 	}
 
 	// открываем шкаф с картой
-	helpers.send_get('locker_2', 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);
-
-	// заряжаем карту
-	helpers.send_get('card_holder', 'give', '0', DISABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('locker_2', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
 
 	for (var i = 1; i <= 8; i++) {
 		devices.get('door_' + i).state = 'opened';
@@ -195,9 +176,7 @@ router.get('/service_mode', function(req, res, next) {
 	for (var i = 1; i <= 5; i++) {
 		devices.get('cell_' + i).state = 'opened';
 	}
-	devices.get('locker_2').state    = 'closed';
-	devices.get('card_holder').state = 'not_given';
-
+	devices.get('locker_2').state    = 'opened';
 
 	gamers.quest_state = 2;
 

@@ -6,6 +6,7 @@ var http   = require('http');
 // события
 //-----------------------------------------------------------------------------
 router.get('/code_entered/:code', function(req, res, next) {
+	res.json({success: 1});
 
 	gamers.quest_error = '';
 	var player_number = gamers.quest_state % 10 + 1;
@@ -33,7 +34,7 @@ router.get('/code_entered/:code', function(req, res, next) {
 		if (player_number == gamers.count) {
 			color_num = color_num - 1;
 		}
-		var color = config.colos[color_num];
+		var color = config.colors[color_num];
 		helpers.send_get('inf_mirror_backlight', 'on', color, DISABLE_TIMER, ENABLE_MUTEX,
 			function(params){
 				var device   = devices.get('inf_mirror_backlight');
@@ -46,13 +47,20 @@ router.get('/code_entered/:code', function(req, res, next) {
 	} else if ((gamers.quest_state / 10 | 0) == 12
 		&& player_number == gamers.count - 1) {
 
+		// включаем звук на канале 2 плеера 2
+		var audio_file = config.audio_files[20];
+		helpers.send_get('audio_player_2', 'play_channel_2', audio_file.value, DISABLE_TIMER, ENABLE_MUTEX,
+			function (params) {
+				var device = devices.get('audio_player_2');
+				device.value = audio_file.alias;
+				device.state = 'ch1_play_ch2_play';
+			},{}
+		);
+
 		//  открываем дверь 3
 		helpers.send_get('door_3', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
 
 	}
-
-	res.json({success: 1});
-
 });
 
 router.get('/code_enter_fail', function(req, res, next) {

@@ -6,11 +6,6 @@ var http   = require('http');
 // события
 //-----------------------------------------------------------------------------
 router.get('/given/:parameter', function(req, res, next) {
-
-	devices.get('card_holder').state = "given";
-
-	gamers.quest_state = 170; // Игроки получили ключ от двери в коридор
-
 	res.json({success: 1});
 });
 

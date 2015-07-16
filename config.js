@@ -334,6 +334,7 @@ if (REAL_MODE) {
 			wd_state:      1,
 			wd_enabled:    1,
 			value:         0,
+			commands:      [ "calibrate" ],
 			events:        [ "number_of_inserted" ],
 			states:        [ "number_of_inserted" ],
 		},
@@ -350,21 +351,6 @@ if (REAL_MODE) {
 			wd_enabled:    1,
 			commands:      [ "close", "open" ],
 			states:        [ "closed", "opened" ],	
-		},
-
-		// RFID карта
-		{
-			id:            1,
-			carrier_id:    18,
-			name:          "card_holder",
-			ip:            "localhost",
-			port:          "3000",
-			state:         "not_given",
-			wd_state:      1,
-			wd_enabled:    1,
-			commands:      [ "take", "give" ], 
-			events:        [ "not_given", "given" ], 
-			states:        [ "not_given", "given" ],	
 		},
 
 		// считыватель RFID-карты
@@ -428,20 +414,6 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    'tmpv3',
 			name:          "video_player_3",
-			type:          "video_player",
-			ip:            "localhost",
-			port:          "3000",
-			state:         "stopped",
-			wd_state:      1,
-			wd_enabled:    1,
-			value:         ""
-		},
-
-		// видеоплеер 4
-		{
-			id:            0,
-			carrier_id:    'tmpv4',
-			name:          "video_player_4",
 			type:          "video_player",
 			ip:            "localhost",
 			port:          "3000",
@@ -563,20 +535,6 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    'tmpa4',
 			name:          "audio_player_4",
-			type:          "audio_player",
-			ip:            "localhost",
-			port:          "3000",
-			state:         "ch1_stop_ch2_stop",
-			wd_state:      1,
-			wd_enabled:    1,
-			value:         ""
-		},
-
-		// аудиоплеер 5
-		{
-			id:            0,
-			carrier_id:    'tmpa5',
-			name:          "audio_player_5",
 			type:          "audio_player",
 			ip:            "localhost",
 			port:          "3000",
@@ -907,6 +865,7 @@ if (EMULATOR_MODE) {
 			wd_state:      1,
 			wd_enabled:    1,
 			value:         0,
+			commands:      [ "calibrate" ],
 			events:        [ "number_of_inserted" ],
 			states:        [ "number_of_inserted" ],
 		},
@@ -923,21 +882,6 @@ if (EMULATOR_MODE) {
 			wd_enabled:    1,
 			commands:      [ "close", "open" ],
 			states:        [ "closed", "opened" ],	
-		},
-
-		// RFID карта
-		{
-			id:            1,
-			carrier_id:    18,
-			name:          "card_holder",
-			ip:            "localhost",
-			port:          "3000",
-			state:         "not_given",
-			wd_state:      1,
-			wd_enabled:    1,
-			commands:      [ "take", "give" ], 
-			events:        [ "not_given", "given" ], 
-			states:        [ "not_given", "given" ],	
 		},
 
 		// считыватель RFID-карты
@@ -1001,20 +945,6 @@ if (EMULATOR_MODE) {
 			id:            0,
 			carrier_id:    'tmpv3',
 			name:          "video_player_3",
-			type:          "video_player",
-			ip:            "localhost",
-			port:          "3000",
-			state:         "stopped",
-			wd_state:      1,
-			wd_enabled:    1,
-			value:         ""
-		},
-
-		// видеоплеер 4
-		{
-			id:            0,
-			carrier_id:    'tmpv4',
-			name:          "video_player_4",
 			type:          "video_player",
 			ip:            "localhost",
 			port:          "3000",
@@ -1130,26 +1060,11 @@ if (EMULATOR_MODE) {
 			value:         ""
 		},
 
-
 		// аудиоплеер 4
 		{
 			id:            0,
 			carrier_id:    'tmpa4',
 			name:          "audio_player_4",
-			type:          "audio_player",
-			ip:            "localhost",
-			port:          "3000",
-			state:         "ch1_stop_ch2_stop",
-			wd_state:      1,
-			wd_enabled:    1,
-			value:         ""
-		},
-
-		// аудиоплеер 5
-		{
-			id:            0,
-			carrier_id:    'tmpa5',
-			name:          "audio_player_5",
 			type:          "audio_player",
 			ip:            "localhost",
 			port:          "3000",
@@ -1385,66 +1300,18 @@ exports.audio_files = [
 		description: 'фоновый звук',
 		value:       'file=mnt/sdcard/Audio/audio19.mp3&repeat=1',
 	},
+	{
+		alias:       'audio20',
+		description: 'предварительное сканирование завершено для изгоя, без озвучивания цвета',
+		value:       'file=mnt/sdcard/Audio/audio20.mp3&repeat=0',
+	},
 ];
-
-// для реальных файлов
-// exports.files = [
-// 	'file=\/storage\/emulated\/0\/Audio\/20.mp3\&repeat=1',//0
-// 	'file=\/storage\/emulated\/0\/Video\/12.mp4\&repeat=0',
-// 	'file=\/storage\/emulated\/0\/Video\/2.mp4\&repeat=0',
-// 	'file=\/storage\/emulated\/0\/Video\/3.mp4\&repeat=1',
-//  'file=\/storage\/emulated\/0\/Audio\/2.mp3\&repeat=0',
-//  'file=\/storage\/emulated\/0\/Video\/4.mp4\&repeat=0',
-//  'file=\/storage\/emulated\/0\/Audio\/3.mp3\&repeat=0',
-//  'file=/storage/emulated/0/Video/5.mp4&repeat=0',
-//  'file=/storage/emulated/0/Audio/4.mp3&repeat=0',
-//  'file=/storage/emulated/0/Video/6.mp4&repeat=0',
-//  'file=/storage/emulated/0/Audio/6.mp3&repeat=0',//10
-//  'file=/storage/emulated/0/Audio/7.mp3&repeat=0',
-//  'file=/storage/emulated/0/Audio/8.mp3&repeat=0',
-//  'file=/storage/emulated/0/Audio/9.mp3&repeat=0',
-//  'file=/storage/emulated/0/Audio/10.mp3&repeat=0',
-//  'file=/storage/emulated/0/Audio/11.mp3&repeat=0',
-//  'file=/storage/emulated/0/Audio/12.mp3&repeat=0',
-//  'file=/storage/emulated/0/Video/8.mp4&repeat=0',
-//  'file=/storage/emulated/0/Video/9.mp4&repeat=0',
-//  'file=/storage/emulated/0/Video/10.mp4&repeat=0',
-//  'file=/storage/emulated/0/Audio/13.mp3&repeat=0',//20
-//  'file=/storage/emulated/0/Video/11.mp4&repeat=0',
-//  'file=/storage/emulated/0/Video/12.mp4&repeat=0',
-//  'file=/storage/emulated/0/Video/1.mp4&repeat=1',
-//  'file=/storage/emulated/0/Audio/21.mp3&repeat=0',
-// 	'audio5',
-// 	'video1',
-// 	'video2',
-// 	'video3'
-// ];
-
-// файлы игроков
-// exports.player_files =[
-// 	"file=/storage/emulated/0/Audio/1.mp3&repeat=0",
-// 	"file=/storage/emulated/0/Audio/2.mp3&repeat=0",
-// 	"file=/storage/emulated/0/Audio/3.mp3&repeat=0",
-// 	"file=/storage/emulated/0/Audio/4.mp3&repeat=0",
-// 	"file=/storage/emulated/0/Audio/5.mp3&repeat=0",
-// ];
-
-// файлы цветов
-// exports.color_files =[
-// 	"file=/storage/emulated/0/Audio/1.mp3&repeat=0",
-// 	"file=/storage/emulated/0/Audio/2.mp3&repeat=0",
-// 	"file=/storage/emulated/0/Audio/3.mp3&repeat=0",
-// 	"file=/storage/emulated/0/Audio/4.mp3&repeat=0",
-// 	"file=/storage/emulated/0/Audio/5.mp3&repeat=0",
-// ];
-
-
 
 // время таймера
 exports.default_timer_value = '3';
 
 // watchdog
-exports.watchdog_enabled = 1;
+exports.watchdog_enabled = 0;
 
 // правильные координаты
 exports.coordinates = '65732274';

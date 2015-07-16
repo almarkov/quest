@@ -14,25 +14,7 @@ var routes = require('./routes/index');
 var game = require('./routes/game');
 var timer = require('./routes/timer');
 var devices_list = require('./routes/devices_list');
-//var locker_button = require('./routes/locker_button');
-//var save_button = require('./routes/save_button');
-//var polyhedron_rack = require('./routes/polyhedron_rack');
 var scanner = require('./routes/scanner');
-// var cell1   = require('./routes/cell1');
-// var cell2   = require('./routes/cell2');
-// var personal_code_pad = require('./routes/personal_code_pad');
-// var entrance_door = require('./routes/entrance_door');
-// var locker_door = require('./routes/locker_door');
-// var room2_door = require('./routes/room2_door');
-// var room3_door = require('./routes/room3_door');
-// var room4_door = require('./routes/room4_door');
-// var room5_door = require('./routes/room5_door');
-// var room6_door = require('./routes/room6_door');
-// var room7_door = require('./routes/room7_door');
-// var screen1    = require('./routes/screen1');
-// var screen2    = require('./routes/screen2');
-// var chairs     = require('./routes/chairs');
-// var audio_controller  = require('./routes/audio_controller');
 
 
 
@@ -44,12 +26,10 @@ var audio_player_1 = require('./routes/audio_player_1');
 var audio_player_2 = require('./routes/audio_player_2');
 var audio_player_3 = require('./routes/audio_player_3');
 var audio_player_4 = require('./routes/audio_player_4');
-var audio_player_5 = require('./routes/audio_player_5');
 
 var video_player_1 = require('./routes/video_player_1');
 var video_player_2 = require('./routes/video_player_2');
 var video_player_3 = require('./routes/video_player_3');
-var video_player_4 = require('./routes/video_player_4');
 
 var locker_1_button = require('./routes/locker_1_button');
 
@@ -74,11 +54,11 @@ var figure       = require('./routes/figure');
 
 var locker_2     = require('./routes/locker_2');
 
-var card_holder  = require('./routes/card_holder');
-
 var card_reader  = require('./routes/card_reader');
 
 var power_wall   = require('./routes/power_wall');
+
+var smoke        = require('./routes/smoke');
 
 var wd           = require('./routes/wd');
 
@@ -96,8 +76,8 @@ DISABLE_MUTEX = 0;
 DEV_MODE      = 1;
 PROD_MODE     = 0;
 
-EMULATOR_MODE = 0;
-REAL_MODE     = 1;
+EMULATOR_MODE = 1;
+REAL_MODE     = 0;
 
 // вспомогат. ф-ции
 routines       = require("./routines.js");
@@ -166,26 +146,7 @@ app.use('/', routes);
 app.use('/game', game);
 app.use('/timer', timer);
 app.use('/devices_list', devices_list);
-//app.use('/locker_button', locker_button);
-//app.use('/save_button', save_button);
-//app.use('/polyhedron_rack', polyhedron_rack);
 app.use('/scanner', scanner);
-//app.use('/cell1', cell1);
-//app.use('/cell2', cell2);
-//app.use('/personal_code_pad', personal_code_pad);
-// app.use('/entrance_door', entrance_door);
-// app.use('/room2_door', room2_door);
-// app.use('/room3_door', room3_door);
-// app.use('/room4_door', room4_door);
-// app.use('/room5_door', room5_door);
-// app.use('/room6_door', room6_door);
-// app.use('/room7_door', room7_door);
-// app.use('/locker_door', locker_door);
-
-// app.use('/screen1', screen1);
-// app.use('/screen2', screen2);
-// app.use('/chairs', chairs);
-// app.use('/audio_controller', audio_controller);
 
 app.use('/door_1', door);
 app.use('/door_2', door);
@@ -200,12 +161,10 @@ app.use('/audio_player_1', audio_player_1);
 app.use('/audio_player_2', audio_player_2);
 app.use('/audio_player_3', audio_player_3);
 app.use('/audio_player_4', audio_player_4);
-app.use('/audio_player_5', audio_player_5);
 
 app.use('/video_player_1', video_player_1);
 app.use('/video_player_2', video_player_2);
 app.use('/video_player_3', video_player_3);
-app.use('/video_player_4', video_player_4);
 
 app.use('/locker_1_button', locker_1_button);
 
@@ -234,11 +193,11 @@ app.use('/figure', figure);
 
 app.use('/locker_2', locker_2);
 
-app.use('/card_holder', card_holder);
-
 app.use('/card_reader', card_reader);
 
 app.use('/power_wall', power_wall);
+
+app.use('/smoke', smoke);
 
 app.use('/wd', wd);
 
