@@ -170,11 +170,8 @@ router.get('/ready', function(req, res, next) {
 			}, {}
 		);
 
-		// если последний
-		if (gamers.quest_state % 10  == gamers.count - 1 ) {
-
-			gamers.quest_state = 140; //Сканирование закончено. Игроки должны спасти коллегу, попавшего в комнату аннигиляции
-		
+		if (!gamers.videos_played) {
+			gamers.videos_played = 1;
 			// включаем видео на экране 2
 			helpers.send_get('video_player_2', 'play', config.video_files[7].value, DISABLE_TIMER, ENABLE_MUTEX,
 				function (params) {
@@ -183,6 +180,21 @@ router.get('/ready', function(req, res, next) {
 					device.state = 'playing';
 				},{}
 			);
+		}
+
+		// если последний
+		if (gamers.quest_state % 10  == gamers.count - 1 ) {
+
+			gamers.quest_state = 140; //Сканирование закончено. Игроки должны спасти коллегу, попавшего в комнату аннигиляции
+		
+			// включаем видео на экране 2
+			// helpers.send_get('video_player_2', 'play', config.video_files[7].value, DISABLE_TIMER, ENABLE_MUTEX,
+			// 	function (params) {
+			// 		var device = devices.get('video_player_2');
+			// 		device.value = config.video_files[7].alias;
+			// 		device.state = 'playing';
+			// 	},{}
+			// );
 		
 		// если не последний
 		} else {

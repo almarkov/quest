@@ -118,6 +118,8 @@ exports.last_player_pass = 0;
 
 exports.quest_error = '';
 
+exports.videos_played = 0;
+
 exports.codes = ['', '', '', '', '735', '', '', '', ''];
 
 exports.coordinates = '';
@@ -135,6 +137,7 @@ exports.reset = function() {
 	exports.codes = ['', '', '', '', '735', '', '', '', ''];
 	exports.count = 0;
 	exports.active_button = '';
+	exports.videos_played = 0;
 }
 
 // exports.get_quest_state = function() {

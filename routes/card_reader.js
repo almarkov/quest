@@ -18,4 +18,11 @@ router.get('/card_ok/:parameter', function(req, res, next) {
 	res.json({success: 1});
 });
 
+//-----------------------------------------------------------------------------
+// эмулятор
+//-----------------------------------------------------------------------------
+router.get('/reset/:parameter', function(req, res, next) {
+	res.json({success: 1});
+});
+
 module.exports = router;

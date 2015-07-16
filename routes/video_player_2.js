@@ -11,7 +11,7 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 
 	res.json({success: 1});
 
-	if (gamers.quest_state == 140) {
+	if (gamers.quest_state >= 130 && gamers.quest_state < 142) {
 		// включаем клипы
 		helpers.send_get('video_player_2', 'play', config.video_files[2].value, DISABLE_TIMER, ENABLE_MUTEX,
 			function (params) {

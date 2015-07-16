@@ -138,6 +138,9 @@ router.get('/get_ready', function(req, res, next) {
 		helpers.send_get('terminal_' + i, 'black_screen', '0', DISABLE_TIMER, ENABLE_MUTEX);
 	}
 
+	// сбрасываем считыватель RFID
+	helpers.send_get('card_reader', 'reset', '0', DISABLE_TIMER, ENABLE_MUTEX);
+
 	// запускаем таймер
 	http.get(devices.build_query('timer', 'activate', devices.default_timer_value), function(res) {
 			res.on('data', function(data){

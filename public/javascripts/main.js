@@ -758,6 +758,22 @@ function set_handlers() {
 		});
 	});
 
+	// Кнопка 'сбросить карту'
+	$('#Main .CardReader .Reset').click(function(e){
+		$.ajax({
+			url: build_query('card_reader', 'reset', '0'),
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('button pushed');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	});
+
 	// Кнопка 'включить свет'
 	$('#Main .Light .On').click(function(e){
 		$.ajax({
