@@ -6,7 +6,7 @@ var http   = require('http');
 // события
 //-----------------------------------------------------------------------------
 router.get('/number_of_inserted/:value', function(req, res, next) {
-
+	res.json({success: 1});
 	var figure = devices.get('figure');
 
 	figure.state = "number_of_inserted";
@@ -24,7 +24,15 @@ router.get('/number_of_inserted/:value', function(req, res, next) {
 				devices.get('locker_2').state = "opened";
 			},{}
 		);
+
+		gamers.quest_state = 170; // Игроки получили ключ от двери в коридор
 	}
+});
+
+//-----------------------------------------------------------------------------
+// эмуляция фигуры
+//-----------------------------------------------------------------------------
+router.get('/calibrate/:param', function(req, res, next) {
 	res.json({success: 1});
 });
 

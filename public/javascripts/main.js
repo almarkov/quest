@@ -27,31 +27,35 @@ $.ajax({
 function build_query(device, command, parameter) {
 	for (var i = 0; i < external_config.length; i++) {
 		if (external_config[i].name == device) {
-			for (var j = 0; j < external_config[i].commands.length; j++) {
-				if (command == external_config[i].commands[j]) {
-					if (external_config[i].ip == "localhost") {
-						return web_server_url + '/' + device + '/'+ command + '/' + parameter;
-					} else {
-						return "http://"
-							+ external_config[i].ip + ":"
-							+ external_config[i].port + "/" 
-							+ external_config[i].id + "/"
-							+ parseInt(j) + "/"
-							+ parameter;
+			if (external_config[i].commands) {
+				for (var j = 0; j < external_config[i].commands.length; j++) {
+					if (command == external_config[i].commands[j]) {
+						if (external_config[i].ip == "localhost") {
+							return web_server_url + '/' + device + '/'+ command + '/' + parameter;
+						} else {
+							return "http://"
+								+ external_config[i].ip + ":"
+								+ external_config[i].port + "/" 
+								+ external_config[i].id + "/"
+								+ parseInt(j) + "/"
+								+ parameter;
+						}
 					}
 				}
 			}
-			for (var j = 0; j < external_config[i].events.length; j++) {
-				if (command == external_config[i].events[j]) {
-					if (external_config[i].ip == "localhost") {
-						return web_server_url + '/' + device + '/'+ command + '/' + parameter;
-					} else {
-						return "http://"
-							+ external_config[i].ip + ":"
-							+ external_config[i].port + "/" 
-							+ external_config[i].id + "/"
-							+ parseInt(j) + "/"
-							+ parameter;
+			if (external_config[i].events) {
+				for (var j = 0; j < external_config[i].events.length; j++) {
+					if (command == external_config[i].events[j]) {
+						if (external_config[i].ip == "localhost") {
+							return web_server_url + '/' + device + '/'+ command + '/' + parameter;
+						} else {
+							return "http://"
+								+ external_config[i].ip + ":"
+								+ external_config[i].port + "/" 
+								+ external_config[i].id + "/"
+								+ parseInt(j) + "/"
+								+ parameter;
+						}
 					}
 				}
 			}
@@ -148,7 +152,7 @@ $(document).ready(function() {
 				}
 
 				// аудиоплееры
-				for (var i = 1; i <= 5; i++) {
+				for (var i = 1; i <= 4; i++) {
 					if (response["audio_player_" + i].state == "ch1_stop_ch2_stop") {
 						$("#inpAudioPlayer" + i).val('Оба канала выключены');
 					} else if (response["audio_player_" + i].state == "ch1_play_ch2_stop") {
@@ -161,7 +165,7 @@ $(document).ready(function() {
 				}
 
 				// видеооплееры
-				for (var i = 1; i <= 4; i++) {
+				for (var i = 1; i <= 3; i++) {
 					if (response["video_player_" + i].state == "playing") {
 						$("#inpVideoPlayer" + i).val('Играет видео' + response["video_player_" + i].value);
 					} else if (response["video_player_" + i].state == "stopped") {
@@ -238,13 +242,6 @@ $(document).ready(function() {
 					$("#inpLocker2").val('Открыт');
 				} else if (response['locker_2'].state == "closed") {
 					$("#inpLocker2").val('Закрыт');
-				}
-
-				// RFID карта
-				if (response['card_holder'].state == "given") {
-					$("#inpCardHolder").val('Выдана');
-				} else if (response['card_holder'].state == "not_given") {
-					$("#inpCardHolder").val('Не выдана');
 				}
 
 				// считыватель карты
@@ -361,6 +358,22 @@ function set_handlers() {
 	$('.DashBoard .ServiceMode').click(function(e){
 		$.ajax({
 			url: web_server_url + '/game/service_mode',
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('service mode');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	});
+
+	// калибровка цветовых сенсоров
+	$('.DashBoard .Calibrate').click(function(e){
+		$.ajax({
+			url: build_query('figure', 'calibrate', '0'),
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
@@ -556,7 +569,7 @@ function set_handlers() {
 	//-----------------------------------------------------------------------------
 	// Кнопки, эмулирующие события аудиоплеера
 	//-----------------------------------------------------------------------------
-	for (var i = 1; i <= 5; i++) {
+	for (var i = 1; i <= 4; i++) {
 		// Кнопка окончания канала 1
 		$('#Main .AudioPlayer' + i + ' .Stopped1').click(function(e){
 			var name = $(e.srcElement).parents(".Device").find(".Input3")[0].name;
@@ -594,7 +607,7 @@ function set_handlers() {
 	//-----------------------------------------------------------------------------
 	// Кнопки, эмулирующие события видеоплеера
 	//-----------------------------------------------------------------------------
-	for (var i = 1; i <= 4; i++) {
+	for (var i = 1; i <= 3; i++) {
 		// Кнопка окончания видео
 		$('#Main .VideoPlayer' + i + ' .Stopped').click(function(e){
 			var name = $(e.srcElement).parents(".Device").find(".Input3")[0].name;
@@ -717,22 +730,6 @@ function set_handlers() {
 	$('#Main .Figure .Insert').click(function(e){
 		$.ajax({
 			url: build_query('figure', 'number_of_inserted', '10'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
-	});
-
-	// Кнопка 'получить карту'
-	$('#Main .CardHolder .Insert').click(function(e){
-		$.ajax({
-			url: build_query('card_holder', 'given', '0'),
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
@@ -939,7 +936,7 @@ function set_handlers() {
 	// Кнопка 'Отправить' - для отправки координат на планшете4
 	$('#Main .Terminal4 .SendRight').click(function(e){
 		$.ajax({
-			url: build_query('terminal_4', 'cooridnates_entered', $("#inpTerminal4").val()),
+			url: build_query('terminal_4', 'coordinates_entered', $("#inpTerminal4").val()),
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",

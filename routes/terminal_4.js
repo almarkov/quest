@@ -5,7 +5,7 @@ var http   = require('http');
 //-----------------------------------------------------------------------------
 // события
 //-----------------------------------------------------------------------------
-router.get('/cooridnates_entered/:coordinates', function(req, res, next) {
+router.get('/coordinates_entered/:coordinates', function(req, res, next) {
 
 	gamers.coordinates = req.params.coordinates;
 
