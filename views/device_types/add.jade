@@ -8,8 +8,7 @@ block content
 	h2 Типы устройств
 
 	#deviceTypeAdd
-		each device_command in device_type.device_commands
-			h2 Создание/Изменение
+		h2 Создание/Изменение
 		#addDeviceType
 				fieldset
 					input#inputDeviceTypeId(type='hidden', value=device_type._id)
@@ -24,13 +23,14 @@ block content
 							th Числовой псевдоним
 							th
 						tbody
-						each device_command in device_type.device_commands
-							tr
-								td= device_command.title
-								td= device_command.name
-								td= device_command.dname
-								td
-									a(href="/device_types/" + device_type._id + "/device_commands/" + device_command._id + "/delete") Удалить 
+						if device_type.device_commands
+							each device_command in device_type.device_commands
+								tr
+									td= device_command.title
+									td= device_command.name
+									td= device_command.dname
+									td
+										a(href="/device_types/" + device_type._id + "/device_commands/" + device_command._id + "/delete") Удалить 
 
 					select#inputDeviceCommand(type='select')
 
