@@ -62,8 +62,9 @@ var smoke        = require('./routes/smoke');
 
 var wd           = require('./routes/wd');
 
-var devices_     = require('./routes/devices');
-var device_types = require('./routes/device_types');
+var devices_        = require('./routes/devices');
+var device_types    = require('./routes/device_types');
+var device_commands = require('./routes/device_commands');
 
 var app = express();
 
@@ -203,7 +204,7 @@ app.use('/wd', wd);
 
 app.use('/devices',      devices_);
 app.use('/device_types', device_types);
-
+app.use('/device_commands', device_commands);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

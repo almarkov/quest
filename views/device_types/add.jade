@@ -8,11 +8,13 @@ block content
 	h2 Типы устройств
 
 	#deviceTypeAdd
-		h2 Добавить
+		each device_command in device_type.device_commands
+			h2 Создание/Изменение
 		#addDeviceType
 				fieldset
-					input#inputDeviceTypeTitle(type='text', placeholder='Название')
-					input#inputDeviceTypeName( type='text', placeholder='Имя')
+					input#inputDeviceTypeId(type='hidden', value=device_type._id)
+					input#inputDeviceTypeTitle(type='text', placeholder='Название', value=device_type.title)
+					input#inputDeviceTypeName( type='text', placeholder='Имя',      value=device_type.name)
 					br
 					h4 Команды
 					table
@@ -20,14 +22,18 @@ block content
 							th Название
 							th Псевдоним
 							th Числовой псевдоним
+							th
 						tbody
 						each device_command in device_type.device_commands
 							tr
-								td= device_type.device_commands.title
-								td= device_type.device_commands.name
-								td= device_type.device_commands.dname
+								td= device_command.title
+								td= device_command.name
+								td= device_command.dname
+								td
+									a(href="/device_types/" + device_type._id + "/device_commands/" + device_command._id + "/delete") Удалить 
 
 					select#inputDeviceCommand(type='select')
+
 					button#btnAddDeviceCommand    Добавить
 					button#btnOpenCreateDeviceCommand Создать новую
 					br
@@ -35,7 +41,7 @@ block content
 					br
 					h4 Состояния
 					br
-					button#btnAddDeviceType Добавить
+					button#btnAddDeviceType Сохранить
 
 
 	div#createDeviceCommand(style="display:none;")

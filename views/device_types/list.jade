@@ -9,7 +9,7 @@ block content
 	h2 Типы устройств
 
 	#menu
-		a(href='/device_types/add') Добавить
+		a(href='/device_types/add') Создать
 
 	#deviceTypeList
 		table
@@ -23,7 +23,8 @@ block content
 			tbody
 				each device_type in device_types
 					tr
-						td= device_type.title
+						td
+							a(href="/device_types/"+device_type._id)= device_type.title
 						td= device_type.name
 						td bar
 						td bar
