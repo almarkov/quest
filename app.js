@@ -68,8 +68,8 @@ DISABLE_MUTEX = 0;
 DEV_MODE      = 1;
 PROD_MODE     = 0;
 
-EMULATOR_MODE = 1;
-REAL_MODE     = 0;
+EMULATOR_MODE = 0;
+REAL_MODE     = 1;
 
 // вспомогат. ф-ции
 routines       = require("./routines.js");

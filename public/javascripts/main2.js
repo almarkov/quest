@@ -18,6 +18,7 @@ $.ajax({
 				config_list[external_config[i].name] = external_config[i];
 			}
 			set_handlers();
+			place_devices();
 		},
 		error: function(error) {
 			console.log('ERROR:', error);
@@ -311,6 +312,32 @@ $(document).ready(function() {
 
 });
 
+
+function place_devices() {
+	var top = 20;
+	for (var i = 0; i < external_config.length; i++) {
+		var element = $("[name=" + external_config[i].name + "]").parents(".Device");
+		var tmp_top, tmp_left;
+		if (external_config[i].x_position) {
+			tmp_left = external_config[i].x_position;
+		} else {
+			tmp_left = 1000;
+		}
+
+		if (external_config[i].y_position) {
+			tmp_top = external_config[i].y_position;
+		} else {
+			tmp_top = top;
+			top += 80;
+		}
+
+		var tmp_top
+		element.css("top", tmp_top + "px");
+		element.css("left", tmp_left + "px");
+
+	}
+
+}
 
 function set_handlers() {
 	//-----------------------------------------------------------------------------
@@ -1019,7 +1046,7 @@ function set_handlers() {
 	// перезагрузка устройства
 	$('#Main .Device .Status').click(function(e){
 		if (confirm("Подтвердите перезагрузку")){
-			debugger;
+
 			$.ajax({
 				url: web_server_url + '/game/reload/' + e.srcElement.parentElement.children[1].children[1].name,
 				type: "GET",

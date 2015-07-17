@@ -62,6 +62,8 @@ if (REAL_MODE) {
 			state:         "closed",
 			wd_state:      1,
 			wd_enabled:    1,
+			x_position:    665,
+			y_position:    465,
 		},
 
 		// дверь 2
@@ -75,6 +77,8 @@ if (REAL_MODE) {
 			state:         "closed",
 			wd_state:      1,
 			wd_enabled:    1,
+			x_position:    670,
+			y_position:    320,
 		},
 
 		// дверь 3
@@ -170,34 +174,6 @@ if (REAL_MODE) {
 			states:        [ "off", "on" ],	
 		},
 
-		// // кнопка,	открывающая шкаф
-		// {
-		// 	id:            18,
-		// 	carrier_id:    1,
-		// 	name:          "locker_1_button",
-		// 	ip:            "localhost",
-		// 	port:          "3000",
-		// 	state:         "not_pushed",
-		// 	wd_state:      1,
-		//	wd_enabled:    1,
-		// 	events:        [ "pushed" ],
-		// 	states:        [ "not_pushed", "pushed" ],
-		// },
-
-		// // дверь шкафа
-		// {
-		// 	id:            19,
-		// 	carrier_id:    1,
-		// 	name:          "locker_1",
-		// 	ip:            "localhost",
-		// 	port:          "3000",
-		// 	state:         "closed",
-		//     wd_state:      1,
-		//	wd_enabled:    1,
-		// 	commands:      [ "close", "open" ],
-		// 	states:        [ "closed", "opened" ],
-		// },
-
 		// многогранник 
 		{
 			id:            0,
@@ -211,6 +187,8 @@ if (REAL_MODE) {
 			commands:      [ "deactivate", "activate" ],
 			events:        [ "disconnected", "activated", "connected" ],
 			states:        [ "disconnected", "activated",  "connected"],
+			x_position:    510,
+			y_position:    264,
 		},
 
 		// свет
@@ -609,6 +587,8 @@ if (EMULATOR_MODE) {
 			state:         "closed",
 			wd_state:      1,
 			wd_enabled:    1,
+			x_position:    670,
+			y_position:    320,
 		},
 
 		// дверь 3
@@ -704,34 +684,6 @@ if (EMULATOR_MODE) {
 			states:        [ "off", "on" ],	
 		},
 
-		// // кнопка,	открывающая шкаф
-		// {
-		// 	id:            18,
-		// 	carrier_id:    1,
-		// 	name:          "locker_1_button",
-		// 	ip:            "localhost",
-		// 	port:          "3000",
-		// 	state:         "not_pushed",
-		// 	wd_state:      1,
-		//	wd_enabled:    1,
-		// 	events:        [ "pushed" ],
-		// 	states:        [ "not_pushed", "pushed" ],
-		// },
-
-		// // дверь шкафа
-		// {
-		// 	id:            19,
-		// 	carrier_id:    1,
-		// 	name:          "locker_1",
-		// 	ip:            "localhost",
-		// 	port:          "3000",
-		// 	state:         "closed",
-		//     wd_state:      1,
-		//	wd_enabled:    1,
-		// 	commands:      [ "close", "open" ],
-		// 	states:        [ "closed", "opened" ],
-		// },
-
 		// многогранник 
 		{
 			id:            0,
@@ -745,6 +697,8 @@ if (EMULATOR_MODE) {
 			commands:      [ "deactivate", "activate" ],
 			events:        [ "disconnected", "activated", "connected" ],
 			states:        [ "disconnected", "activated",  "connected"],
+			x_position:    510,
+			y_position:    264,
 		},
 
 		// свет

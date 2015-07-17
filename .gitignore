@@ -40,3 +40,4 @@ Thumbs.db
 # own rules #
 ######################
 node_modules/
+data/

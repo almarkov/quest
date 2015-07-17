@@ -7,9 +7,9 @@ body {
 .Content div#Service {position: absolute; left: 0px;  width:500px; height: 150px;}
 .Content div#Quest {position: absolute; left: 500px; width:500px; height: 150px;}
 .Content div#Test {position: absolute; left: 1000px; width:500px; height: 150px;}
-.Content div#Main {position: absolute; top: 160px; width:1800px; }
+.Content div#Main {position: absolute; top: 160px; width:1800px; height:1000px;background-image: url(/images/test.jpg);background-size: 900px 700px;background-repeat: no-repeat;}
 
-a.BType_01 {display:block;height:20px;text-align:center;font:bold 12px/12px arial;color:#000;text-decoration:none;background:#b9b9b9;background-image:linear-gradient(#f2f2f2, #b9b9b9);border:1px solid #bababa;border-radius:2px;behavior:url(/css3/PIE.htc)}
+a.BType_01 {display:block;height:16px;text-align:center;font:bold 9px/9px arial;color:#000;text-decoration:none;background:#b9b9b9;background-image:linear-gradient(#f2f2f2, #b9b9b9);border:1px solid #bababa;border-radius:2px;behavior:url(/css3/PIE.htc)}
 a.BType_01 span {display:block;height:18px;padding:3px 0 0 0}
 a:hover.BType_01 {background-image:linear-gradient(#f2f2f2, #c9c9c9);color:#333;cursor:pointer}
 a:hover.BType_01 span {}
@@ -27,49 +27,55 @@ ul.DashBoard li {
 }
 
 .Device {
-	height: 66px;
-	width: 320px;
+	height: 32px;
+	width: 200px;
 	border: 2px solid black;
+	position:absolute;
+}
+
+.Label1 {
+	font: 9px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 .Input1 {
-	width: 110px;
-	font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
+	width: 60px;
+	font: 9px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 .Input2 {
-	width: 110px;
-	font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
+	width: 20px;
+	font: 9px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 .Input3 {
-	font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
-	width: 190px;
+	font: 9px "Lucida Grande", Helvetica, Arial, sans-serif;
+	width: 60px;
 }
 
 .Device div.Status {
 	position: absolute;
 	left: 2px;
 	width: 20px;
-	height: 66px;
+	height: 32px;
 }
 
 .Device div.State {
 	position: absolute;
 	left: 22px;
-	width: 300px;
-	height: 66px;
+	width: 180px;
+	height: 16px;
 }
 .Device div.Commands {
-	position: relative;
+	position: absolute;
 	left: 22px;
-	width: 200px;
-	height: 66px;
+	top: 16px;
+	width: 180px;
+	height: 16px;
 }
 
 .Device div.Commands ul {
-	margin-top: 22px;
 	padding-left: 2px;
+	margin: 0px;
 }
 
 .Device div.Commands ul li{

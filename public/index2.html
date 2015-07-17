@@ -6,7 +6,7 @@
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-	<link href="/stylesheets/style.css" rel="stylesheet">
+	<link href="/stylesheets/style2.css" rel="stylesheet">
 
 	<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
 </head>
@@ -75,7 +75,44 @@
 		</div>
 
 		<div id='Main'>
-		<div class="col1">
+			<!-- Дверь 1 -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpDoor1" class="Label1">Дверь 1</label>
+					<input type="text" name="door_1" value="" id="inpDoor1" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Door1'>
+						<li><a class="Open BType_01"><span>Открыть</span></a></li>
+						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Многогранник -->
+			<div class='Device'>
+
+				<div class="Status Online">
+				</div>
+
+				<div class="State">
+					<label for="inpPolyhedron" class="Label1">Многогранник</label>
+					<input type="text" name="polyhedron" value="" id="inpPolyhedron" class="Input1" disabled/>
+				</div>
+
+				<div class="Commands">
+					<ul class='Polyhedron'>
+						<li><a class="On BType_01"><span>Акт-ть</span></a></li>
+						<li><a class="Off BType_01"><span>Деакт-ть</span></a></li>
+						<li><a class="Stand BType_01"><span>Поставить</span></a></li>
+					</ul>
+				</div>
+			</div>
 			<!-- Таймер -->
 			<div class='Device'>
 
@@ -96,25 +133,7 @@
 				</div>
 			</div>
 			
-			<!-- Многогранник -->
-			<div class='Device'>
-
-				<div class="Status Online">
-				</div>
-
-				<div class="State">
-					<label for="inpPolyhedron" class="Label1">Многогранник</label>
-					<input type="text" name="polyhedron" value="" id="inpPolyhedron" class="Input1" disabled/>
-				</div>
-
-				<div class="Commands">
-					<ul class='Polyhedron'>
-						<li><a class="On BType_01"><span>Активировать</span></a></li>
-						<li><a class="Off BType_01"><span>Деактивировать</span></a></li>
-						<li><a class="Stand BType_01"><span>Поставить</span></a></li>
-					</ul>
-				</div>
-			</div>
+			
 
 			<!-- Свет -->
 			<div class='Device'>
@@ -287,8 +306,7 @@
 					</ul>
 				</div>
 			</div>
-		</div>
-		<div class="col2">	
+
 
 			<!-- Планшет с вводом кода-->
 			<div class='Device'>
@@ -298,7 +316,7 @@
 
 				<div class="State">
 					<label for="inpTerminal1State" class="Label1">Планшет1</label>
-					<input type="text" name="terminal_1" value="" id="inpTerminal1" class="Input1" />
+					<input type="text" name="terminal_1" value="" id="inpTerminal1" class="Input2" />
 					<input type="text" name="terminal_1_state" value="" id="inpTerminal1State" class="Input1" disabled/>
 				</div>
 
@@ -317,6 +335,7 @@
 
 				<div class="State">
 					<label for="inpTerminal2State" class="Label1">Планшет(квадраты)</label>
+					<input type="text" name="terminal_2" value="" id="inpTerminal2" class="Input2" />
 					<input type="text" name="terminal_2_state" value="" id="inpTerminal2State" class="Input1" disabled />
 				</div>
 
@@ -336,6 +355,7 @@
 
 				<div class="State">
 					<label for="inpTerminal3State" class="Label1">Планшет(светлячок)</label>
+					<input type="text" name="terminal_3" value="" id="inpTerminal3" class="Input2" />
 					<input type="text" name="terminal_3_state" value="" id="inpTerminal3State" class="Input1" disabled/>
 				</div>
 
@@ -355,7 +375,7 @@
 
 				<div class="State">
 					<label for="inpTerminal4" class="Label1">Планшет4</label>
-					<input type="text" name="terminal_4" value="" id="inpTerminal4" class="Input1" />
+					<input type="text" name="terminal_4" value="" id="inpTerminal4" class="Input2" />
 					<input type="text" name="terminal_4_state" value="" id="inpTerminal4State" class="Input1" disabled/>
 				</div>
 
@@ -471,27 +491,8 @@
 			</div>
 		
 
-		</div>
-		
-		<div class="col3">
-			<!-- Дверь 1 -->
-			<div class='Device'>
 
-				<div class="Status Online">
-				</div>
-
-				<div class="State">
-					<label for="inpDoor1" class="Label1">Дверь 1</label>
-					<input type="text" name="door_1" value="" id="inpDoor1" class="Input1" disabled/>
-				</div>
-
-				<div class="Commands">
-					<ul class='Door1'>
-						<li><a class="Open BType_01"><span>Открыть</span></a></li>
-						<li><a class="Close BType_01"><span>Закрыть</span></a></li>
-					</ul>
-				</div>
-			</div>
+			
 			<!-- Дверь 2 -->
 			<div class='Device'>
 
@@ -623,9 +624,7 @@
 					</ul>
 				</div>
 			</div>
-		</div>
 
-		<div class="col4">
 			<!-- Аудиоплеер 1 -->
 			<div class='Device'>
 
@@ -756,11 +755,9 @@
 
 		</div>
 
-		</div>
-
 	</div>
 </body>
 
-<script type="text/javascript" src="/javascripts/main.js"></script>
+<script type="text/javascript" src="/javascripts/main2.js"></script>
 
 </html>
