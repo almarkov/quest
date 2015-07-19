@@ -131,6 +131,14 @@ router.get('/ready', function(req, res, next) {
 
 		devices.get('door_3').state = 'closed';
 
+		// гасим планшет 1
+		helpers.send_get('terminal_1', 'black_screen', '0', DISABLE_TIMER, ENABLE_MUTEX,
+			function(params){
+				var device   = devices.get('terminal_1');
+				device.state = "sleep";
+			}, {}
+		);
+
 		// включаем звук на канале 2 плеера 3 (будете аннигилированы)
 		helpers.send_get('audio_player_3', 'play_channel_2', config.audio_files[13].value, DISABLE_TIMER, ENABLE_MUTEX,
 			function(params){
@@ -167,6 +175,14 @@ router.get('/ready', function(req, res, next) {
 				var device   = devices.get('inf_mirror_backlight');
 				device.value = '';
 				device.state = "off";
+			}, {}
+		);
+
+		// гасим планшет 1
+		helpers.send_get('terminal_1', 'black_screen', '0', DISABLE_TIMER, ENABLE_MUTEX,
+			function(params){
+				var device   = devices.get('terminal_1');
+				device.state = "sleep";
 			}, {}
 		);
 

@@ -127,6 +127,9 @@ router.get('/get_ready', function(req, res, next) {
 	// выключаем подсветку
 	helpers.send_get('inf_mirror_backlight', 'off', '0', DISABLE_TIMER, ENABLE_MUTEX);
 
+	// выключаем подсветку статуи
+	helpers.send_get('figure', 'backlight_off', '0', DISABLE_TIMER, ENABLE_MUTEX);
+
 	// включаем свет
 	helpers.send_get('light', 'on', '0', DISABLE_TIMER, ENABLE_MUTEX);
 

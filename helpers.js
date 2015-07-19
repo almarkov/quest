@@ -19,7 +19,7 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 
 			if (enable_timer) {
 				res.on('data', function(data){
-					http.get(devices.build_query('timer', 'activate', devices.default_timer_value), function(res) {
+					http.get(devices.build_query('timer', 'activate', enable_timer), function(res) {
 							res.on('data', function(data){
 								var result = JSON.parse(data);
 								devices.get('timer').state = result.state.state;
@@ -40,4 +40,8 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 
 			simple_log(device_name +  " " + command + " error");
 	});
+}
+
+exports.get_timeout = function(timer) {
+	return config.timeouts[timer];
 }

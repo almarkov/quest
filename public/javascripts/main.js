@@ -949,10 +949,25 @@ function set_handlers() {
 		});
 	});
 
-	// Кнопка 'Отправить' - для отправки координат на планшете4
+	// Кнопка 'Отправить верно' - для отправки координат на планшете4
 	$('#Main .Terminal4 .SendRight').click(function(e){
 		$.ajax({
-			url: build_query('terminal_4', 'coordinates_entered', $("#inpTerminal4").val()),
+			url: build_query('terminal_4', 'coordinates_entered_true', '0'),
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('cell enter');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	});
+	// Кнопка 'Отправить неверно' - для отправки координат на планшете4
+	$('#Main .Terminal4 .SendRWrong').click(function(e){
+		$.ajax({
+			url: build_query('terminal_4', 'coordinates_entered_false', '0'),
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",

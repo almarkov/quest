@@ -68,8 +68,8 @@ DISABLE_MUTEX = 0;
 DEV_MODE      = 1;
 PROD_MODE     = 0;
 
-EMULATOR_MODE = 0;
-REAL_MODE     = 1;
+EMULATOR_MODE = 1;
+REAL_MODE     = 0;
 
 // вспомогат. ф-ции
 routines       = require("./routines.js");
@@ -81,7 +81,7 @@ start_time = null;
 
 // конфигурация
 config = require("./config.js");
-
+ENABLE_TIMER  = config.default_timer_value;
 
 // глобальные объекты на сервере, соответствующие устройствам
 // в эмуляторе - меняются по запросу сервера, либо пользователем и отправляют состояние на сервер
@@ -92,7 +92,7 @@ gamers = require("./gamers.js");
 
 // ф-ции, сокращающие запросы
 helpers = require("./helpers.js");
-
+ENABLE_TIMER  = 1;
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
