@@ -42,7 +42,13 @@ router.get('/code_entered/:code', function(req, res, next) {
 		// необходимое верных кодов
 		if (gamers.quest_state % 10 == cell_count) {
 			
-			gamers.quest_state = 160; // игроки достали жетоны, им необходимо вставить их в статую 
+			gamers.quest_state = 160; // игроки достали жетоны, им необходимо вставить их в статую
+
+			// включаем подсветку статуи
+			helpers.send_get('figure', 'backlight_on', '0', DISABLE_TIMER, ENABLE_MUTEX,
+				function(params){
+				}, {}
+			);
 
 		}
 	}
