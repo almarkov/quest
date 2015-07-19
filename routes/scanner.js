@@ -7,7 +7,7 @@ router.get('/start', function(req, res, next) {
 
 	// закрываем дверь №2
 	gamers.active_button = '';
-	helpers.send_get('door_2', 'close', '0', ENABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('door_2', 'close', '0', helpers.get_timeout('T2'), ENABLE_MUTEX);
 
 	res.json({success: 1});
 });
@@ -25,7 +25,7 @@ router.get('/stop', function(req, res, next) {
 		// );
 
 		// закрываем дверь №4
-		helpers.send_get('door_4', 'close', '0', ENABLE_TIMER, ENABLE_MUTEX);
+		helpers.send_get('door_4', 'close', '0', helpers.get_timeout('T1'), ENABLE_MUTEX);
 
 		gamers.active_button = "";
 
@@ -34,7 +34,7 @@ router.get('/stop', function(req, res, next) {
 	// если предпоследний
 	if (gamers.quest_state % 10 == gamers.count-2) {
 		// закрываем дверь 3
-		helpers.send_get('door_3', 'close', '0', ENABLE_TIMER, ENABLE_MUTEX);
+		helpers.send_get('door_3', 'close', '0', helpers.get_timeout('T1'), ENABLE_MUTEX);
 
 		gamers.active_button = "";
 

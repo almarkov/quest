@@ -8,7 +8,7 @@ var http   = require('http');
 router.get('/power_ok/:code', function(req, res, next) {
 	devices.get('power_wall').state = 'passed';
 	//  открываем дверь 8
-	helpers.send_get('door_8', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('door_8', 'open', '0', helpers.get_timeout('T1'), ENABLE_MUTEX);
 
 	// включаем звук на канале 2 плеера 1 
 	helpers.send_get('audio_player_1', 'play_channel_2', config.audio_files[21].value, DISABLE_TIMER, ENABLE_MUTEX,

@@ -41,7 +41,7 @@ router.get('/coordinates_entered_false/:coordinates', function(req, res, next) {
 	res.json({success: 1});
 });
 
-router.get('/coordinates_entered/:coordinates', function(req, res, next) {
+router.get('/coordinates_entered_true/:coordinates', function(req, res, next) {
 
 	gamers.quest_state = 240; // квест пройден
 

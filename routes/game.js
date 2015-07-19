@@ -34,7 +34,7 @@ router.get('/start/:count', function(req, res, next) {
 		gamers.quest_state = 10;//'Начало игры';
 
 		//  открываем дверь 1
-		helpers.send_get('door_1', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
+		helpers.send_get('door_1', 'open', '0', helpers.get_timeout('T1'), ENABLE_MUTEX);
 
 		gamers.quest_state = 15; //'Ожидание открытия двери 1';
 	}
@@ -50,7 +50,7 @@ router.get('/allin', function(req, res, next) {
 	gamers.active_button = '';
 
 	//  закрываем дверь 1
-	helpers.send_get('door_1', 'close', '0', ENABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('door_1', 'close', '0', helpers.get_timeout('T1'), ENABLE_MUTEX);
 
 	res.json({success: 1});
 

@@ -7,7 +7,7 @@ var http   = require('http');
 //-----------------------------------------------------------------------------
 router.get('/game_passed/:code', function(req, res, next) {
 	//  открываем дверь 7
-	helpers.send_get('door_7', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('door_7', 'open', '0', helpers.get_timeout('T1'), ENABLE_MUTEX);
 
 	res.json({success: 1});
 });

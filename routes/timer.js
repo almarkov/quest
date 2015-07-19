@@ -218,7 +218,7 @@ router.get('/ready', function(req, res, next) {
 			gamers.quest_state += 1;
 
 			//открываем дверь 2
-			helpers.send_get('door_2', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
+			helpers.send_get('door_2', 'open', '0', helpers.get_timeout('T2'), ENABLE_MUTEX);
 
 			// включаем звук для номера игрока
 			var audio_file = config.audio_files[gamers.quest_state%10 + 3]; 
@@ -250,17 +250,19 @@ router.get('/ready', function(req, res, next) {
 	// ждали открытия  ядвери 5
 	if (gamers.quest_state == 142) {
 		devices.get('door_5').state = "opened";
-		gamers.quest_state = 150;
 
-		// включаем видео на экране 3
-		helpers.send_get('video_player_3', 'play', config.video_files[8].value, DISABLE_TIMER, ENABLE_MUTEX,
-			function (params) {
-				var device = devices.get('video_player_3');
-				device.value = config.video_files[8].alias;
-				device.state = 'playing';
-			},{}
-		);
+		setTimeout(function () {
+			gamers.quest_state = 150;
 
+			// включаем видео на экране 3
+			helpers.send_get('video_player_3', 'play', config.video_files[8].value, DISABLE_TIMER, ENABLE_MUTEX,
+				function (params) {
+					var device = devices.get('video_player_3');
+					device.value = config.video_files[8].alias;
+					device.state = 'playing';
+				},{}
+			);
+		}, helpers.get_timeout('T4')*1000);
 		return;
 	}
 
@@ -293,26 +295,29 @@ router.get('/ready', function(req, res, next) {
 	// ждали открытия двери 8
 	if (gamers.quest_state == 190) {
 		devices.get('door_8').state = "opened";
-		gamers.quest_state = 200;
 
-		// включаем звук восстания
-		var audio_file = config.audio_files[17]; 
-		helpers.send_get('audio_player_1', 'play_channel_2', audio_file.value, DISABLE_TIMER, ENABLE_MUTEX,
-			function(params){
-				var device   = devices.get('audio_player_1');
-				device.value = audio_file.alias;
-				device.state = "ch1_play_ch2_play";
-			}, {}
-		);
+		setTimeout(function () {
+			gamers.quest_state = 200;
 
-		// пробуждаем планшет-координаты
-		helpers.send_get('terminal_4', 'go', "right=" + config.coordinates, DISABLE_TIMER, ENABLE_MUTEX,
-			function (params) {
-				devices.get('terminal_4').state = 'active';
-			},{}
-		);
+			// включаем звук восстания
+			var audio_file = config.audio_files[17]; 
+			helpers.send_get('audio_player_1', 'play_channel_2', audio_file.value, DISABLE_TIMER, ENABLE_MUTEX,
+				function(params){
+					var device   = devices.get('audio_player_1');
+					device.value = audio_file.alias;
+					device.state = "ch1_play_ch2_play";
+				}, {}
+			);
 
-		gamers.quest_state = 210; //игроки вводят координаты
+			// пробуждаем планшет-координаты
+			helpers.send_get('terminal_4', 'go', "right=" + config.coordinates, DISABLE_TIMER, ENABLE_MUTEX,
+				function (params) {
+					devices.get('terminal_4').state = 'active';
+				},{}
+			);
+
+			gamers.quest_state = 210; //игроки вводят координаты
+		}, helpers.get_timeout('T4')*1000);
 
 		return;
 	}

@@ -37,7 +37,7 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 		gamers.quest_state += 1;
 
 		//открываем дверь 2
-		helpers.send_get('door_2', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
+		helpers.send_get('door_2', 'open', '0', helpers.get_timeout('T2'), ENABLE_MUTEX);
 
 		// включаем звук для номера игрока
 		// var audio_file = config.audio_files[gamers.quest_state%10 + 3]; 

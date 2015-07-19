@@ -17,10 +17,10 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 	device.value = config.audio_files[19].alias;
 
 	// Все игроки снова собрались вместе и приглашаются во дворец благоденствия»
-	if (gamers.quest_state == 145) {
-		// открываем дверь 5
-		helpers.send_get('door_5', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
-	}
+	// if (gamers.quest_state == 145) {
+	// 	// открываем дверь 5
+	// 	helpers.send_get('door_5', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
+	// }
 });
 
 //-----------------------------------------------------------------------------

@@ -58,7 +58,7 @@ router.get('/code_entered/:code', function(req, res, next) {
 		);
 
 		//  открываем дверь 3
-		helpers.send_get('door_3', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
+		helpers.send_get('door_3', 'open', '0', helpers.get_timeout('T1'), ENABLE_MUTEX);
 
 	}
 });
