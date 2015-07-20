@@ -17,7 +17,7 @@ router.get('/number_of_inserted/:value', function(req, res, next) {
 		count = gamers.count;
 	}
 
-	if (count <= parseInt(req.params.value)) {
+	if (gamers.quest_state == 160 && count <= parseInt(req.params.value)) {
 		// открываем шкаф с картой
 		helpers.send_get('locker_2', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX,
 			function (params) {
