@@ -26,10 +26,6 @@ var video_player_1 = require('./routes/video_player_1');
 var video_player_2 = require('./routes/video_player_2');
 var video_player_3 = require('./routes/video_player_3');
 
-var locker_1_button = require('./routes/locker_1_button');
-
-var locker_1     = require('./routes/locker_1');
-
 var light        = require('./routes/light');
 
 var polyhedron   = require('./routes/polyhedron');
@@ -152,10 +148,6 @@ app.use('/audio_player_4', audio_player_4);
 app.use('/video_player_1', video_player_1);
 app.use('/video_player_2', video_player_2);
 app.use('/video_player_3', video_player_3);
-
-app.use('/locker_1_button', locker_1_button);
-
-app.use('/locker_1', locker_1);
 
 app.use('/polyhedron', polyhedron);
 
