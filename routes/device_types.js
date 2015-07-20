@@ -12,6 +12,15 @@ router.get('/', function(req, res) {
 	});
 });
 
+router.get('/list', function(req, res) {
+	var db = req.db;
+	var collection = db.get('device_types');
+	collection.find({},{},function(e, device_types){
+		res.json('device_types/list', device_types);
+	});
+});
+
+
 router.get('/add', function(req, res) {
 	var db = req.db;
 	var collection = db.get('device_types');

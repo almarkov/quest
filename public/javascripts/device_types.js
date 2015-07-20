@@ -8,10 +8,40 @@ $(document).ready(function(){
 
 	$('#btnOpenCreateDeviceCommand').on('click', openCreateDeviceCommand);
 
+    $('#deviceTypeList table tbody').on('click', 'td a.linkedit', editDeviceType);
+
+    populateDeviceTypeTable();
+
     fillDeviceCommandList();
 
     //fillDeviceTypeDeviceCommandTable();
 });
+
+function populateDeviceTypeTable() {
+    var tableContent = '';
+
+    $.getJSON( '/device_types/list', function( data ) {
+        $.each(data, function(){
+            tableContent += '<tr>';
+
+            tableContent += '<td><a href="#" class="linkedit"  rel="' + this._id + '">' + this.title + '</a></td>'
+            tableContent += '<td>' + this.name + '</td>';
+
+            tableContent += '<td>';
+            if (this.device_commands) {
+                $.each(this.device_commands, function(){
+                    tableContent += this.title + '  ' + this.name + '  ' + this.dname;
+                    tableContent += '<br>';
+                });
+            }
+            tableContent += '</td>';
+
+            tableContent += '</tr>';
+        });
+
+        $('#deviceTypeList table tbody').html(tableContent);
+    });
+}
 
 function fillDeviceCommandList() {
     var deviceCommandListOptionsContent = '';
@@ -29,6 +59,7 @@ function fillDeviceCommandList() {
     });
 }
 
+
 function fillDeviceTypeDeviceCommandTable() {
     var deviceTypeDeviceCommandTable = '';
 
@@ -38,14 +69,16 @@ function fillDeviceTypeDeviceCommandTable() {
 
         $.getJSON( '/device_types/' + _id + '/device_commands/list', function( data ) {
 
-            // deviceCommandListOptionsContent += '<option value="-1">[Выберите команду]</option>';
-            // $.each(data, function(){
-            //     deviceCommandListOptionsContent += '<option value=' + this._id + '>';
-            //     deviceCommandListOptionsContent += this.title + '   ' + this.name + '   ' + this.dname;
-            //     deviceCommandListOptionsContent += '</option>';
-            // });
+            $.each(data, function(){
+                tableContent += '<tr>';
+                tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '">' + this.username + '</a></td>';
+                tableContent += '<td>' + this.email + '</td>';
+                tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+                tableContent += '</tr>';
+            });
 
-            // $('#inputDeviceCommand').html(deviceCommandListOptionsContent);
+            // Inject the whole content string into our existing HTML table
+            $('#userList table tbody').html(tableContent);
         });
     }
 }

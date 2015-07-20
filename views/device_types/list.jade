@@ -21,12 +21,48 @@ block content
 				th Состояния
 				th foo
 			tbody
-				each device_type in device_types
-					tr
-						td
-							a(href="/device_types/"+device_type._id)= device_type.title
-						td= device_type.name
-						td bar
-						td bar
-						td bar
-						td bar
+
+	#deviceTypeAdd
+		h2 Создание/Изменение
+		#addDeviceType
+				fieldset
+					input#inputDeviceTypeId(type='hidden', value=device_type._id)
+					input#inputDeviceTypeTitle(type='text', placeholder='Название', value=device_type.title)
+					input#inputDeviceTypeName( type='text', placeholder='Имя',      value=device_type.name)
+					br
+					h4 Команды
+					table
+						thead
+							th Название
+							th Псевдоним
+							th Числовой псевдоним
+							th
+						tbody
+						if device_type.device_commands
+							each device_command in device_type.device_commands
+								tr
+									td= device_command.title
+									td= device_command.name
+									td= device_command.dname
+									td
+										a(href="/device_types/" + device_type._id + "/device_commands/" + device_command._id + "/delete") Удалить 
+
+					select#inputDeviceCommand(type='select')
+
+					button#btnAddDeviceCommand    Добавить
+					button#btnOpenCreateDeviceCommand Создать новую
+					br
+					h4 События
+					br
+					h4 Состояния
+					br
+					button#btnAddDeviceType Сохранить
+
+
+	div#createDeviceCommand(style="display:none;")
+		h5 Создание команды
+		fieldset
+			input#inputDeviceCommandTitle(type='text', placeholder='Название')
+			input#inputDeviceCommandName(type='text', placeholder='Псевдоним')
+			input#inputDeviceCommandDname(type='text', placeholder='Числовой псевдоним')
+			button#btnCreateDeviceCommand Создать
