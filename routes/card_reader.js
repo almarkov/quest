@@ -7,7 +7,7 @@ var http   = require('http');
 //-----------------------------------------------------------------------------
 router.get('/card_ok/:parameter', function(req, res, next) {
 
-	if (devices.get('card_reader').state != "passed")
+	if (devices.get('card_reader').state != "passed") {
 		devices.get('card_reader').state = "passed";
 
 		//  открываем дверь 6

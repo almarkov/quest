@@ -729,7 +729,7 @@ function set_handlers() {
 	// Кнопка 'вставить жетоны'
 	$('#Main .Figure .Insert').click(function(e){
 		$.ajax({
-			url: build_query('figure', 'number_of_inserted', '10'),
+			url: build_query('figure', 'number_of_inserted', $("#inpFigure").val()),
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
