@@ -101,7 +101,11 @@ function restart_timer () {
 						s = 59;
 					}
 					if (start_time) {
-						$("#QuestTimer").text(parseInt(m) + ':' + parseInt(s));
+						if (m < 0) {
+							$("#QuestTimer").text('Время вышло. Квест провален');
+						} else {
+							$("#QuestTimer").text(parseInt(m) + ':' + parseInt(s));
+						}
 					} else {
 						$("#QuestTimer").text('NA');
 					}

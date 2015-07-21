@@ -46,9 +46,9 @@ router.get('/coordinates_entered_true/:coordinates', function(req, res, next) {
 	gamers.quest_state = 240; // квест пройден
 
 	// включаем звук квест пройден
-	helpers.send_get('audio_player_1', 'play_channel_2', config.audio_files[18].value, DISABLE_TIMER, ENABLE_MUTEX,
+	helpers.send_get('audio_player_4', 'play_channel_2', config.audio_files[18].value, DISABLE_TIMER, ENABLE_MUTEX,
 		function (params) {
-			var device = devices.get('audio_player_1');
+			var device = devices.get('audio_player_4');
 			device.value = config.audio_files[18].alias;
 			device.state = 'ch1_play_ch2_play';
 		},{}

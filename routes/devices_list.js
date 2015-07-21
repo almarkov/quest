@@ -14,7 +14,7 @@ router.get('/all', function(req, res, next) {
 	// уменьшаем таймер
 	// если таймер активен
 	if (devices.timer().state == 'active') {
-		var new_current_value = devices.timer().current_value - 0.5;
+		var new_current_value = devices.timer().current_value - 1;
 		// если таймер не досчитал - уменьшаем
 		if (new_current_value > 0) {
 			devices.timer().current_value = new_current_value;
