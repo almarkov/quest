@@ -14,7 +14,7 @@ router.get('/number_of_inserted/:value', function(req, res, next) {
 
 	var count = 5;
 	if (gamers.count < count) {
-		count = gamers.count;
+		count = gamers.count + 1;
 	}
 
 	if (gamers.quest_state == 160 && count <= parseInt(req.params.value)) {

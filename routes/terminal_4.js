@@ -29,7 +29,7 @@ var http   = require('http');
 // 	res.json({success: 1});
 // });
 
-router.get('/coordinates_entered_false/:coordinates', function(req, res, next) {
+router.get('/coordinates_entered_fail/:coordinates', function(req, res, next) {
 
 	// гасим планшет 4
 	helpers.send_get('terminal_4', 'black_screen', '0', helpers.get_timeout('T5'), ENABLE_MUTEX,
