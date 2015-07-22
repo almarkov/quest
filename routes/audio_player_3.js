@@ -17,7 +17,7 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 	if (device.value == config.audio_files[13].alias) {
 
 		// пробуждаем планшет
-		helpers.send_get('terminal_2', 'go', "right=1;2;3;5", DISABLE_TIMER, ENABLE_MUTEX,
+		helpers.send_get('terminal_2', 'go', "right=0;6;7;9;14", DISABLE_TIMER, ENABLE_MUTEX,
 			function (params) {
 				devices.get('terminal_2').state = 'active';
 			},{}

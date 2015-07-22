@@ -1260,15 +1260,15 @@ exports.audio_files = [
 // время таймера
 exports.default_timer_value = '1';
 exports.timeouts = {
-	T1: 2,
-	T2: 2,
-	T3: 2,
-	T4: 2,
-	T5: 2,
+	T1: 15,
+	T2: 5,
+	T3: 10,
+	T4: 10,
+	T5: 5,
 }
 
 // watchdog
 exports.watchdog_enabled = 0;
 
 // правильные координаты
-exports.coordinates = '65732274';
+exports.coordinates = '9847544';
