@@ -27,16 +27,14 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 		&& (player_number != gamers.count-1)
 		&& backlight_state == "on" )
 	{
-		//  открываем дверь 4
-		helpers.send_get('door_4', 'open', '0', helpers.get_timeout('T1'), ENABLE_MUTEX);
+		
 
 	// если идёт сканирование и игрок предпоследний
 	} else if (   ((gamers.quest_state / 10 | 0) == 12)
 		&& gamers.codes[player_number-1]
 		&& (player_number == gamers.count-1))
 	{
-		//  открываем дверь 3
-		helpers.send_get('door_3', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
+		
 
 	}
 

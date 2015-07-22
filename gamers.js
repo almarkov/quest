@@ -120,7 +120,7 @@ exports.quest_error = '';
 
 exports.videos_played = 0;
 
-exports.codes = ['', '', '', '', '735', '', '', '', ''];
+exports.codes = ['', '', '', '', '423', '', '', '', ''];
 
 exports.coordinates = '';
 
@@ -134,7 +134,7 @@ exports.reset = function() {
 	exports.quest_state = 0;
 	exports.last_player_pass = 0;
 	exports.quest_error = '';
-	exports.codes = ['', '', '', '', '735', '', '', '', ''];
+	exports.codes = ['', '', '', '', '423', '', '', '', ''];
 	exports.count = 0;
 	exports.active_button = '';
 	exports.videos_played = 0;

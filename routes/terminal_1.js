@@ -43,6 +43,9 @@ router.get('/code_entered/:code', function(req, res, next) {
 			}, {}
 		);
 
+		//  открываем дверь 4
+		helpers.send_get('door_4', 'open', '0', helpers.get_timeout('T1'), ENABLE_MUTEX);
+
 	// если предпоследний
 	} else if ((gamers.quest_state / 10 | 0) == 12
 		&& player_number == gamers.count - 1) {

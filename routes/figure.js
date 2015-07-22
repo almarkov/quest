@@ -25,6 +25,19 @@ router.get('/number_of_inserted/:value', function(req, res, next) {
 			},{}
 		);
 
+		// закрываем ячейки
+		for (var i = 1; i <= 5; i++) {
+			helpers.send_get('cell_' + i, 'close', '0', DISABLE_TIMER, ENABLE_MUTEX,
+				function(params){
+					var device = devices.get('cell_' + params.index);
+					device.state = 'closed';
+				}, 
+				{
+					index: i
+				}
+			);
+		}
+
 		// включаем дым-машину
 		helpers.send_get('smoke', 'on', '0', DISABLE_TIMER, ENABLE_MUTEX,
 			function(params){

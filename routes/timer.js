@@ -148,6 +148,13 @@ router.get('/ready', function(req, res, next) {
 			}, {}
 		);
 
+		// || у других игроков
+		gamers.quest_state -= 30;
+		gamers.quest_state += 1;
+
+		//открываем дверь 2
+		helpers.send_get('door_2', 'open', '0', helpers.get_timeout('T2'), ENABLE_MUTEX);
+
 		return;
 	}
 
@@ -252,6 +259,10 @@ router.get('/ready', function(req, res, next) {
 		devices.get('door_5').state = "opened";
 
 		setTimeout(function () {
+
+			// закрываем дверь 3
+			helpers.send_get('door_3', 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);
+
 			gamers.quest_state = 150;
 
 			// включаем видео на экране 3
@@ -276,7 +287,7 @@ router.get('/ready', function(req, res, next) {
 
 		// пробуждаем планшет-светялчок
 		if (devices.get('terminal_3').state != 'active') {
-			helpers.send_get('terminal_3', 'go', 'field=2,540,180;3,240,60;3,120,360;6,660,0;3,660,300;9,720,360;@2,70,0,140;1,70,140,140;1,215,140,430;2,430,140,200;1,430,70,585;2,585,70,140;1,585,140,730;2,730,0,70;2,215,200,345;1,290,270,800;2,800,470,480', DISABLE_TIMER, ENABLE_MUTEX,
+			helpers.send_get('terminal_3', 'go', "0\/field=2,540,180;3,240,60;3,120,360;6,660,0;3,660,300;9,720,360;\@2,70,0,140;1,70,140,140;1,215,140,430;2,430,140,200;1,430,70,585;2,585,70,140;1,585,140,730;2,730,0,70;2,215,200,345;1,290,270,800;2,800,470,480", DISABLE_TIMER, ENABLE_MUTEX,
 				function(params){
 					devices.get('terminal_3').state = 'active';
 				}, {}
@@ -301,24 +312,6 @@ router.get('/ready', function(req, res, next) {
 		setTimeout(function () {
 			gamers.quest_state = 200;
 
-			// включаем звук восстания
-			var audio_file = config.audio_files[17]; 
-			helpers.send_get('audio_player_1', 'play_channel_2', audio_file.value, DISABLE_TIMER, ENABLE_MUTEX,
-				function(params){
-					var device   = devices.get('audio_player_1');
-					device.value = audio_file.alias;
-					device.state = "ch1_play_ch2_play";
-				}, {}
-			);
-
-			// пробуждаем планшет-координаты
-			helpers.send_get('terminal_4', 'go', "right=" + config.coordinates, DISABLE_TIMER, ENABLE_MUTEX,
-				function (params) {
-					devices.get('terminal_4').state = 'active';
-				},{}
-			);
-
-			gamers.quest_state = 210; //игроки вводят координаты
 		}, helpers.get_timeout('T4')*1000);
 
 		return;

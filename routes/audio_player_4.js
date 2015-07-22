@@ -16,11 +16,27 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 	device.state = "ch1_play_ch2_stop";
 	device.value = config.audio_files[19].alias;
 
-	// Все игроки снова собрались вместе и приглашаются во дворец благоденствия»
-	// if (gamers.quest_state == 145) {
-	// 	// открываем дверь 5
-	// 	helpers.send_get('door_5', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
-	// }
+	if (gamers.quest_state == 200) {
+		// включаем звук восстания
+		var audio_file = config.audio_files[17]; 
+		helpers.send_get('audio_player_1', 'play_channel_2', audio_file.value, DISABLE_TIMER, ENABLE_MUTEX,
+			function(params){
+				var device   = devices.get('audio_player_1');
+				device.value = audio_file.alias;
+				device.state = "ch1_play_ch2_play";
+			}, {}
+		);
+
+		
+		// пробуждаем планшет-координаты
+		helpers.send_get('terminal_4', 'go', "right=" + config.coordinates, DISABLE_TIMER, ENABLE_MUTEX,
+			function (params) {
+				devices.get('terminal_4').state = 'active';
+			},{}
+		);
+
+		gamers.quest_state = 210; //игроки вводят координаты
+	}
 });
 
 //-----------------------------------------------------------------------------

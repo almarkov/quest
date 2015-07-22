@@ -145,7 +145,7 @@ router.get('/get_ready', function(req, res, next) {
 	helpers.send_get('card_reader', 'reset', '0', DISABLE_TIMER, ENABLE_MUTEX);
 
 	// запускаем таймер
-	http.get(devices.build_query('timer', 'activate', devices.default_timer_value), function(res) {
+	http.get(devices.build_query('timer', 'activate', helpers.get_timeout('T1')), function(res) {
 			res.on('data', function(data){
 				var result = JSON.parse(data);
 				devices.get('timer').state = result.state.state;
