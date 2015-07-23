@@ -305,17 +305,17 @@ router.get('/ready', function(req, res, next) {
 		return;
 	}
 
-	// ждали открытия двери 8
-	if (gamers.quest_state == 190) {
-		devices.get('door_8').state = "opened";
+	// // ждали открытия двери 8
+	// if (gamers.quest_state == 190) {
+	// 	devices.get('door_8').state = "opened";
 
-		setTimeout(function () {
-			gamers.quest_state = 200;
+	// 	setTimeout(function () {
+	// 		gamers.quest_state = 200;
 
-		}, helpers.get_timeout('T4')*1000);
+	// 	}, helpers.get_timeout('T4')*1000);
 
-		return;
-	}
+	// 	return;
+	// }
 
 	if (gamers.quest_state == 210) {
 		// пробуждаем планшет после неверного ввода
