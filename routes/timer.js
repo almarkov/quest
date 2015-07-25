@@ -319,7 +319,7 @@ router.get('/ready', function(req, res, next) {
 
 	if (gamers.quest_state == 210) {
 		// пробуждаем планшет после неверного ввода
-		helpers.send_get('terminal_4', 'go', "right=" + config.coordinates, DISABLE_TIMER, ENABLE_MUTEX,
+		helpers.send_get('terminal_4', 'go', "0/right=" + config.coordinates, DISABLE_TIMER, ENABLE_MUTEX,
 			function (params) {
 				devices.get('terminal_4').state = 'active';
 			},{}

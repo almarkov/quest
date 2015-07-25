@@ -29,7 +29,7 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 
 		
 		// пробуждаем планшет-координаты
-		helpers.send_get('terminal_4', 'go', "right=" + config.coordinates, DISABLE_TIMER, ENABLE_MUTEX,
+		helpers.send_get('terminal_4', 'go', "0/right=" + config.coordinates, DISABLE_TIMER, ENABLE_MUTEX,
 			function (params) {
 				devices.get('terminal_4').state = 'active';
 			},{}
