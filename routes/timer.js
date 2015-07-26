@@ -104,25 +104,6 @@ router.get('/ready', function(req, res, next) {
 	// ждали окончания подготовки
 	if (gamers.game_state == 'preparation') {
 
-		// готов к запуску
-		gamers.game_state = 'ready_to_go';
-		exports.dashboard_buttons.Start = 1;
-		return;
-	}
-
-	// если ждали шкафа 2 в режиме обслуживания
-	if (gamers.game_state == 'service_mode') {
-		//Закрываем шкаф
-		helpers.send_get('locker_2', 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);
-		devices.get('locker_2').state    = 'closed';
-
-		return;
-	}
-
-	// если ждали окончания подготовки устройств
-	if (gamers.quest_state == 1 || gamers.quest_state == 3) {
-		gamers.quest_state = 5;
-
 		for (var i = 1; i <= 8; i++) {
 			devices.get('door_' + i).state = 'closed';
 		}
@@ -138,25 +119,35 @@ router.get('/ready', function(req, res, next) {
 		devices.get('light').state    = 'on';
 		devices.get('inf_mirror_backlight').state = 'off';
 		devices.get('vibration').state    = 'off';
-		
+
+		// готов к запуску
+		gamers.game_state = 'ready_to_go';
+		exports.dashboard_buttons.Start = 1;
 		return;
 	}
 
-	// если ждали открытия двери 1
-	if (gamers.quest_state == 15) {
-		devices.get('door_1').state = "opened";
-		gamers.quest_state = 16; //Ожидание, пока все игроки войдут внутрь. Требуется действие оператора. Когда все игроки войдут – нажмите кнопку «Все игроки зашли внутрь»
-		gamers.active_button = 'AllIn';
+	// если ждали шкафа 2 в режиме обслуживания
+	if (gamers.game_state == 'service_mode') {
+		//Закрываем шкаф
+		helpers.send_get('locker_2', 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);
+		devices.get('locker_2').state    = 'closed';
 
 		return;
 	}
 
 	// если ждали закрытия двери 1
-	if (gamers.quest_state == 20) {
+	if (gamers.game_state == 'closing_door_1') {
 		devices.get('door_1').state = "closed";
 
-		gamers.quest_state = 45; //'Ожидание, пока игроки поставят многогранник на подставку'
-
+		gamers.quest_state = 'gamers_connecting_polyhedron'; //'Ожидание, пока игроки поставят многогранник на подставку'
+		// включаем звук 'легенда'
+		helpers.send_get('audio_player_1', 'play_channel_2', config.audio_files[22].value, DISABLE_TIMER, ENABLE_MUTEX,
+			function(params){
+				var device   = devices.get('audio_player_1');
+				device.value = config.audio_files[22].alias;
+				device.state = "ch1_play_ch2_stop";
+			}, {}
+		);
 		return;
 	}
 

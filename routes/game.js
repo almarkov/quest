@@ -57,12 +57,16 @@ router.get('/start/:count', function(req, res, next) {
 		// фиксируем число игроков
 		gamers.count = parseInt(req.params.count);
 
-		gamers.quest_state = 10;//'Начало игры';
+		gamers.game_state = 'opening_door_1_and_waiting';
 
 		//  открываем дверь 1
-		helpers.send_get('door_1', 'open', '0', helpers.get_timeout('T1'), ENABLE_MUTEX);
-
-		gamers.quest_state = 15; //'Ожидание открытия двери 1';
+		helpers.send_get('door_1', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX, 
+			function(params){
+				devices.get('door_1').state = 'opened';
+			}, {}
+		);
+		gamers.dashboard_buttons.AllIn = 1;
+		gamers.active_button = 'AllIn';
 	}
 
 	res.json({success: 1});
@@ -72,11 +76,12 @@ router.get('/start/:count', function(req, res, next) {
 // все игроки зашли в комнату
 router.get('/allin', function(req, res, next) {
 
-	gamers.quest_state = 20; //'Ожидание закрытия двери 1';
+	gamers.game_state = 'closing_door_1'; //'Ожидание закрытия двери 1';
 	gamers.active_button = '';
+	gamers.dashboard_buttons.AllIn = 0;
 
 	//  закрываем дверь 1
-	helpers.send_get('door_1', 'close', '0', helpers.get_timeout('T1'), ENABLE_MUTEX);
+	helpers.send_get('door_1', 'close', '0', helpers.get_timeout('B'), ENABLE_MUTEX);
 
 	res.json({success: 1});
 

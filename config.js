@@ -1255,6 +1255,11 @@ exports.audio_files = [
 		description: 'тревога',
 		value:       'file=mnt/sdcard/Audio/audio21.mp3&repeat=0',
 	},
+	{
+		alias:       'audio22',
+		description: 'легенда',
+		value:       'foo',
+	},
 ];
 
 // время таймера

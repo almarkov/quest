@@ -149,6 +149,118 @@ exports.game_states = {
 		title: 'Квест готов к запуску',
 		arg: '',
 	},
+	opening_door_1_and_waiting: {
+		title: 'Открытие двери 1 и ожидание, пока все игроки зайдут внутрь',
+		arg: '',
+	},
+	closing_door_1: {
+		title: 'Закрытие двери 1 за игроками',
+		arg: '',
+	},
+	gamers_connecting_polyhedron: {
+		title: 'Игроки должны поставить многогранник на подставку',
+		arg: '',
+	},
+	gamers_activating_polyhedron: {
+		title: 'Игроки должны активировать многогранник',
+		arg: '',
+	},
+	gamers_watching_prepare_video: {
+		title: 'Игроки смотрят видео, на котором их просят приготовиться к перелету',
+		arg: '',
+	},
+	gamers_sitting_and_fasten: {
+		title: 'Игроки должны сесть и пристегнуться',
+		arg: '',
+	},
+	playing_ready_to_flight: {
+		title: 'Играет аудио о том, что экипаж готов к перелету',
+		arg: '',
+	},
+	flight: {
+		title: 'Перелет',
+		arg: '',
+	},
+	gamers_watch_video_scan_invitation: {
+		title: 'Прилетели. Игроки смотрят видео с приглашением пройти сканирование',
+		arg: '',
+	},
+	scan_invitation: {
+		title: 'Приглашение на сканирование игрока №arg из Y. Убедитесь, что в комнате сканирования только один игрок, и нажмите кнопку «сканировать»',
+		arg: '',
+	},
+	scaning_gamer: {
+		title: 'Идет сканирование игрока №arg',
+		arg: '',
+	},
+	scaning_outlaw_ended: {
+		title: 'Сканирование игрока №arg(изгоя) завершено, после перехода нажмите «Закончить сканирование»',
+		arg: '',
+	},
+	scaning_not_outlaw_ended: {
+		title: 'Сканирование игрока №arg(не изгоя) завершено, после перехода нажмите «Закончить сканирование»',
+		arg: '',
+	},
+	scaning_outlaw_ending: {
+		title: 'Сканирование игрока arg(изгоя) завершается…»',
+		arg: '',
+	},
+	scaning_not_outlaw_ending: {
+		title: 'Сканирование игрока arg(не изгоя) завершается…»',
+		arg: '',
+	},
+	gamers_gathered_to_save_outlaw: {
+		title: 'Игроки снова собрались вместе после сканирования и должны спасти изгоя',
+		arg: '',
+	},
+	gamers_saved_outlaw: {
+		title: 'Игроки спасли изгоя, ожидание, пока он присоединится к ним»',
+		arg: '',
+	},
+	gamers_together: {
+		title: 'Игроки в полном составе и вот-вот попадут в комнату отдыха',
+		arg: '',
+	},
+	gamers_in_restroom: {
+		title: 'Игроки в комнате отдыха',
+		arg: '',
+	},
+	gamers_opening_cells: {
+		title: 'Игроки должны открыть ячейки, открыто arg из Z',
+		arg: '',
+	},
+	gamers_opened_cells: {
+		title: 'Игроки открыли ячейки и теперь должны правильно вставить их в статую',
+		arg: '',
+	},
+	gamers_opened_cube_with_RFID: {
+		title: 'Игроки открыли кубик с RFID картой, должны взять ее и открыть дверь в коридор',
+		arg: '',
+	},
+	gamers_in_hallway: {
+		title: 'Игроки в коридоре',
+		arg: '',
+	},
+	gamers_in_powerwall_room: {
+		title: 'Игроки в комнате с энергостеной',
+		arg: '',
+	},
+	gamers_returned_in_first_room: {
+		title: 'Игроки вернулись в самую первую комнату, звучит сирена, а потом видео с предостережением об опасности и о восстании',
+		arg: '',
+	},
+	gamers_entering_coordinates: {
+		title: 'Игроки вводят координаты',
+		arg: '',
+	},
+	quest_completed: {
+		title: 'Квест пройден. Время прохождения – arg мин',
+		arg: '',
+	},
+	quest_failed: {
+		title: 'Квест провален',
+		arg: '',
+	},
 
 };
 exports.game_state = 'server_started';
@@ -162,6 +274,8 @@ exports.get_game_state = function(){
 	var current_state = exports.game_states[exports.game_state];
 	simple_log(current_state.title);
 	var status = current_state.title.replace('arg', current_state.arg);
+	status = status.replace('Y', gamers.count.toString());
+	status = status.replace('Z', (gamers.count+1).toString());
 	simple_log(status);
 	return status;
 }
