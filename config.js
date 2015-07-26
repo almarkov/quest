@@ -1266,6 +1266,7 @@ exports.timeouts = {
 	T4: 10,
 	T5: 5,
 	A:  15,
+	B:  10,
 }
 
 // watchdog

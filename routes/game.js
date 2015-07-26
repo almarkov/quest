@@ -108,6 +108,8 @@ router.get('/queue', function(req, res, next) {
 // подготовка устройств
 router.get('/get_ready', function(req, res, next) {
 
+	gamers.game_state = 'preparation';
+
 	// закрываем двери
 	for (var i = 1; i <= 8; i++) {
 		helpers.send_get('door_' + i, 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);
@@ -171,7 +173,7 @@ router.get('/get_ready', function(req, res, next) {
 	helpers.send_get('card_reader', 'reset', '0', DISABLE_TIMER, ENABLE_MUTEX);
 
 	// запускаем таймер
-	http.get(devices.build_query('timer', 'activate', helpers.get_timeout('T1')), function(res) {
+	http.get(devices.build_query('timer', 'activate', helpers.get_timeout('B')), function(res) {
 			res.on('data', function(data){
 				var result = JSON.parse(data);
 				devices.get('timer').state = result.state.state;
@@ -180,14 +182,15 @@ router.get('/get_ready', function(req, res, next) {
 			console.log("timer activate error: ");
 	});
 
-	gamers.quest_state = 1;
-
 	res.json({success: 1});
 
 });
 
 // режим обслуживания
 router.get('/service_mode', function(req, res, next) {
+
+	//  режим обслуживания
+	gamers.game_state = 'service_mode';
 
 	// открываем двери
 	for (var i = 1; i <= 8; i++) {
@@ -200,7 +203,7 @@ router.get('/service_mode', function(req, res, next) {
 	}
 
 	// открываем шкаф с картой
-	helpers.send_get('locker_2', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('locker_2', 'open', '0', 2, ENABLE_MUTEX);
 
 	for (var i = 1; i <= 8; i++) {
 		devices.get('door_' + i).state = 'opened';
@@ -209,8 +212,6 @@ router.get('/service_mode', function(req, res, next) {
 		devices.get('cell_' + i).state = 'opened';
 	}
 	devices.get('locker_2').state    = 'opened';
-
-	gamers.quest_state = 2;
 
 	res.json({success: 1});
 });

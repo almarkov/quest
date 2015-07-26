@@ -137,6 +137,18 @@ exports.game_states = {
 		title: 'Все устройства работают нормально',
 		arg: '',
 	},
+	preparation: {
+		title: 'Идет подготовка к запуску квеста',
+		arg: '',
+	},
+	service_mode: {
+		title: 'Идет обслуживание квеста',
+		arg: '',
+	},
+	ready_to_go: {
+		title: 'Квест готов к запуску',
+		arg: '',
+	},
 
 };
 exports.game_state = 'server_started';

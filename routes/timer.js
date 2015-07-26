@@ -86,10 +86,14 @@ router.get('/ready', function(req, res, next) {
 				}
 			}
 			if (errors) {
+				// Сбои в работе устройств
 				gamers.set_game_state('devices_error', errors);
 			} else {
+				// Все устройства работают нормально
 				gamers.game_state = 'devices_ok';
+
 				exports.dashboard_buttons.GetReady = 1;
+				exports.dashboard_buttons.ServiceMode = 1;
 			}
 			
 		}, 15*1000);
@@ -97,11 +101,20 @@ router.get('/ready', function(req, res, next) {
 		return;
 	}
 
+	// ждали окончания подготовки
+	if (gamers.game_state == 'preparation') {
+
+		// готов к запуску
+		gamers.game_state = 'ready_to_go';
+		exports.dashboard_buttons.Start = 1;
+		return;
+	}
+
 	// если ждали шкафа 2 в режиме обслуживания
-	if (gamers.quest_state == 2) {
+	if (gamers.game_state == 'service_mode') {
+		//Закрываем шкаф
 		helpers.send_get('locker_2', 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);
 		devices.get('locker_2').state    = 'closed';
-		gamers.quest_state = 3;
 
 		return;
 	}
