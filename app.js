@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var http = require('http');
 
 var routes = require('./routes/index');
 var game = require('./routes/game');
@@ -52,6 +53,8 @@ var power_wall   = require('./routes/power_wall');
 var smoke        = require('./routes/smoke');
 
 var wd           = require('./routes/wd');
+
+var sendcom      = require('./routes/sendcom');
 
 var app = express();
 
@@ -180,6 +183,8 @@ app.use('/smoke', smoke);
 
 app.use('/wd', wd);
 
+app.use('/sendcom', sendcom);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -210,6 +215,13 @@ app.use(function(err, req, res, next) {
     message: err.message,
     error: {}
   });
+});
+
+
+http.get(web_server_url + '/game/reset', function(res) {
+    
+}).on('error', function(e) {
+  simple_log('error reset game');
 });
 
 

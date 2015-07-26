@@ -10,6 +10,10 @@ router.get('/ready', function(req, res, next) {
 	timer.state         = 'ready';
 	timer.current_value = '';
 
+	if (gamers.game_state == 'server_started') {
+		return;
+	}
+
 	// если ждали шкафа 2 в режиме обслуживания
 	if (gamers.quest_state == 2) {
 		helpers.send_get('locker_2', 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);

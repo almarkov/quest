@@ -3,6 +3,32 @@ var http   = require('http');
 var router = express.Router();
 var child_process = require('child_process');
 
+
+// полный сброс
+router.get('/reset', function(req, res, next) {
+	// сбрасываем параметры
+ 	devices.reset();
+	gamers.reset();
+	http.get(web_server_url + '/sendcom/off/all', function(res) {
+    
+  		}).on('error', function(e) {
+    		simple_log('error sendcom off all');
+  	});
+
+  	http.get(devices.build_query('timer', 'activate', helpers.get_timeout("A")), function(res) {
+		res.on('data', function(data){
+			var result = JSON.parse(data);
+			devices.get('timer').state = result.state.state;
+		});
+	}).on('error', function(e) {
+		simple_log("timer activate error: ");
+	});
+
+	gamers.game_state = 'devices_off';
+
+	res.json({success: 1});
+});
+
 // перезагрузка arduino 
 router.get('/reload/:name', function(req, res, next) {
 	var num = devices.get(req.params.name).carrier_id;
@@ -27,7 +53,7 @@ router.get('/start/:count', function(req, res, next) {
 	if (gamers.quest_state == 5) { // квест готов к запуску
 
 		// начинаем часовой отсчёт
-		start_time = new Date();
+		gamers.start_time = new Date();
 		// фиксируем число игроков
 		gamers.count = parseInt(req.params.count);
 
@@ -190,19 +216,19 @@ router.get('/service_mode', function(req, res, next) {
 });
 
 // перезапуск игры
-router.get('/reset', function(req, res, next) {
+// router.get('/reset', function(req, res, next) {
 
-	start_time = null;
-	devices.reset();
-	gamers.reset();
+// 	start_time = null;
+// 	devices.reset();
+// 	gamers.reset();
 
-	res.json({success: 1});
-});
+// 	res.json({success: 1});
+// });
 
 // время начала игры
 router.get('/start_time', function(req, res, next) {
 	if (start_time) {
-		res.json({date: start_time.toUTCString()});
+		res.json({date: gamers.start_time.toUTCString()});
 	} else {
 		res.json({date: null});
 	}

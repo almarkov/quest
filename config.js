@@ -1265,6 +1265,7 @@ exports.timeouts = {
 	T3: 10,
 	T4: 10,
 	T5: 5,
+	A:  15,
 }
 
 // watchdog
@@ -1272,3 +1273,6 @@ exports.watchdog_enabled = 0;
 
 // правильные координаты
 exports.coordinates = '9847544';
+
+// порт для включения/выключения arduino
+exports.com_port = '20';

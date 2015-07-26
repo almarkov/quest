@@ -112,6 +112,15 @@ exports.quest_states = [
 	
 ];
 
+exports.game_states = {
+	server_started: 'Сервер запущен',
+	devices_off:    'Устройства выключаются',
+
+};
+exports.game_state = 'server_started';
+
+exports.start_time = null;
+
 exports.quest_state = 0;
 
 exports.last_player_pass = 0;
@@ -127,6 +136,19 @@ exports.coordinates = '';
 // активная кнопка для оператора
 exports.active_button = '';
 
+// доступные для нажатия кнопки
+exports.dashboard_buttons = {
+	GetReady:       0,
+	Start:          0,
+	ServiceMode:    0,
+	Reset:          1,
+	AllIn:          0,
+	StartScan:      0,
+	StopScan:       0,
+	StopScanAll:    0,
+	ClosePowerWall: 0,
+};
+
 
 
 // сброс значений
@@ -138,6 +160,19 @@ exports.reset = function() {
 	exports.count = 0;
 	exports.active_button = '';
 	exports.videos_played = 0;
+	exports.game_state = 'server_started';
+	exports.dashboard_buttons = {
+		GetReady:       0,
+		Start:          0,
+		ServiceMode:    0,
+		Reset:          1,
+		AllIn:          0,
+		StartScan:      0,
+		StopScan:       0,
+		StopScanAll:    0,
+		ClosePowerWall: 0,
+	};
+	exports.start_time = null;
 }
 
 // exports.get_quest_state = function() {

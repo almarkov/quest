@@ -295,6 +295,10 @@ $(document).ready(function() {
 					$("." + response.active_button).addClass("Active");
 				}
 
+				response.dashboard_buttons.forEach(function(){
+					debugger;
+				})
+
 				$("#QuestState").text(response.quest_state);
 				$("#QuestError").text(response.quest_error);
 				if (response.codes) {

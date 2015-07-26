@@ -126,6 +126,8 @@ router.get('/all', function(req, res, next) {
 
 	result.active_button = gamers.active_button;
 
+	result.dashboard_buttons = gamers.dashboard_buttons;
+
 	res.json(result);
 
 });
