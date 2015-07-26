@@ -115,3 +115,4 @@ exports.get_command_id = function(device, command){
 		}
 	}
 };
+

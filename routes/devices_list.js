@@ -41,7 +41,7 @@ router.get('/all', function(req, res, next) {
 	}
 
 	// watchdog
-	if (config.watchdog_enabled) {
+	if (config.watchdog_enabled && gamers.wd_on) {
 
 			devices.list.forEach(function function_name (_device) {
 				if (_device.id == 0 && _device.wd_enabled) {
@@ -114,7 +114,7 @@ router.get('/all', function(req, res, next) {
 		str += ' ' + (gamers.quest_state % 10 + 1) + ' из ' + (gamers.count) + '. В конце сканирования требуется действие оператора – убедитесь, что игрок вышел из комнаты сканирования, после чего нажмите «Закончить сканирование» ' + parseInt(gamers.count);
 	}
 
-	result.quest_state = str;
+	result.quest_state = gamers.get_game_state();
 
 	result.quest_state_num = gamers.quest_state;
 
@@ -126,7 +126,13 @@ router.get('/all', function(req, res, next) {
 
 	result.active_button = gamers.active_button;
 
-	result.dashboard_buttons = gamers.dashboard_buttons;
+	result.dashboard_buttons = [];
+	for (var button in gamers.dashboard_buttons) {
+		if (gamers.dashboard_buttons[button]) {
+			result.dashboard_buttons.push(button);
+		}
+	}
+
 
 	res.json(result);
 

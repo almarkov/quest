@@ -295,9 +295,12 @@ $(document).ready(function() {
 					$("." + response.active_button).addClass("Active");
 				}
 
-				response.dashboard_buttons.forEach(function(){
-					debugger;
-				})
+				$(".DashBoard").find(".BType_01").prop('disabled', true);
+
+				response.dashboard_buttons.forEach(function f(item){
+					$("." + item).prop('disabled', false);
+				});
+
 
 				$("#QuestState").text(response.quest_state);
 				$("#QuestError").text(response.quest_error);
@@ -395,7 +398,7 @@ function set_handlers() {
 	});
 
 	// Восстанавливаем в модели значения по умолчанию
-	$('.DashBoard .Reset').click(function(e){
+	$('.DashBoard .ResetGame').click(function(e){
 		$.ajax({
 			url: web_server_url + '/game/reset',
 			type: "GET",
@@ -1042,7 +1045,7 @@ function set_handlers() {
 	// перезагрузка устройства
 	$('#Main .Device .Status').click(function(e){
 		if (confirm("Подтвердите перезагрузку")){
-			debugger;
+
 			$.ajax({
 				url: web_server_url + '/game/reload/' + e.srcElement.parentElement.children[1].children[1].name,
 				type: "GET",

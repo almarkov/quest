@@ -10,7 +10,90 @@ router.get('/ready', function(req, res, next) {
 	timer.state         = 'ready';
 	timer.current_value = '';
 
-	if (gamers.game_state == 'server_started') {
+	// если устройства выключичлись
+	if (gamers.game_state == 'devices_off') {
+		//'Устройства включаются'
+		gamers.game_state = 'devices_on';
+
+		// включаем устройства
+		http.get(web_server_url + '/sendcom/on/all', function(res) {
+
+			}).on('error', function(e) {
+				simple_log('error sendcom on all');
+		});
+
+	  	http.get(devices.build_query('timer', 'activate', helpers.get_timeout("A")), function(res) {
+			res.on('data', function(data){
+				var result = JSON.parse(data);
+				devices.get('timer').state = result.state.state;
+			});
+		}).on('error', function(e) {
+			simple_log("timer activate error: ");
+		});
+
+		return;
+	}
+
+	// если устройства включились
+	if (gamers.game_state == 'devices_on') {
+
+		gamers.game_state = 'devices_check';
+
+		devices.list.forEach(function function_name (_device) {
+			if (_device.id == 0 && _device.wd_enabled) {
+				var query = "http://" + _device.ip + ":" +  _device.port + "/255/0/0";
+				if (!_device.mutex) {
+					var request = http.get(query, function(res) {
+							res.on('data', function(data){
+								var result = JSON.parse(data);
+								if (result.success && result.onboard_devices) {
+									//обновить статусы устройств
+									for (var j = 0; j < result.onboard_devices.length; j++) {
+										var device = devices.get_by_id(result.carrier_id, result.onboard_devices[j].id);
+										device.wd_state = 1;
+										device.state = device.states[result.onboard_devices[j].state];
+									}
+								} else {
+									// пометить неответившие устройства
+									for (var j = 0; j < result.onboard_devices.length; j++) {
+										var device = devices.get_by_id(result.carrier_id, result.onboard_devices[j].id);
+										device.wd_state = 0;
+										device.state = device.states[result.onboard_devices[j].state];
+									}
+								}
+							});
+						}).on('error', function(e) {
+							simple_log("watchdog error");
+							_device.wd_state = 0;
+					});
+					request.setTimeout( 3000, function( ) {
+						simple_log("watchdog error");
+					    simple_log(_device.ip);
+					    _device.wd_state = 0;
+					});
+
+
+				}
+			}
+		});
+
+		// проверяем через 15с
+		setTimeout(function () {
+			var errors = '';
+			for (var i = 0; i < devices.list.length; i++) {
+				if (!devices.list[i].wd_state) {
+					errors += devices.list[i].name;
+				}
+			}
+			if (errors) {
+				gamers.set_game_state('devices_error', errors);
+			} else {
+				gamers.game_state = 'devices_ok';
+				exports.dashboard_buttons.GetReady = 1;
+			}
+			
+		}, 15*1000);
+
 		return;
 	}
 

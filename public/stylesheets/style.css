@@ -13,6 +13,12 @@ a.BType_01 {display:block;height:20px;text-align:center;font:bold 12px/12px aria
 a.BType_01 span {display:block;height:18px;padding:3px 0 0 0}
 a:hover.BType_01 {background-image:linear-gradient(#f2f2f2, #c9c9c9);color:#333;cursor:pointer}
 a:hover.BType_01 span {}
+
+input.BType_01 {display:block;height:20px;text-align:center;font:bold 12px/12px arial;color:#000;text-decoration:none;background:#b9b9b9;background-image:linear-gradient(#f2f2f2, #b9b9b9);border:1px solid #bababa;border-radius:2px;behavior:url(/css3/PIE.htc)}
+input:enabled:hover.BType_01 {background-image:linear-gradient(#f2f2f2, #c9c9c9);color:#333;cursor:pointer}
+input:disabled.BType_01 {color:#999}
+
+
 .DashBoard a.Active {border-color:red;}
 .Commands ul, ul.DashBoard {  list-style-type: none;}
 

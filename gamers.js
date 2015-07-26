@@ -113,11 +113,47 @@ exports.quest_states = [
 ];
 
 exports.game_states = {
-	server_started: 'Сервер запущен',
-	devices_off:    'Устройства выключаются',
+	server_started: {
+		title: 'Сервер запущен',
+		arg: '',
+	},
+	devices_off: {
+		title: 'Устройства выключаются',
+		arg: '',
+	},
+	devices_on: {
+		title: 'Устройства включаются',
+		arg: '',
+	},
+	devices_check: {
+		title: 'Проверка устройств',
+		arg: '',
+	},
+	devices_error: {
+		title: 'Сбои в работе устройств: arg Запуск квеста невозможен',
+		arg: '',
+	},
+	devices_ok: {
+		title: 'Все устройства работают нормально',
+		arg: '',
+	},
 
 };
 exports.game_state = 'server_started';
+
+exports.set_game_state = function(state, arg){
+	exports.game_state = state;
+	exports.game_states[state].arg = arg;
+};
+
+exports.get_game_state = function(){
+	var current_state = exports.game_states[exports.game_state];
+	simple_log(current_state.title);
+	var status = current_state.title.replace('arg', current_state.arg);
+	simple_log(status);
+	return status;
+}
+
 
 exports.start_time = null;
 
@@ -133,6 +169,8 @@ exports.codes = ['', '', '', '', '423', '', '', '', ''];
 
 exports.coordinates = '';
 
+exports.wd_on = 0;
+
 // активная кнопка для оператора
 exports.active_button = '';
 
@@ -141,7 +179,7 @@ exports.dashboard_buttons = {
 	GetReady:       0,
 	Start:          0,
 	ServiceMode:    0,
-	Reset:          1,
+	ResetGame:      1,
 	AllIn:          0,
 	StartScan:      0,
 	StopScan:       0,
@@ -160,12 +198,13 @@ exports.reset = function() {
 	exports.count = 0;
 	exports.active_button = '';
 	exports.videos_played = 0;
+	exports.wd_on = 0;
 	exports.game_state = 'server_started';
 	exports.dashboard_buttons = {
 		GetReady:       0,
 		Start:          0,
 		ServiceMode:    0,
-		Reset:          1,
+		ResetGame:      1,
 		AllIn:          0,
 		StartScan:      0,
 		StopScan:       0,
