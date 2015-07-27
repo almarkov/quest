@@ -303,7 +303,7 @@ $(document).ready(function() {
 
 
 				$("#QuestState").text(response.quest_state);
-				$("#QuestError").text(response.quest_error);
+				//$("#QuestError").text(response.quest_error);
 				if (response.codes) {
 					var codes = '';
 					for (var i = 0; i < response.codes.length; i++) {
@@ -311,7 +311,7 @@ $(document).ready(function() {
 					}
 					$("#QuestCodes").text(codes);
 				}
-				$("#LastPlayerPass").text(response.last_player_pass ? "Прошёл" : "Не прошёл");
+				//$("#LastPlayerPass").text(response.last_player_pass ? "Прошёл" : "Не прошёл");
 
 			},
 			error: function(error) {
@@ -536,22 +536,22 @@ function set_handlers() {
 	});
 
 	//кнопки для тестирования
-	$('.DashBoard .Test1').click(function(e){
-		$.ajax({
-			url: web_server_url + '/game/point1',
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					//$("#inpGamerCount").prop('disabled', false);
-					console.log('stop scan');
-					//restart_timer();
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
-	});
+	// $('.DashBoard .Test1').click(function(e){
+	// 	$.ajax({
+	// 		url: web_server_url + '/game/point1',
+	// 		type: "GET",
+	// 		crossDomain: true,
+	// 		dataType: "json",
+	// 			success: function (response) {
+	// 				//$("#inpGamerCount").prop('disabled', false);
+	// 				console.log('stop scan');
+	// 				//restart_timer();
+	// 			},
+	// 			error: function(error) {
+	// 				console.log('ERROR:', error);
+	// 			}
+	// 	});
+	// });
 
 	//-----------------------------------------------------------------------------
 	// управление устройствами

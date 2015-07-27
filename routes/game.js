@@ -42,6 +42,8 @@ router.get('/close_power_wall', function(req, res, next) {
 router.get('/start/:count', function(req, res, next) {
 	if (gamers.game_state == 'ready_to_go') { // квест готов к запуску
 
+		gamers.dashboard_buttons.StartGame = 0;
+		gamers.dashboard_buttons.GetReady = 0;
 		// начинаем часовой отсчёт
 		gamers.start_time = new Date();
 		// фиксируем число игроков
@@ -126,9 +128,22 @@ router.get('/get_ready', function(req, res, next) {
 	gamers.game_state = 'preparation';
 
 	// закрываем двери
-	for (var i = 1; i <= 8; i++) {
-		helpers.send_get('door_' + i, 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);
-	}
+	// открываем двери
+	var command = 'close';
+	helpers.send_get('door_1', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('door_2', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('door_3', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('door_5', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+
+	setTimeout(function () {
+		helpers.send_get('door_4', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+		helpers.send_get('door_7', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+		setTimeout(function () {
+			helpers.send_get('door_6', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+			helpers.send_get('door_8', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+				
+		}, 2*1000);
+	}, 2*1000);
 
 	// закрываем ячейки
 	for (var i = 1; i <= 5; i++) {
@@ -208,9 +223,21 @@ router.get('/service_mode', function(req, res, next) {
 	gamers.game_state = 'service_mode';
 
 	// открываем двери
-	for (var i = 1; i <= 8; i++) {
-		helpers.send_get('door_' + i, 'open', '0', DISABLE_TIMER, ENABLE_MUTEX);
-	}
+	var command = 'open';
+	helpers.send_get('door_1', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('door_2', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('door_3', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('door_5', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+
+	setTimeout(function () {
+		helpers.send_get('door_4', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+		helpers.send_get('door_7', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+		setTimeout(function () {
+			helpers.send_get('door_6', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+			helpers.send_get('door_8', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+				
+		}, 2*1000);
+	}, 2*1000);
 
 	// открываем ячейки
 	for (var i = 1; i <= 5; i++) {
@@ -243,7 +270,7 @@ router.get('/service_mode', function(req, res, next) {
 
 // время начала игры
 router.get('/start_time', function(req, res, next) {
-	if (start_time) {
+	if (gamers.start_time) {
 		res.json({date: gamers.start_time.toUTCString()});
 	} else {
 		res.json({date: null});
@@ -253,12 +280,51 @@ router.get('/start_time', function(req, res, next) {
 // время закончилось
 router.get('/time_ended', function(req, res, next) {
 	gamers.game_state = 'quest_failed';
+	gamers.start_time = null;
 
-	// открываем двери
-	for (var i = 1; i <= 8; i++) {
-		helpers.send_get('door_' + i, 'open', '0', DISABLE_TIMER, ENABLE_MUTEX);
-	}
+	var command = 'open';
+	helpers.send_get('door_1', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('door_2', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('door_3', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('door_5', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+
+	setTimeout(function () {
+		helpers.send_get('door_4', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+		helpers.send_get('door_7', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+		setTimeout(function () {
+			helpers.send_get('door_6', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+			helpers.send_get('door_8', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+				
+		}, 2*1000);
+	}, 2*1000);
+	res.json({result: 1});
 });
+
+//открыть.закрыть двери
+router.get('/doors/:command', function(req, res, next) {
+	
+	var command = req.params.command;
+
+
+	helpers.send_get('door_1', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('door_2', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('door_3', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	helpers.send_get('door_5', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+
+	setTimeout(function () {
+		helpers.send_get('door_4', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+		helpers.send_get('door_7', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+		setTimeout(function () {
+			helpers.send_get('door_6', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+			helpers.send_get('door_8', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+				
+		}, 2*1000);
+	}, 2*1000);
+
+	res.json({result: 1});
+	
+});
+
 
 
 // точка сбора(для тестов)

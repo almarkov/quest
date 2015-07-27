@@ -177,6 +177,15 @@ router.get('/ready', function(req, res, next) {
 	// 	return;
 	// }
 
+	// ждали открытия двери 2
+	if (gamers.game_state == 'scan_invitation') {
+
+		gamers.dashboard_buttons.StartScan = 1;
+		gamers.active_button = 'StartScan';
+		return;
+	}
+
+
 	// если ждали пока закроется дверь 2
 	if (gamers.game_state == 'scaning_gamer') {
 		devices.get('door_2').state = 'closed';
@@ -229,16 +238,11 @@ router.get('/ready', function(req, res, next) {
 		}
 
 		if (player_num < gamers.count) {
-			gamers.dashboard_buttons.StartScan = 1;
-			gamers.active_button = 'StartScan';
+			
 
 			gamers.set_game_state('scan_invitation', (player_num + 1).toString()); // Приглашение на сканирование
 			// открываем дверь 2
-			helpers.send_get('door_2', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX, 
-				function(params){
-					devices.get('door_2').state = 'opened';
-				}, {}
-			);
+			helpers.send_get('door_2', 'open', '0', helpers.get_timeout('C'), ENABLE_MUTEX); 
 
 			// включаем звук для номера игрока
 			var gamer_num = parseInt(gamers.game_states['scan_invitation'].arg) + 2;
@@ -300,15 +304,9 @@ router.get('/ready', function(req, res, next) {
 		var player_num = parseInt(gamers.game_states['scaning_outlaw_ending'].arg) + 1;
 		gamers.set_game_state('scan_invitation', player_num.toString()); // Приглашение на сканирование
 
-		gamers.dashboard_buttons.StartScan = 1;
-		gamers.active_button = 'StartScan';
-
+	
 		// открываем дверь 2
-		helpers.send_get('door_2', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX, 
-			function(params){
-				devices.get('door_2').state = 'opened';
-			}, {}
-		);
+		helpers.send_get('door_2', 'open', '0', helpers.get_timeout('C'), ENABLE_MUTEX); 
 
 		// включаем звук для номера игрока
 		var gamer_num = parseInt(gamers.game_states['scan_invitation'].arg) + 2;
@@ -348,7 +346,7 @@ router.get('/ready', function(req, res, next) {
 		return;
 	}
 
-	if (game.game_state == 'gamers_entering_coordinates') {
+	if (gamers.game_state == 'gamers_entering_coordinates') {
 		// пробуждаем планшет после неверного ввода
 		helpers.send_get('terminal_4', 'go', "0/right=" + config.coordinates, DISABLE_TIMER, ENABLE_MUTEX,
 			function (params) {

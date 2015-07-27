@@ -13,7 +13,7 @@ router.get('/all', function(req, res, next) {
 
 	// проверяем окончание времени
 	var now = new Date();
-	if (gamers.start_time) {
+	if (gamers.start_time && gamers.game_state != 'quest_failed') {
 		if ((now - gamers.start_time - 60*60*1000) > 0) {
 			http.get(web_server_url + "/game/time_ended",
 				function(res) {

@@ -11,6 +11,8 @@ router.get('/activated/:parameter', function(req, res, next) {
 
 	if (gamers.game_state == 'gamers_activating_polyhedron') {
 		devices.get('polyhedron').state = 'activated';
+		gamers.active_button = '';
+		gamers.dashboard_buttons.PolyhedronPrompt = 0;
 
 		// включаем видео на экране 1 прив, приготовьтесь к перелету
 		helpers.send_get('video_player_1', 'play', config.video_files[4].value, DISABLE_TIMER, ENABLE_MUTEX,

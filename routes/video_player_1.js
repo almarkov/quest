@@ -74,15 +74,6 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 
 		gamers.set_game_state('scan_invitation', '1'); // Приглашение на сканирование
 
-		gamers.dashboard_buttons.StartScan = 1;
-		gamers.active_button = 'StartScan';
-
-		// открываем дверь 2
-		helpers.send_get('door_2', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX, 
-			function(params){
-				devices.get('door_2').state = 'opened';
-			}, {}
-		);
 
 		// включаем звук для номера игрока
 		var gamer_num = parseInt(gamers.game_states['scan_invitation'].arg) + 2;
@@ -94,6 +85,11 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 				device.state = "ch1_play_ch2_play";
 			}, {}
 		);
+
+		// открываем дверь 2
+		helpers.send_get('door_2', 'open', '0', helpers.get_timeout('C'), ENABLE_MUTEX); 
+
+		
 
 	} else if (gamers.game_state == 'gamers_returned_in_first_room') {
 		gamers.game_state = 'gamers_entering_coordinates';

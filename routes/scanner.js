@@ -67,6 +67,8 @@ router.get('/stop', function(req, res, next) {
 		);
 	}
 
+	res.json({success: 1});
+
 
 	// // если не предпоследний
 	// if (gamers.quest_state % 10 != gamers.count-2) {
