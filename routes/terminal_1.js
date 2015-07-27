@@ -75,7 +75,7 @@ router.get('/code_entered/:code', function(req, res, next) {
 					device.state = 'ch1_play_ch2_play';
 				},{}
 			);
-
+		}
 			// //  открываем дверь 3
 			// helpers.send_get('door_3', 'open', '0', helpers.get_timeout('T1'), ENABLE_MUTEX);
 			// }
