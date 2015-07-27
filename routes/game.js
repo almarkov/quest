@@ -42,7 +42,7 @@ router.get('/close_power_wall', function(req, res, next) {
 router.get('/start/:count', function(req, res, next) {
 	if (gamers.game_state == 'ready_to_go') { // квест готов к запуску
 
-		gamers.dashboard_buttons.StartGame = 0;
+		gamers.dashboard_buttons.Start = 0;
 		gamers.dashboard_buttons.GetReady = 0;
 		// начинаем часовой отсчёт
 		gamers.start_time = new Date();
@@ -57,6 +57,7 @@ router.get('/start/:count', function(req, res, next) {
 				devices.get('door_1').state = 'opened';
 			}, {}
 		);
+
 		gamers.dashboard_buttons.AllIn = 1;
 		gamers.active_button = 'AllIn';
 	}
@@ -185,8 +186,8 @@ router.get('/get_ready', function(req, res, next) {
 	// выключаем подсветку
 	helpers.send_get('inf_mirror_backlight', 'off', '0', DISABLE_TIMER, ENABLE_MUTEX);
 
-	// выключаем подсветку статуи
-	helpers.send_get('figure', 'backlight_off', '0', DISABLE_TIMER, ENABLE_MUTEX);
+	// включаем подсветку статуи
+	helpers.send_get('figure', 'backlight_on', '0', DISABLE_TIMER, ENABLE_MUTEX);
 
 	// включаем свет
 	helpers.send_get('light', 'on', '0', DISABLE_TIMER, ENABLE_MUTEX);
