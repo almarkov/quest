@@ -92,6 +92,8 @@ router.get('/ready', function(req, res, next) {
 				// Все устройства работают нормально
 				gamers.game_state = 'devices_ok';
 
+				gamers.wd_on = 1;
+
 				gamers.dashboard_buttons.GetReady = 1;
 				gamers.dashboard_buttons.ServiceMode = 1;
 			}

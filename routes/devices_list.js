@@ -90,12 +90,16 @@ router.get('/all', function(req, res, next) {
 								});
 							}).on('error', function(e) {
 								simple_log("watchdog error");
-								_device.wd_state -= 1;
+								devices.list_by_carrier_id[_device.carrier_id].forEach(function fn(item){
+									item.wd_state -= 1;
+								});
 						});
 						request.setTimeout( 5000, function( ) {
 							simple_log("watchdog error");
 						    simple_log(_device.ip);
-						    _device.wd_state -= 1;
+						    devices.list_by_carrier_id[_device.carrier_id].forEach(function fn(item){
+								item.wd_state -= 1;
+							});
 						});
 
 

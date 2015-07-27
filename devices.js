@@ -13,6 +13,7 @@ var simple_copy_obj = function(obj) {
 exports.list = [];
 exports.list_by_name = {};
 exports.list_by_id_arduiono_id = {};
+exports.list_by_carrier_id = {};
 
 exports.ext_url_for = function (object_name) {
 	for (var i = 0; i < config.list.length; i++) {
@@ -82,8 +83,15 @@ exports.reset = function() {
 		exports.list[i].mutex = 0;
 		exports.list_by_name[exports.list[i].name] = exports.list[i];
 		exports.list_by_id_arduiono_id[exports.list[i].carrier_id + '_' + exports.list[i].id] = exports.list[i];
+		if (exports.list_by_carrier_id[exports.list[i].carrier_id]) {
+
+		} else {
+			exports.list_by_carrier_id[exports.list[i].carrier_id] = [];
+		}
+		exports.list_by_carrier_id[exports.list[i].carrier_id].push(exports.list[i]);
 	}
 	exports.default_timer_value = config.default_timer_value;
+
 }
 
 // таймер
