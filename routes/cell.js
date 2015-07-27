@@ -12,7 +12,7 @@ router.get('/code_entered/:code', function(req, res, next) {
 	var device_name = req.baseUrl.substring(1,7);
 	var code_index  = parseInt(req.baseUrl.substring(6,7)) - 1;
 	// прислали верный код
-	if (gamers.quest_state >= 150 && gamers.quest_state < 160) {
+	if (gamers.game_state  == 'gamers_opening_cells') {
 		var code_to_compare;
 		if (code_index == 4) {
 			code_to_compare = gamers.codes[code_index];
@@ -25,9 +25,10 @@ router.get('/code_entered/:code', function(req, res, next) {
 		} else {
 			code_to_compare = gamers.codes[code_index];
 		}
-		simple_log('comapring with ' + code_to_compare);
+		simple_log('comparing with ' + code_to_compare);
 		if (req.params.code == code_to_compare) {
-			gamers.quest_state += 1;
+			var player_num = parseInt(gamers.game_states['gamers_opening_cells'].arg) + 1;
+			gamers.game_states['gamers_opening_cells'].arg = player_num.toString();
 			helpers.send_get(device_name, 'open', '0', DISABLE_TIMER, ENABLE_MUTEX,
 				function (params) {
 					devices.get(device_name).state = 'opened';
@@ -35,20 +36,17 @@ router.get('/code_entered/:code', function(req, res, next) {
 			);
 		}
 
-		var cell_count = 5;
-		if (gamers.count < cell_count) {
-			cell_count = 1 + (gamers.count);
-		}
+		var cell_count = 1 + gamers.count;
 		// необходимое верных кодов
-		if (gamers.quest_state % 10 == cell_count) {
+		if (player_num == cell_count) {
 			
-			gamers.quest_state = 160; // игроки достали жетоны, им необходимо вставить их в статую
+			gamers.game_state = 'gamers_opened_cells'; // игроки достали жетоны, им необходимо вставить их в статую
 
 			// включаем подсветку статуи
-			helpers.send_get('figure', 'backlight_on', '0', DISABLE_TIMER, ENABLE_MUTEX,
-				function(params){
-				}, {}
-			);
+			// helpers.send_get('figure', 'backlight_on', '0', DISABLE_TIMER, ENABLE_MUTEX,
+			// 	function(params){
+			// 	}, {}
+			// );
 
 		}
 	}

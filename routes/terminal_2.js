@@ -9,33 +9,33 @@ router.get('/game_passed/:code', function(req, res, next) {
 
 	gamers.last_player_pass = 1;
 
-	// включаем звук  прошёл
-	helpers.send_get('audio_player_3', 'play_channel_2', config.audio_files[16].value, DISABLE_TIMER, ENABLE_MUTEX,
-		function (params) {
-			var device = devices.get('audio_player_3');
-			device.value = config.audio_files[16].alias;
-			device.state = 'ch1_play_ch2_play';
-		},{}
-	);
+	if (gamers.game_state == 'gamers_gathered_to_save_outlaw') {
 
-	// зажигаем подсветку
-	helpers.send_get('inf_mirror_backlight', 'on', 'blue', DISABLE_TIMER, ENABLE_MUTEX,
-		function (params) {
-			var device = devices.get('inf_mirror_backlight');
-			device.value = 'blue';
-			device.state = 'on';
-		},{}
-	);
+		// включаем звук  прошёл
+		helpers.send_get('audio_player_3', 'play_channel_2', config.audio_files[16].value, DISABLE_TIMER, ENABLE_MUTEX,
+			function (params) {
+				var device = devices.get('audio_player_3');
+				device.value = config.audio_files[16].alias;
+				device.state = 'ch1_play_ch2_play';
+			},{}
+		);
 
-	if (gamers.quest_state == 140) {
-		gamers.quest_state = 141;
+		// зажигаем подсветку
+		helpers.send_get('inf_mirror_backlight', 'on', 'blue', DISABLE_TIMER, ENABLE_MUTEX,
+			function (params) {
+				var device = devices.get('inf_mirror_backlight');
+				device.value = 'blue';
+				device.state = 'on';
+			},{}
+		);
 
 		//  открываем дверь 3
 		helpers.send_get('door_3', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX);
 
 		//  открываем дверь 4 и включаем таймер
-		helpers.send_get('door_4', 'open', '0', helpers.get_timeout('T1'), ENABLE_MUTEX);
+		helpers.send_get('door_4', 'open', '0', helpers.get_timeout('B'), ENABLE_MUTEX);
 	}
+
 
 	res.json({success: 1});
 });

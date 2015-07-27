@@ -31,19 +31,31 @@ var http   = require('http');
 
 router.get('/coordinates_entered_fail/:coordinates', function(req, res, next) {
 
-	// гасим планшет 4
-	helpers.send_get('terminal_4', 'black_screen', '0', helpers.get_timeout('T5'), ENABLE_MUTEX,
-		function(params){
-			devices.get('terminal_4').state = 'sleep';
-		}, {}
-	);
+	// // гасим планшет 4
+	// helpers.send_get('terminal_4', 'black_screen', '0', helpers.get_timeout('T5'), ENABLE_MUTEX,
+	// 	function(params){
+	// 		devices.get('terminal_4').state = 'sleep';
+	// 	}, {}
+	// );
+	http.get(devices.build_query('timer', 'activate', helpers.get_timeout("E")), function(res) {
+		res.on('data', function(data){
+			var result = JSON.parse(data);
+			devices.get('timer').state = result.state.state;
+		});
+	}).on('error', function(e) {
+		simple_log("timer activate error: ");
+	});
 
 	res.json({success: 1});
 });
 
 router.get('/coordinates_entered_true/:coordinates', function(req, res, next) {
 
-	gamers.quest_state = 240; // квест пройден
+	var now = new Date();
+	var diff = now - start_time;
+	var m = diff/(60 * 1000);
+
+	gamers.set_game_state('quest_completed', m.toString()); // квест пройден
 
 	// включаем звук квест пройден
 	helpers.send_get('audio_player_4', 'play_channel_2', config.audio_files[18].value, DISABLE_TIMER, ENABLE_MUTEX,
@@ -56,6 +68,15 @@ router.get('/coordinates_entered_true/:coordinates', function(req, res, next) {
 
 	// открываем дверь 1
 	helpers.send_get('door_1', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX);
+
+	// включаем видео 'crazyfrog 2' на экране 1
+	helpers.send_get('video_player_1', 'play', config.video_files[12].value, DISABLE_TIMER, ENABLE_MUTEX,
+		function (params) {
+			var device = devices.get('video_player_1');
+			device.value = config.video_files[12].alias;
+			device.state = 'playing';
+		},{}
+	);
 
 	res.json({success: 1});
 });

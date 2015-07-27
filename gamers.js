@@ -165,7 +165,7 @@ exports.game_states = {
 		title: 'Игроки должны активировать многогранник',
 		arg: '',
 	},
-	gamers_watching_prepare_video: {
+gamers_watching_prepare_video: {
 		title: 'Игроки смотрят видео, на котором их просят приготовиться к перелету',
 		arg: '',
 	},

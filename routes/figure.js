@@ -12,12 +12,12 @@ router.get('/number_of_inserted/:value', function(req, res, next) {
 	figure.state = "number_of_inserted";
 	figure.value = req.params.value;
 
-	var count = 5;
-	if (gamers.count < count) {
-		count = gamers.count + 1;
-	}
+	var cell_count = gamers.count + 1;
 
-	if (gamers.quest_state == 160 && count <= parseInt(req.params.value)) {
+	if (gamers.game_state == 'gamers_opened_cells'
+		&& cell_count <= parseInt(req.params.value)) {
+		
+		gamers.game_state = 'gamers_opened_cube_with_RFID';
 		// открываем шкаф с картой
 		helpers.send_get('locker_2', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX,
 			function (params) {
@@ -52,8 +52,6 @@ router.get('/number_of_inserted/:value', function(req, res, next) {
 				}, {}
 			);
 		}, helpers.get_timeout('T4')*1000);
-
-		gamers.quest_state = 170; // Игроки получили ключ от двери в коридор
 	}
 });
 

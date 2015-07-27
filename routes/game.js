@@ -260,6 +260,17 @@ router.get('/start_time', function(req, res, next) {
 	}
 });
 
+// время закончилось
+router.get('/time_ended', function(req, res, next) {
+	gamers.game_state = 'quest_failed';
+
+	// открываем двери
+	for (var i = 1; i <= 8; i++) {
+		helpers.send_get('door_' + i, 'open', '0', DISABLE_TIMER, ENABLE_MUTEX);
+	}
+});
+
+
 // точка сбора(для тестов)
 router.get('/point1', function(req, res, next) {
 

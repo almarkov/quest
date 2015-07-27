@@ -1151,6 +1151,16 @@ exports.video_files = [
 		description: 'статичные символы',
 		value:       'foo',
 	},
+	{
+		alias:       'video11',
+		description: 'crazy_frog',
+		value:       'foo',
+	},
+	{
+		alias:       'video12',
+		description: 'crazy_frog2',
+		value:       'foo',
+	},
 ];
 
 exports.audio_files = [
@@ -1265,6 +1275,11 @@ exports.audio_files = [
 		description: 'легенда',
 		value:       'foo',
 	},
+	{
+		alias:       'audio23',
+		description: 'треск и искры',
+		value:       'foo',
+	},
 ];
 
 // время таймера
@@ -1278,6 +1293,8 @@ exports.timeouts = {
 	A:  15,
 	B:  10,
 	C:  5,
+	D:  10,
+	E:  10,
 }
 
 // watchdog

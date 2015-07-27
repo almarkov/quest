@@ -11,6 +11,19 @@ router.get('/config', function(req, res, next) {
 // запрос состояния модели
 router.get('/all', function(req, res, next) {
 
+	// проверяем окончание времени
+	var now = new Date();
+	if (gamers.start_time) {
+		if ((now - gamers.start_time - 60*60*1000) > 0) {
+			http.get(web_server_url + "/game/time_ended",
+				function(res) {
+					simple_log("time_ended ok");
+				}).on('error', function(e) {
+					simple_log("time_ended error");
+			});
+		}
+	}
+
 	// уменьшаем таймер
 	// если таймер активен
 	if (devices.timer().state == 'active') {

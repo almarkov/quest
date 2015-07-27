@@ -6,8 +6,16 @@ var http   = require('http');
 // события
 //-----------------------------------------------------------------------------
 router.get('/game_passed/:code', function(req, res, next) {
-	//  открываем дверь 7
-	helpers.send_get('door_7', 'open', '0', helpers.get_timeout('T1'), ENABLE_MUTEX);
+
+	if (gamers.game_state == 'gamers_in_hallway') {
+		gamers.game_state = 'gamers_in_powerwall_room';
+		//  открываем дверь 7
+		helpers.send_get('door_7', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX, 
+			function(params){
+				devices.get('door_7').state = 'opened';
+			}, {}
+		);
+	}
 
 	res.json({success: 1});
 });
