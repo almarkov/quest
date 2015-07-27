@@ -59,7 +59,11 @@ router.get('/all', function(req, res, next) {
 			devices.list.forEach(function function_name (_device) {
 				if (_device.id == 0 && _device.wd_enabled) {
 					var query = "http://" + _device.ip + ":" +  _device.port + "/255/0/0";
-					if (!_device.mutex) {
+					var mutex = 0;
+					devices.list_by_carrier_id[_device.carrier_id].forEach(function fn(item){
+						mutex += item.mutex;
+					});
+					if (!mutex) {
 						var request = http.get(query, function(res) {
 								res.on('data', function(data){
 									var result = JSON.parse(data);
