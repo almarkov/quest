@@ -274,8 +274,8 @@ exports.get_game_state = function(){
 	var current_state = exports.game_states[exports.game_state];
 	simple_log(current_state.title);
 	var status = current_state.title.replace('arg', current_state.arg);
-	status = status.replace('Y', gamers.count.toString());
-	status = status.replace('Z', (gamers.count+1).toString());
+	status = status.replace('Y', exports.count.toString());
+	status = status.replace('Z', (exports.count+1).toString());
 	simple_log(status);
 	return status;
 }
@@ -295,6 +295,8 @@ exports.codes = ['', '', '', '', '423', '', '', '', ''];
 
 exports.coordinates = '';
 
+exports.fastened_count = 0;
+
 exports.wd_on = 0;
 
 // активная кнопка для оператора
@@ -302,15 +304,16 @@ exports.active_button = '';
 
 // доступные для нажатия кнопки
 exports.dashboard_buttons = {
-	GetReady:       0,
-	Start:          0,
-	ServiceMode:    0,
-	ResetGame:      1,
-	AllIn:          0,
-	StartScan:      0,
-	StopScan:       0,
-	StopScanAll:    0,
-	ClosePowerWall: 0,
+	GetReady:         0,
+	Start:            0,
+	ServiceMode:      0,
+	ResetGame:        1,
+	AllIn:            0,
+	StartScan:        0,
+	StopScan:         0,
+	StopScanAll:      0,
+	ClosePowerWall:   0,
+	PolyhedronPrompt: 0,
 };
 
 
@@ -326,16 +329,18 @@ exports.reset = function() {
 	exports.videos_played = 0;
 	exports.wd_on = 0;
 	exports.game_state = 'server_started';
+	exports.fastened_count = 0;
 	exports.dashboard_buttons = {
-		GetReady:       0,
-		Start:          0,
-		ServiceMode:    0,
-		ResetGame:      1,
-		AllIn:          0,
-		StartScan:      0,
-		StopScan:       0,
-		StopScanAll:    0,
-		ClosePowerWall: 0,
+		GetReady:         0,
+		Start:            0,
+		ServiceMode:      0,
+		ResetGame:        1,
+		AllIn:            0,
+		StartScan:        0,
+		StopScan:         0,
+		StopScanAll:      0,
+		ClosePowerWall:   0,
+		PolyhedronPrompt: 0,
 	};
 	exports.start_time = null;
 }

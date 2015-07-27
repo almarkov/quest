@@ -92,8 +92,8 @@ router.get('/ready', function(req, res, next) {
 				// Все устройства работают нормально
 				gamers.game_state = 'devices_ok';
 
-				exports.dashboard_buttons.GetReady = 1;
-				exports.dashboard_buttons.ServiceMode = 1;
+				gamers.dashboard_buttons.GetReady = 1;
+				gamers.dashboard_buttons.ServiceMode = 1;
 			}
 			
 		}, 15*1000);
@@ -122,7 +122,7 @@ router.get('/ready', function(req, res, next) {
 
 		// готов к запуску
 		gamers.game_state = 'ready_to_go';
-		exports.dashboard_buttons.Start = 1;
+		gamers.dashboard_buttons.Start = 1;
 		return;
 	}
 
@@ -139,7 +139,7 @@ router.get('/ready', function(req, res, next) {
 	if (gamers.game_state == 'closing_door_1') {
 		devices.get('door_1').state = "closed";
 
-		gamers.quest_state = 'gamers_connecting_polyhedron'; //'Ожидание, пока игроки поставят многогранник на подставку'
+		gamers.game_state = 'gamers_connecting_polyhedron'; //'Ожидание, пока игроки поставят многогранник на подставку'
 		// включаем звук 'легенда'
 		helpers.send_get('audio_player_1', 'play_channel_2', config.audio_files[22].value, DISABLE_TIMER, ENABLE_MUTEX,
 			function(params){
@@ -151,28 +151,28 @@ router.get('/ready', function(req, res, next) {
 		return;
 	}
 
-	// если ждали открытия двери 2
-	if (gamers.quest_state >= 100 && gamers.quest_state < 110) {
-		devices.get('door_2').state = 'opened';
+	// // если ждали открытия двери 2
+	// if (gamers.quest_state >= 100 && gamers.quest_state < 110) {
+	// 	devices.get('door_2').state = 'opened';
 
-		// включаем звук для номера игрока
-		var audio_file = config.audio_files[gamers.quest_state%10 + 3]; 
-		helpers.send_get('audio_player_1', 'play_channel_2', audio_file.value, DISABLE_TIMER, ENABLE_MUTEX,
-			function(params){
-				var device   = devices.get('audio_player_1');
-				device.value = audio_file.alias;
-				device.state = "ch1_play_ch2_play";
-			}, {}
-		);
+	// 	// включаем звук для номера игрока
+	// 	var audio_file = config.audio_files[gamers.quest_state%10 + 3]; 
+	// 	helpers.send_get('audio_player_1', 'play_channel_2', audio_file.value, DISABLE_TIMER, ENABLE_MUTEX,
+	// 		function(params){
+	// 			var device   = devices.get('audio_player_1');
+	// 			device.value = audio_file.alias;
+	// 			device.state = "ch1_play_ch2_play";
+	// 		}, {}
+	// 	);
 
-		gamers.active_button = 'StartScan';
-		gamers.quest_state  += 10; //'Требуется действие оператора. Убедитесь, что в комнате сканирования только один человек';
+	// 	gamers.active_button = 'StartScan';
+	// 	gamers.quest_state  += 10; //'Требуется действие оператора. Убедитесь, что в комнате сканирования только один человек';
 
-		return;
-	}
+	// 	return;
+	// }
 
 	// если ждали пока закроется дверь 2
-	if (gamers.quest_state >= 110 && gamers.quest_state < 120) {
+	if (gamers.game_state == 'scan_invitation') {
 		devices.get('door_2').state = 'closed';
 		// пробуждаем планшет
 		helpers.send_get('terminal_1', 'go', '0', DISABLE_TIMER, ENABLE_MUTEX,
@@ -200,8 +200,16 @@ router.get('/ready', function(req, res, next) {
 		);
 
 
-		gamers.quest_state += 10;//'Идет сканирование игрока X из Y. 120-129
+		//gamers.quest_state += 10;//'Идет сканирование игрока X из Y. 120-129
 
+		return;
+	}
+
+	if (gamers.game_state == 'scaning_not_outlaw_ending') {
+		return;
+	}
+
+	if (gamers.game_state == 'scaning_outlaw_ending') {
 		return;
 	}
 

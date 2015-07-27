@@ -110,6 +110,26 @@ router.get('/queue', function(req, res, next) {
 
 });
 
+
+// 'подсказка по многограннику' 
+router.get('/polyhedron_prompt', function(req, res, next) {
+
+	// включаем видео на экране 1
+	helpers.send_get('video_player_1', 'play', config.video_files[10].value, DISABLE_TIMER, ENABLE_MUTEX,
+		function (params) {
+			var device = devices.get('video_player_1');
+			device.value = config.video_files[10].alias;
+			device.state = 'playing';
+		},{}
+	);
+
+	gamers.dashboard_buttons.PolyhedronPrompt = 0;
+	gamers.active_button = '';
+
+	res.json({success: 1});
+
+});
+
 // подготовка устройств
 router.get('/get_ready', function(req, res, next) {
 

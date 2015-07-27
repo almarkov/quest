@@ -18,7 +18,7 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 	res.json({success: 1});
 
 	// подготовка к перелёту
-	if (gamers.quest_state == 60) {
+	if (gamers.game_state == 'playing_ready_to_flight') {
 
 		//приглушаем свет
 		helpers.send_get('light', 'off', '0', DISABLE_TIMER, ENABLE_MUTEX,
@@ -42,7 +42,7 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 			},{}
 		);
 
-		gamers.quest_state = 70; //'Перелёт';
+		gamers.quest_state = 'flight'; //'Перелёт';
 	}
 });
 

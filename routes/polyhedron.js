@@ -9,7 +9,7 @@ var http   = require('http');
 router.get('/activated/:parameter', function(req, res, next) {
 	res.json({success: 1});
 
-	if (gamers.quest_state == 50) {
+	if (gamers.game_state == 'gamers_activating_polyhedron') {
 		devices.get('polyhedron').state = 'activated';
 
 		// включаем видео на экране 1 прив, приготовьтесь к перелету
@@ -20,6 +20,8 @@ router.get('/activated/:parameter', function(req, res, next) {
 				device.state = 'playing';
 			},{}
 		);
+
+		gamers.game_state = 'gamers_watching_prepare_video';
 	}
 });
 
@@ -28,7 +30,7 @@ router.get('/activated/:parameter', function(req, res, next) {
 router.get('/connected/:parameter', function(req, res, next) {
 	res.json({success: 1});
 
-	if (gamers.quest_state == 45) {
+	if (gamers.game_state == 'gamers_connecting_polyhedron') {
 		devices.get('polyhedron').state = 'connected';
 		// запускаем видео с бегущими символами
 		helpers.send_get('video_player_1', 'play', config.video_files[1].value, DISABLE_TIMER, ENABLE_MUTEX,
@@ -39,7 +41,10 @@ router.get('/connected/:parameter', function(req, res, next) {
 			},{}
 		);
 
-		gamers.quest_state = 50; //'Ожидание, пока игроки активируют многогранник';
+		gamers.dashboard_buttons.PolyhedronPrompt = 1;
+		gamers.active_button = 'PolyhedronPrompt';
+
+		gamers.game_state = 'gamers_activating_polyhedron'; //'Ожидание, пока игроки активируют многогранник';
 	}
 });
 

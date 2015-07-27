@@ -1146,6 +1146,11 @@ exports.video_files = [
 		description: 'вам угрожает опасность',
 		value:       'file=mnt/sdcard/TV/5.mp4&repeat=0',
 	},
+	{
+		alias:       'video10',
+		description: 'статичные символы',
+		value:       'foo',
+	},
 ];
 
 exports.audio_files = [
@@ -1272,6 +1277,7 @@ exports.timeouts = {
 	T5: 5,
 	A:  15,
 	B:  10,
+	C:  5,
 }
 
 // watchdog

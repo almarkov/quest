@@ -447,6 +447,22 @@ function set_handlers() {
 		});
 	});
 
+	// подсказка по многограннику
+	$('.DashBoard .PolyhedronPrompt').click(function(e){
+		$.ajax({
+			url: web_server_url + '/game/polyhedron_prompt',
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('start prompt');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	});
+
 	// Начать сканирование
 	$('.DashBoard .StartScan').click(function(e){
 		$.ajax({

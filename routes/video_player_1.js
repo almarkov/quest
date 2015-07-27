@@ -12,9 +12,9 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 	video_player_1.state = 'stopped';
 
 	// закончилось видео 'приготовьтесь к перелёту' после активации многогранника
-	if (video_player_1.value == config.video_files[4].alias
-		&& gamers.quest_state == 50) {
+	if (gamers.game_state == 'gamers_watching_prepare_video') {
 
+		gamers.game_state = 'gamers_sitting_and_fasten'; //Игроки должны сесть и пристегнуться';
 		// включаем видео на экране 1 звёздное небо
 		helpers.send_get('video_player_1', 'play', config.video_files[3].value, DISABLE_TIMER, ENABLE_MUTEX,
 			function (params) {
@@ -24,10 +24,20 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 			},{}
 		);
 
-		gamers.quest_state = 60; //'Подготовка к перелёту';
+		if (gamers.fastened_count >= gamers.count) {
+			gamers.game_state = 'playing_ready_to_flight';
+			// включаем звук на канале 2 плеера 1
+			helpers.send_get('audio_player_1', 'play_channel_2', config.audio_files[1].value, DISABLE_TIMER, ENABLE_MUTEX,
+				function (params) {
+					var device = devices.get('audio_player_1');
+					device.value = config.audio_files[1].alias;
+					device.state = 'ch1_play_ch2_play';
+				},{}
+			);
+		}
 
 	// видео перелёта закончилось
-	} else if (gamers.quest_state == 70) {
+	} else if (gamers.game_state == 'flight') {
 
 		// включаем видео на экране 1
 		helpers.send_get('video_player_1', 'play', config.video_files[6].value, DISABLE_TIMER, ENABLE_MUTEX,
@@ -37,35 +47,53 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 				device.state = 'playing';
 			},{}
 		);
-		gamers.quest_state = 75; // Прилетели
+		gamers.game_state = 'gamers_watch_video_scan_invitation'; // Прилетели
 
-		// включаем свет
-		helpers.send_get('light', 'on', '0', DISABLE_TIMER, ENABLE_MUTEX,
-			function (params) {
-				devices.get('light').state = "on";
-			},{}
-		);
+		// // включаем свет
+		// helpers.send_get('light', 'on', '0', DISABLE_TIMER, ENABLE_MUTEX,
+		// 	function (params) {
+		// 		devices.get('light').state = "on";
+		// 	},{}
+		// );
 
-		// выключаем вибрацию
-		helpers.send_get('vibration', 'off', '0', DISABLE_TIMER, ENABLE_MUTEX,
-			function (params) {
-				devices.get('vibration').state = "off";
-			},{}
-		);
-	} else if (gamers.quest_state == 75) {
-		// включаем видео на экране 1 звёздное небо
-		helpers.send_get('video_player_1', 'play', config.video_files[3].value, DISABLE_TIMER, ENABLE_MUTEX,
-			function (params) {
-				var device = devices.get('video_player_1');
-				device.value = config.video_files[3].alias;
-				device.state = 'playing';
-			},{}
-		);
+		// // выключаем вибрацию
+		// helpers.send_get('vibration', 'off', '0', DISABLE_TIMER, ENABLE_MUTEX,
+		// 	function (params) {
+		// 		devices.get('vibration').state = "off";
+		// 	},{}
+		// );
+	} else if (gamers.game_state == 'gamers_watch_video_scan_invitation') {
+		// // включаем видео на экране 1 звёздное небо
+		// helpers.send_get('video_player_1', 'play', config.video_files[3].value, DISABLE_TIMER, ENABLE_MUTEX,
+		// 	function (params) {
+		// 		var device = devices.get('video_player_1');
+		// 		device.value = config.video_files[3].alias;
+		// 		device.state = 'playing';
+		// 	},{}
+		// );
 
-		gamers.quest_state = 100; // Приглашение на сканирование
+		gamers.set_game_state('scan_invitation', '1'); // Приглашение на сканирование
+
+		gamers.dashboard_buttons.StartScan = 1;
+		gamers.active_button = 'StartScan';
 
 		// открываем дверь 2
-		helpers.send_get('door_2', 'open', '0', ENABLE_TIMER, ENABLE_MUTEX);
+		helpers.send_get('door_2', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX, 
+			function(params){
+				devices.get('door_2').state = 'opened';
+			}, {}
+		);
+
+		// включаем звук для номера игрока
+		var gamer_num = parseInt(gamers.game_states['scan_invitation'].arg) + 2;
+		var audio_file = config.audio_files[gamer_num]; 
+		helpers.send_get('audio_player_1', 'play_channel_2', audio_file.value, DISABLE_TIMER, ENABLE_MUTEX,
+			function(params){
+				var device   = devices.get('audio_player_1');
+				device.value = audio_file.alias;
+				device.state = "ch1_play_ch2_play";
+			}, {}
+		);
 
 	}
 });

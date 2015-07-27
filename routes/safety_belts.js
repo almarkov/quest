@@ -11,46 +11,10 @@ router.get('/number_of_fastened/:parameter', function(req, res, next) {
 
 	// все пристёгнуты?
 	if (gamers.count <= parseInt(req.params.parameter)) {
-		// если подготовка к обратному перелёту
-		// if (gamers.quest_state == 220) {
-
-		// 	// включаем звук на канале 2 плеера 1
-		// 	helpers.send_get('audio_player_1', 'play_channel_2', config.files[20], DISABLE_TIMER, ENABLE_MUTEX,
-		// 		function (params) {
-		// 			var device = devices.get('audio_player_1');
-		// 			device.value = config.files[20];
-		// 			device.state = 'ch1_play_ch2_play';
-		// 		},{}
-		// 	);
-
-		// 	// включаем видео на экране 2
-		// 	helpers.send_get('video_player_2', 'play', config.files[21], DISABLE_TIMER, ENABLE_MUTEX,
-		// 		function (params) {
-		// 			var device = devices.get('video_player_2');
-		// 			device.value = config.files[21];
-		// 			device.state = 'playing';
-		// 		},{}
-		// 	);
-
-		// 	// включаем вибрацию
-		// 	helpers.send_get('vibration', 'on', '0', DISABLE_TIMER, ENABLE_MUTEX,
-		// 		function (params) {
-		// 			devices.get('vibration').state = "on";
-		// 		},{}
-		// 	);
-
-		// 	// усыпляем планшет-координат
-		// 	helpers.send_get('terminal_4', 'deactivate', '0', DISABLE_TIMER, ENABLE_MUTEX,
-		// 		function (params) {
-		// 			devices.get('terminal_4').state = "sleep";
-		// 		},{}
-		// 	);
-
-		// 	gamers.quest_state = 230; //'Перелёт';
 
 		// если подготовка к перелёту(1)
-		if (gamers.quest_state == 60) {
-
+		if (gamers.game_state == 'gamers_sitting_and_fasten') {
+			gamers.game_state = 'playing_ready_to_flight';
 			// включаем звук на канале 2 плеера 1
 			helpers.send_get('audio_player_1', 'play_channel_2', config.audio_files[1].value, DISABLE_TIMER, ENABLE_MUTEX,
 				function (params) {
@@ -59,6 +23,8 @@ router.get('/number_of_fastened/:parameter', function(req, res, next) {
 					device.state = 'ch1_play_ch2_play';
 				},{}
 			);
+		} else {
+			gamers.fastened_count = parseInt(req.params.parameter);
 		}
 	}
 
