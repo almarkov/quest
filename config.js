@@ -1298,7 +1298,8 @@ exports.timeouts = {
 }
 
 // watchdog
-exports.watchdog_enabled = 0;
+exports.watchdog_enabled = 1;
+exports.enable_reload = 1;
 
 // правильные координаты
 exports.coordinates = '9847544';

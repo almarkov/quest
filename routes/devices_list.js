@@ -76,6 +76,15 @@ router.get('/all', function(req, res, next) {
 											var device = devices.get_by_id(result.carrier_id, result.onboard_devices[j].id);
 											device.wd_state -= 1;
 											device.state = device.states[result.onboard_devices[j].state];
+											// перегружаем если 0
+											if (config.enable_reload) {
+												if (device.wd_state == 0) {
+													http.get(web_server_url + '/sendcom/reload/' + device.name, function(res) {
+													}).on('error', function(e) {
+														simple_log('error sendcom reload' + device.name);
+													});
+												}
+											}
 										}
 									}
 								});
@@ -96,17 +105,17 @@ router.get('/all', function(req, res, next) {
 	}
 
 	// проверка работоспосбоности
-	if (gamers.quest_state == 0) {
-		var flag = 1;
-		for (var i = 0; i < devices.list.length; i++) {
-			if (!devices.list[i].wd_state) {
-				flag = 0;
-			}
-		}
-		if (flag) {
-			gamers.quest_state = 1;
-		}
-	}
+	// if (gamers.quest_state == 0) {
+	// 	var flag = 1;
+	// 	for (var i = 0; i < devices.list.length; i++) {
+	// 		if (!devices.list[i].wd_state) {
+	// 			flag = 0;
+	// 		}
+	// 	}
+	// 	if (flag) {
+	// 		gamers.quest_state = 1;
+	// 	}
+	// }
 
 	// передача модели в GUI
 	var result = {};

@@ -29,16 +29,6 @@ router.get('/reset', function(req, res, next) {
 	res.json({success: 1});
 });
 
-// перезагрузка arduino 
-router.get('/reload/:name', function(req, res, next) {
-	var num = devices.get(req.params.name).carrier_id;
-	child_process.exec('sendcom.exe ' + num, function(error, stdout, stderr){
-		simple_log('reloaded: ' + req.params.name + ', carrier_id: ' + num);
-	});
-	
-	res.json({success: 1});
-});
-
 // вернулись в команту 2
 router.get('/close_power_wall', function(req, res, next) {
 

@@ -1063,7 +1063,7 @@ function set_handlers() {
 		if (confirm("Подтвердите перезагрузку")){
 
 			$.ajax({
-				url: web_server_url + '/game/reload/' + e.srcElement.parentElement.children[1].children[1].name,
+				url: web_server_url + '/sendcom/reload/' + e.srcElement.parentElement.children[1].children[1].name,
 				type: "GET",
 				crossDomain: true,
 				dataType: "json",
