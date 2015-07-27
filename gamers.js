@@ -344,11 +344,3 @@ exports.reset = function() {
 	};
 	exports.start_time = null;
 }
-
-// exports.get_quest_state = function() {
-// 	var str = exports.quest_states[exports.quest_state];
-// 	if (exports.quest_state > 110 && exports.quest_state < 120) {
-// 		str += ' ' + parseInt(exports.count - exports.quest_state % 10) + ' человек';
-// 	}
-// 	return str;
-// }

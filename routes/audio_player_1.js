@@ -42,7 +42,7 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 			},{}
 		);
 
-		gamers.quest_state = 'flight'; //'Перелёт';
+		gamers.game_state = 'flight'; //'Перелёт';
 	}
 });
 

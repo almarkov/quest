@@ -50,7 +50,7 @@ router.get('/close_power_wall', function(req, res, next) {
 
 // стартовала игра
 router.get('/start/:count', function(req, res, next) {
-	if (gamers.quest_state == 5) { // квест готов к запуску
+	if (gamers.game_state == 'ready_to_go') { // квест готов к запуску
 
 		// начинаем часовой отсчёт
 		gamers.start_time = new Date();
@@ -274,13 +274,31 @@ router.get('/time_ended', function(req, res, next) {
 // точка сбора(для тестов)
 router.get('/point1', function(req, res, next) {
 
-	gamers.quest_state = 141;
+	gamers.game_state = 'gamers_saved_outlaw';
 
 	gamers.codes[0] = '111';
 	gamers.codes[1] = '222';
 	gamers.codes[2] = '333';
 	gamers.codes[3] = '444';
 	gamers.codes[4] = '735';
+
+	// включаем звук  прошёл
+	helpers.send_get('audio_player_3', 'play_channel_2', config.audio_files[16].value, DISABLE_TIMER, ENABLE_MUTEX,
+		function (params) {
+			var device = devices.get('audio_player_3');
+			device.value = config.audio_files[16].alias;
+			device.state = 'ch1_play_ch2_play';
+		},{}
+	);
+
+	// зажигаем подсветку
+	helpers.send_get('inf_mirror_backlight', 'on', 'blue', DISABLE_TIMER, ENABLE_MUTEX,
+		function (params) {
+			var device = devices.get('inf_mirror_backlight');
+			device.value = 'blue';
+			device.state = 'on';
+		},{}
+	);
 
 	// закрываем дверь 1
 	helpers.send_get('door_1', 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);

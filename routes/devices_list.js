@@ -115,21 +115,21 @@ router.get('/all', function(req, res, next) {
 	}
 
 	// переменные статусы
-	var player_number = gamers.quest_state % 10 + 1;
-	var str = " " + gamers.quest_state + gamers.quest_states[gamers.quest_state];
-	if (gamers.quest_state >= 100 && gamers.quest_state < 110) {
-		str += ' игрока ' + player_number + '. Осталось просканировать ' + (gamers.count - gamers.quest_state % 10) + ' человек из ' + (gamers.count);
-	}
-	if (gamers.quest_state >= 110 && gamers.quest_state < 120) {
-		str += ' ' + (gamers.count - gamers.quest_state % 10) + ' человек из ' + (gamers.count);
-	}
-	if (gamers.quest_state >= 120 && gamers.quest_state < 130) {
-		str += ' ' + (gamers.quest_state % 10 + 1) + ' из ' + (gamers.count) + '. В конце сканирования требуется действие оператора – убедитесь, что игрок вышел из комнаты сканирования, после чего нажмите «Закончить сканирование» ' + parseInt(gamers.count);
-	}
+	// var player_number = gamers.quest_state % 10 + 1;
+	// var str = " " + gamers.quest_state + gamers.quest_states[gamers.quest_state];
+	// if (gamers.quest_state >= 100 && gamers.quest_state < 110) {
+	// 	str += ' игрока ' + player_number + '. Осталось просканировать ' + (gamers.count - gamers.quest_state % 10) + ' человек из ' + (gamers.count);
+	// }
+	// if (gamers.quest_state >= 110 && gamers.quest_state < 120) {
+	// 	str += ' ' + (gamers.count - gamers.quest_state % 10) + ' человек из ' + (gamers.count);
+	// }
+	// if (gamers.quest_state >= 120 && gamers.quest_state < 130) {
+	// 	str += ' ' + (gamers.quest_state % 10 + 1) + ' из ' + (gamers.count) + '. В конце сканирования требуется действие оператора – убедитесь, что игрок вышел из комнаты сканирования, после чего нажмите «Закончить сканирование» ' + parseInt(gamers.count);
+	// }
 
 	result.quest_state = gamers.get_game_state();
 
-	result.quest_state_num = gamers.quest_state;
+	// result.quest_state_num = gamers.quest_state;
 
 	result.codes = gamers.codes;
 
