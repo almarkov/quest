@@ -34,6 +34,8 @@ router.get('/game_passed/:code', function(req, res, next) {
 
 		//  открываем дверь 4 и включаем таймер
 		helpers.send_get('door_4', 'open', '0', helpers.get_timeout('B'), ENABLE_MUTEX);
+
+		gamers.game_state = 'gamers_saved_outlaw';
 	}
 
 

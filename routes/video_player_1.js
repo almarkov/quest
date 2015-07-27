@@ -49,19 +49,19 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 		);
 		gamers.game_state = 'gamers_watch_video_scan_invitation'; // Прилетели
 
-		// // включаем свет
-		// helpers.send_get('light', 'on', '0', DISABLE_TIMER, ENABLE_MUTEX,
-		// 	function (params) {
-		// 		devices.get('light').state = "on";
-		// 	},{}
-		// );
+		// включаем свет
+		helpers.send_get('light', 'on', '0', DISABLE_TIMER, ENABLE_MUTEX,
+			function (params) {
+				devices.get('light').state = "on";
+			},{}
+		);
 
-		// // выключаем вибрацию
-		// helpers.send_get('vibration', 'off', '0', DISABLE_TIMER, ENABLE_MUTEX,
-		// 	function (params) {
-		// 		devices.get('vibration').state = "off";
-		// 	},{}
-		// );
+		// выключаем вибрацию
+		helpers.send_get('vibration', 'off', '0', DISABLE_TIMER, ENABLE_MUTEX,
+			function (params) {
+				devices.get('vibration').state = "off";
+			},{}
+		);
 	} else if (gamers.game_state == 'gamers_watch_video_scan_invitation') {
 		// // включаем видео на экране 1 звёздное небо
 		// helpers.send_get('video_player_1', 'play', config.video_files[3].value, DISABLE_TIMER, ENABLE_MUTEX,

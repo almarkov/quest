@@ -178,7 +178,7 @@ router.get('/ready', function(req, res, next) {
 	// }
 
 	// если ждали пока закроется дверь 2
-	if (gamers.game_state == 'scan_invitation') {
+	if (gamers.game_state == 'scaning_gamer') {
 		devices.get('door_2').state = 'closed';
 		// пробуждаем планшет
 		helpers.send_get('terminal_1', 'go', '0', DISABLE_TIMER, ENABLE_MUTEX,
@@ -326,6 +326,8 @@ router.get('/ready', function(req, res, next) {
 
 	if (gamers.game_state == 'gamers_saved_outlaw') {
 		gamers.game_state = 'gamers_together';
+		devices.get('door_4').state = 'opened';
+		devices.get('door_3').state = 'opened';
 		// открываем дверь 5
 		helpers.send_get('door_5', 'open', '0', helpers.get_timeout('C') + helpers.get_timeout('D'), ENABLE_MUTEX);
 		return;
