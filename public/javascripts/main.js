@@ -349,7 +349,8 @@ function set_handlers() {
 			return;
 		}
 		var gamer_count = $("#inpGamerCount").val();
-		$.ajax({
+		if (gamer_count == '2' || gamer_count == '3' || gamer_count == '4') {
+			$.ajax({
 			url: web_server_url + '/game/start' + '/' + gamer_count,
 			type: "GET",
 			crossDomain: true,
@@ -362,7 +363,12 @@ function set_handlers() {
 				error: function(error) {
 					console.log('ERROR:', error);
 				}
-		});
+			});
+		} else {
+			alert ('Введено неверное количество игроков');
+			return;	
+		}
+		
 	});
 
 	// режим обслуживания
