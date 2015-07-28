@@ -278,10 +278,13 @@ router.get('/ready', function(req, res, next) {
 				//  открываем дверь 3
 				helpers.send_get('door_3', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX);
 
-				//  открываем дверь 4 и включаем таймер
-				helpers.send_get('door_4', 'open', '0', helpers.get_timeout('B'), ENABLE_MUTEX);
+				setTimeout(function () {
+					//  открываем дверь 4 и включаем таймер
+					helpers.send_get('door_4', 'open', '0', helpers.get_timeout('B'), ENABLE_MUTEX);
+
+				}, 2*1000);
 				gamers.game_state = 'gamers_saved_outlaw';
-	
+
 			}
 		}
 
