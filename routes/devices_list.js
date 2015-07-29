@@ -64,44 +64,43 @@ router.get('/all', function(req, res, next) {
 						mutex += item.mutex;
 					});
 					if (!mutex) {
-						var request = http.get(query, function(res) {
-								res.on('data', function(data){
-									var result = JSON.parse(data);
-									if (result.success && result.onboard_devices) {
-										//обновить статусы устройств
-										for (var j = 0; j < result.onboard_devices.length; j++) {
-											var device = devices.get_by_id(result.carrier_id, result.onboard_devices[j].id);
-											device.wd_state = 3;
-											device.state = device.states[result.onboard_devices[j].state];
-										}
-									} else {
-										// пометить неответившие устройства
-										for (var j = 0; j < result.onboard_devices.length; j++) {
-											var device = devices.get_by_id(result.carrier_id, result.onboard_devices[j].id);
-											device.wd_state -= 1;
-											device.state = device.states[result.onboard_devices[j].state];
-											// перегружаем если 0
-											if (config.enable_reload) {
-												if (device.wd_state == 0) {
-													http.get(web_server_url + '/sendcom/reload/' + device.name, function(res) {
-													}).on('error', function(e) {
-														simple_log('error sendcom reload' + device.name);
-													});
-												}
+						http.get(query, function(res) {
+							res.on('data', function(data){
+								var result = JSON.parse(data);
+								if (result.success && result.onboard_devices) {
+									//обновить статусы устройств
+									for (var j = 0; j < result.onboard_devices.length; j++) {
+										var device = devices.get_by_id(result.carrier_id, result.onboard_devices[j].id);
+										device.wd_state = 3;
+										device.state = device.states[result.onboard_devices[j].state];
+									}
+								} else {
+									// пометить неответившие устройства
+									for (var j = 0; j < result.onboard_devices.length; j++) {
+										var device = devices.get_by_id(result.carrier_id, result.onboard_devices[j].id);
+										device.wd_state -= 1;
+										device.state = device.states[result.onboard_devices[j].state];
+										// перегружаем если 0
+										if (config.enable_reload) {
+											if (device.wd_state == 0) {
+												http.get(web_server_url + '/sendcom/reload/' + device.name, function(res) {
+												}).on('error', function(e) {
+													simple_log('error sendcom reload' + device.name);
+												});
 											}
 										}
 									}
-								});
-							}).on('error', function(e) {
-								simple_log("watchdog error");
-								devices.list_by_carrier_id[_device.carrier_id].forEach(function fn(item){
-									item.wd_state -= 1;
-								});
-						});
-						request.setTimeout( 5000, function( ) {
+								}
+							});
+						}).on('error', function(e) {
 							simple_log("watchdog error");
-						    simple_log(_device.ip);
-						    devices.list_by_carrier_id[_device.carrier_id].forEach(function fn(item){
+							devices.list_by_carrier_id[_device.carrier_id].forEach(function fn(item){
+								item.wd_state -= 1;
+							});
+						}).setTimeout( 5000, function( ) {
+							simple_log("watchdog error");
+							simple_log(_device.ip);
+							devices.list_by_carrier_id[_device.carrier_id].forEach(function fn(item){
 								item.wd_state -= 1;
 							});
 						});
