@@ -299,6 +299,8 @@ exports.fastened_count = 0;
 
 exports.wd_on = 0;
 
+exports.intervalObject = null;
+
 // активная кнопка для оператора
 exports.active_button = '';
 
@@ -343,4 +345,8 @@ exports.reset = function() {
 		PolyhedronPrompt: 0,
 	};
 	exports.start_time = null;
+	if (exports.intervalObject) {
+		clearInterval(intervalObject);
+	}
+	exports.intervalObject = null;
 }

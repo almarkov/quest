@@ -56,6 +56,8 @@ var wd           = require('./routes/wd');
 
 var sendcom      = require('./routes/sendcom');
 
+var watchdog     = require('./routes/watchdog');
+
 var app = express();
 
 ENABLE_TIMER  = 1;
@@ -184,6 +186,8 @@ app.use('/smoke', smoke);
 app.use('/wd', wd);
 
 app.use('/sendcom', sendcom);
+
+app.use('/watchdog', watchdog);
 
 
 // catch 404 and forward to error handler

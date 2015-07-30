@@ -14,6 +14,7 @@ exports.list = [];
 exports.list_by_name = {};
 exports.list_by_id_arduiono_id = {};
 exports.list_by_carrier_id = {};
+exports.list_by_ip_id = {};
 
 exports.ext_url_for = function (object_name) {
 	for (var i = 0; i < config.list.length; i++) {
@@ -83,12 +84,14 @@ exports.reset = function() {
 		exports.list[i].mutex = 0;
 		exports.list_by_name[exports.list[i].name] = exports.list[i];
 		exports.list_by_id_arduiono_id[exports.list[i].carrier_id + '_' + exports.list[i].id] = exports.list[i];
+		exports.list_by_ip_id[exports.list[i].ip + '_' + exports.list[i].id] = exports.list[i];
 		if (exports.list_by_carrier_id[exports.list[i].carrier_id]) {
 
 		} else {
 			exports.list_by_carrier_id[exports.list[i].carrier_id] = [];
 		}
 		exports.list_by_carrier_id[exports.list[i].carrier_id].push(exports.list[i]);
+
 	}
 	exports.default_timer_value = config.default_timer_value;
 
@@ -107,6 +110,12 @@ exports.get = function(name) {
 // устройство по id + carrier_id
 exports.get_by_id = function(carrier_id, id) {
 	return exports.list_by_id_arduiono_id[carrier_id + '_' + id];
+}
+
+// устройство по ip + id
+exports.get_by_ip_id = function(ip, id) {
+	var real_ip = ip.replace('::ffff:', '');
+	return exports.list_by_ip_id[ip + '_' + id];
 }
 
 exports.get_command_id = function(device, command){

@@ -1295,6 +1295,7 @@ exports.timeouts = {
 	C:  5,
 	D:  10,
 	E:  10,
+	CHECK_TIME: 15,
 }
 
 // watchdog
@@ -1308,4 +1309,4 @@ exports.coordinates = '9847544';
 exports.com_port = '20';
 
 exports.wd_error_timeout = 300;
-exports.wd_multiplicator = 3;
+exports.wd_multiplicator = 1;
