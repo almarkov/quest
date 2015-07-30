@@ -125,6 +125,17 @@ router.get('/:id/device_commands/:device_command_id/delete', function(req, res) 
 	})
 });
 
+// создание
+router.post('/create', function(req, res) {
+	var db = req.db;
+	var collection = db.get('device_types');
+	collection.insert(req.body, function(err, result){
+		console.log(result);
+		res.send(
+			(err === null) ? { msg: '', new_id: result._id } : { msg: err }
+		);
+	});
+});
 
 // обновление
 router.post('/:id', function(req, res) {
@@ -137,19 +148,7 @@ router.post('/:id', function(req, res) {
 			(err === null) ? { msg: '' } : { msg: err }
 		);
 	});
-
 });
 
-// создание
-router.post('/create', function(req, res) {
-	var db = req.db;
-	var collection = db.get('device_types');
-
-	collection.insert(req.body, function(err, result){
-		res.send(
-			(err === null) ? { msg: '' } : { msg: err }
-		);
-	});
-});
 
 module.exports = router;

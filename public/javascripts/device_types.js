@@ -1,6 +1,8 @@
 $(document).ready(function(){
 
-	$('#btnAddDeviceType').on('click', addDeviceType);
+	$('#btnOpenCreateDeviceType').on('click', openCreateDeviceType);
+
+    $('#btnSaveDeviceType').on('click', saveDeviceType);
 
 	$('#btnAddDeviceCommand').on('click', addDeviceCommand);
 
@@ -8,7 +10,7 @@ $(document).ready(function(){
 
 	$('#btnOpenCreateDeviceCommand').on('click', openCreateDeviceCommand);
 
-    $('#deviceTypeList table tbody').on('click', 'td a.linkedit', editDeviceType);
+    //$('#deviceTypeList table tbody').on('click', 'td a.linkedit', editDeviceType);
 
     populateDeviceTypeTable();
 
@@ -16,6 +18,12 @@ $(document).ready(function(){
 
     //fillDeviceTypeDeviceCommandTable();
 });
+
+function openCreateDeviceType() {
+    event.preventDefault();
+
+    $('#createDeviceType').show();
+}
 
 function populateDeviceTypeTable() {
     var tableContent = '';
@@ -174,25 +182,24 @@ function createDeviceCommand(event) {
     }
 }
 
-// Add User
-function addDeviceType(event) {
+function saveDeviceType(event) {
     event.preventDefault();
 
     // Super basic validation - increase errorCount variable if any fields are blank
     // !!валидация
     var errorCount = 0;
-    $('#addDeviceType input[type!=hidden]').each(function(index, val) {
+    $('#deviceTypeForm input[type!=hidden]').each(function(index, val) {
         if($(this).val() === '') { errorCount++; }
     });
-    var _id = $('#addDeviceType fieldset input#inputDeviceTypeId').val();
+    var _id = $('#deviceTypeForm fieldset input#inputDeviceTypeId').val();
 
     // Check and make sure errorCount's still at zero
     if(errorCount === 0) {
 
         // If it is, compile all user info into one object
         var newDeviceType = {
-            'title': $('#addDeviceType fieldset input#inputDeviceTypeTitle').val(),
-            'name': $('#addDeviceType fieldset input#inputDeviceTypeName').val(),
+            'title': $('#deviceTypeForm fieldset input#inputDeviceTypeTitle').val(),
+            'name': $('#deviceTypeForm fieldset input#inputDeviceTypeName').val(),
         };
 
         // обновляем
@@ -210,6 +217,7 @@ function addDeviceType(event) {
 
                     // window.location.replace("http://localhost:3000/device_types");
                     alert('Данные сохранены');
+                    populateDeviceTypeTable();
 
                 }
                 else {
@@ -233,8 +241,9 @@ function addDeviceType(event) {
                 // Check for successful (blank) response
                 if (response.msg === '') {
 
-                    // window.location.replace("http://localhost:3000/device_types");
                     alert('Данные сохранены');
+                    $('#deviceTypeForm fieldset input#inputDeviceTypeId').val(response.new_id);
+                    populateDeviceTypeTable();
 
                 }
                 else {
@@ -245,6 +254,9 @@ function addDeviceType(event) {
                 }
             });
         }
+
+
+        
     }
     else {
         // If errorCount is more than 0, error out
