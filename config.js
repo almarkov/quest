@@ -1306,3 +1306,6 @@ exports.coordinates = '9847544';
 
 // порт для включения/выключения arduino
 exports.com_port = '20';
+
+exports.wd_error_timeout = 300;
+exports.wd_multiplicator = 3;

@@ -67,7 +67,7 @@ router.get('/ready', function(req, res, next) {
 						// devices.list_by_carrier_id[_device.carrier_id].forEach(function fn(item){
 						// 	item.wd_state = 0;
 						// });
-					}).setTimeout( 3000, function( ) {
+					}).setTimeout( config.wd_error_timeout, function( ) {
 						simple_log("watchdog error");
 						simple_log(_device.ip);
 						devices.list_by_carrier_id[_device.carrier_id].forEach(function fn(item){

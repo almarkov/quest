@@ -27,7 +27,7 @@ router.get('/all', function(req, res, next) {
 	// уменьшаем таймер
 	// если таймер активен
 	if (devices.timer().state == 'active') {
-		var new_current_value = devices.timer().current_value - 1;
+		var new_current_value = devices.timer().current_value - 1*config.wd_multiplicator;
 		// если таймер не досчитал - уменьшаем
 		if (new_current_value > 0) {
 			devices.timer().current_value = new_current_value;
@@ -97,7 +97,7 @@ router.get('/all', function(req, res, next) {
 							// devices.list_by_carrier_id[_device.carrier_id].forEach(function fn(item){
 							// 	item.wd_state -= 1;
 							// });
-						}).setTimeout( 3000, function( ) {
+						}).setTimeout( config.wd_error_timeout, function( ) {
 							simple_log("watchdog error");
 							simple_log(_device.ip);
 							devices.list_by_carrier_id[_device.carrier_id].forEach(function fn(item){
