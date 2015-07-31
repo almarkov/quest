@@ -108,7 +108,7 @@ router.get('/ready', function(req, res, next) {
 				gamers.dashboard_buttons.ServiceMode = 1;
 			}
 			
-		}, helpers.get_timeout("CHECK_TIME"));
+		}, helpers.get_timeout("CHECK_TIME")*1000);
 
 		return;
 	}

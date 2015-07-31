@@ -346,7 +346,7 @@ exports.reset = function() {
 	};
 	exports.start_time = null;
 	if (exports.intervalObject) {
-		clearInterval(intervalObject);
+		clearInterval(exports.intervalObject);
 	}
 	exports.intervalObject = null;
 }
