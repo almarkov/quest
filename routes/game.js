@@ -373,10 +373,14 @@ router.get('/point1', function(req, res, next) {
 router.get('/setinterval', function(req, res, next) {
 
 	if (config.watchdog_enabled) {
+
 		gamers.intervalObject = setInterval(function() {
+
 			devices.list.forEach(function (_device) {
 				if (_device.wd_enabled) {
-					_device.wd_state -= 1;
+					if (_device.wd_state) {
+						_device.wd_state -= 1;
+					};
 				}
 			});
 		}, 1000);

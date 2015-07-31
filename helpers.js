@@ -32,10 +32,24 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 			if (cb) {
 				cb(params || {});
 			}
-		}).on('error', function(e) {
+		}).setTimeout( helpers.get_timeout('SOCKET_WAIT_TIME')*1000, function( ) {
 
 			if (enable_mutex) {
 				device.mutex = 0;
+			}
+
+			if (enable_timer) {
+				http.get(devices.build_query('timer', 'activate', enable_timer), function(res) {
+						res.on('data', function(data){
+							var result = JSON.parse(data);
+							devices.get('timer').state = result.state.state;
+						});
+					}).on('error', function(e) {
+						simple_log("timer activate error: ");
+				});
+			} 
+			if (cb) {
+				cb(params || {});
 			}
 
 			simple_log(device_name +  " " + command + " error");
