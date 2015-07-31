@@ -34,18 +34,31 @@ router.get('/add', function(req, res) {
 	});
 });
 
+// router.get('/:id', function(req, res) {
+// 	var id = req.params.id;
+// 	var db = req.db;
+// 	var collection = db.get('device_types');
+
+// 	collection.findOne({'_id': id},{},function(e, device_type){
+// 		console.log(device_type);
+
+// 		res.render('device_types/add', {
+// 			title:      'Добавить устройство',
+// 			device_type: device_type,
+// 		});
+// 	});
+// });
+
 router.get('/:id', function(req, res) {
 	var id = req.params.id;
 	var db = req.db;
 	var collection = db.get('device_types');
 
-	collection.findOne({'_id': id},{},function(e, device_type){
+	collection.findOne({'_id': id},{},function(err, device_type){
 		console.log(device_type);
-		
-		res.render('device_types/add', {
-			title:      'Добавить устройство',
-			device_type: device_type,
-		});
+		res.json(
+			(err === null) ? device_type : { msg: err }
+		);
 	});
 });
 

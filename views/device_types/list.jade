@@ -7,7 +7,6 @@ block content
 	script(src='/javascripts/device_types.js')
 
 	h2 Типы устройств
-
 	#menu
 		button#btnOpenCreateDeviceType   Добавить
 
@@ -22,34 +21,35 @@ block content
 				th foo
 			tbody
 
-	div#createDeviceType(style="display:none;")
+	div#deviceTypeForm(style="display:none;")
+
 		h2 Создание/Изменение
-		#deviceTypeForm
-				fieldset
-					input#inputDeviceTypeId(type='hidden')
-					input#inputDeviceTypeTitle(type='text', placeholder='Название')
-					input#inputDeviceTypeName( type='text', placeholder='Имя')
-					br
-					h4 Команды
-					table
-						thead
-							th Название
-							th Псевдоним
-							th Числовой псевдоним
-							th
-						tbody
+		fieldset
+			input#inputDeviceTypeId(type='hidden')
+			input#inputDeviceTypeTitle(type='text', placeholder='Название')
+			input#inputDeviceTypeName( type='text', placeholder='Имя')
+			br
 
-					select#inputDeviceCommand(type='select')
+			h4 Команды
+			#deviceCommandList
+				table
+					thead
+						th Название
+						th Псевдоним
+						th Числовой псевдоним
+						th
+					tbody
 
-					button#btnAddDeviceCommand    Добавить
-					button#btnOpenCreateDeviceCommand Создать новую
-					br
-					h4 События
-					br
-					h4 Состояния
-					br
-					button#btnSaveDeviceType Сохранить
+			select#inputDeviceCommand(type='select')
 
+			button#btnAddDeviceCommand    Добавить
+			button#btnOpenCreateDeviceCommand Создать новую
+			br
+			h4 События
+			br
+			h4 Состояния
+			br
+			button#btnSaveDeviceType Сохранить
 
 	div#createDeviceCommand(style="display:none;")
 		h5 Создание команды

@@ -1,28 +1,49 @@
 $(document).ready(function(){
 
-	$('#btnOpenCreateDeviceType').on('click', openCreateDeviceType);
+	$('#btnOpenCreateDeviceType').on('click', openDeviceTypeForm);
 
     $('#btnSaveDeviceType').on('click', saveDeviceType);
 
-	$('#btnAddDeviceCommand').on('click', addDeviceCommand);
+	//$('#btnAddDeviceCommand').on('click', addDeviceCommand);
 
 	$('#btnCreateDeviceCommand').on('click', createDeviceCommand);
 
-	$('#btnOpenCreateDeviceCommand').on('click', openCreateDeviceCommand);
+	//$('#btnOpenCreateDeviceCommand').on('click', openCreateDeviceCommand);
 
-    //$('#deviceTypeList table tbody').on('click', 'td a.linkedit', editDeviceType);
+    $('#deviceTypeList table tbody').on('click', 'td a.linkedit', openDeviceTypeForm);
 
     populateDeviceTypeTable();
 
-    fillDeviceCommandList();
+    //fillDeviceCommandList();
 
     //fillDeviceTypeDeviceCommandTable();
 });
 
-function openCreateDeviceType() {
+function openDeviceTypeForm() {
     event.preventDefault();
 
-    $('#createDeviceType').show();
+    var id = $(this).attr('rel');
+    fillDeviceTypeForm(id);
+    $('#deviceTypeForm').show();
+}
+
+function fillDeviceTypeForm(id) {
+    // изменение
+    if (id) {
+        $.getJSON( '/device_types/' + id, function( data ) {
+            $("#inputDeviceTypeId").val(data._id);
+            $("#inputDeviceTypeTitle").val(data.title);
+            $("#inputDeviceTypeName").val(data.name);
+
+            populateDeviceCommandTable(data);
+
+        });
+    // создание
+    } else {
+        $("#inputDeviceTypeId").val('');
+        $("#inputDeviceTypeTitle").val('');
+        $("#inputDeviceTypeName").val('');
+    }
 }
 
 function populateDeviceTypeTable() {
@@ -32,7 +53,7 @@ function populateDeviceTypeTable() {
         $.each(data, function(){
             tableContent += '<tr>';
 
-            tableContent += '<td><a href="#" class="linkedit"  rel="' + this._id + '">' + this.title + '</a></td>'
+            tableContent += '<td><a href="" class="linkedit"  rel="' + this._id + '">' + this.title + '</a></td>'
             tableContent += '<td>' + this.name + '</td>';
 
             tableContent += '<td>';
@@ -51,136 +72,153 @@ function populateDeviceTypeTable() {
     });
 }
 
-function fillDeviceCommandList() {
-    var deviceCommandListOptionsContent = '';
+function populateDeviceCommandTable(data) {
+    var tableContent = '';
 
-    $.getJSON( '/device_commands/list', function( data ) {
-
-        deviceCommandListOptionsContent += '<option value="-1">[Выберите команду]</option>';
-        $.each(data, function(){
-            deviceCommandListOptionsContent += '<option value=' + this._id + '>';
-            deviceCommandListOptionsContent += this.title + '   ' + this.name + '   ' + this.dname;
-            deviceCommandListOptionsContent += '</option>';
+    if (data.device_commands) {
+        $.each(data.device_commands, function(){
+            tableContent += '<tr>';
+            tableContent += '<td>' + this.title + '</td>';
+            tableContent += '<td>' + this.name + '</td>';
+            tableContent += '<td>' + this.dname + '</td>';
+            tableContent += '</tr>';
         });
 
-        $('#inputDeviceCommand').html(deviceCommandListOptionsContent);
-    });
+        // Inject the whole content string into our existing HTML table
+        $('#deviceCommandList table tbody').html(tableContent);
+    } 
 }
 
+// function fillDeviceCommandList() {
+//     var deviceCommandListOptionsContent = '';
 
-function fillDeviceTypeDeviceCommandTable() {
-    var deviceTypeDeviceCommandTable = '';
+//     $.getJSON( '/device_commands/list', function( data ) {
 
-    var _id = $('#addDeviceType fieldset input#inputDeviceTypeId').val();
+//         deviceCommandListOptionsContent += '<option value="-1">[Выберите команду]</option>';
+//         $.each(data, function(){
+//             deviceCommandListOptionsContent += '<option value=' + this._id + '>';
+//             deviceCommandListOptionsContent += this.title + '   ' + this.name + '   ' + this.dname;
+//             deviceCommandListOptionsContent += '</option>';
+//         });
 
-    if (_id) {
+//         $('#inputDeviceCommand').html(deviceCommandListOptionsContent);
+//     });
+// }
 
-        $.getJSON( '/device_types/' + _id + '/device_commands/list', function( data ) {
 
-            $.each(data, function(){
-                tableContent += '<tr>';
-                tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '">' + this.username + '</a></td>';
-                tableContent += '<td>' + this.email + '</td>';
-                tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
-                tableContent += '</tr>';
-            });
+// function fillDeviceTypeDeviceCommandTable() {
+//     var deviceTypeDeviceCommandTable = '';
 
-            // Inject the whole content string into our existing HTML table
-            $('#userList table tbody').html(tableContent);
-        });
-    }
-}
+//     var _id = $('#addDeviceType fieldset input#inputDeviceTypeId').val();
 
-function addDeviceCommand(event) {
-    event.preventDefault();
-    // если есть _id - просто добавляем
-    // иначе         - создаём устройство, потом
-    var _id = $('#addDeviceType fieldset input#inputDeviceTypeId').val();
-    debugger;
-    var command_id = $('#inputDeviceCommand').val();
-    if (command_id != "-1") {
-        if (_id) {
-            // Use AJAX to post the object to our adduser service
-            $.ajax({
-                type: 'POST',
-                data: {'command_id': command_id},
-                url: '/device_types/' + _id + '/device_commands/add',
-                dataType: 'JSON'
-            }).done(function( response ) {
+//     if (_id) {
 
-                // Check for successful (blank) response
-                if (response.msg === '') {
-                    $('#createDeviceCommand fieldset input').val('');
-                    $('#createDeviceCommand').hide();
-                    fillDeviceCommandList();
-                    //window.location.replace("http://localhost:3000/device_types");
+//         $.getJSON( '/device_types/' + _id + '/device_commands/list', function( data ) {
 
-                }
-                else {
+//             $.each(data, function(){
+//                 tableContent += '<tr>';
+//                 tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '">' + this.username + '</a></td>';
+//                 tableContent += '<td>' + this.email + '</td>';
+//                 tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+//                 tableContent += '</tr>';
+//             });
 
-                    // If something goes wrong, alert the error message that our service returned
-                    alert('Error: ' + response.msg);
+//             // Inject the whole content string into our existing HTML table
+//             $('#userList table tbody').html(tableContent);
+//         });
+//     }
+// }
 
-                }
-            });
-        }        
-    }
-}
+// function addDeviceCommand(event) {
+//     event.preventDefault();
+//     // если есть _id - просто добавляем
+//     // иначе         - создаём устройство, потом
+//     var _id = $('#addDeviceType fieldset input#inputDeviceTypeId').val();
+//     debugger;
+//     var command_id = $('#inputDeviceCommand').val();
+//     if (command_id != "-1") {
+//         if (_id) {
+//             // Use AJAX to post the object to our adduser service
+//             $.ajax({
+//                 type: 'POST',
+//                 data: {'command_id': command_id},
+//                 url: '/device_types/' + _id + '/device_commands/add',
+//                 dataType: 'JSON'
+//             }).done(function( response ) {
 
-function openCreateDeviceCommand(event) {
-	event.preventDefault();
+//                 // Check for successful (blank) response
+//                 if (response.msg === '') {
+//                     $('#createDeviceCommand fieldset input').val('');
+//                     $('#createDeviceCommand').hide();
+//                     fillDeviceCommandList();
+//                     //window.location.replace("http://localhost:3000/device_types");
 
-	$('#createDeviceCommand').show();
-}
+//                 }
+//                 else {
 
-function createDeviceCommand(event) {
-	event.preventDefault();
-	// Super basic validation - increase errorCount variable if any fields are blank
-    var errorCount = 0;
-    $('#createDeviceCommand input').each(function(index, val) {
-        if($(this).val() === '') { errorCount++; }
-    });
+//                     // If something goes wrong, alert the error message that our service returned
+//                     alert('Error: ' + response.msg);
 
-    // Check and make sure errorCount's still at zero
-    if(errorCount === 0) {
+//                 }
+//             });
+//         }        
+//     }
+// }
 
-        // If it is, compile all user info into one object
-        var newDeviceCommand = {
-            'title': $('#createDeviceCommand fieldset input#inputDeviceCommandTitle').val(),
-            'name': $('#createDeviceCommand fieldset input#inputDeviceCommandName').val(),
-            'dname': $('#createDeviceCommand fieldset input#inputDeviceCommandDname').val(),
-        }
+// function openCreateDeviceCommand(event) {
+// 	event.preventDefault();
 
-        // Use AJAX to post the object to our adduser service
-        $.ajax({
-            type: 'POST',
-            data: newDeviceCommand,
-            url: '/device_commands/add',
-            dataType: 'JSON'
-        }).done(function( response ) {
+// 	$('#createDeviceCommand').show();
+// }
 
-            // Check for successful (blank) response
-            if (response.msg === '') {
-                $('#createDeviceCommand fieldset input').val('');
-                $('#createDeviceCommand').hide();
-                fillDeviceCommandList();
-                //window.location.replace("http://localhost:3000/device_types");
+// function createDeviceCommand(event) {
+// 	event.preventDefault();
+// 	// Super basic validation - increase errorCount variable if any fields are blank
+//     var errorCount = 0;
+//     $('#createDeviceCommand input').each(function(index, val) {
+//         if($(this).val() === '') { errorCount++; }
+//     });
 
-            }
-            else {
+//     // Check and make sure errorCount's still at zero
+//     if(errorCount === 0) {
 
-                // If something goes wrong, alert the error message that our service returned
-                alert('Error: ' + response.msg);
+//         // If it is, compile all user info into one object
+//         var newDeviceCommand = {
+//             'title': $('#createDeviceCommand fieldset input#inputDeviceCommandTitle').val(),
+//             'name': $('#createDeviceCommand fieldset input#inputDeviceCommandName').val(),
+//             'dname': $('#createDeviceCommand fieldset input#inputDeviceCommandDname').val(),
+//         }
 
-            }
-        });
-    }
-    else {
-        // If errorCount is more than 0, error out
-        alert('Please fill in all fields');
-        return false;
-    }
-}
+//         // Use AJAX to post the object to our adduser service
+//         $.ajax({
+//             type: 'POST',
+//             data: newDeviceCommand,
+//             url: '/device_commands/add',
+//             dataType: 'JSON'
+//         }).done(function( response ) {
+
+//             // Check for successful (blank) response
+//             if (response.msg === '') {
+//                 $('#createDeviceCommand fieldset input').val('');
+//                 $('#createDeviceCommand').hide();
+//                 fillDeviceCommandList();
+//                 //window.location.replace("http://localhost:3000/device_types");
+
+//             }
+//             else {
+
+//                 // If something goes wrong, alert the error message that our service returned
+//                 alert('Error: ' + response.msg);
+
+//             }
+//         });
+//     }
+//     else {
+//         // If errorCount is more than 0, error out
+//         alert('Please fill in all fields');
+//         return false;
+//     }
+// }
 
 function saveDeviceType(event) {
     event.preventDefault();
