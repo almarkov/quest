@@ -13,7 +13,7 @@ exports.types = {
 	door: {
 		commands: [ "close", "open"],
 		events:   [ ],
-		states:   [ "closed", "opened"]
+		states:   [ "closed", "opened", "no_info" ]
 	},
 	audio_player: {
 		commands: [ "stop_channel_1", "play_channel_1", "play_channel_2", "stop_channel_2" ],
@@ -44,7 +44,7 @@ if (REAL_MODE) {
 			port:          "3000",
 			state:         "idle",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			value:         5,
 			current_value: "",
 			commands:      [ "activate" ],
@@ -74,7 +74,7 @@ if (REAL_MODE) {
 			port:          "80",
 			state:         "closed",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 		},
 
 		// дверь 3
@@ -113,7 +113,7 @@ if (REAL_MODE) {
 			port:          "80",
 			state:         "closed",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 		},
 
 		// дверь 6
@@ -165,7 +165,7 @@ if (REAL_MODE) {
 			state:         "off",
 			value:         "",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			commands:      [ "off", "on" ],
 			states:        [ "off", "on" ],	
 		},
@@ -182,7 +182,7 @@ if (REAL_MODE) {
 			wd_enabled:    1,
 			commands:      [ "deactivate", "activate" ],
 			events:        [ "disconnected", "activated", "connected" ],
-			states:        [ "disconnected", "activated",  "connected"],
+			states:        [ "disconnected", "activated",  "connected_link_ok", "connected_no_link" ],
 		},
 
 		// свет
@@ -210,7 +210,7 @@ if (REAL_MODE) {
 			state:         "number_of_fastened",
 			value:         0,
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			events:        [ "", "number_of_fastened" ],
 			states:        [ "number_of_fastened" ],
 		},
@@ -224,7 +224,7 @@ if (REAL_MODE) {
 			port:          "80",
 			state:         "off",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			commands:      [ "off", "on" ],
 			events:        [ "off", "on" ],
 			states:        [ "off", "on" ],
@@ -304,7 +304,7 @@ if (REAL_MODE) {
 			port:          "80",
 			state:         "number_of_inserted",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			value:         0,
 			commands:      [ "backlight_off", "backlight_on" ],
 			events:        [ "", "number_of_inserted" ],
@@ -334,7 +334,7 @@ if (REAL_MODE) {
 			port:          "80",
 			state:         "not_passed",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			commands:      [ "reset" ],
 			events:        [ "", "card_ok" ], 
 			states:        [ "not_passed", "passed" ],	
@@ -349,7 +349,7 @@ if (REAL_MODE) {
 			port:          "80",
 			state:         "not_passed",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			events:        [ "", "power_ok" ], 
 			states:        [ "not_passed", "passed" ],	
 		},
@@ -357,55 +357,55 @@ if (REAL_MODE) {
 		// видеоплеер 1
 		{
 			id:            0,
-			carrier_id:    '666',
+			carrier_id:    666,
 			name:          "video_player_1",
 			type:          "video_player",
 			ip:            "192.168.20.205",
 			port:          "8070",
 			state:         "stopped",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			value:         ""
 		},
 
 		// видеоплеер 2
 		{
 			id:            0,
-			carrier_id:    '667',
+			carrier_id:    667,
 			name:          "video_player_2",
 			type:          "video_player",
 			ip:            "192.168.20.206",
 			port:          "8070",
 			state:         "stopped",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			value:         ""
 		},
 
 		// видеоплеер 3
 		{
 			id:            0,
-			carrier_id:    '668',
+			carrier_id:    668,
 			name:          "video_player_3",
 			type:          "video_player",
 			ip:            "192.168.20.204",
 			port:          "8070",
 			state:         "stopped",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			value:         ""
 		},
 
 		// терминал ввода персонального кода
 		{
 			id:            0,
-			carrier_id:    '865',
+			carrier_id:    865,
 			name:          "terminal_1",
 			ip:            "192.168.20.180",
 			port:          "8070",
 			state:         "sleep",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			value:         "",
 			events:        [ "", "code_entered" ],
 			commands:      [ "black_screen", "go" ],
@@ -415,13 +415,13 @@ if (REAL_MODE) {
 		// терминал поиска зелёных квадратов
 		{
 			id:            0,
-			carrier_id:    '866',
+			carrier_id:    866,
 			name:          "terminal_2",
 			ip:            "192.168.20.181",
 			port:          "8070",
 			state:         "sleep",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			value:         "",
 			events:        [ "game_failed", "game_passed" ],
 			commands:      [ "black_screen", "go" ],
@@ -431,13 +431,13 @@ if (REAL_MODE) {
 		// терминал игры светлячок
 		{
 			id:            0,
-			carrier_id:    '867',
+			carrier_id:    867,
 			name:          "terminal_3",
 			ip:            "192.168.20.183",
 			port:          "8070",
 			state:         "sleep",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			value:         "",
 			events:        [ "", "game_passed" ],
 			commands:      [ "black_screen", "go" ],
@@ -447,13 +447,13 @@ if (REAL_MODE) {
 		// терминал ввода кординат
 		{
 			id:            0,
-			carrier_id:    '868',
+			carrier_id:    868,
 			name:          "terminal_4",
 			ip:            "192.168.20.182",
 			port:          "8070",
 			state:         "sleep",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			value:         "",
 			events:        [ "coordinates_entered_fail", "coordinates_entered_true" ],
 			commands:      [ "black_screen", "go" ],
@@ -463,42 +463,42 @@ if (REAL_MODE) {
 		// аудиоплеер 1
 		{
 			id:            0,
-			carrier_id:    '768',
+			carrier_id:    768,
 			name:          "audio_player_1",
 			type:          "audio_player",
 			ip:            "192.168.20.193",
 			port:          "8070",
 			state:         "ch1_stop_ch2_stop",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			value:         ""
 		},
 
 		// аудиоплеер 2
 		{
 			id:            0,
-			carrier_id:    '767',
+			carrier_id:    767,
 			name:          "audio_player_2",
 			type:          "audio_player",
 			ip:            "192.168.20.192",
 			port:          "8070",
 			state:         "ch1_stop_ch2_stop",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			value:         ""
 		},
 
 		// аудиоплеер 3
 		{
 			id:            0,
-			carrier_id:    '766',
+			carrier_id:    766,
 			name:          "audio_player_3",
 			type:          "audio_player",
 			ip:            "192.168.20.191",
 			port:          "8070",
 			state:         "ch1_stop_ch2_stop",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			value:         ""
 		},
 
@@ -506,14 +506,14 @@ if (REAL_MODE) {
 		// аудиоплеер 4
 		{
 			id:            0,
-			carrier_id:    '765',
+			carrier_id:    765,
 			name:          "audio_player_4",
 			type:          "audio_player",
 			ip:            "192.168.20.190",
 			port:          "8070",
 			state:         "ch1_stop_ch2_stop",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			value:         ""
 		},
 
@@ -526,7 +526,7 @@ if (REAL_MODE) {
 			port:          "80",
 			state:         "off",
 			wd_state:      3,
-			wd_enabled:    1,
+			wd_enabled:    0,
 			commands:      [ "off", "on" ], 
 			states:        [ "off", "on" ],	
 		},
@@ -1104,7 +1104,7 @@ exports.video_files = [
 	{
 		alias:       'video1',
 		description: 'подсказка о том, как активировать многогранник',
-		value:       'file=mnt/sda/6.mp4&repeat=0',
+		value:       'file=mnt/sda1/6.mp4&repeat=0',
 	},
 	{
 		alias:       'video2',
@@ -1124,7 +1124,7 @@ exports.video_files = [
 	{
 		alias:       'video5',
 		description: 'межзвездный прыжок',
-		value:       'file=mnt/sda/7.mp4&repeat=0',
+		value:       'file=mnt/sda1/7.mp4&repeat=0',
 	},
 	{
 		alias:       'video6',
@@ -1149,17 +1149,17 @@ exports.video_files = [
 	{
 		alias:       'video10',
 		description: 'статичные символы',
-		value:       'foo',
+		value:       'file=mnt/sda1/10.mp4&repeat=0',
 	},
 	{
 		alias:       'video11',
 		description: 'crazy_frog',
-		value:       'foo',
+		value:       'file=mnt/sda1/11.mp4&repeat=0',
 	},
 	{
 		alias:       'video12',
 		description: 'crazy_frog2',
-		value:       'foo',
+		value:       'file=mnt/sda1/12.mp4&repeat=0',
 	},
 ];
 
@@ -1273,29 +1273,29 @@ exports.audio_files = [
 	{
 		alias:       'audio22',
 		description: 'легенда',
-		value:       'foo',
+		value:       'file=mnt/sdcard/Audio/audio22.mp3&repeat=0',
 	},
 	{
 		alias:       'audio23',
 		description: 'треск и искры',
-		value:       'foo',
+		value:       'file=mnt/sdcard/Audio/audio23.wav&repeat=1',
 	},
 ];
 
 // время таймера
 exports.default_timer_value = '1';
 exports.timeouts = {
-	T1: 15,
+	T1: 5,
 	T2: 5,
-	T3: 10,
-	T4: 10,
+	T3: 5,
+	T4: 5,
 	T5: 5,
-	A:  15,
-	B:  10,
-	C:  5,
-	D:  10,
-	E:  10,
-	CHECK_TIME: 15,
+	A:  3,
+	B:  15,
+	C:  8,
+	D:  5,
+	E:  3,
+	CHECK_TIME: 10,
 	SOCKET_WAIT_TIME: 1,
 }
 
@@ -1307,7 +1307,7 @@ exports.enable_reload = 1;
 exports.coordinates = '9847544';
 
 // порт для включения/выключения arduino
-exports.com_port = '20';
+exports.com_port = 'COM4';
 
-exports.wd_error_timeout = 300;
+exports.wd_error_timeout = 100;
 exports.wd_multiplicator = 1;

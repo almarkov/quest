@@ -52,7 +52,7 @@ router.get('/coordinates_entered_fail/:coordinates', function(req, res, next) {
 router.get('/coordinates_entered_true/:coordinates', function(req, res, next) {
 
 	var now = new Date();
-	var diff = now - start_time;
+	var diff = now - gamers.start_time;
 	var m = diff/(60 * 1000);
 
 	gamers.set_game_state('quest_completed', m.toString()); // квест пройден
