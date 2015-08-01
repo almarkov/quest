@@ -180,11 +180,31 @@ $(document).ready(function() {
 				}
 
 				// ячейки
+				var codes = [];
+				codes[5] = response.codes[4];// фиолетовая
+				// хак
+				if (gamers.count == 2) {
+					codes[4] = response.codes[0];
+					codes[1] = response.codes[1];
+					codes[2] = '';
+					codes[3] = '';
+				} else if (gamers.count == 3) {
+					codes[4] = response.codes[1];
+					codes[1] = response.codes[0];
+					codes[2] = response.codes[2];
+					codes[3] = '';
+				} else if (gamers.count == 4) {
+					codes[4] = response.codes[2];
+					codes[1] = response.codes[0];
+					codes[2] = response.codes[1];
+					codes[3] = response.codes[3];
+				}
+
 				for (var i = 1; i <= 5; i++) {
 					if (response["cell_" + i].state == "opened") {
-						$("#inpCell" + i + "State").val('Открыта. ' + response.codes[i-1]);
+						$("#inpCell" + i + "State").val('Открыта. ' + codes[i]);
 					} else if (response["cell_" + i].state == "closed") {
-						$("#inpCell" + i + "State").val('Закрыта. ' + response.codes[i-1] ;
+						$("#inpCell" + i + "State").val('Закрыта. ' + codes[i]);
 					}
 				}
 

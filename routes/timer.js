@@ -346,7 +346,7 @@ router.get('/ready', function(req, res, next) {
 			},{}
 		);
 
-		helpers.send_get('door_3', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX);
+		helpers.send_get('door_3', 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);
 
 		return;
 	}

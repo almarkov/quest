@@ -55,6 +55,11 @@ ul.DashBoard li {
 	font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.SmallInput2 {
+	width: 30px;
+}
+
+
 .Input3 {
 	font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
 	width: 190px;
