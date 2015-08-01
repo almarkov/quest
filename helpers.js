@@ -51,8 +51,16 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 			if (cb) {
 				cb(params || {});
 			}
-
 			simple_log(device_name +  " " + command + " error");
+
+			http.get(query, function(res) {
+					res.on('data', function(data){
+					});
+				}).on('error', function(e) {
+					simple_log("second attempt" + device_name +  " " + command + " error");
+			});
+
+
 	});
 }
 
