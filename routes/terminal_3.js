@@ -28,6 +28,16 @@ router.get('/game_passed/:code', function(req, res, next) {
 	res.json({success: 1});
 });
 
+router.get('/force/:parameter', function(req, res, next) {
+
+	helpers.send_get('terminal_3', 'go', "0", DISABLE_TIMER, ENABLE_MUTEX,
+		function(params){
+			devices.get('terminal_3').state = 'active';
+		}, {}
+	);
+	res.json({success: 1});
+});
+
 //-----------------------------------------------------------------------------
 // эмулятор планшета
 //-----------------------------------------------------------------------------

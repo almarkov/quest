@@ -20,7 +20,7 @@ input:disabled.BType_01 {color:#999}
 
 
 .DashBoard input.Active {border-color:red;}
-.Commands ul, ul.DashBoard {  list-style-type: none;}
+.Commands ul, ul.DashBoard {  list-style-type: none; }
 
 
 .col1 { position: absolute; width: 324px; }
@@ -30,6 +30,9 @@ input:disabled.BType_01 {color:#999}
 
 ul.DashBoard li {
   display: inline-block;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-right: 5px;
 }
 
 .Device {
@@ -43,8 +46,12 @@ ul.DashBoard li {
 	font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.InputShort {
+	width: 20px;
+}
+
 .Input2 {
-	width: 110px;
+	width: 80px;
 	font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -69,7 +76,7 @@ ul.DashBoard li {
 .Device div.Commands {
 	position: relative;
 	left: 22px;
-	width: 200px;
+	width: 300px;
 	height: 66px;
 }
 
@@ -80,6 +87,7 @@ ul.DashBoard li {
 
 .Device div.Commands ul li{
 	display: inline-block;
+	margin-right: 10px;
 }
 
 

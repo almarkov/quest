@@ -182,7 +182,7 @@ if (REAL_MODE) {
 			wd_enabled:    1,
 			commands:      [ "deactivate", "activate" ],
 			events:        [ "disconnected", "activated", "connected" ],
-			states:        [ "disconnected", "activated",  "connected_link_ok", "connected_no_link" ],
+			states:        [ "not_installed", "activated",  "installed_no_link", "installed_link_ok" ],
 		},
 
 		// свет

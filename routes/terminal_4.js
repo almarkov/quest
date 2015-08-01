@@ -49,6 +49,16 @@ router.get('/coordinates_entered_fail/:coordinates', function(req, res, next) {
 	res.json({success: 1});
 });
 
+router.get('/force/:parameter', function(req, res, next) {
+
+	helpers.send_get('terminal_4', 'go', "0/right=" + config.coordinates, DISABLE_TIMER, ENABLE_MUTEX,
+		function(params){
+			devices.get('terminal_4').state = 'active';
+		}, {}
+	);
+	res.json({success: 1});
+});
+
 router.get('/coordinates_entered_true/:coordinates', function(req, res, next) {
 
 	var now = new Date();

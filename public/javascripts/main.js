@@ -182,9 +182,9 @@ $(document).ready(function() {
 				// ячейки
 				for (var i = 1; i <= 5; i++) {
 					if (response["cell_" + i].state == "opened") {
-						$("#inpCell" + i + "State").val('Открыта');
+						$("#inpCell" + i + "State").val('Открыта. ' + response.codes[i-1]);
 					} else if (response["cell_" + i].state == "closed") {
-						$("#inpCell" + i + "State").val('Закрыта');
+						$("#inpCell" + i + "State").val('Закрыта. ' + response.codes[i-1] ;
 					}
 				}
 
@@ -209,11 +209,13 @@ $(document).ready(function() {
 
 				// многогранник
 				if (response['polyhedron'].state == "activated") {
-					$("#inpPolyhedron").val('Активен');
-				} else if (response['polyhedron'].state == "disconnected") {
-					$("#inpPolyhedron").val('Неактивен');
-				} else if (response['polyhedron'].state == "connected") {
-					$("#inpPolyhedron").val('На подставке');
+					$("#inpPolyhedron").val('Активирован');
+				} else if (response['polyhedron'].state == "not_installed") {
+					$("#inpPolyhedron").val('Не на подставке');
+				} else if (response['polyhedron'].state == "installed_no_link") {
+					$("#inpPolyhedron").val('На подставке, нет связи');
+				} else if (response['polyhedron'].state == "installed_link_ok") {
+					$("#inpPolyhedron").val('На подставке, на связи');
 				}
 
 				// свет
@@ -306,13 +308,13 @@ $(document).ready(function() {
 
 				$("#QuestState").text(response.quest_state);
 				//$("#QuestError").text(response.quest_error);
-				if (response.codes) {
-					var codes = '';
-					for (var i = 0; i < response.codes.length; i++) {
-						codes += response.codes[i] + ',';
-					}
-					$("#QuestCodes").text(codes);
-				}
+				// if (response.codes) {
+				// 	var codes = '';
+				// 	for (var i = 0; i < response.codes.length; i++) {
+				// 		codes += response.codes[i] + ',';
+				// 	}
+				// 	$("#QuestCodes").text(codes);
+				// }
 				//$("#LastPlayerPass").text(response.last_player_pass ? "Прошёл" : "Не прошёл");
 
 			},
@@ -683,7 +685,7 @@ function set_handlers() {
 	// Кнопка открывающая шкаф
 	$('#Main .Locker2 .Open').click(function(e){
 		$.ajax({
-			url: build_query('locker_1_button', 'pushed', '0'),
+			url: build_query('locker_2', 'open', '0'),
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
@@ -695,6 +697,23 @@ function set_handlers() {
 				}
 		});
 	});
+
+	// Кнопка открывающая шкаф
+	$('#Main .Locker2 .Close').click(function(e){
+		$.ajax({
+			url: build_query('locker_2', 'close', '0'),
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('button pushed');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	});
+
 
 	//-----------------------------------------------------------------------------
 	// Кнопки, эмулирующие устройства
@@ -715,20 +734,20 @@ function set_handlers() {
 		});
 	});
 	// Кнопка 'Деактивировать многогранник'
-	$('#Main .Polyhedron .Off').click(function(e){
-		$.ajax({
-			url: build_query('polyhedron', 'disconnected', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('rack deactivated');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
-	});
+	// $('#Main .Polyhedron .Off').click(function(e){
+	// 	$.ajax({
+	// 		url: build_query('polyhedron', 'disconnected', '0'),
+	// 		type: "GET",
+	// 		crossDomain: true,
+	// 		dataType: "json",
+	// 			success: function (response) {
+	// 				console.log('rack deactivated');
+	// 			},
+	// 			error: function(error) {
+	// 				console.log('ERROR:', error);
+	// 			}
+	// 	});
+	// });
 	// Кнопка 'Поставить многогранник'
 	$('#Main .Polyhedron .Stand').click(function(e){
 		$.ajax({
@@ -762,25 +781,25 @@ function set_handlers() {
 		});
 	});
 	// Кнопка 'отстегнуть ремни'
-	$('#Main .SafetyBelts .Off').click(function(e){
-		$.ajax({
-			url: build_query('safety_belts', 'number_of_fastened', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
-	});
+	// $('#Main .SafetyBelts .Off').click(function(e){
+	// 	$.ajax({
+	// 		url: build_query('safety_belts', 'number_of_fastened', '0'),
+	// 		type: "GET",
+	// 		crossDomain: true,
+	// 		dataType: "json",
+	// 			success: function (response) {
+	// 				console.log('button pushed');
+	// 			},
+	// 			error: function(error) {
+	// 				console.log('ERROR:', error);
+	// 			}
+	// 	});
+	// });
 
 	// Кнопка 'вставить жетоны'
 	$('#Main .Figure .Insert').click(function(e){
 		$.ajax({
-			url: build_query('figure', 'number_of_inserted', $("#inpFigure").val()),
+			url: build_query('figure', 'number_of_inserted', 9),
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
@@ -810,20 +829,20 @@ function set_handlers() {
 	});
 
 	// Кнопка 'сбросить карту'
-	$('#Main .CardReader .Reset').click(function(e){
-		$.ajax({
-			url: build_query('card_reader', 'reset', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
-	});
+	// $('#Main .CardReader .Reset').click(function(e){
+	// 	$.ajax({
+	// 		url: build_query('card_reader', 'reset', '0'),
+	// 		type: "GET",
+	// 		crossDomain: true,
+	// 		dataType: "json",
+	// 			success: function (response) {
+	// 				console.log('button pushed');
+	// 			},
+	// 			error: function(error) {
+	// 				console.log('ERROR:', error);
+	// 			}
+	// 	});
+	// });
 
 	// Кнопка 'включить свет'
 	$('#Main .Light .On').click(function(e){
@@ -1015,10 +1034,10 @@ function set_handlers() {
 				}
 		});
 	});
-	// Кнопка 'Отправить неверно' - для отправки координат на планшете4
-	$('#Main .Terminal4 .SendRWrong').click(function(e){
+	// кнопки терминалов запустить принудительно
+	$('#Main .Terminal1 .Force').click(function(e){
 		$.ajax({
-			url: build_query('terminal_4', 'coordinates_entered_false', '0'),
+			url: build_query('terminal_1', 'force', '0'),
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
@@ -1030,6 +1049,65 @@ function set_handlers() {
 				}
 		});
 	});
+	$('#Main .Terminal2 .Force').click(function(e){
+		$.ajax({
+			url: build_query('terminal_2', 'force', '0'),
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('cell enter');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	});
+	$('#Main .Terminal3 .Force').click(function(e){
+		$.ajax({
+			url: build_query('terminal_3', 'force', '0'),
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('cell enter');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	});
+	$('#Main .Terminal4 .Force').click(function(e){
+		$.ajax({
+			url: build_query('terminal_4', 'force', '0'),
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('cell enter');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	});
+
+
+	// // Кнопка 'Отправить неверно' - для отправки координат на планшете4
+	// $('#Main .Terminal4 .SendRWrong').click(function(e){
+	// 	$.ajax({
+	// 		url: build_query('terminal_4', 'coordinates_entered_false', '0'),
+	// 		type: "GET",
+	// 		crossDomain: true,
+	// 		dataType: "json",
+	// 			success: function (response) {
+	// 				console.log('cell enter');
+	// 			},
+	// 			error: function(error) {
+	// 				console.log('ERROR:', error);
+	// 			}
+	// 	});
+	// });
 	//-----------------------------------------------------------------------------
 	// Кнопки, эмулирующие ячейки
 	//-----------------------------------------------------------------------------

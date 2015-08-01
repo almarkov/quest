@@ -44,12 +44,12 @@
 				<!-- <li>
 					<label for="QuestError" class="Label2">Ошибка: </label>
 					<span id="QuestError">NA</span>
-				</li> -->
+				</li>
 				<li>
 					<label for="QuestCodes" class="Label2">Коды игроков: </label>
 					<span id="QuestCodes">NA</span>
 				</li>
-				<!-- <li>
+				<li>
 					<label for="LastPlayerPass" class="Label2">Предпоследний игрок: </label>
 					<span id="LastPlayerPass">NA</span>
 				</li> -->
@@ -59,7 +59,7 @@
 				<li><input type="button" class="AllIn BType_01" value="Все зашли внутрь"></li>
 				<li><input type="button" class="PolyhedronPrompt BType_01" value="Подсказка по многраннику"></li>
 				<li><input type="button" class="Queue BType_01" value="Аудио 'в очередь'"></li>
-				<li><input type="button" class="StartScan BType_01" value="Сканировать человека"></li>
+				<li><input type="button" class="StartScan BType_01" value="Сканировать игрока"></li>
 				<li><input type="button" class="StopScan BType_01" value="Закончить сканирование игрока"></li>
 				<!-- <li><input type="button" class="StopScanAll BType_01" value="Продолжить квест"></li>
 				<li><input type="button" class="ClosePowerWall BType_01" value="Закрыть дверь в комнату с энергостеной и продолжить"></li> -->
@@ -112,7 +112,7 @@
 				<div class="Commands">
 					<ul class='Polyhedron'>
 						<li><a class="On BType_01"><span>Активировать</span></a></li>
-						<li><a class="Off BType_01"><span>Деактивировать</span></a></li>
+						<!-- <li><a class="Off BType_01"><span>Деактивировать</span></a></li> -->
 						<li><a class="Stand BType_01"><span>Поставить</span></a></li>
 					</ul>
 				</div>
@@ -150,8 +150,8 @@
 
 				<div class="Commands">
 					<ul class='SafetyBelts'>
-						<li><a class="On BType_01"><span>Застегнуть</span></a></li>
-						<li><a class="Off BType_01"><span>Отстегнуть</span></a></li>
+						<li><a class="On BType_01"><span>Пристегнуть достаточное количество</span></a></li>
+						<!-- <li><a class="Off BType_01"><span>Отстегнуть</span></a></li> -->
 					</ul>
 				</div>
 			</div>
@@ -182,7 +182,7 @@
 				</div>
 
 				<div class="State">
-					<label for="inpInfMirrorBacklight" class="Label1">Подсветка</label>
+					<label for="inpInfMirrorBacklight" class="Label1">Зеркало</label>
 					<input type="text" name="inf_mirror_backlight" value="" id="inpInfMirrorBacklight" class="Input2" />
 					<input type="text" name="inf_mirror_backlight_state" value="" id="inpInfMirrorBacklightState" class="Input1" disabled/>
 				</div>
@@ -203,13 +203,12 @@
 
 				<div class="State">
 					<label for="inpFigure" class="Label1">Статуя</label>
-					<input type="text" name="figure" value="" id="inpFigure" class="Input2" />
 					<input type="text" name="figure_state" value="" id="inpFigureState" class="Input1" disabled/>
 				</div>
 
 				<div class="Commands">
 					<ul class='Figure'>
-						<li><a class="Insert BType_01"><span>Вставить</span></a></li>
+						<li><a class="Insert BType_01"><span>Вставить достаточное количество</span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -221,7 +220,7 @@
 				</div>
 
 				<div class="State">
-					<label for="inpLocker2" class="Label1">Шкаф RFID</label>
+					<label for="inpLocker2" class="Label1">Кубик</label>
 					<input type="text" name="locker_2" value="" id="inpLocker2" class="Input1" disabled/>
 				</div>
 
@@ -247,7 +246,7 @@
 				<div class="Commands">
 					<ul class='CardReader'>
 						<li><a class="Ok BType_01"><span>Ок</span></a></li>
-						<li><a class="Reset BType_01"><span>Сбросить</span></a></li>
+						<!-- <li><a class="Reset BType_01"><span>Сбросить</span></a></li> -->
 					</ul>
 				</div>
 			</div>
@@ -299,14 +298,15 @@
 				</div>
 
 				<div class="State">
-					<label for="inpTerminal1State" class="Label1">Планшет1</label>
-					<input type="text" name="terminal_1" value="" id="inpTerminal1" class="Input1" />
+					<label for="inpTerminal1State" class="Label1">Планшет ввода перс. кода</label>
+					<input type="text" name="terminal_1" value="" id="inpTerminal1" class="Input1 InputShort" />
 					<input type="text" name="terminal_1_state" value="" id="inpTerminal1State" class="Input1" disabled/>
 				</div>
 
 				<div class="Commands">
 					<ul class='Terminal1'>
 						<li><a class="SendRight BType_01"><span>Отправить код (без ошибки)</span></a></li>
+						<li><a class="Force BType_01"><span>Запустить принудительно</span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -326,6 +326,7 @@
 					<ul class='Terminal2'>
 						<li><a class="SendRight BType_01"><span>Успешно</span></a></li>
 						<li><a class="SendWrong BType_01"><span>Неуспешно</span></a></li>
+						<li><a class="Force BType_01"><span>Запустить принудительно</span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -345,6 +346,7 @@
 					<ul class='Terminal3'>
 						<li><a class="SendRight BType_01"><span>Успешно</span></a></li>
 						<li><a class="SendWrong BType_01"><span>Неуспешно</span></a></li>
+						<li><a class="Force BType_01"><span>Запустить принудительно</span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -356,15 +358,16 @@
 				</div>
 
 				<div class="State">
-					<label for="inpTerminal4" class="Label1">Планшет4</label>
-					<input type="text" name="terminal_4" value="" id="inpTerminal4" class="Input1" />
+					<label for="inpTerminal4" class="Label1">Планшет ввода координат</label>
+					<!-- <input type="text" name="terminal_4" value="" id="inpTerminal4" class="Input1 InputShort" /> -->
 					<input type="text" name="terminal_4_state" value="" id="inpTerminal4State" class="Input1" disabled/>
 				</div>
 
 				<div class="Commands">
 					<ul class='Terminal4'>
 						<li><a class="SendRight BType_01"><span>Верно</span></a></li>
-						<li><a class="SendWrong BType_01"><span>Неверно</span></a></li>
+						<li><a class="Force BType_01"><span>Запустить принудительно</span></a></li>
+						<!-- <li><a class="SendWrong BType_01"><span>Неверно</span></a></li> -->
 					</ul>
 				</div>
 			</div>
@@ -376,7 +379,7 @@
 				</div>
 
 				<div class="State">
-					<label for="inpCell1" class="Label1">Ячейка №1</label>
+					<label for="inpCell1" class="Label1">Красная ячейка</label>
 					<input type="text" name="cell_1" value="" id="inpCell1" class="Input2" />
 					<input type="text" name="cell_1_state" value="" id="inpCell1State" class="Input1" disabled/>
 				</div>
@@ -396,7 +399,7 @@
 				</div>
 
 				<div class="State">
-					<label for="inpCell2" class="Label1">Ячейка №2</label>
+					<label for="inpCell2" class="Label1">Зелёная ячейка</label>
 					<input type="text" name="cell_2" value="" id="inpCell2" class="Input2" />
 					<input type="text" name="cell_2_state" value="" id="inpCell2State" class="Input1" disabled/>
 				</div>
@@ -416,7 +419,7 @@
 				</div>
 
 				<div class="State">
-					<label for="inpCell3" class="Label1">Ячейка №3</label>
+					<label for="inpCell3" class="Label1">Жёлтая ячейка</label>
 					<input type="text" name="cell_3" value="" id="inpCell3" class="Input2" />
 					<input type="text" name="cell_3_state" value="" id="inpCell3State" class="Input1" disabled/>
 				</div>
@@ -437,7 +440,7 @@
 				</div>
 
 				<div class="State">
-					<label for="inpCell4" class="Label1">Ячейка №4</label>
+					<label for="inpCell4" class="Label1">Синяя ячейка</label>
 					<input type="text" name="cell_4" value="" id="inpCell4" class="Input2" />
 					<input type="text" name="cell_4_state" value="" id="inpCell4State" class="Input1" disabled/>
 				</div>
@@ -459,7 +462,7 @@
 				</div>
 
 				<div class="State">
-					<label for="inpCell5" class="Label1">Ячейка №5</label>
+					<label for="inpCell5" class="Label1">Фиолетовая ячейка</label>
 					<input type="text" name="cell_5" value="" id="inpCell5" class="Input2" />
 					<input type="text" name="cell_5_state" value="" id="inpCell5State" class="Input1" disabled/>
 				</div>

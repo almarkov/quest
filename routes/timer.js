@@ -108,7 +108,7 @@ router.get('/ready', function(req, res, next) {
 			} else if (err_cnt > 1) {
 				// Сбои в работе устройств
 				gamers.set_game_state('devices_error', errors);
-			} else
+			} else {
 				// Все устройства работают нормально
 				gamers.game_state = 'devices_ok';
 
