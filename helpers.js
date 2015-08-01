@@ -51,13 +51,15 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 			if (cb) {
 				cb(params || {});
 			}
-			simple_log(device_name +  " " + command + " error");
+			simple_log(device_name +  " " + command + " timeout");
 
 			http.get(query, function(res) {
 					res.on('data', function(data){
 					});
 				}).on('error', function(e) {
-					simple_log("second attempt" + device_name +  " " + command + " error");
+					simple_log("second attempt " + device_name +  " " + command + " error");
+				}).setTimeout( helpers.get_timeout('SOCKET_WAIT_TIME')*1000, function( ) {
+					simple_log("second attempt " + device_name +  " " + command + " timeout");
 			});
 
 
