@@ -90,15 +90,25 @@ router.get('/ready', function(req, res, next) {
 		// проверяем через 15с
 		setTimeout(function () {
 			var errors = '';
+			var err_cnt = 0;
 			for (var i = 0; i < devices.list.length; i++) {
 				if (!devices.list[i].wd_state) {
 					errors += devices.list[i].name;
+					err_cnt += 1;
 				}
 			}
-			if (errors) {
+			if (err_cnt == 1) {
+				// Сбои в работе устройств
+				gamers.set_game_state('devices_small_error', errors);
+
+				gamers.wd_on = 1;
+
+				gamers.dashboard_buttons.GetReady = 1;
+				gamers.dashboard_buttons.ServiceMode = 1;
+			} else if (err_cnt > 1) {
 				// Сбои в работе устройств
 				gamers.set_game_state('devices_error', errors);
-			} else {
+			} else
 				// Все устройства работают нормально
 				gamers.game_state = 'devices_ok';
 
@@ -227,6 +237,8 @@ router.get('/ready', function(req, res, next) {
 			
 
 			gamers.set_game_state('scan_invitation', (player_num + 1).toString()); // Приглашение на сканирование
+			gamers.dashboard_buttons.Queue = 1;
+			gamers.active_button = 'Queue';
 			// открываем дверь 2
 			helpers.send_get('door_2', 'open', '0', helpers.get_timeout('C'), ENABLE_MUTEX); 
 
@@ -293,6 +305,8 @@ router.get('/ready', function(req, res, next) {
 		var player_num = parseInt(gamers.game_states['scaning_outlaw_ending'].arg) + 1;
 		gamers.set_game_state('scan_invitation', player_num.toString()); // Приглашение на сканирование
 
+		gamers.dashboard_buttons.Queue = 1;
+		gamers.active_button = 'Queue';
 	
 		// открываем дверь 2
 		helpers.send_get('door_2', 'open', '0', helpers.get_timeout('C'), ENABLE_MUTEX); 
@@ -331,6 +345,8 @@ router.get('/ready', function(req, res, next) {
 				device.state = 'playing';
 			},{}
 		);
+
+		helpers.send_get('door_3', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX);
 
 		return;
 	}

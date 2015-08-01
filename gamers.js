@@ -133,6 +133,10 @@ exports.game_states = {
 		title: 'Сбои в работе устройств: arg Запуск квеста невозможен',
 		arg: '',
 	},
+	devices_small_error: {
+		title: 'Сбои в работе устройств: arg Запуск квеста нежелателен',
+		arg: '',
+	},
 	devices_ok: {
 		title: 'Все устройства работают нормально',
 		arg: '',
@@ -316,6 +320,7 @@ exports.dashboard_buttons = {
 	StopScanAll:      0,
 	ClosePowerWall:   0,
 	PolyhedronPrompt: 0,
+	Queue:            0,
 };
 
 
@@ -343,6 +348,7 @@ exports.reset = function() {
 		StopScanAll:      0,
 		ClosePowerWall:   0,
 		PolyhedronPrompt: 0,
+		Queue:            0,
 	};
 	exports.start_time = null;
 	if (exports.intervalObject) {

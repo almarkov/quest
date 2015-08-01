@@ -15,6 +15,14 @@ router.get('/game_passed/:code', function(req, res, next) {
 				devices.get('door_7').state = 'opened';
 			}, {}
 		);
+
+		helpers.send_get('audio_player_4', 'play_channel_2', config.audio_files[24].value, DISABLE_TIMER, ENABLE_MUTEX,
+			function(params){
+				var device   = devices.get('audio_player_4');
+				device.value = config.audio_files[24].alias;
+				device.state = "ch1_play_ch2_play";
+			}, {}
+		);
 	}
 
 	res.json({success: 1});

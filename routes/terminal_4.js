@@ -55,6 +55,7 @@ router.get('/coordinates_entered_true/:coordinates', function(req, res, next) {
 	var diff = now - gamers.start_time;
 	var m = diff/(60 * 1000);
 
+	gamers.start_time = null;
 	gamers.set_game_state('quest_completed', m.toString()); // квест пройден
 
 	// открываем дверь 1

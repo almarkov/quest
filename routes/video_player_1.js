@@ -86,6 +86,8 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 			}, {}
 		);
 
+		gamers.dashboard_buttons.Queue = 1;
+		gamers.active_button = 'Queue';
 		// открываем дверь 2
 		helpers.send_get('door_2', 'open', '0', helpers.get_timeout('C'), ENABLE_MUTEX); 
 

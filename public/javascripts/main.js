@@ -152,6 +152,8 @@ $(document).ready(function() {
 						$("#inpDoor" + i).val('Открыта');
 					} else if (response["door_" + i].state == "closed") {
 						$("#inpDoor" + i).val('Закрыта');
+					} else if (response["door_" + i].state == "no_info") {
+						$("#inpDoor" + i).val('Неизвестно');
 					}
 				}
 
@@ -274,9 +276,9 @@ $(document).ready(function() {
 				external_config.forEach(function f(device) {
 					var element = device.name;
 					// хак
-					var device_element = $("[name=" + element + "]");
+					var device_element = $("[name=" + element + "_state]");
 					if (!device_element.length) {
-						device_element = $("[name=" + element + "_state]");
+						device_element = $("[name=" + element);
 					}
 					// хак
 					var element_state = $("[name=" + element + "]").parent().parent().find(".Status");
@@ -664,6 +666,22 @@ function set_handlers() {
 	//-----------------------------------------------------------------------------
 	// Кнопка открывающая шкаф
 	$('#Main .Locker1Button .Push').click(function(e){
+		$.ajax({
+			url: build_query('locker_1_button', 'pushed', '0'),
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('button pushed');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	});
+
+	// Кнопка открывающая шкаф
+	$('#Main .Locker2 .Open').click(function(e){
 		$.ajax({
 			url: build_query('locker_1_button', 'pushed', '0'),
 			type: "GET",

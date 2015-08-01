@@ -6,6 +6,7 @@ var http   = require('http');
 router.get('/start', function(req, res, next) {
 
 	gamers.dashboard_buttons.StartScan = 0;
+	gamers.dashboard_buttons.Queue = 0;
 	gamers.active_button = '';
 	var player_num = gamers.game_states['scan_invitation'].arg;
 	gamers.set_game_state('scaning_gamer', player_num); // Приглашение на сканирование
