@@ -74,7 +74,7 @@ if (REAL_MODE) {
 			port:          "80",
 			state:         "closed",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 		},
 
 		// дверь 3
@@ -113,7 +113,7 @@ if (REAL_MODE) {
 			port:          "80",
 			state:         "closed",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 		},
 
 		// дверь 6
@@ -165,7 +165,7 @@ if (REAL_MODE) {
 			state:         "off",
 			value:         "",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			commands:      [ "off", "on" ],
 			states:        [ "off", "on" ],	
 		},
@@ -182,7 +182,7 @@ if (REAL_MODE) {
 			wd_enabled:    1,
 			commands:      [ "deactivate", "activate" ],
 			events:        [ "disconnected", "activated", "connected" ],
-			states:        [ "not_installed", "activated",  "installed_no_link", "installed_link_ok" ],
+			states:        [ "not_installed", "activated", "installed_link_ok", "installed_no_link" ],
 		},
 
 		// свет
@@ -210,7 +210,7 @@ if (REAL_MODE) {
 			state:         "number_of_fastened",
 			value:         0,
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			events:        [ "", "number_of_fastened" ],
 			states:        [ "number_of_fastened" ],
 		},
@@ -224,7 +224,7 @@ if (REAL_MODE) {
 			port:          "80",
 			state:         "off",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			commands:      [ "off", "on" ],
 			events:        [ "off", "on" ],
 			states:        [ "off", "on" ],
@@ -304,7 +304,7 @@ if (REAL_MODE) {
 			port:          "80",
 			state:         "number_of_inserted",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			value:         0,
 			commands:      [ "backlight_off", "backlight_on" ],
 			events:        [ "", "number_of_inserted" ],
@@ -334,7 +334,7 @@ if (REAL_MODE) {
 			port:          "80",
 			state:         "not_passed",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			commands:      [ "reset" ],
 			events:        [ "", "card_ok" ], 
 			states:        [ "not_passed", "passed" ],	
@@ -364,7 +364,7 @@ if (REAL_MODE) {
 			port:          "8070",
 			state:         "stopped",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			value:         ""
 		},
 
@@ -378,7 +378,7 @@ if (REAL_MODE) {
 			port:          "8070",
 			state:         "stopped",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			value:         ""
 		},
 
@@ -392,7 +392,7 @@ if (REAL_MODE) {
 			port:          "8070",
 			state:         "stopped",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			value:         ""
 		},
 
@@ -405,7 +405,7 @@ if (REAL_MODE) {
 			port:          "8070",
 			state:         "sleep",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			value:         "",
 			events:        [ "", "code_entered" ],
 			commands:      [ "black_screen", "go" ],
@@ -421,7 +421,7 @@ if (REAL_MODE) {
 			port:          "8070",
 			state:         "sleep",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			value:         "",
 			events:        [ "game_failed", "game_passed" ],
 			commands:      [ "black_screen", "go" ],
@@ -437,7 +437,7 @@ if (REAL_MODE) {
 			port:          "8070",
 			state:         "sleep",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			value:         "",
 			events:        [ "", "game_passed" ],
 			commands:      [ "black_screen", "go" ],
@@ -453,7 +453,7 @@ if (REAL_MODE) {
 			port:          "8070",
 			state:         "sleep",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			value:         "",
 			events:        [ "coordinates_entered_fail", "coordinates_entered_true" ],
 			commands:      [ "black_screen", "go" ],
@@ -470,7 +470,7 @@ if (REAL_MODE) {
 			port:          "8070",
 			state:         "ch1_stop_ch2_stop",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			value:         ""
 		},
 
@@ -484,7 +484,7 @@ if (REAL_MODE) {
 			port:          "8070",
 			state:         "ch1_stop_ch2_stop",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			value:         ""
 		},
 
@@ -498,7 +498,7 @@ if (REAL_MODE) {
 			port:          "8070",
 			state:         "ch1_stop_ch2_stop",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			value:         ""
 		},
 
@@ -513,7 +513,7 @@ if (REAL_MODE) {
 			port:          "8070",
 			state:         "ch1_stop_ch2_stop",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			value:         ""
 		},
 
@@ -526,7 +526,7 @@ if (REAL_MODE) {
 			port:          "80",
 			state:         "off",
 			wd_state:      3,
-			wd_enabled:    0,
+			wd_enabled:    1,
 			commands:      [ "off", "on" ], 
 			states:        [ "off", "on" ],	
 		},
@@ -1161,6 +1161,11 @@ exports.video_files = [
 		description: 'crazy_frog2',
 		value:       'file=mnt/sda1/12.mp4&repeat=0',
 	},
+	{
+		alias:       'video13',
+		description: 'mults',
+		value:       'file=mnt/sda1/13.mp4&repeat=0',
+	},
 ];
 
 exports.audio_files = [
@@ -1279,6 +1284,11 @@ exports.audio_files = [
 		alias:       'audio23',
 		description: 'треск и искры',
 		value:       'file=mnt/sdcard/Audio/audio23.wav&repeat=1',
+	},
+	{
+		alias:       'audio24',
+		description: 'треск и искры',
+		value:       'file=mnt/sdcard/Audio/audio24.mp3&repeat=0',
 	},
 ];
 
