@@ -2,7 +2,7 @@ var express = require('express');
 var http   = require('http');
 var router = express.Router();
 var child_process = require('child_process');
-
+var fs = require('fs');
 
 // полный сброс
 router.get('/reset', function(req, res, next) {
@@ -25,6 +25,12 @@ router.get('/reset', function(req, res, next) {
 	});
 
 	gamers.game_state = 'devices_off';
+
+	// удаляем старые файлы лога
+	var log_files = fs.readdirSync('log');
+	for (var i = 0; i < log_files.length - 2; i++) {
+		fs.unlinkSync('log/' + log_files[i]);
+	}
 
 	res.json({success: 1});
 });

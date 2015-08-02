@@ -901,6 +901,36 @@ function set_handlers() {
 				}
 		});
 	});
+	// Кнопка 'включить вибрацию'
+	$('#Main .Vibration .On').click(function(e){
+		$.ajax({
+			url: build_query('vibration', 'on', '0'),
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('button pushed');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	});
+	// Кнопка 'выключить вибрацию'
+	$('#Main .Vibration .Off').click(function(e){
+		$.ajax({
+			url: build_query('vibration', 'off', '0'),
+			type: "GET",
+			crossDomain: true,
+			dataType: "json",
+				success: function (response) {
+					console.log('button pushed');
+				},
+				error: function(error) {
+					console.log('ERROR:', error);
+				}
+		});
+	});
 	// Кнопка 'включить дым'
 	$('#Main .Smoke .On').click(function(e){
 		$.ajax({
