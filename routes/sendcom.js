@@ -21,7 +21,6 @@ router.get('/reload/:name', function(req, res, next) {
 	setTimeout(function () {
 			helpers.send_com(req.params.name, '1');
 		}, helpers.get_timeout('DEVICE_RELOAD_TIME')*1000);
-	}
 	res.json({success: 1});
 });
 
