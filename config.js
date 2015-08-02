@@ -1297,6 +1297,7 @@ exports.timeouts = {
 	E:  3,
 	CHECK_TIME: 10,
 	SOCKET_WAIT_TIME: 1,
+	DEVICE_RELOAD_TIME: 2,
 }
 
 // watchdog

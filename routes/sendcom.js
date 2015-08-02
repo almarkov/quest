@@ -76,7 +76,7 @@ router.get('/reload/:name', function(req, res, next) {
 				, function(error, stdout, stderr){
 				simple_log('on: ' + name + ', carrier_id: ' + num);
 			});
-		}, 1000);
+		}, helpers.get_timeout('DEVICE_RELOAD_TIME')*1000);
 	}
 	res.json({success: 1});
 });
