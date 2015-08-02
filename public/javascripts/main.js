@@ -305,7 +305,7 @@ $(document).ready(function() {
 						device_element = $("[name=" + element);
 					}
 					// хак
-					var element_state = $("[name=" + element + "]").parent().parent().find(".Status");
+					var element_state = device_element.parent().parent().find(".Status");
 					if (response[element].wd_state == 0) {
 						element_state.removeClass("Online");
 						element_state.addClass("Offline");
