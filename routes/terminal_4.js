@@ -67,7 +67,7 @@ router.get('/coordinates_entered_true/:coordinates', function(req, res, next) {
 	var m = diff/(60 * 1000);
 
 	gamers.start_time = null;
-	gamers.set_game_state('quest_completed', '' + m.toFixed() + s.toFixed() ); // квест пройден
+	gamers.set_game_state('quest_completed', '' + m.toFixed() + ' мин ' + s.toFixed() + ' c'); // квест пройден
 
 	// открываем дверь 1
 	helpers.send_get('door_1', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX);

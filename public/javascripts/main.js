@@ -327,6 +327,10 @@ $(document).ready(function() {
 					$("." + item).prop('disabled', false);
 				});
 
+				if (response.quest_completed) {
+					stop_timer();
+				}
+
 
 				$("#QuestState").text(response.quest_state);
 				//$("#QuestError").text(response.quest_error);
@@ -1219,20 +1223,23 @@ function set_handlers() {
 
 	// перезагрузка устройства
 	$('#Main .Device .Status').click(function(e){
-		if (confirm("Подтвердите перезагрузку")){
-
-			$.ajax({
-				url: web_server_url + '/sendcom/reload/' + e.srcElement.parentElement.children[1].children[1].name,
-				type: "GET",
-				crossDomain: true,
-				dataType: "json",
-					success: function (response) {
-						console.log('reloaded');
-					},
-					error: function(error) {
-						console.log('ERROR:', error);
-					}
-			});
+		var element = e.srcElement.parentElement.children[1].children[1].name;
+		var name = element.replace('_state', '');
+		if (!name.match(/terminal|audio_player|video_player/)) {
+			if (confirm("Подтвердите перезагрузку")){
+				$.ajax({
+					url: web_server_url + '/sendcom/reload/' + name,
+					type: "GET",
+					crossDomain: true,
+					dataType: "json",
+						success: function (response) {
+							console.log('reloaded');
+						},
+						error: function(error) {
+							console.log('ERROR:', error);
+						}
+				});
+			}
 		}
 	});
 }

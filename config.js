@@ -1307,7 +1307,7 @@ exports.enable_reload = 1;
 exports.coordinates = '9847544';
 
 // порт для включения/выключения arduino
-exports.com_port = 'COM4';
+exports.port_num = '4';
 
 exports.wd_error_timeout = 100;
 exports.wd_multiplicator = 1;

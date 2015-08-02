@@ -157,6 +157,8 @@ router.get('/all', function(req, res, next) {
 
 	result.gamers_count = gamers.count;
 
+	result.quest_completed = (gamers.quest_state == 'quest_completed' ? 1 : 0);
+
 
 
 	result.dashboard_buttons = [];
