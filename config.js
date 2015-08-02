@@ -62,6 +62,7 @@ if (REAL_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 		},
 
 		// дверь 2
@@ -75,6 +76,7 @@ if (REAL_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 		},
 
 		// дверь 3
@@ -88,6 +90,7 @@ if (REAL_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 		},
 
 		// дверь 4
@@ -101,6 +104,7 @@ if (REAL_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 		},
 
 		// дверь 5
@@ -114,6 +118,7 @@ if (REAL_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 		},
 
 		// дверь 6
@@ -127,6 +132,7 @@ if (REAL_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 		},
 
 		// дверь 7
@@ -140,6 +146,7 @@ if (REAL_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 		},
 
 		// дверь 8
@@ -153,6 +160,7 @@ if (REAL_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 		},
 
 		// подсветка
@@ -166,6 +174,7 @@ if (REAL_MODE) {
 			value:         "",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			commands:      [ "off", "on" ],
 			states:        [ "off", "on" ],	
 		},
@@ -180,6 +189,7 @@ if (REAL_MODE) {
 			state:         "disconnected",
 		    wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			commands:      [ "deactivate", "activate" ],
 			events:        [ "disconnected", "activated", "connected" ],
 			states:        [ "not_installed", "activated", "installed_link_ok", "installed_no_link" ],
@@ -195,6 +205,7 @@ if (REAL_MODE) {
 			state:         "on",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			commands:      [ "off", "on" ],
 			events:        [ "off", "on" ],
 			states:        [ "off", "on" ],
@@ -211,6 +222,7 @@ if (REAL_MODE) {
 			value:         0,
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			events:        [ "", "number_of_fastened" ],
 			states:        [ "number_of_fastened" ],
 		},
@@ -225,6 +237,7 @@ if (REAL_MODE) {
 			state:         "off",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			commands:      [ "off", "on" ],
 			events:        [ "off", "on" ],
 			states:        [ "off", "on" ],
@@ -240,6 +253,7 @@ if (REAL_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			type:          "cell",
 		},
 
@@ -253,6 +267,7 @@ if (REAL_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			type:          "cell",
 		},
 
@@ -266,6 +281,7 @@ if (REAL_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			type:          "cell",
 		},
 
@@ -279,6 +295,7 @@ if (REAL_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			type:          "cell",
 		},
 
@@ -292,6 +309,7 @@ if (REAL_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			type:          "cell",
 		},
 
@@ -305,6 +323,7 @@ if (REAL_MODE) {
 			state:         "number_of_inserted",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         0,
 			commands:      [ "backlight_off", "backlight_on" ],
 			events:        [ "", "number_of_inserted" ],
@@ -321,6 +340,7 @@ if (REAL_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			commands:      [ "close", "open" ],
 			states:        [ "closed", "opened" ],	
 		},
@@ -335,6 +355,7 @@ if (REAL_MODE) {
 			state:         "not_passed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			commands:      [ "reset" ],
 			events:        [ "", "card_ok" ], 
 			states:        [ "not_passed", "passed" ],	
@@ -365,6 +386,7 @@ if (REAL_MODE) {
 			state:         "stopped",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         ""
 		},
 
@@ -379,6 +401,7 @@ if (REAL_MODE) {
 			state:         "stopped",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         ""
 		},
 
@@ -393,6 +416,7 @@ if (REAL_MODE) {
 			state:         "stopped",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         ""
 		},
 
@@ -406,6 +430,7 @@ if (REAL_MODE) {
 			state:         "sleep",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         "",
 			events:        [ "", "code_entered" ],
 			commands:      [ "black_screen", "go" ],
@@ -422,6 +447,7 @@ if (REAL_MODE) {
 			state:         "sleep",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         "",
 			events:        [ "game_failed", "game_passed" ],
 			commands:      [ "black_screen", "go" ],
@@ -438,6 +464,7 @@ if (REAL_MODE) {
 			state:         "sleep",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         "",
 			events:        [ "", "game_passed" ],
 			commands:      [ "black_screen", "go" ],
@@ -454,6 +481,7 @@ if (REAL_MODE) {
 			state:         "sleep",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         "",
 			events:        [ "coordinates_entered_fail", "coordinates_entered_true" ],
 			commands:      [ "black_screen", "go" ],
@@ -471,6 +499,7 @@ if (REAL_MODE) {
 			state:         "ch1_stop_ch2_stop",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         ""
 		},
 
@@ -485,6 +514,7 @@ if (REAL_MODE) {
 			state:         "ch1_stop_ch2_stop",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         ""
 		},
 
@@ -499,6 +529,7 @@ if (REAL_MODE) {
 			state:         "ch1_stop_ch2_stop",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         ""
 		},
 
@@ -514,6 +545,7 @@ if (REAL_MODE) {
 			state:         "ch1_stop_ch2_stop",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         ""
 		},
 
@@ -527,6 +559,7 @@ if (REAL_MODE) {
 			state:         "off",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			commands:      [ "off", "on" ], 
 			states:        [ "off", "on" ],	
 		},
@@ -549,6 +582,7 @@ if (EMULATOR_MODE) {
 			state:         "idle",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         5,
 			current_value: "",
 			commands:      [ "activate" ],
@@ -566,6 +600,7 @@ if (EMULATOR_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 		},
 
 		// дверь 2
@@ -579,6 +614,7 @@ if (EMULATOR_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 		},
 
 		// дверь 3
@@ -592,6 +628,8 @@ if (EMULATOR_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
+			sv_port:       0,
 		},
 
 		// дверь 4
@@ -605,6 +643,7 @@ if (EMULATOR_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 		},
 
 		// дверь 5
@@ -618,6 +657,7 @@ if (EMULATOR_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 		},
 
 		// дверь 6
@@ -631,6 +671,7 @@ if (EMULATOR_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 		},
 
 		// дверь 7
@@ -644,6 +685,7 @@ if (EMULATOR_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 		},
 
 		// дверь 8
@@ -657,6 +699,7 @@ if (EMULATOR_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 		},
 
 		// подсветка
@@ -670,6 +713,7 @@ if (EMULATOR_MODE) {
 			value:         "",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			commands:      [ "off", "on" ],
 			states:        [ "off", "on" ],	
 		},
@@ -684,6 +728,7 @@ if (EMULATOR_MODE) {
 			state:         "disconnected",
 		    wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			commands:      [ "deactivate", "activate" ],
 			events:        [ "disconnected", "activated", "connected" ],
 			states:        [ "disconnected", "activated",  "connected"],
@@ -699,6 +744,7 @@ if (EMULATOR_MODE) {
 			state:         "on",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			commands:      [ "off", "on" ],
 			events:        [ "off", "on" ],
 			states:        [ "off", "on" ],
@@ -715,6 +761,7 @@ if (EMULATOR_MODE) {
 			value:         0,
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			events:        [ "number_of_fastened" ],
 			states:        [ "number_of_fastened" ],
 		},
@@ -729,6 +776,7 @@ if (EMULATOR_MODE) {
 			state:         "off",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			commands:      [ "off", "on" ],
 			events:        [ "off", "on" ],
 			states:        [ "off", "on" ],
@@ -744,6 +792,7 @@ if (EMULATOR_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			type:          "cell",
 		},
 
@@ -757,6 +806,7 @@ if (EMULATOR_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			type:          "cell",
 		},
 
@@ -770,6 +820,7 @@ if (EMULATOR_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			type:          "cell",
 		},
 
@@ -783,6 +834,7 @@ if (EMULATOR_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			type:          "cell",
 		},
 
@@ -796,6 +848,7 @@ if (EMULATOR_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			type:          "cell",
 		},
 
@@ -809,6 +862,7 @@ if (EMULATOR_MODE) {
 			state:         "number_of_inserted",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         0,
 			commands:      [ "backlight_off", "backlight_on" ],
 			events:        [ "number_of_inserted" ],
@@ -825,6 +879,7 @@ if (EMULATOR_MODE) {
 			state:         "closed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			commands:      [ "close", "open" ],
 			states:        [ "closed", "opened" ],	
 		},
@@ -839,6 +894,7 @@ if (EMULATOR_MODE) {
 			state:         "not_passed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			events:        [ "", "card_ok" ], 
 			states:        [ "not_passed", "passed" ],	
 		},
@@ -853,6 +909,7 @@ if (EMULATOR_MODE) {
 			state:         "not_passed",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			events:        [ "", "power_ok" ], 
 			states:        [ "not_passed", "passed" ],	
 		},
@@ -868,6 +925,7 @@ if (EMULATOR_MODE) {
 			state:         "stopped",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         ""
 		},
 
@@ -882,6 +940,7 @@ if (EMULATOR_MODE) {
 			state:         "stopped",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         ""
 		},
 
@@ -896,6 +955,7 @@ if (EMULATOR_MODE) {
 			state:         "stopped",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         ""
 		},
 
@@ -909,6 +969,7 @@ if (EMULATOR_MODE) {
 			state:         "sleep",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         "",
 			events:        [ "", "code_entered" ],
 			commands:      [ "black_screen", "go" ],
@@ -925,6 +986,7 @@ if (EMULATOR_MODE) {
 			state:         "sleep",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         "",
 			events:        [ "game_failed", "game_passed" ],
 			commands:      [ "black_screen", "go" ],
@@ -941,6 +1003,7 @@ if (EMULATOR_MODE) {
 			state:         "sleep",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         "",
 			events:        [ "", "game passed" ],
 			commands:      [ "black_screen", "go" ],
@@ -957,6 +1020,7 @@ if (EMULATOR_MODE) {
 			state:         "sleep",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         "",
 			events:        [ "coordinates_entered_fail", "coordinates_entered_true" ],
 			commands:      [ "black_screen", "go" ],
@@ -974,6 +1038,7 @@ if (EMULATOR_MODE) {
 			state:         "ch1_stop_ch2_stop",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         ""
 		},
 
@@ -988,6 +1053,7 @@ if (EMULATOR_MODE) {
 			state:         "ch1_stop_ch2_stop",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         ""
 		},
 
@@ -1002,6 +1068,7 @@ if (EMULATOR_MODE) {
 			state:         "ch1_stop_ch2_stop",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         ""
 		},
 
@@ -1016,6 +1083,7 @@ if (EMULATOR_MODE) {
 			state:         "ch1_stop_ch2_stop",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			value:         ""
 		},
 
@@ -1029,6 +1097,7 @@ if (EMULATOR_MODE) {
 			state:         "off",
 			wd_state:      3,
 			wd_enabled:    1,
+			sv_port:       0,
 			commands:      [ "off", "on" ], 
 			states:        [ "off", "on" ],	
 		},

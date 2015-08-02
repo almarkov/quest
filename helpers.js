@@ -1,4 +1,5 @@
 var http   = require('http');
+var child_process = require('child_process');
 
 exports.send_get = function(device_name, command, parameter, enable_timer, enable_mutex, cb, params) {
 
@@ -66,6 +67,27 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 					simple_log("second attempt " + device_name +  " " + command + " error");
 			});
 	});
+}
+
+exports.send_com = function(name, command) {
+	var num;
+	if (name == 'all') {
+		num = 254;
+	} else {
+		num = devices.get(name).sv_port;
+	}
+
+
+	if (!name.match(/terminal|audio_player|video_player/)) {
+		child_process.exec('sendcom.exe ' 
+			+ config.port_num + ' '
+			+ '255' + ' '
+			+ num + ' '
+			+ command
+			, function(error, stdout, stderr){
+			simple_log('on: ' + name + ', carrier_id: ' + num);
+		});
+	}
 }
 
 exports.get_timeout = function(timer) {
