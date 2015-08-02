@@ -11,7 +11,7 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 		device.mutex = 1;
 	}
 
-	http.get(query, function(res) {
+	var request = http.get(query, function(res) {
 
 			if (enable_mutex) {
 				device.mutex = 0;
@@ -28,10 +28,14 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 							simple_log("timer activate error: ");
 					});
 				});
+				res.on('error', function(data){
+					});
 			} 
 			if (cb) {
 				cb(params || {});
 			}
+		}).on('error', function(e) {
+			simple_log("first attempt " + device_name +  " " + command + " error");
 		}).setTimeout( helpers.get_timeout('SOCKET_WAIT_TIME')*1000, function( ) {
 
 			if (enable_mutex) {
@@ -56,8 +60,10 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 			http.get(query, function(res) {
 					res.on('data', function(data){
 					});
+					res.on('error', function(data){
+					});
 				}).on('error', function(e) {
-					simple_log("second attempt " + device_name +  " " + command + " timeout");
+					simple_log("second attempt " + device_name +  " " + command + " error");
 			});
 	});
 }
