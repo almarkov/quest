@@ -1106,7 +1106,7 @@ function set_handlers() {
 	});
 	$('#Main .Terminal4 .Force').click(function(e){
 		$.ajax({
-			url: build_query('terminal_4', 'force', '0/right=9847544'),
+			url: build_query('terminal_4', 'go', '0/right=9847544'),
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
