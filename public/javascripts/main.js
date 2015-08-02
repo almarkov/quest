@@ -183,17 +183,17 @@ $(document).ready(function() {
 				var codes = [];
 				codes[5] = response.codes[4];// фиолетовая
 				// хак
-				if (gamers.count == 2) {
+				if (response.gamers_count == 2) {
 					codes[4] = response.codes[0];
 					codes[1] = response.codes[1];
 					codes[2] = '';
 					codes[3] = '';
-				} else if (gamers.count == 3) {
+				} else if (response.gamers_count == 3) {
 					codes[4] = response.codes[1];
 					codes[1] = response.codes[0];
 					codes[2] = response.codes[2];
 					codes[3] = '';
-				} else if (gamers.count == 4) {
+				} else if (response.gamers_count == 4) {
 					codes[4] = response.codes[2];
 					codes[1] = response.codes[0];
 					codes[2] = response.codes[1];

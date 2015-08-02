@@ -57,12 +57,8 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 					res.on('data', function(data){
 					});
 				}).on('error', function(e) {
-					simple_log("second attempt " + device_name +  " " + command + " error");
-				}).setTimeout( helpers.get_timeout('SOCKET_WAIT_TIME')*1000, function( ) {
 					simple_log("second attempt " + device_name +  " " + command + " timeout");
 			});
-
-
 	});
 }
 

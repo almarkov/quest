@@ -130,10 +130,6 @@ exports.game_states = {
 		arg: '',
 	},
 	devices_error: {
-		title: 'Сбои в работе устройств: arg Запуск квеста невозможен',
-		arg: '',
-	},
-	devices_small_error: {
 		title: 'Сбои в работе устройств: arg Запуск квеста нежелателен',
 		arg: '',
 	},

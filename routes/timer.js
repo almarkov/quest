@@ -97,17 +97,14 @@ router.get('/ready', function(req, res, next) {
 					err_cnt += 1;
 				}
 			}
-			if (err_cnt == 1) {
+			if (err_cnt > 0) {
 				// Сбои в работе устройств
-				gamers.set_game_state('devices_small_error', errors);
+				gamers.set_game_state('devices_error', errors);
 
 				gamers.wd_on = 1;
 
 				gamers.dashboard_buttons.GetReady = 1;
 				gamers.dashboard_buttons.ServiceMode = 1;
-			} else if (err_cnt > 1) {
-				// Сбои в работе устройств
-				gamers.set_game_state('devices_error', errors);
 			} else {
 				// Все устройства работают нормально
 				gamers.game_state = 'devices_ok';
