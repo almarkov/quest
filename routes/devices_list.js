@@ -157,6 +157,8 @@ router.get('/all', function(req, res, next) {
 
 	result.gamers_count = gamers.count;
 
+
+
 	result.dashboard_buttons = [];
 	for (var button in gamers.dashboard_buttons) {
 		if (gamers.dashboard_buttons[button]) {

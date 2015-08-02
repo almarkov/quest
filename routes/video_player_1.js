@@ -63,17 +63,16 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 			},{}
 		);
 	} else if (gamers.game_state == 'gamers_watch_video_scan_invitation') {
-		// // включаем видео на экране 1 звёздное небо
-		// helpers.send_get('video_player_1', 'play', config.video_files[3].value, DISABLE_TIMER, ENABLE_MUTEX,
-		// 	function (params) {
-		// 		var device = devices.get('video_player_1');
-		// 		device.value = config.video_files[3].alias;
-		// 		device.state = 'playing';
-		// 	},{}
-		// );
+		// включаем видео на экране 1 мультики
+		helpers.send_get('video_player_1', 'play', config.video_files[13].value, DISABLE_TIMER, ENABLE_MUTEX,
+			function (params) {
+				var device = devices.get('video_player_1');
+				device.value = config.video_files[13].alias;
+				device.state = 'playing';
+			},{}
+		);
 
 		gamers.set_game_state('scan_invitation', '1'); // Приглашение на сканирование
-
 
 		// включаем звук для номера игрока
 		var gamer_num = parseInt(gamers.game_states['scan_invitation'].arg) + 2;

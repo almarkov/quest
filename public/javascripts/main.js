@@ -72,7 +72,9 @@ function enable_gamer_count() {
 }
 
 function stop_timer() {
-    clearInterval(game_timer);
+	if (game_timer) {
+    	clearInterval(game_timer);
+    }
 }
 
 function restart_timer () {
@@ -437,10 +439,15 @@ function set_handlers() {
 				success: function (response) {
 					$("#inpGamerCount").prop('disabled', false);
 					console.log('game reset');
-					restart_timer();
+					start_time = null;
+					$("#QuestTimer").text("NA");
+					stop_timer();
 				},
 				error: function(error) {
 					console.log('ERROR:', error);
+					start_time = null;
+					$("#QuestTimer").text("NA");
+					stop_timer();
 				}
 		});
 	});
@@ -1057,7 +1064,7 @@ function set_handlers() {
 	// кнопки терминалов запустить принудительно
 	$('#Main .Terminal1 .Force').click(function(e){
 		$.ajax({
-			url: build_query('terminal_1', 'force', '0'),
+			url: build_query('terminal_1', 'go', '0'),
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
@@ -1071,7 +1078,7 @@ function set_handlers() {
 	});
 	$('#Main .Terminal2 .Force').click(function(e){
 		$.ajax({
-			url: build_query('terminal_2', 'force', '0'),
+			url: build_query('terminal_2', 'go', 'right=0;6;7;9;14'),
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
@@ -1085,7 +1092,7 @@ function set_handlers() {
 	});
 	$('#Main .Terminal3 .Force').click(function(e){
 		$.ajax({
-			url: build_query('terminal_3', 'force', '0'),
+			url: build_query('terminal_3', 'go', '0'),
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",
@@ -1099,7 +1106,7 @@ function set_handlers() {
 	});
 	$('#Main .Terminal4 .Force').click(function(e){
 		$.ajax({
-			url: build_query('terminal_4', 'force', '0'),
+			url: build_query('terminal_4', 'force', '0/right=9847544'),
 			type: "GET",
 			crossDomain: true,
 			dataType: "json",

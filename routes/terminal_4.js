@@ -63,10 +63,11 @@ router.get('/coordinates_entered_true/:coordinates', function(req, res, next) {
 
 	var now = new Date();
 	var diff = now - gamers.start_time;
+	var s = (diff /1000) %60;
 	var m = diff/(60 * 1000);
 
 	gamers.start_time = null;
-	gamers.set_game_state('quest_completed', m.toString()); // квест пройден
+	gamers.set_game_state('quest_completed', '' + m.toFixed() + s.toFixed() ); // квест пройден
 
 	// открываем дверь 1
 	helpers.send_get('door_1', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX);
