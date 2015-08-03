@@ -104,12 +104,12 @@ function restart_timer () {
 					}
 					if (start_time) {
 						if (m < 0) {
-							$("#QuestTimer").text('Время вышло. Квест провален');
+							//$("#QuestTimer").text('Время вышло. Квест провален');
 						} else {
-							$("#QuestTimer").text(parseInt(m) + ':' + parseInt(s));
+							//$("#QuestTimer").text(parseInt(m) + ':' + parseInt(s));
 						}
 					} else {
-						$("#QuestTimer").text('NA');
+						//$("#QuestTimer").text('NA');
 					}
 				}, 1000);
 
@@ -118,7 +118,7 @@ function restart_timer () {
 
 				stop_timer();
 				enable_gamer_count();
-				$("#QuestTimer").text('NA');
+				//$("#QuestTimer").text('NA');
 				return;
 			}
 		},
@@ -333,6 +333,7 @@ $(document).ready(function() {
 
 
 				$("#QuestState").text(response.quest_state);
+				$("#QuestTimer").text(response.game_timer);
 				//$("#QuestError").text(response.quest_error);
 				// if (response.codes) {
 				// 	var codes = '';

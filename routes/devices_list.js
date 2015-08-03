@@ -149,6 +149,18 @@ router.get('/all', function(req, res, next) {
 
 	result.codes = gamers.codes;
 
+
+	if (gamers.start_time) {
+		var now = new Date();
+		var diff = gamers.start_time - now + 60*60*1000 ;
+		var ms = diff % 1000;
+		s  = ((diff - ms)/1000) % 60;
+		m  = ((diff - ms - s* 1000)/60000) % 60;
+		result.game_timer = ('0' + m).slice(-2)	+ ':' + ('0' + s).slice(-2);
+	} else {
+		result.game_timer = 'NA';
+	}
+
 	result.quest_error = gamers.quest_error;
 
 	result.last_player_pass = gamers.last_player_pass;
