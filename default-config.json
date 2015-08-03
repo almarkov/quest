@@ -1,0 +1,7 @@
+{
+	"mongoAppDb"        : {
+		"host" : "localhost",
+		"db"   : "quest",
+		"port" : "27017"
+	}
+}

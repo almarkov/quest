@@ -1,0 +1,1 @@
+node ./node_modules/mongodb-migrate -runmm %1 %2
