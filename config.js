@@ -1391,3 +1391,6 @@ exports.port_num = '4';
 
 exports.wd_error_timeout = 100;
 exports.wd_multiplicator = 1;
+
+exports.mutex_timeout = 500;
+exports.mutex_repeats_count = 5;

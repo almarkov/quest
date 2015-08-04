@@ -433,6 +433,7 @@ router.get('/emulate_command/:device/:command/:parameter', function(req, res, ne
 				});
 			}
 		}
+	}
 });
 
 module.exports = router;
