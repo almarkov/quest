@@ -30,32 +30,19 @@ function build_query(device, command, parameter) {
 			if (external_config[i].commands) {
 				for (var j = 0; j < external_config[i].commands.length; j++) {
 					if (command == external_config[i].commands[j]) {
-						//if (external_config[i].ip == "localhost") {
-						//	return web_server_url + '/' + device + '/'+ command + '/' + parameter;
-						//} else {
 							return "http://"
 								+ external_config[i].ip + ":"
 								+ external_config[i].port + "/" 
 								+ external_config[i].id + "/"
 								+ parseInt(j) + "/"
 								+ parameter;
-						//}
 					}
 				}
 			}
 			if (external_config[i].events) {
 				for (var j = 0; j < external_config[i].events.length; j++) {
 					if (command == external_config[i].events[j]) {
-						//if (external_config[i].ip == "localhost") {
 							return web_server_url + '/' + device + '/'+ command + '/' + parameter;
-						//} else {
-						//	return "http://"
-						//		+ external_config[i].ip + ":"
-						//		+ external_config[i].port + "/" 
-						//		+ external_config[i].id + "/"
-						//		+ parseInt(j) + "/"
-						//		+ parameter;
-						//}
 					}
 				}
 			}
@@ -69,6 +56,7 @@ function disable_gamer_count() {
 
 function enable_gamer_count() {
 	$("#inpGamerCount").prop('disabled', false);
+	$("#inpGamerCount").val('');
 }
 
 function stop_timer() {
