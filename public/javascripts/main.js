@@ -25,29 +25,9 @@ $.ajax({
 });
 
 function build_query(device, command, parameter) {
-	for (var i = 0; i < external_config.length; i++) {
-		if (external_config[i].name == device) {
-			if (external_config[i].commands) {
-				for (var j = 0; j < external_config[i].commands.length; j++) {
-					if (command == external_config[i].commands[j]) {
-							return "http://"
-								+ external_config[i].ip + ":"
-								+ external_config[i].port + "/" 
-								+ external_config[i].id + "/"
-								+ parseInt(j) + "/"
-								+ parameter;
-					}
-				}
-			}
-			if (external_config[i].events) {
-				for (var j = 0; j < external_config[i].events.length; j++) {
-					if (command == external_config[i].events[j]) {
-							return web_server_url + '/' + device + '/'+ command + '/' + parameter;
-					}
-				}
-			}
-		}
-	}
+	return web_server_url
+		+ "/game/emulate_command"
+		+ '/' + device + '/'+ command + '/' + parameter;
 }
 
 function disable_gamer_count() {

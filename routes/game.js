@@ -396,4 +396,43 @@ router.get('/setinterval', function(req, res, next) {
 
 });
 
+// Обработка кнопок
+router.get('/emulate_command/:device/:command/:parameter', function(req, res, next) {
+	res.json({success: 1});
+
+	var device = devices.get(req.params.device);
+	var command = req.params.command;
+	var parameter = req.params.parameter;
+
+	simple_log('request from button: ' + device.name + ' ' + command + ' ' + parameter);
+
+	if (device.commands) {
+		for (var j = 0; j < device.commands.length; j++) {
+			if (command == device.commands[j] ) {
+				var url = "http://"
+							+ device.ip + ":"
+							+ device.port + "/" 
+							+ device.id + "/"
+							+ parseInt(j) + "/"
+							+ parameter;
+				helpers.send_get_with_timeout(device, url, 3, 500);
+			}
+		}
+	}
+	if (device.events) {
+		for (var j = 0; j < device.events.length; j++) {
+			if (command == device.events[j]) {
+				var url =  web_server_url + '/' + device + '/'+ command + '/' + parameter;
+				http.get(url, function(res) {
+						res.on('data', function(data){
+						});
+						res.on('error', function(data){
+						});
+					}).on('error', function(e) {
+						simple_log("get after emulate_command " + device.name +  " " + url + " error");
+				});
+			}
+		}
+});
+
 module.exports = router;

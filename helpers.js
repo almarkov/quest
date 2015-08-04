@@ -93,3 +93,26 @@ exports.send_com = function(name, command) {
 exports.get_timeout = function(timer) {
 	return config.timeouts[timer];
 }
+
+exports.send_get_with_timeout = function(device, url, n, timeout) {
+	var n_cnt = n;
+	var _device = device;
+	var interval = setInterval(function() {
+		if (!_device.mutex) {
+			http.get(url, function(res) {
+					res.on('data', function(data){
+					});
+					res.on('error', function(data){
+					});
+				}).on('error', function(e) {
+					simple_log("send_get_with_timeout " + _device.name +  " " + url + " error");
+			});
+			clearInterval(interval);
+		} else {
+			n_cnt -= 1;
+			if (n_cnt == 0) {
+				clearInterval(interval);
+			}
+		}
+	}, timeout);
+}
