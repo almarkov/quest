@@ -372,196 +372,198 @@ function set_handlers() {
 
 	// режим обслуживания
 	$('.DashBoard .ServiceMode').click(function(e){
-		$.ajax({
-			url: web_server_url + '/game/service_mode',
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('service mode');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: web_server_url + '/game/service_mode',
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('service mode');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
 	// калибровка цветовых сенсоров
 	$('.DashBoard .Calibrate').click(function(e){
-		$.ajax({
-			url: build_query('figure', 'calibrate', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('service mode');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('figure', 'calibrate', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('service mode');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
 	// Восстанавливаем в модели значения по умолчанию
 	$('.DashBoard .ResetGame').click(function(e){
-		$.ajax({
-			url: web_server_url + '/game/reset',
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					$("#inpGamerCount").prop('disabled', false);
-					console.log('game reset');
-					start_time = null;
-					$("#QuestTimer").text("NA");
-					stop_timer();
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-					start_time = null;
-					$("#QuestTimer").text("NA");
-					stop_timer();
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: web_server_url + '/game/reset',
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						$("#inpGamerCount").prop('disabled', false);
+						console.log('game reset');
+						start_time = null;
+						$("#QuestTimer").text("NA");
+						stop_timer();
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+						start_time = null;
+						$("#QuestTimer").text("NA");
+						stop_timer();
+					}
+			});
+		}
 	});
 
 	// Все зашли
 	$('.DashBoard .AllIn').click(function(e){
-		$.ajax({
-			url: web_server_url + '/game/allin',
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('start audio');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: web_server_url + '/game/allin',
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('start audio');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
 	// Включить аудио 'В очередь'
 	$('.DashBoard .Queue').click(function(e){
-		$.ajax({
-			url: web_server_url + '/game/queue',
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('start audio');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: web_server_url + '/game/queue',
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('start audio');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
 	// подсказка по многограннику
 	$('.DashBoard .PolyhedronPrompt').click(function(e){
-		$.ajax({
-			url: web_server_url + '/game/polyhedron_prompt',
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('start prompt');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: web_server_url + '/game/polyhedron_prompt',
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('start prompt');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
 	// Начать сканирование
 	$('.DashBoard .StartScan').click(function(e){
-		$.ajax({
-			url: web_server_url + '/scanner/start',
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					//$("#inpGamerCount").prop('disabled', false);
-					console.log('start scan');
-					//restart_timer();
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: web_server_url + '/scanner/start',
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						//$("#inpGamerCount").prop('disabled', false);
+						console.log('start scan');
+						//restart_timer();
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
 	// Завершить сканирование игрока
 	$('.DashBoard .StopScan').click(function(e){
-		$.ajax({
-			url: web_server_url + '/scanner/stop',
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					//$("#inpGamerCount").prop('disabled', false);
-					console.log('stop scan');
-					//restart_timer();
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: web_server_url + '/scanner/stop',
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						//$("#inpGamerCount").prop('disabled', false);
+						console.log('stop scan');
+						//restart_timer();
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
 
 	// Завершить сканирование
 	$('.DashBoard .StopScanAll').click(function(e){
-		$.ajax({
-			url: web_server_url + '/scanner/stop_all',
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					//$("#inpGamerCount").prop('disabled', false);
-					console.log('stop scan');
-					//restart_timer();
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: web_server_url + '/scanner/stop_all',
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						//$("#inpGamerCount").prop('disabled', false);
+						console.log('stop scan');
+						//restart_timer();
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
 	$('.DashBoard .ClosePowerWall').click(function(e){
-		$.ajax({
-			url: web_server_url + '/game/close_power_wall',
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					//$("#inpGamerCount").prop('disabled', false);
-					console.log('stop scan');
-					//restart_timer();
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: web_server_url + '/game/close_power_wall',
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						//$("#inpGamerCount").prop('disabled', false);
+						console.log('stop scan');
+						//restart_timer();
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
-
-	//кнопки для тестирования
-	// $('.DashBoard .Test1').click(function(e){
-	// 	$.ajax({
-	// 		url: web_server_url + '/game/point1',
-	// 		type: "GET",
-	// 		crossDomain: true,
-	// 		dataType: "json",
-	// 			success: function (response) {
-	// 				//$("#inpGamerCount").prop('disabled', false);
-	// 				console.log('stop scan');
-	// 				//restart_timer();
-	// 			},
-	// 			error: function(error) {
-	// 				console.log('ERROR:', error);
-	// 			}
-	// 	});
-	// });
 
 	//-----------------------------------------------------------------------------
 	// управление устройствами
@@ -571,35 +573,39 @@ function set_handlers() {
 	for (var i = 1; i <= 8; i++) {
 		// Кнопка открывающая дверь
 		$('#Main .Door' + i + ' .Open').click(function(e){
-			var name = $(e.srcElement).parents(".Device").find(".Input1")[0].name;
-			$.ajax({
-				url: build_query(name, 'open', '0'),
-				type: "GET",
-				crossDomain: true,
-				dataType: "json",
-					success: function (response) {
-						console.log('button pushed');
-					},
-					error: function(error) {
-						console.log('ERROR:', error);
-					}
-			});
+			if (confirm("Подтвердите действие")){
+				var name = $(e.srcElement).parents(".Device").find(".Input1")[0].name;
+				$.ajax({
+					url: build_query(name, 'open', '0'),
+					type: "GET",
+					crossDomain: true,
+					dataType: "json",
+						success: function (response) {
+							console.log('button pushed');
+						},
+						error: function(error) {
+							console.log('ERROR:', error);
+						}
+				});
+			}
 		});
 		// Кнопка закрывающая дверь
 		$('#Main .Door' + i + ' .Close').click(function(e){
-			var name = $(e.srcElement).parents(".Device").find(".Input1")[0].name;
-			$.ajax({
-				url: build_query(name, 'close', '0'),
-				type: "GET",
-				crossDomain: true,
-				dataType: "json",
-					success: function (response) {
-						console.log('button pushed');
-					},
-					error: function(error) {
-						console.log('ERROR:', error);
-					}
-			});
+			if (confirm("Подтвердите действие")){
+				var name = $(e.srcElement).parents(".Device").find(".Input1")[0].name;
+				$.ajax({
+					url: build_query(name, 'close', '0'),
+					type: "GET",
+					crossDomain: true,
+					dataType: "json",
+						success: function (response) {
+							console.log('button pushed');
+						},
+						error: function(error) {
+							console.log('ERROR:', error);
+						}
+				});
+			}
 		});
 	}
 
@@ -609,35 +615,39 @@ function set_handlers() {
 	for (var i = 1; i <= 4; i++) {
 		// Кнопка окончания канала 1
 		$('#Main .AudioPlayer' + i + ' .Stopped1').click(function(e){
-			var name = $(e.srcElement).parents(".Device").find(".Input3")[0].name;
-			$.ajax({
-				url: build_query(name, 'ch1_playback_finished', '0'),
-				type: "GET",
-				crossDomain: true,
-				dataType: "json",
-					success: function (response) {
-						console.log('button pushed');
-					},
-					error: function(error) {
-						console.log('ERROR:', error);
-					}
-			});
+			if (confirm("Подтвердите действие")){
+				var name = $(e.srcElement).parents(".Device").find(".Input3")[0].name;
+				$.ajax({
+					url: build_query(name, 'ch1_playback_finished', '0'),
+					type: "GET",
+					crossDomain: true,
+					dataType: "json",
+						success: function (response) {
+							console.log('button pushed');
+						},
+						error: function(error) {
+							console.log('ERROR:', error);
+						}
+				});
+			}
 		});
 		// Кнопка окончания канала 2
 		$('#Main .AudioPlayer' + i + ' .Stopped2').click(function(e){
-			var name = $(e.srcElement).parents(".Device").find(".Input3")[0].name;
-			$.ajax({
-				url: build_query(name, 'ch2_playback_finished', '0'),
-				type: "GET",
-				crossDomain: true,
-				dataType: "json",
-					success: function (response) {
-						console.log('button pushed');
-					},
-					error: function(error) {
-						console.log('ERROR:', error);
-					}
-			});
+			if (confirm("Подтвердите действие")){
+				var name = $(e.srcElement).parents(".Device").find(".Input3")[0].name;
+				$.ajax({
+					url: build_query(name, 'ch2_playback_finished', '0'),
+					type: "GET",
+					crossDomain: true,
+					dataType: "json",
+						success: function (response) {
+							console.log('button pushed');
+						},
+						error: function(error) {
+							console.log('ERROR:', error);
+						}
+				});
+			}
 		});
 	}
 
@@ -647,9 +657,32 @@ function set_handlers() {
 	for (var i = 1; i <= 3; i++) {
 		// Кнопка окончания видео
 		$('#Main .VideoPlayer' + i + ' .Stopped').click(function(e){
-			var name = $(e.srcElement).parents(".Device").find(".Input3")[0].name;
+			if (confirm("Подтвердите действие")){
+				var name = $(e.srcElement).parents(".Device").find(".Input3")[0].name;
+				$.ajax({
+					url: build_query(name, 'playback_finished', '0'),
+					type: "GET",
+					crossDomain: true,
+					dataType: "json",
+						success: function (response) {
+							console.log('button pushed');
+						},
+						error: function(error) {
+							console.log('ERROR:', error);
+						}
+				});
+			}
+		});
+	}
+
+	//-----------------------------------------------------------------------------
+	// Кнопки, эмулирующие кнопки
+	//-----------------------------------------------------------------------------
+	// Кнопка открывающая шкаф
+	$('#Main .Locker1Button .Push').click(function(e){
+		if (confirm("Подтвердите действие")){
 			$.ajax({
-				url: build_query(name, 'playback_finished', '0'),
+				url: build_query('locker_1_button', 'pushed', '0'),
 				type: "GET",
 				crossDomain: true,
 				dataType: "json",
@@ -660,58 +693,43 @@ function set_handlers() {
 						console.log('ERROR:', error);
 					}
 			});
-		});
-	}
-
-	//-----------------------------------------------------------------------------
-	// Кнопки, эмулирующие кнопки
-	//-----------------------------------------------------------------------------
-	// Кнопка открывающая шкаф
-	$('#Main .Locker1Button .Push').click(function(e){
-		$.ajax({
-			url: build_query('locker_1_button', 'pushed', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		}
 	});
 
 	// Кнопка открывающая шкаф
 	$('#Main .Locker2 .Open').click(function(e){
-		$.ajax({
-			url: build_query('locker_2', 'open', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('locker_2', 'open', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('button pushed');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
 	// Кнопка открывающая шкаф
 	$('#Main .Locker2 .Close').click(function(e){
-		$.ajax({
-			url: build_query('locker_2', 'close', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('locker_2', 'close', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('button pushed');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
 
@@ -720,18 +738,20 @@ function set_handlers() {
 	//-----------------------------------------------------------------------------
 	// Кнопка 'Активировать многогранник
 	$('#Main .Polyhedron .On').click(function(e){
-		$.ajax({
-			url: build_query('polyhedron', 'activated', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('rack activated');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('polyhedron', 'activated', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('rack activated');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 	// Кнопка 'Деактивировать многогранник'
 	// $('#Main .Polyhedron .Off').click(function(e){
@@ -750,210 +770,201 @@ function set_handlers() {
 	// });
 	// Кнопка 'Поставить многогранник'
 	$('#Main .Polyhedron .Stand').click(function(e){
-		$.ajax({
-			url: build_query('polyhedron', 'connected', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('rack deactivated');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('polyhedron', 'connected', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('rack deactivated');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
 
 	// Кнопка 'пристегнуть ремни'
 	$('#Main .SafetyBelts .On').click(function(e){
-		$.ajax({
-			url: build_query('safety_belts', 'number_of_fastened', '10'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('safety_belts', 'number_of_fastened', '10'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('button pushed');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
-	// Кнопка 'отстегнуть ремни'
-	// $('#Main .SafetyBelts .Off').click(function(e){
-	// 	$.ajax({
-	// 		url: build_query('safety_belts', 'number_of_fastened', '0'),
-	// 		type: "GET",
-	// 		crossDomain: true,
-	// 		dataType: "json",
-	// 			success: function (response) {
-	// 				console.log('button pushed');
-	// 			},
-	// 			error: function(error) {
-	// 				console.log('ERROR:', error);
-	// 			}
-	// 	});
-	// });
 
 	// Кнопка 'вставить жетоны'
 	$('#Main .Figure .Insert').click(function(e){
-		$.ajax({
-			url: build_query('figure', 'number_of_inserted', 9),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('figure', 'number_of_inserted', 9),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('button pushed');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
 	// Кнопка 'приложить карту'
 	$('#Main .CardReader .Ok').click(function(e){
-		$.ajax({
-			url: build_query('card_reader', 'card_ok', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('card_reader', 'card_ok', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('button pushed');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
-
-	// Кнопка 'сбросить карту'
-	// $('#Main .CardReader .Reset').click(function(e){
-	// 	$.ajax({
-	// 		url: build_query('card_reader', 'reset', '0'),
-	// 		type: "GET",
-	// 		crossDomain: true,
-	// 		dataType: "json",
-	// 			success: function (response) {
-	// 				console.log('button pushed');
-	// 			},
-	// 			error: function(error) {
-	// 				console.log('ERROR:', error);
-	// 			}
-	// 	});
-	// });
 
 	// Кнопка 'включить свет'
 	$('#Main .Light .On').click(function(e){
-		$.ajax({
-			url: build_query('light', 'on', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('light', 'on', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('button pushed');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 	// Кнопка 'выключить свет'
 	$('#Main .Light .Off').click(function(e){
-		$.ajax({
-			url: build_query('light', 'off', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('light', 'off', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('button pushed');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 	// Кнопка 'включить вибрацию'
 	$('#Main .Vibration .On').click(function(e){
-		$.ajax({
-			url: build_query('vibration', 'on', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('vibration', 'on', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('button pushed');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 	// Кнопка 'выключить вибрацию'
 	$('#Main .Vibration .Off').click(function(e){
-		$.ajax({
-			url: build_query('vibration', 'off', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('vibration', 'off', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('button pushed');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 	// Кнопка 'включить дым'
 	$('#Main .Smoke .On').click(function(e){
-		$.ajax({
-			url: build_query('smoke', 'on', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('smoke', 'on', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('button pushed');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 	// Кнопка 'выключить дым'
 	$('#Main .Smoke .Off').click(function(e){
-		$.ajax({
-			url: build_query('smoke', 'off', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('smoke', 'off', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('button pushed');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
 	// Кнопка 'энергостена пройдена'
 	$('#Main .PowerWall .Ok').click(function(e){
-		$.ajax({
-			url: build_query('power_wall', 'power_ok', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('button pushed');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('power_wall', 'power_ok', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('button pushed');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
 	// Кнопка спасения предпоследнего игрока
 	$('#Main .SaveButton .Push').click(function(e){
-		//if ($("#inpRoom2Door").val() == 'Открыта') {
+		if (confirm("Подтвердите действие")){
 			$.ajax({
 				url: build_query('save_button', 'pushed', '0'),
 				type: "GET",
@@ -966,7 +977,7 @@ function set_handlers() {
 						console.log('ERROR:', error);
 					}
 			});
-		//}
+		}
 	});
 
 	//-----------------------------------------------------------------------------
@@ -974,219 +985,229 @@ function set_handlers() {
 	//-----------------------------------------------------------------------------
 	// Кнопка 'Отправить' - для отправки кода на планшете1
 	$('#Main .Terminal1 .SendRight').click(function(e){
-		$.ajax({
-			url: build_query('terminal_1', 'code_entered', $("#inpTerminal1").val()),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('cell enter');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('terminal_1', 'code_entered', $("#inpTerminal1").val()),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('cell enter');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
 	// Кнопка 'Игра пройдена' - для прохождения игры на планшете2
 	$('#Main .Terminal2 .SendRight').click(function(e){
-		$.ajax({
-			url: build_query('terminal_2', 'game_passed', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('cell enter');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('terminal_2', 'game_passed', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('cell enter');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 	// Кнопка 'Игра не пройдена' - для прохождения игры на планшете2
 	$('#Main .Terminal2 .SendWrong').click(function(e){
-		$.ajax({
-			url: build_query('terminal_2', 'game_failed', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('cell enter');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('terminal_2', 'game_failed', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('cell enter');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 	// Кнопка 'Игра пройдена' - для прохождения игры на планшете3
 	$('#Main .Terminal3 .SendRight').click(function(e){
-		$.ajax({
-			url: build_query('terminal_3', 'game_passed', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('cell enter');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('terminal_3', 'game_passed', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('cell enter');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 	// Кнопка 'Игра не пройдена' - для прохождения игры на планшете3
 	$('#Main .Terminal3 .SendWrong').click(function(e){
-		$.ajax({
-			url: build_query('terminal_3', 'game_not_passed', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('cell enter');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('terminal_3', 'game_not_passed', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('cell enter');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
 	// Кнопка 'Отправить верно' - для отправки координат на планшете4
 	$('#Main .Terminal4 .SendRight').click(function(e){
-		$.ajax({
-			url: build_query('terminal_4', 'coordinates_entered_true', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('cell enter');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('terminal_4', 'coordinates_entered_true', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('cell enter');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 	// кнопки терминалов запустить принудительно
 	$('#Main .Terminal1 .Force').click(function(e){
-		$.ajax({
-			url: build_query('terminal_1', 'go', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('cell enter');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('terminal_1', 'go', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('cell enter');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 	$('#Main .Terminal2 .Force').click(function(e){
-		$.ajax({
-			url: build_query('terminal_2', 'go', 'right=0;6;7;9;14'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('cell enter');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('terminal_2', 'go', 'right=0;6;7;9;14'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('cell enter');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 	$('#Main .Terminal3 .Force').click(function(e){
-		$.ajax({
-			url: build_query('terminal_3', 'go', '0'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('cell enter');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('terminal_3', 'go', '0'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('cell enter');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 	$('#Main .Terminal4 .Force').click(function(e){
-		$.ajax({
-			url: build_query('terminal_4', 'go', '0/right=9847544'),
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					console.log('cell enter');
-				},
-				error: function(error) {
-					console.log('ERROR:', error);
-				}
-		});
+		if (confirm("Подтвердите действие")){
+			$.ajax({
+				url: build_query('terminal_4', 'go', '0/right=9847544'),
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+					success: function (response) {
+						console.log('cell enter');
+					},
+					error: function(error) {
+						console.log('ERROR:', error);
+					}
+			});
+		}
 	});
 
-
-	// // Кнопка 'Отправить неверно' - для отправки координат на планшете4
-	// $('#Main .Terminal4 .SendRWrong').click(function(e){
-	// 	$.ajax({
-	// 		url: build_query('terminal_4', 'coordinates_entered_false', '0'),
-	// 		type: "GET",
-	// 		crossDomain: true,
-	// 		dataType: "json",
-	// 			success: function (response) {
-	// 				console.log('cell enter');
-	// 			},
-	// 			error: function(error) {
-	// 				console.log('ERROR:', error);
-	// 			}
-	// 	});
-	// });
 	//-----------------------------------------------------------------------------
 	// Кнопки, эмулирующие ячейки
 	//-----------------------------------------------------------------------------
 	// Кнопки 'Отправить' - для отправки значения ячейки, 'Закрыть', 'Открыть'
 	for (var i = 1; i <= 5; i++) {
 		$('#Main .Cell' + i + ' .Send').click(function(e){
-			var element = $(e.srcElement).parents(".Device").find(".Input2")[0];
-			$.ajax({
-				url: build_query(element.name, 'code_entered', element.value),
-				type: "GET",
-				crossDomain: true,
-				dataType: "json",
-					success: function (response) {
-						console.log('cell enter');
-					},
-					error: function(error) {
-						console.log('ERROR:', error);
-					}
+			if (confirm("Подтвердите действие")){
+				var element = $(e.srcElement).parents(".Device").find(".Input2")[0];
+				$.ajax({
+					url: build_query(element.name, 'code_entered', element.value),
+					type: "GET",
+					crossDomain: true,
+					dataType: "json",
+						success: function (response) {
+							console.log('cell enter');
+						},
+						error: function(error) {
+							console.log('ERROR:', error);
+						}
 				});
+			}
 		});
 		$('#Main .Cell' + i + ' .Open').click(function(e){
-			var element = $(e.srcElement).parents(".Device").find(".Input2")[0];
-			$.ajax({
-				url: build_query(element.name, 'open', '0'),
-				type: "GET",
-				crossDomain: true,
-				dataType: "json",
-					success: function (response) {
-						console.log('cell enter');
-					},
-					error: function(error) {
-						console.log('ERROR:', error);
-					}
+			if (confirm("Подтвердите действие")){
+				var element = $(e.srcElement).parents(".Device").find(".Input2")[0];
+				$.ajax({
+					url: build_query(element.name, 'open', '0'),
+					type: "GET",
+					crossDomain: true,
+					dataType: "json",
+						success: function (response) {
+							console.log('cell enter');
+						},
+						error: function(error) {
+							console.log('ERROR:', error);
+						}
 				});
+			}
 		});
 		$('#Main .Cell' + i + ' .Close').click(function(e){
-			var element = $(e.srcElement).parents(".Device").find(".Input2")[0];
-			$.ajax({
-				url: build_query(element.name, 'close', '0'),
-				type: "GET",
-				crossDomain: true,
-				dataType: "json",
-					success: function (response) {
-						console.log('cell enter');
-					},
-					error: function(error) {
-						console.log('ERROR:', error);
-					}
+			if (confirm("Подтвердите действие")){
+				var element = $(e.srcElement).parents(".Device").find(".Input2")[0];
+				$.ajax({
+					url: build_query(element.name, 'close', '0'),
+					type: "GET",
+					crossDomain: true,
+					dataType: "json",
+						success: function (response) {
+							console.log('cell enter');
+						},
+						error: function(error) {
+							console.log('ERROR:', error);
+						}
 				});
+			}
 		});
 	}
 
@@ -1211,4 +1232,5 @@ function set_handlers() {
 			}
 		}
 	});
+
 }
