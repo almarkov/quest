@@ -422,6 +422,7 @@ function set_handlers() {
 						stop_timer();
 					},
 					error: function(error) {
+						enable_gamer_count();
 						console.log('ERROR:', error);
 						start_time = null;
 						$("#QuestTimer").text("NA");
