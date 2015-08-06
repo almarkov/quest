@@ -415,7 +415,7 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						$("#inpGamerCount").prop('disabled', false);
+						enable_gamer_count();
 						console.log('game reset');
 						start_time = null;
 						$("#QuestTimer").text("NA");

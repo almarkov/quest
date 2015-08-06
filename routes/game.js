@@ -422,7 +422,7 @@ router.get('/emulate_command/:device/:command/:parameter', function(req, res, ne
 	if (device.events) {
 		for (var j = 0; j < device.events.length; j++) {
 			if (command == device.events[j]) {
-				var url =  web_server_url + '/' + device + '/'+ command + '/' + parameter;
+				var url =  web_server_url + '/' + device.name + '/'+ command + '/' + parameter;
 				http.get(url, function(res) {
 						res.on('data', function(data){
 						});
