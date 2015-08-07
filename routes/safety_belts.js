@@ -10,7 +10,8 @@ router.get('/number_of_fastened/:parameter', function(req, res, next) {
 	devices.get('safety_belts').value = req.params.parameter;
 
 	// все пристёгнуты?
-	if (gamers.count <= parseInt(req.params.parameter)) {
+	gamers.fastened_count = parseInt(req.params.parameter);
+	if (gamers.count <= gamers.fastened_count) {
 
 		// если подготовка к перелёту(1)
 		if (gamers.game_state == 'gamers_sitting_and_fasten') {
@@ -23,8 +24,6 @@ router.get('/number_of_fastened/:parameter', function(req, res, next) {
 					device.state = 'ch1_play_ch2_play';
 				},{}
 			);
-		} else {
-			gamers.fastened_count = parseInt(req.params.parameter);
 		}
 	}
 
