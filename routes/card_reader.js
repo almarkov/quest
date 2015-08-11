@@ -11,8 +11,8 @@ router.get('/card_ok/:parameter', function(req, res, next) {
 
 		gamers.game_state = 'gamers_in_hallway';
 
-		if (devices.get('card_reader').state != "passed") {
-			devices.get('card_reader').state = "passed";
+		//if (devices.get('card_reader').state != "passed") {
+		//	devices.get('card_reader').state = "passed";
 
 			//  открываем дверь 6
 			helpers.send_get('door_6', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX, 
@@ -37,7 +37,7 @@ router.get('/card_ok/:parameter', function(req, res, next) {
 				}, {}
 			);
 
-		}
+		//}
 	}
 
 	res.json({success: 1});

@@ -13,20 +13,26 @@ router.get('/code_entered/:code', function(req, res, next) {
 	var code_index  = parseInt(req.baseUrl.substring(6,7)) - 1;
 	// прислали верный код
 	if (gamers.game_state  == 'gamers_opening_cells') {
-		var code_to_compare;
+		var index_to_cmp;
 		if (code_index == 4) {
-			code_to_compare = gamers.codes[code_index];
+			//code_to_compare = gamers.codes[code_index];
+			index_to_cmp = code_index;
 		//если ячейка №4
 		} else if (code_index == 3) {
 			//сравниваем с кодом предпоследнего игрока
-			code_to_compare = gamers.codes[gamers.count-2];
+			//code_to_compare = gamers.codes[gamers.count-2];
+			index_to_cmp = gamers.count-2;
 		} else if (code_index >= gamers.count-2) {
-			code_to_compare = gamers.codes[code_index+1];
+			//code_to_compare = gamers.codes[code_index+1];
+			index_to_cmp = code_index+1;
 		} else {
-			code_to_compare = gamers.codes[code_index];
+			//code_to_compare = gamers.codes[code_index];
+			index_to_cmp = code_index;
 		}
-		simple_log('comparing with ' + code_to_compare);
-		if (req.params.code == code_to_compare) {
+		var code_to_cmp = gamers.codes[index_to_cmp];
+		simple_log('comparing with ' + code_to_cmp);
+		if (req.params.code == code_to_cmp) {
+			gamers.codes[index_to_cmp] = '(v)' + gamers.codes[index_to_cmp]; 
 			var player_num = parseInt(gamers.game_states['gamers_opening_cells'].arg) + 1;
 			gamers.game_states['gamers_opening_cells'].arg = player_num.toString();
 			helpers.send_get(device_name, 'open', '0', DISABLE_TIMER, ENABLE_MUTEX,
