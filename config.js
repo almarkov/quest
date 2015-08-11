@@ -11,7 +11,7 @@ exports.arduino_list = {
 
 exports.types = {
 	door: {
-		commands: [ "close", "open"],
+		commands: [ "close", "open" ],
 		events:   [ ],
 		states:   [ "closed", "opened", "no_info" ]
 	},
