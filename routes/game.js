@@ -6,6 +6,10 @@ var fs = require('fs');
 
 // полный сброс
 router.get('/reset', function(req, res, next) {
+
+	// новый setinterval для эмуляции wd + разных вещей
+
+
 	// сбрасываем параметры
  	devices.reset();
 	gamers.reset();
@@ -383,10 +387,15 @@ router.get('/setinterval', function(req, res, next) {
 		gamers.intervalObject = setInterval(function() {
 
 			devices.list.forEach(function (_device) {
+				// уменьшаем на 1 счётчик wd
 				if (_device.wd_enabled) {
 					if (_device.wd_state) {
 						_device.wd_state -= 1;
 					};
+				}
+
+				if (_device.wd_emulate) {
+					helpers.emulate_watchdog(_device);
 				}
 			});
 		}, 1000);
@@ -394,6 +403,18 @@ router.get('/setinterval', function(req, res, next) {
 
 	res.json({success: 1});
 
+});
+
+// вкл/выкл эмуляцию wd для устройства
+router.get('/emulate_watchdog/:device_name/', function(req, res, next) {
+
+	var device_name = req.params.device_name;
+
+	var device = devices.get(device_name);
+
+	device.wd_emulate = device.wd_emulate ? 0 : 1;
+
+	res.json({success: 1});
 });
 
 // Обработка кнопок

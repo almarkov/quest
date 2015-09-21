@@ -39,53 +39,12 @@ router.get('/ready', function(req, res, next) {
 
 		gamers.game_state = 'devices_check';
 
-		// начинаем уменьшать через интарвал
+		// начинаем уменьшать через интервал
 		http.get(web_server_url + '/game/setinterval', function(res) {
 
 			}).on('error', function(e) {
 				simple_log('error game setinterval');
 		});
-
-		// devices.list.forEach(function function_name (_device) {
-		// 	if (_device.id == 0 && _device.wd_enabled) {
-		// 		var query = "http://" + _device.ip + ":" +  _device.port + "/255/0/0";
-		// 		if (!_device.mutex) {
-		// 			http.get(query, function(res) {
-		// 				res.on('data', function(data){
-		// 					var result = JSON.parse(data);
-		// 					if (result.success && result.onboard_devices) {
-		// 						//обновить статусы устройств
-		// 						for (var j = 0; j < result.onboard_devices.length; j++) {
-		// 							var device = devices.get_by_id(result.carrier_id, result.onboard_devices[j].id);
-		// 							device.wd_state = 1;
-		// 							device.state = device.states[result.onboard_devices[j].state];
-		// 						}
-		// 					} else {
-		// 						// пометить неответившие устройства
-		// 						for (var j = 0; j < result.onboard_devices.length; j++) {
-		// 							var device = devices.get_by_id(result.carrier_id, result.onboard_devices[j].id);
-		// 							device.wd_state = 0;
-		// 							device.state = device.states[result.onboard_devices[j].state];
-		// 						}
-		// 					}
-		// 				});
-		// 			}).on('error', function(e) {
-		// 				// simple_log("watchdog error");
-		// 				// devices.list_by_carrier_id[_device.carrier_id].forEach(function fn(item){
-		// 				// 	item.wd_state = 0;
-		// 				// });
-		// 			}).setTimeout( config.wd_error_timeout, function( ) {
-		// 				simple_log("watchdog error");
-		// 				simple_log(_device.ip);
-		// 				devices.list_by_carrier_id[_device.carrier_id].forEach(function fn(item){
-		// 					item.wd_state = 0;
-		// 				});
-		// 			});
-
-
-		// 		}
-		// 	}
-		// });
 
 		// проверяем через 15с
 		setTimeout(function () {

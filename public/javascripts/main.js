@@ -276,11 +276,18 @@ $(document).ready(function() {
 					var element_state = device_element.parent().parent().find(".Status");
 					if (response[element].wd_state == 0) {
 						element_state.removeClass("Online");
+						element_state.removeClass("Emulating");
 						element_state.addClass("Offline");
 						device_element.val('Не определён');
 					} else {
 						element_state.removeClass("Offline");
-						element_state.addClass("Online");
+						if (response[element].wd_emulate) {
+							element_state.removeClass("Online");
+							element_state.addClass("Emulating");
+						} else {
+							element_state.removeClass("Emulating");
+							element_state.addClass("Online");
+						}
 					}
 				});
 

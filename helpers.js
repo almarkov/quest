@@ -133,3 +133,28 @@ exports.send_get_with_timeout = function(device, url, n, timeout) {
 		}
 	}, timeout);
 }
+
+exports.emulate_watchdog = function(device) {
+
+	//!!!!!! в отдельную ф-цию (поменять simple_copy device - объект на базе config)
+	var state_id = 0;
+	for (var i = 0; i < device.states.length; i++) {
+		if (device.states[i] == device.state) {
+			state_id = i;
+			break;
+		}
+	} 
+	var query = web_server_url + '/watchdog' + '?'
+		+ 'carrier_id[0]=' + device.carrier_id 
+		+ '&device_id[0]=' + device.id
+		+ '&status_id[0]=' + state_id;
+
+	http.get(query, function(res) {
+			res.on('data', function(data){
+			});
+			res.on('error', function(data){
+			});
+		}).on('error', function(e) {
+			simple_log("emulating_wd " + device.name +  " " + query + " error");
+	});
+}
