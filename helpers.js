@@ -41,7 +41,6 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 				}).on('error', function(e) {
 					simple_log("first attempt " + device_name +  " " + command + " error");
 				}).setTimeout( helpers.get_timeout('SOCKET_WAIT_TIME')*1000, function( ) {
-
 					if (enable_mutex) {
 						device.mutex = 0;
 					}
@@ -144,7 +143,7 @@ exports.emulate_watchdog = function(device) {
 			break;
 		}
 	} 
-	var query = web_server_url + '/watchdog' + '?'
+	var query = config.web_server_url + '/watchdog' + '?'
 		+ 'carrier_id[0]=' + device.carrier_id 
 		+ '&device_id[0]=' + device.id
 		+ '&status_id[0]=' + state_id;
@@ -156,5 +155,32 @@ exports.emulate_watchdog = function(device) {
 			});
 		}).on('error', function(e) {
 			simple_log("emulating_wd " + device.name +  " " + query + " error");
+	});
+}
+
+//----------------------------------------------------------------------------
+// независимые функции (лучше в отдельный файл?)
+//----------------------------------------------------------------------------
+
+// работа с COM - включение/выключение устройств
+exports.turn_on_devices = function() {
+	http.get(config.web_server_url + '/sendcom/on/all', function(res) {
+		}).on('error', function(e) {
+			simple_log('error sendcom on all');
+	});
+}
+
+exports.turn_off_devices = function() {
+	http.get(config.web_server_url + '/sendcom/off/all', function(res) {   
+		}).on('error', function(e) {
+			simple_log('error sendcom off all');
+	});
+}
+
+// вкючаем проверку watchdog
+exports.turn_on_wd_check = function() {
+	http.get(config.web_server_url + '/game/setinterval', function(res) {
+		}).on('error', function(e) {
+			simple_log('error game setinterval');
 	});
 }

@@ -308,6 +308,14 @@ $(document).ready(function() {
 
 
 				$("#QuestState").text(response.quest_state);
+				var timer_state = '';
+				if (response.timer_state.active) {
+					timer_state = response.timer_state.value + '/' + response.timer_state.timeout;
+				} else {
+					timer_state = 'Неактивен';
+				}
+
+				$("#TimerState").text(timer_state);
 				$("#QuestTimer").text(response.game_timer);
 				//$("#QuestError").text(response.quest_error);
 				// if (response.codes) {

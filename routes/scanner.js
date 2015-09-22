@@ -8,8 +8,8 @@ router.get('/start', function(req, res, next) {
 	gamers.dashboard_buttons.StartScan = 0;
 	gamers.dashboard_buttons.Queue = 0;
 	gamers.active_button = '';
-	var player_num = gamers.game_states['scan_invitation'].arg;
-	gamers.set_game_state('scaning_gamer', player_num); // Приглашение на сканирование
+	var player_num = gamers.game_states['scan_invitation'].args[0];
+	gamers.set_game_state('scaning_gamer', [player_num]); // Приглашение на сканирование
 	// закрываем дверь №2
 	gamers.active_button = '';
 	helpers.send_get('door_2', 'close', '0', helpers.get_timeout('C'), ENABLE_MUTEX);
@@ -22,8 +22,8 @@ router.get('/stop', function(req, res, next) {
 
 	if (gamers.game_state == 'scaning_outlaw_ended') {
 
-		var player_num = gamers.game_states['scaning_outlaw_ended'].arg;
-		gamers.set_game_state('scaning_outlaw_ending', player_num);
+		var player_num = gamers.game_states['scaning_outlaw_ended'].args[0];
+		gamers.set_game_state('scaning_outlaw_ending', [player_num]);
 		gamers.dashboard_buttons.StopScan = 0;
 		gamers.active_button = '';
 		// закрываем дверь 3
@@ -45,8 +45,8 @@ router.get('/stop', function(req, res, next) {
 		);
 	} else if (gamers.game_state == 'scaning_not_outlaw_ended') {
 
-		var player_num = gamers.game_states['scaning_not_outlaw_ended'].arg;
-		gamers.set_game_state('scaning_not_outlaw_ending', player_num);
+		var player_num = gamers.game_states['scaning_not_outlaw_ended'].args[0];
+		gamers.set_game_state('scaning_not_outlaw_ending', [player_num]);
 		gamers.dashboard_buttons.StopScan = 0;
 		gamers.active_button = '';
 		// закрываем дверь 4

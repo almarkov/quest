@@ -15,7 +15,7 @@ router.get('/all', function(req, res, next) {
 	var now = new Date();
 	if (gamers.start_time && gamers.game_state != 'quest_failed') {
 		if ((now - gamers.start_time - 60*60*1000) > 0) {
-			http.get(web_server_url + "/game/time_ended",
+			http.get(config.web_server_url + "/game/time_ended",
 				function(res) {
 					simple_log("time_ended ok");
 				}).on('error', function(e) {
@@ -26,32 +26,32 @@ router.get('/all', function(req, res, next) {
 
 	// уменьшаем таймер
 	// если таймер активен
-	if (devices.timer().state == 'active') {
-		var new_current_value = devices.timer().current_value - 1*config.wd_multiplicator;
-		// если таймер не досчитал - уменьшаем
-		if (new_current_value > 0) {
-			devices.timer().current_value = new_current_value;
-			// отправляем на сервер текущее значение
-			http.get(web_server_url + "/timer/current_value/" + new_current_value.toString(),
-					function(res) {
-						simple_log("timer current_value: " + new_current_value.toString());
-					}).on('error', function(e) {
-						simple_log("timer send current_value error");
-			});
-		// если таймер досчитал - обнуляем, 
-		} else {
-			devices.timer().state         = 'ready';
-			devices.timer().current_value = '';
+	// if (devices.timer().state == 'active') {
+	// 	var new_current_value = devices.timer().current_value - 1*config.wd_multiplicator;
+	// 	// если таймер не досчитал - уменьшаем
+	// 	if (new_current_value > 0) {
+	// 		devices.timer().current_value = new_current_value;
+	// 		// отправляем на сервер текущее значение
+	// 		http.get(config.web_server_url + "/timer/current_value/" + new_current_value.toString(),
+	// 				function(res) {
+	// 					simple_log("timer current_value: " + new_current_value.toString());
+	// 				}).on('error', function(e) {
+	// 					simple_log("timer send current_value error");
+	// 		});
+	// 	// если таймер досчитал - обнуляем, 
+	// 	} else {
+	// 		devices.timer().state         = 'ready';
+	// 		devices.timer().current_value = '';
 
-			// отправляем событие ready
-			simple_log('sending timer ready');
-			http.get(web_server_url + "/timer/ready", function(res) {
-					simple_log('sent timer ready');
-				}).on('error', function(e) {
-					simple_log('error sending ready');
-			});
-		}
-	}
+	// 		// отправляем событие ready
+	// 		simple_log('sending timer ready');
+	// 		http.get(config.web_server_url + "/timer/ready", function(res) {
+	// 				simple_log('sent timer ready');
+	// 			}).on('error', function(e) {
+	// 				simple_log('error sending ready');
+	// 		});
+	// 	}
+	// }
 
 	// watchdog
 	if (config.watchdog_enabled && gamers.wd_on) {
@@ -83,7 +83,7 @@ router.get('/all', function(req, res, next) {
 			// 							// перегружаем если 0
 			// 							if (config.enable_reload) {
 			// 								if (device.wd_state == 0) {
-			// 									http.get(web_server_url + '/sendcom/reload/' + device.name, function(res) {
+			// 									http.get(config.web_server_url + '/sendcom/reload/' + device.name, function(res) {
 			// 									}).on('error', function(e) {
 			// 										simple_log('error sendcom reload' + device.name);
 			// 									});
@@ -170,6 +170,8 @@ router.get('/all', function(req, res, next) {
 	result.gamers_count = gamers.count;
 
 	result.quest_completed = (gamers.quest_state == 'quest_completed' ? 1 : 0);
+
+	result.timer_state = timers.get();
 
 
 

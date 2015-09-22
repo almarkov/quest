@@ -21,7 +21,7 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 			},{}
 		);
 
-		gamers.set_game_state('gamers_opening_cells', '0');
+		gamers.set_game_state('gamers_opening_cells', ['0']);
 	}
 });
 

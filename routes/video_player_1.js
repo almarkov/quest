@@ -72,7 +72,7 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 			},{}
 		);
 
-		gamers.set_game_state('scan_invitation', '1'); // Приглашение на сканирование
+		gamers.set_game_state('scan_invitation', ['1']); // Приглашение на сканирование
 
 		// включаем звук для номера игрока
 		var gamer_num = parseInt(gamers.game_states['scan_invitation'].arg) + 2;

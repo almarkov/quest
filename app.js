@@ -72,16 +72,16 @@ PROD_MODE     = 0;
 EMULATOR_MODE = 0;
 REAL_MODE     = 1;
 
+// конфигурация
+config = require("./config.js");
+
 // вспомогат. ф-ции
 routines       = require("./routines.js");
-// адрес самого сервера
-web_server_url = "http://localhost:3000";
 
 // время начала квеста
 start_time = null;
 
-// конфигурация
-config = require("./config.js");
+
 ENABLE_TIMER  = config.default_timer_value;
 
 // глобальные объекты на сервере, соответствующие устройствам
@@ -90,9 +90,15 @@ devices = require("./devices.js");
 devices.reset();
 // игроки
 gamers = require("./gamers.js");
+// новый таймер
+timers = require("./timers.js");
 
 // ф-ции, сокращающие запросы
 helpers = require("./helpers.js");
+
+// реализация запросов с помощью FIFO
+queue = require("./queue.js");
+
 ENABLE_TIMER  = 1;
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -104,6 +110,7 @@ app.use(logger('dev'));
 var fs = require('fs');
 var util = require('util');
 var log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'debug.log', {flags : 'a'});
+var dev_log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'dev.log', {flags : 'a'});
 var log_stdout = process.stdout;
 
 console.log = function(d) {
@@ -116,6 +123,10 @@ simple_log = function(d) {
   if (DEV_MODE) {
     log_stdout.write(util.format(d) + '\n');
   } 
+};
+
+dev_log = function(d) {
+  dev_log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n');
 };
 
 app.use(bodyParser.json());
@@ -222,7 +233,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-http.get(web_server_url + '/game/reset', function(res) {
+http.get(config.web_server_url + '/game/reset', function(res) {
     
 }).on('error', function(e) {
   simple_log('error reset game');

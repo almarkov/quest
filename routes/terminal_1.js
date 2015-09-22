@@ -20,7 +20,7 @@ router.get('/code_entered/:code', function(req, res, next) {
 		gamers.active_button = 'StopScan';
 		if (player_number != gamers.count - 1) {
 
-			gamers.set_game_state('scaning_not_outlaw_ended', gamers.game_states['scaning_gamer'].arg);
+			gamers.set_game_state('scaning_not_outlaw_ended', [gamers.game_states['scaning_gamer'].args[0]]);
 
 			// открываем дверь 4
 			helpers.send_get('door_4', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX, 
@@ -58,7 +58,7 @@ router.get('/code_entered/:code', function(req, res, next) {
 			//  открываем дверь 4
 			// helpers.send_get('door_4', 'open', '0', helpers.get_timeout('T1'), ENABLE_MUTEX);
 		} else {
-			gamers.set_game_state('scaning_outlaw_ended', gamers.game_states['scaning_gamer'].arg);
+			gamers.set_game_state('scaning_outlaw_ended', [gamers.game_states['scaning_gamer'].args[0]]);
 
 			// открываем дверь 3
 			helpers.send_get('door_3', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX, 

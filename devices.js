@@ -40,7 +40,7 @@ exports.get_redirect_url = function (ip, device_id, command_id) {
 
 exports.build_query = function(device, command, parameter) {
 	if (device == 'timer') {
-		return web_server_url + '/timer/'+ command + '/' + parameter;
+		return config.web_server_url + '/timer/'+ command + '/' + parameter;
 	}
 	if (REAL_MODE) {
 		for (var i = 0; i < config.list.length; i++) {
@@ -59,7 +59,7 @@ exports.build_query = function(device, command, parameter) {
 		}
 	}
 	if (EMULATOR_MODE) {
-		return web_server_url + '/' + device + '/'+ command + '/' + parameter;
+		return config.web_server_url + '/' + device + '/'+ command + '/' + parameter;
 	}
 }
 

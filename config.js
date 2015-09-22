@@ -3,6 +3,8 @@
 // надо прописать для каждого
 // надо сделать,	чтобы адрес устройства вычисляся так:
 // url = "http://<ip>:<port>" || "<url>",	т.е. можно указать либо ip+port,	либо url
+exports.web_server_url = "http://localhost:3000";
+
 exports.dev_url = "http://localhost:3000";
 
 exports.arduino_list = {
@@ -176,7 +178,8 @@ if (REAL_MODE) {
 			carrier_id:    2,
 			name:          "door_8",
 			type:          "door",
-			ip:            "192.168.20.157",
+			//ip:            "192.168.20.157",
+			ip:            "localhost",
 			port:          "80",
 			state:         "closed",
 			wd_state:      exports.wd_limit,
@@ -1425,7 +1428,7 @@ exports.timeouts = {
 	D:  5,
 	E:  3,
 	CHECK_TIME: 10,
-	SOCKET_WAIT_TIME: 1,
+	SOCKET_WAIT_TIME: 3,
 	DEVICE_RELOAD_TIME: 2,
 }
 

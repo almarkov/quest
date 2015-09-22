@@ -7,28 +7,16 @@ var fs = require('fs');
 // полный сброс
 router.get('/reset', function(req, res, next) {
 
-	// новый setinterval для эмуляции wd + разных вещей
-
-
 	// сбрасываем параметры
  	devices.reset();
 	gamers.reset();
-	http.get(web_server_url + '/sendcom/off/all', function(res) {
-    
-  		}).on('error', function(e) {
-    		simple_log('error sendcom off all');
-  	});
+	queue.reset();
 
-  	http.get(devices.build_query('timer', 'activate', helpers.get_timeout("A")), function(res) {
-		res.on('data', function(data){
-			var result = JSON.parse(data);
-			devices.get('timer').state = result.state.state;
-		});
-	}).on('error', function(e) {
-		simple_log("timer activate error: ");
-	});
+	helpers.turn_off_devices();
 
-	gamers.game_state = 'devices_off';
+  	gamers.set_game_state('devices_off', []);
+  	timers.start(helpers.get_timeout("A"));
+	
 
 	// удаляем старые файлы лога
 	var log_files = fs.readdirSync('log');
@@ -380,6 +368,12 @@ router.get('/point1', function(req, res, next) {
 	res.json({success: 1});
 });
 
+
+// проверка wd - каждую секунду счётчик wd уменьшаем на 1
+// если счётчик < 0 - перестаём 
+//     статус устройства - 'не определено', отображается красным
+// если включена эмуляция
+//     посылаем wd вручную, отображается синим
 router.get('/setinterval', function(req, res, next) {
 
 	if (config.watchdog_enabled) {
@@ -387,7 +381,7 @@ router.get('/setinterval', function(req, res, next) {
 		gamers.intervalObject = setInterval(function() {
 
 			devices.list.forEach(function (_device) {
-				// уменьшаем на 1 счётчик wd
+
 				if (_device.wd_enabled) {
 					if (_device.wd_state) {
 						_device.wd_state -= 1;
@@ -443,7 +437,7 @@ router.get('/emulate_command/:device/:command/:parameter', function(req, res, ne
 	if (device.events) {
 		for (var j = 0; j < device.events.length; j++) {
 			if (command == device.events[j]) {
-				var url =  web_server_url + '/' + device.name + '/'+ command + '/' + parameter;
+				var url =  config.web_server_url + '/' + device.name + '/'+ command + '/' + parameter;
 				http.get(url, function(res) {
 						res.on('data', function(data){
 						});
