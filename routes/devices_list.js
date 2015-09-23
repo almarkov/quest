@@ -111,41 +111,13 @@ router.get('/all', function(req, res, next) {
 			// });
 	}
 
-	// проверка работоспосбоности
-	// if (gamers.quest_state == 0) {
-	// 	var flag = 1;
-	// 	for (var i = 0; i < devices.list.length; i++) {
-	// 		if (!devices.list[i].wd_state) {
-	// 			flag = 0;
-	// 		}
-	// 	}
-	// 	if (flag) {
-	// 		gamers.quest_state = 1;
-	// 	}
-	// }
-
 	// передача модели в GUI
 	var result = {};
 	for (var i = 0; i < devices.list.length; i++) {
 		result[devices.list[i].name] = devices.list[i];
 	}
 
-	// переменные статусы
-	// var player_number = gamers.quest_state % 10 + 1;
-	// var str = " " + gamers.quest_state + gamers.quest_states[gamers.quest_state];
-	// if (gamers.quest_state >= 100 && gamers.quest_state < 110) {
-	// 	str += ' игрока ' + player_number + '. Осталось просканировать ' + (gamers.count - gamers.quest_state % 10) + ' человек из ' + (gamers.count);
-	// }
-	// if (gamers.quest_state >= 110 && gamers.quest_state < 120) {
-	// 	str += ' ' + (gamers.count - gamers.quest_state % 10) + ' человек из ' + (gamers.count);
-	// }
-	// if (gamers.quest_state >= 120 && gamers.quest_state < 130) {
-	// 	str += ' ' + (gamers.quest_state % 10 + 1) + ' из ' + (gamers.count) + '. В конце сканирования требуется действие оператора – убедитесь, что игрок вышел из комнаты сканирования, после чего нажмите «Закончить сканирование» ' + parseInt(gamers.count);
-	// }
-
 	result.quest_state = gamers.get_game_state();
-
-	// result.quest_state_num = gamers.quest_state;
 
 	result.codes = gamers.codes;
 
@@ -169,9 +141,13 @@ router.get('/all', function(req, res, next) {
 
 	result.gamers_count = gamers.count;
 
-	result.quest_completed = (gamers.quest_state == 'quest_completed' ? 1 : 0);
+	result.quest_completed = (gamers.game_state == 'quest_completed' ? 1 : 0);
 
 	result.timer_state = timers.get();
+
+
+	// !!!!!! сделать адаптивно - отправлять только изменения!!!
+	result.face = face.get();
 
 
 

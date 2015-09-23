@@ -291,6 +291,10 @@ $(document).ready(function() {
 					}
 				});
 
+				$(".DashBoard").find(".BType_01").each(function(element){
+
+				});
+
 				$(".DashBoard").find(".BType_01").removeClass("Active");
 				if (response.active_button) {
 					$("." + response.active_button).addClass("Active");
@@ -336,6 +340,10 @@ $(document).ready(function() {
 
 });
 
+
+function generate_dashboard (data){
+
+}
 
 function set_handlers() {
 	//-----------------------------------------------------------------------------

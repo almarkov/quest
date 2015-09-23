@@ -1,5 +1,3 @@
-var http = require('http');
-
 exports._entity = {
 	timeout: 0,
 	value:   0,
@@ -8,7 +6,7 @@ exports._entity = {
 };
 
 // инициализировать таймер
-exports.start = function (timeout){
+exports.start = function (timeout, callback){
 	exports._entity.timeout = timeout;
 	exports._entity.value   = 0;
 	exports._entity.active  = 1;
@@ -18,7 +16,7 @@ exports.start = function (timeout){
 			clearInterval(exports._entity._intervalObject);
 			queue.get({
 				url: devices.build_query('timer', 'ready', '') 
-			}, null)
+			}, null);
 		}
 	}, 1000);
 }

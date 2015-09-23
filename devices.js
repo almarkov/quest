@@ -39,6 +39,7 @@ exports.get_redirect_url = function (ip, device_id, command_id) {
 }
 
 exports.build_query = function(device, command, parameter) {
+
 	if (device == 'timer') {
 		return config.web_server_url + '/timer/'+ command + '/' + parameter;
 	}

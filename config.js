@@ -94,7 +94,7 @@ if (REAL_MODE) {
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
-			wd_emulate:    0,
+			wd_emulate:    1,
 		},
 
 		// дверь 3
@@ -109,7 +109,7 @@ if (REAL_MODE) {
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
-			wd_emulate:    0,
+			wd_emulate:    1,
 		},
 
 		// дверь 4
@@ -124,7 +124,7 @@ if (REAL_MODE) {
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
-			wd_emulate:    0,
+			wd_emulate:    1,
 		},
 
 		// дверь 5
@@ -139,7 +139,7 @@ if (REAL_MODE) {
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
-			wd_emulate:    0,
+			wd_emulate:    1,
 		},
 
 		// дверь 6
@@ -154,7 +154,7 @@ if (REAL_MODE) {
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
-			wd_emulate:    0,
+			wd_emulate:    1,
 		},
 
 		// дверь 7
@@ -169,7 +169,7 @@ if (REAL_MODE) {
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
-			wd_emulate:    0,
+			wd_emulate:    1,
 		},
 
 		// дверь 8
@@ -185,7 +185,7 @@ if (REAL_MODE) {
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
-			wd_emulate:    0,
+			wd_emulate:    1,
 		},
 
 		// подсветка
@@ -420,8 +420,9 @@ if (REAL_MODE) {
 			carrier_id:    666,
 			name:          "video_player_1",
 			type:          "video_player",
-			ip:            "192.168.20.205",
-			port:          "8070",
+			//ip:            "192.168.20.205",
+			ip:            "localhost",
+			port:          "3000",
 			state:         "stopped",
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
@@ -436,8 +437,9 @@ if (REAL_MODE) {
 			carrier_id:    667,
 			name:          "video_player_2",
 			type:          "video_player",
-			ip:            "192.168.20.206",
-			port:          "8070",
+			//ip:            "192.168.20.206",
+			ip:            "localhost",
+			port:          "3000",
 			state:         "stopped",
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
@@ -452,8 +454,9 @@ if (REAL_MODE) {
 			carrier_id:    668,
 			name:          "video_player_3",
 			type:          "video_player",
-			ip:            "192.168.20.204",
-			port:          "8070",
+			//ip:            "192.168.20.204",
+			ip:            "localhost",
+			port:          "3000",
 			state:         "stopped",
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,

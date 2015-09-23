@@ -8,15 +8,16 @@ var fs = require('fs');
 router.get('/reset', function(req, res, next) {
 
 	// сбрасываем параметры
+	face.reset();
  	devices.reset();
 	gamers.reset();
 	queue.reset();
 
+	// выключаем устройства
 	helpers.turn_off_devices();
 
   	gamers.set_game_state('devices_off', []);
   	timers.start(helpers.get_timeout("A"));
-	
 
 	// удаляем старые файлы лога
 	var log_files = fs.readdirSync('log');
@@ -27,21 +28,13 @@ router.get('/reset', function(req, res, next) {
 	res.json({success: 1});
 });
 
-// вернулись в команту 2
-router.get('/close_power_wall', function(req, res, next) {
-
-	//  закрываем дверь 8
-	helpers.send_get('door_8', 'close', '0', ENABLE_TIMER, ENABLE_MUTEX);
-	res.json({success: 1});
-
-});
-
-// стартовала игра
+// старт игры
 router.get('/start/:count', function(req, res, next) {
 	if (gamers.game_state == 'ready_to_go') { // квест готов к запуску
 
-		gamers.dashboard_buttons.Start = 0;
-		gamers.dashboard_buttons.GetReady = 0;
+		face.disable('start');
+		face.disable('get_ready');
+
 		// начинаем часовой отсчёт
 		gamers.start_time = new Date();
 		// фиксируем число игроков
@@ -56,10 +49,19 @@ router.get('/start/:count', function(req, res, next) {
 			}, {}
 		);
 
-		gamers.dashboard_buttons.AllIn = 1;
-		gamers.active_button = 'AllIn';
+		face.enable('all_in');
+		face.highlight_on('all_in');
 	}
 
+	res.json({success: 1});
+
+});
+
+// вернулись в команту 2
+router.get('/close_power_wall', function(req, res, next) {
+
+	//  закрываем дверь 8
+	helpers.send_get('door_8', 'close', '0', ENABLE_TIMER, ENABLE_MUTEX);
 	res.json({success: 1});
 
 });
@@ -124,33 +126,19 @@ router.get('/polyhedron_prompt', function(req, res, next) {
 // подготовка устройств
 router.get('/get_ready', function(req, res, next) {
 
-	gamers.game_state = 'preparation';
+	gamers.set_game_state('preparation', []);
 
-	// закрываем двери
-	// открываем двери
-	var command = 'close';
-	helpers.send_get('door_1', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-	helpers.send_get('door_2', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-	helpers.send_get('door_3', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-	helpers.send_get('door_5', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-
-	setTimeout(function () {
-		helpers.send_get('door_4', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-		helpers.send_get('door_7', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-		setTimeout(function () {
-			helpers.send_get('door_6', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-			helpers.send_get('door_8', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-				
-		}, 2*1000);
-	}, 2*1000);
+	for (var i = 1; i <= 8; i++) {
+		queue.push('door_' + i, 'close', '0', DISABLE_TIMER);
+	}
 
 	// закрываем ячейки
 	for (var i = 1; i <= 5; i++) {
-		helpers.send_get('cell_' + i, 'close', '0', DISABLE_TIMER, ENABLE_MUTEX);
+		queue.push('cell_' + i, 'close', '0', DISABLE_TIMER);
 	}
 
 	// запускаем аудио на первом канале
-	helpers.send_get('audio_player_4', 'play_channel_1', config.audio_files[19].value, DISABLE_TIMER, ENABLE_MUTEX,
+	queue.push('audio_player_4', 'play_channel_1', config.audio_files[19].value, DISABLE_TIMER,
 		function(params){
 			var device = devices.get('audio_player_4');
 			device.value = config.audio_files[19].alias;
@@ -159,17 +147,17 @@ router.get('/get_ready', function(req, res, next) {
 	);
 	// выключаем аудио на первом канале
 	for (var i = 1; i <= 3; i++) {
-		helpers.send_get('audio_player_' + i, 'stop_channel_1', '0', DISABLE_TIMER, ENABLE_MUTEX);
+		queue.push('audio_player_' + i, 'stop_channel_1', '0', DISABLE_TIMER);
 	}
 
 	// выключаем аудио на втором канале
 	for (var i = 1; i <= 4; i++) {
-		helpers.send_get('audio_player_' + i, 'stop_channel_2', '0', DISABLE_TIMER, ENABLE_MUTEX);
+		queue.push('audio_player_' + i, 'stop_channel_2', '0', DISABLE_TIMER);
 	}
 
 	// включаем экраны 1,2,3
 	for (var i = 1; i <= 3; i++) {
-		helpers.send_get('video_player_' + i, 'play', config.video_files[3].value, DISABLE_TIMER, ENABLE_MUTEX,
+		queue.push('video_player_' + i, 'play', config.video_files[3].value, DISABLE_TIMER,
 			function(params){
 				var device = devices.get('video_player_' + params.index);
 				device.value = config.video_files[3].alias;
@@ -182,34 +170,26 @@ router.get('/get_ready', function(req, res, next) {
 	}
 
 	// выключаем подсветку
-	helpers.send_get('inf_mirror_backlight', 'off', '0', DISABLE_TIMER, ENABLE_MUTEX);
+	queue.push('inf_mirror_backlight', 'off', '0', DISABLE_TIMER);
 
 	// включаем подсветку статуи
-	helpers.send_get('figure', 'backlight_on', '0', DISABLE_TIMER, ENABLE_MUTEX);
+	queue.push('figure', 'backlight_on', '0', DISABLE_TIMER);
 
 	// включаем свет
-	helpers.send_get('light', 'on', '0', DISABLE_TIMER, ENABLE_MUTEX);
+	queue.push('light', 'on', '0', DISABLE_TIMER);
 
 	// выключаем вибрацию
-	helpers.send_get('vibration', 'off', '0', DISABLE_TIMER, ENABLE_MUTEX);
+	queue.push('vibration', 'off', '0', DISABLE_TIMER);
 
 	// выключаем планешеты
 	for (var i = 1; i <= 4; i++) {
-		helpers.send_get('terminal_' + i, 'black_screen', '0', DISABLE_TIMER, ENABLE_MUTEX);
+		queue.push('terminal_' + i, 'black_screen', '0', DISABLE_TIMER);
 	}
 
 	// сбрасываем считыватель RFID
-	helpers.send_get('card_reader', 'reset', '0', DISABLE_TIMER, ENABLE_MUTEX);
+	queue.push('card_reader', 'reset', '0', DISABLE_TIMER);
 
-	// запускаем таймер
-	http.get(devices.build_query('timer', 'activate', helpers.get_timeout('B')), function(res) {
-			res.on('data', function(data){
-				var result = JSON.parse(data);
-				devices.get('timer').state = result.state.state;
-			});
-		}).on('error', function(e) {
-			console.log("timer activate error: ");
-	});
+	timers.start(helpers.get_timeout('B'));
 
 	res.json({success: 1});
 
@@ -219,32 +199,20 @@ router.get('/get_ready', function(req, res, next) {
 router.get('/service_mode', function(req, res, next) {
 
 	//  режим обслуживания
-	gamers.game_state = 'service_mode';
+	gamers.set_game_state('service_mode', []);
 
 	// открываем двери
-	var command = 'open';
-	helpers.send_get('door_1', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-	helpers.send_get('door_2', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-	helpers.send_get('door_3', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-	helpers.send_get('door_5', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-
-	setTimeout(function () {
-		helpers.send_get('door_4', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-		helpers.send_get('door_7', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-		setTimeout(function () {
-			helpers.send_get('door_6', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-			helpers.send_get('door_8', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-				
-		}, 2*1000);
-	}, 2*1000);
+	for (var i = 1; i <= 8; i++) {
+		queue.push('door_' + i, 'open', '0', DISABLE_TIMER);
+	}
 
 	// открываем ячейки
 	for (var i = 1; i <= 5; i++) {
-		helpers.send_get('cell_' + i, 'open', '0', DISABLE_TIMER, ENABLE_MUTEX);
+		queue.push('cell_' + i, 'open', '0', DISABLE_TIMER);
 	}
 
 	// открываем шкаф с картой
-	helpers.send_get('locker_2', 'open', '0', 2, ENABLE_MUTEX);
+	queue.push('locker_2', 'open', '0', 2);
 
 	for (var i = 1; i <= 8; i++) {
 		devices.get('door_' + i).state = 'opened';
@@ -256,16 +224,6 @@ router.get('/service_mode', function(req, res, next) {
 
 	res.json({success: 1});
 });
-
-// перезапуск игры
-// router.get('/reset', function(req, res, next) {
-
-// 	start_time = null;
-// 	devices.reset();
-// 	gamers.reset();
-
-// 	res.json({success: 1});
-// });
 
 // время начала игры
 router.get('/start_time', function(req, res, next) {

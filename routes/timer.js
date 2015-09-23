@@ -49,49 +49,40 @@ router.get('/ready', function(req, res, next) {
 			if (err_cnt > 0) {
 				// Сбои в работе устройств
 				gamers.set_game_state('devices_error', [errors]);
-
-				//gamers.wd_on = 1;
-
-				gamers.dashboard_buttons.GetReady = 1;
-				gamers.dashboard_buttons.ServiceMode = 1;
 			} else {
 				// Все устройства работают нормально
-				gamers.game_state = 'devices_ok';
-
-				//gamers.wd_on = 1;
-
-				gamers.dashboard_buttons.GetReady = 1;
-				gamers.dashboard_buttons.ServiceMode = 1;
+				gamers.set_game_state('devices_ok', []);
 			}
+
+			face.enable('get_ready');
+			face.enable('service_mode');
+			break;
+
+		// подготовка закончилась
+		case 'preparation':
+			for (var i = 1; i <= 8; i++) {
+				devices.get('door_' + i).state = 'closed';
+			}
+
+			for (var i = 1; i <= 5; i++) {
+				devices.get('cell_' + i).state = 'closed';
+			}
+			for (var i = 1; i <= 4; i++) {
+				devices.get('terminal_' + i).state = 'sleep';
+			}
+			devices.get('locker_2').state    = 'closed';
+
+			devices.get('light').state    = 'on';
+			devices.get('inf_mirror_backlight').state = 'off';
+			devices.get('vibration').state    = 'off';
+
+			// готов к запуску
+			gamers.set_game_state('ready_to_go', []);
+			gamers.dashboard_buttons.Start = 1;
 			break;
 
 		default:
 			break;
-	}
-
-	// ждали окончания подготовки
-	if (gamers.game_state == 'preparation') {
-
-		for (var i = 1; i <= 8; i++) {
-			devices.get('door_' + i).state = 'closed';
-		}
-
-		for (var i = 1; i <= 5; i++) {
-			devices.get('cell_' + i).state = 'closed';
-		}
-		for (var i = 1; i <= 4; i++) {
-			devices.get('terminal_' + i).state = 'sleep';
-		}
-		devices.get('locker_2').state    = 'closed';
-
-		devices.get('light').state    = 'on';
-		devices.get('inf_mirror_backlight').state = 'off';
-		devices.get('vibration').state    = 'off';
-
-		// готов к запуску
-		gamers.game_state = 'ready_to_go';
-		gamers.dashboard_buttons.Start = 1;
-		return;
 	}
 
 	// если ждали шкафа 2 в режиме обслуживания
@@ -155,9 +146,6 @@ router.get('/ready', function(req, res, next) {
 				device.state = "on";
 			}, {}
 		);
-
-
-		//gamers.quest_state += 10;//'Идет сканирование игрока X из Y. 120-129
 
 		return;
 	}

@@ -92,6 +92,8 @@ devices.reset();
 gamers = require("./gamers.js");
 // новый таймер
 timers = require("./timers.js");
+// ф-ции для изменения фронта
+face   = require("./face.js");
 
 // ф-ции, сокращающие запросы
 helpers = require("./helpers.js");
@@ -232,12 +234,10 @@ app.use(function(err, req, res, next) {
   });
 });
 
-
+// инициализируем квест
 http.get(config.web_server_url + '/game/reset', function(res) {
-    
-}).on('error', function(e) {
-  simple_log('error reset game');
+  }).on('error', function(e) {
+    simple_log('error reset game');
 });
-
 
 module.exports = app;

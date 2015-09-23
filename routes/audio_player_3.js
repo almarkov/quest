@@ -32,16 +32,6 @@ router.get('/ch2_playback_finished/:parameter', function(req, res, next) {
 				device.state = 'ch1_play_ch2_play';
 			},{}
 		);
-		
-		// включаем звук для номера игрока
-		// var audio_file = config.audio_files[gamers.quest_state%10 + 3]; 
-		// helpers.send_get('audio_player_1', 'play_channel_2', audio_file.value, DISABLE_TIMER, ENABLE_MUTEX,
-		// 	function(params){
-		// 		var device   = devices.get('audio_player_1');
-		// 		device.value = audio_file.alias;
-		// 		device.state = "ch1_play_ch2_play";
-		// 	}, {}
-		// );
 
 	// если закончился звук 'укажите квадраты'
 	} else if (device.value == config.audio_files[14].alias){

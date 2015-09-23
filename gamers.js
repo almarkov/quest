@@ -1,5 +1,7 @@
+// количество игроков
 exports.count = 0;
 
+// статусы квеста
 exports.game_states = {
 	server_started: {
 		title: 'Сервер запущен',
@@ -188,27 +190,30 @@ exports.game_states = {
 	},
 
 };
+
+// начальный статус
 exports.game_state = 'server_started';
 
 exports.set_game_state = function(state, args){
 	exports.game_state = state;
 	exports.game_states[state].args = args;
+
+	simple_log('set_game_state');
+	simple_log(state);
+	simple_log(args);
 };
 
 exports.get_game_state = function(){
 	var current_state = exports.game_states[exports.game_state];
-	simple_log(current_state.title);
 	var status = current_state.title;
 	current_state.args.forEach(function(arg, index){
 		status = status.replace('$' + index, arg);
 	});
-	simple_log(status);
 	return status;
 }
 
+// время начала игры
 exports.start_time = null;
-
-exports.quest_state = 0;
 
 exports.last_player_pass = 0;
 
@@ -248,7 +253,6 @@ exports.dashboard_buttons = {
 
 // сброс значений
 exports.reset = function() {
-	exports.quest_state = 0;
 	exports.last_player_pass = 0;
 	exports.quest_error = '';
 	exports.codes = ['', '', '', '', '423', '', '', '', ''];

@@ -21,16 +21,6 @@ router.get('/playback_finished/:parameter', function(req, res, next) {
 				device.state = 'playing';
 			},{}
 		);
-
-		// если последний прошёл игру
-		// if (gamers.last_player_pass) {
-		// 	gamers.quest_state = 141;
-		// 	//  открываем дверь 3
-		// 	helpers.send_get('door_3', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX);
-
-		// 	//  открываем дверь 4
-		// 	helpers.send_get('door_4', 'open', '0', helpers.get_timeout('T1'), ENABLE_MUTEX);
-		// } 
 	}
 });
 
