@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml" class="no-js">
+
+    <head>
+        <title>Facebook</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link type="text/css" rel="StyleSheet" href="style.css">
+        <script type="text/javascript" src="main.js"></script>
+        <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                if (message_read) {
+                    hide_element('new_message');
+                }
+                $('.face_menu a').click(function(){
+                    change_face_left($(this).attr('rel'));
+                })
+            })
+        </script>
+    </head>
+    <body>
+
+        <div align="center">
+
+            <div class="face_over_b">
+                <div class="face_over">
+                    <div class="face_top">
+                        <div class="face_top_left">
+
+                            <div class="face_menu_right"><a href="#">Выход</a></div>
+
+                            <div class="face_logo"><img src="logo.png"></div>
+
+                            <div class="face_top_right">
+                                <div class="face_search_over">
+                                    <div class="face_search_s">
+                                        <input type="text" class="face_search">
+                                    </div>
+
+                                    <div class="face_search_button">&nbsp</div>
+                                    <div class="face_search_border">&nbsp</div>
+                                </div>
+                            </div>
+
+                            <div class="face_menu">
+                                <a href="#" rel='index'>Моя страница</a>
+                                <a href="#" rel='messages'>Сообщения<span id="new_message" class="face_new_message">1</span></a>
+                                <a href="#">Друзья</a>
+                                <a href="#">Игры</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="face_block">
+
+                <div class="face_block_right">
+
+                    <br><img src="profile1.jpg"><br><br>
+
+                    <div class="face_menu_r">
+                        <a href="" onclick="" class="this">Все новости</a>
+                        <a href="#">Интересное</a>
+                        <a href="#">События</a>
+                        <a href="#">Друзья</a>
+                    </div>
+
+                </div>
+
+                <div id="face_index" class="face_block_left">
+
+                    <div class="pad5"><a href="#">Главная страница</a> » Новости</div>
+
+                    <div class="face_m_hide" onmouseout="this.className='face_m_hide'" onmouseover="this.className='face_m_show'">
+                        <div class="face_pre"><img src="img/1.png"></div>
+                        <a href="#">Lorem ipsum</a><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut auctor dolor ut hendrerit bibendum. Pellentesque accumsan lorem vitae aliquam tincidunt. Nam suscipit nulla ipsum, sed mattis est aliquet euismod. Nullam imperdiet turpis lectus, et finibus ligula semper ac. Mauris luctus leo sit amet varius interdum. Aenean vel feugiat massa, ut mattis purus. Nullam suscipit viverra diam, vitae cursus ligula ullamcorper et.
+                    </div>
+
+                    <div class="face_m_hide" onmouseout="this.className='face_m_hide'" onmouseover="this.className='face_m_show'">
+                        <div class="face_pre"><img src="img/2.png"></div>
+                        <a href="#">Nullam quis</a><br>Nullam quis tincidunt enim. Curabitur ullamcorper convallis tellus, sit amet pharetra enim eleifend nec. Curabitur congue ultrices laoreet. Sed tristique felis ac ultricies commodo. Nullam sodales condimentum consectetur. Fusce efficitur dictum tortor, sed fermentum felis consequat quis. Nullam eu sollicitudin velit. Donec scelerisque, nulla et varius aliquam, lacus nibh laoreet magna, cursus feugiat nisl mauris eget enim. Aliquam vel lacus sed ipsum venenatis congue.
+                     </div>
+
+                    <div class="face_m_hide" onmouseout="this.className='face_m_hide'" onmouseover="this.className='face_m_show'">
+                        <div class="face_pre"><img src="img/3.png"></div>
+                        <a href="#">Mauris placerat</a><br>Mauris placerat sapien sit amet aliquam pretium. Etiam aliquam, nisi consectetur pellentesque blandit, turpis lectus commodo lectus, in pretium nisi diam vel nisi. Mauris vel mi eget urna bibendum vulputate. Pellentesque felis ipsum, hendrerit sed risus egestas, posuere eleifend augue. Curabitur fermentum, dolor in tempor auctor, odio metus dictum lorem, quis ultricies sapien erat ac orci. Praesent non magna id arcu tincidunt accumsan nec non lectus. Mauris tristique fringilla elit consectetur dictum. Nulla euismod nunc id libero blandit, nec tempus ligula hendrerit. Integer eget arcu facilisis, vulputate diam sed, faucibus elit.
+                    </div>
+
+
+                    <div class="face_m_hide" onmouseout="this.className='face_m_hide'" onmouseover="this.className='face_m_show'">
+                        <div class="face_pre"><img src="img/2.png"></div>
+                        <a href="#">Aenean lacinia</a><br>Aenean lacinia purus at orci vulputate accumsan. Morbi pretium eget dui a sagittis. Morbi eleifend metus sit amet mi facilisis, sit amet ultrices est posuere. Etiam eros odio, commodo non orci ac, accumsan posuere neque. Vestibulum laoreet nibh sed sagittis faucibus. Fusce eget velit ut ex rutrum ultrices quis a ipsum. Pellentesque purus odio, finibus mattis posuere non, efficitur non odio. Fusce tempus justo diam, vel finibus leo maximus in. Morbi mattis tincidunt egestas. Praesent ut orci quis nulla tincidunt laoreet eu non erat. Curabitur convallis ex eget dui viverra commodo.
+                    </div>
+
+                    <div class="pad5"><a href="#">« Предыдущие записи</a></div>
+
+                </div>
+
+                <div id="face_messages" class="face_block_left">
+
+                    <div class="pad5"><a href="#">Сообщения</a></div>
+
+                    <div class="face_m_message_show" onclick="change_face_left('dialog1');hide_element('new_message');">
+                        <div class="face_pre"><img src="profile2.jpg" style="width:64px;height:64px;"></div>
+                        <a href="#">Sasha</a><br>If I only concentrated on one thing, I would limit myself in life.
+                    </div>
+
+                    <div class="face_m_message_hide" >
+                        <div class="face_pre"><img src="profile3.jpg" style="width:64px;height:64px;"></div>
+                        <a href="#">Edward</a><br>I found freedom. Losing all hope was freedom.
+                    </div>
+
+                </div>
+
+                <div id="face_dialog1" class="face_block_left">
+
+                    <div class="pad5"><a href="#">Сообщения</a></div>
+
+                    <div class="face_m_message_hide" onclick="hide_element('new_message'); this.className='face_m_message_hide';">
+                        <div class="face_pre"><img src="profile2.jpg" style="width:34px;height:34px;"></div>
+                        <a href="#">Sasha</a><br>If I only concentrated on one thing, I would limit myself in life.
+                    </div>
+
+                    <div class="face_m_message_input">
+                        <div class="face_pre"><img src="profile1.jpg" style="width:64px;height:64px;"></div>
+                        <textarea rows="4" cols="50"></textarea> 
+                    </div>
+
+                </div>
+
+            <a class="face_bottom" href="http://embedlab.ru">Made by Embedlab.ru</a>
+
+            </div>
+
+        </div>
+    </body>
+</html>
