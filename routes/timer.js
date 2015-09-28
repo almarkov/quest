@@ -54,8 +54,8 @@ router.get('/ready', function(req, res, next) {
 				gamers.set_game_state('devices_ok', []);
 			}
 
-			face.enable('get_ready');
-			face.enable('service_mode');
+			face.button_enable('get_ready');
+			face.button_enable('service_mode');
 			break;
 
 		// подготовка закончилась
@@ -78,7 +78,7 @@ router.get('/ready', function(req, res, next) {
 
 			// готов к запуску
 			gamers.set_game_state('ready_to_go', []);
-			gamers.dashboard_buttons.Start = 1;
+			face.button_enable('start');
 			break;
 
 		default:

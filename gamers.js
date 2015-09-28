@@ -198,19 +198,18 @@ exports.set_game_state = function(state, args){
 	exports.game_state = state;
 	exports.game_states[state].args = args;
 
-	simple_log('set_game_state');
-	simple_log(state);
-	simple_log(args);
-};
-
-exports.get_game_state = function(){
 	var current_state = exports.game_states[exports.game_state];
 	var status = current_state.title;
 	current_state.args.forEach(function(arg, index){
 		status = status.replace('$' + index, arg);
 	});
-	return status;
-}
+
+	face.field_set_value('quest_state', status)
+
+	simple_log('set_game_state');
+	simple_log(state);
+	simple_log(args);
+};
 
 // время начала игры
 exports.start_time = null;

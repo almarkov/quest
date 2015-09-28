@@ -32,8 +32,8 @@ router.get('/reset', function(req, res, next) {
 router.get('/start/:count', function(req, res, next) {
 	if (gamers.game_state == 'ready_to_go') { // квест готов к запуску
 
-		face.disable('start');
-		face.disable('get_ready');
+		face.button_disable('start');
+		face.button_disable('get_ready');
 
 		// начинаем часовой отсчёт
 		gamers.start_time = new Date();
@@ -49,8 +49,8 @@ router.get('/start/:count', function(req, res, next) {
 			}, {}
 		);
 
-		face.enable('all_in');
-		face.highlight_on('all_in');
+		face.button_enable('all_in');
+		face.button_highlight_on('all_in');
 	}
 
 	res.json({success: 1});

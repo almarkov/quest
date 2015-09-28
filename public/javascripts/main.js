@@ -7,6 +7,7 @@ var m, s;
 
 var external_config;
 var config_list = [];
+var prev_response = {};
 $.ajax({
 	url: web_server_url + '/devices_list/config',
 	type: "GET",
@@ -14,13 +15,8 @@ $.ajax({
 	dataType: "json",
 		success: function (response) {
 			external_config = response;
-			for (var i = 0; i < external_config.length; i++) {
-				config_list[external_config[i].name] = external_config[i];
-			}
-			set_handlers();
 		},
 		error: function(error) {
-			console.log('ERROR:', error);
 		}
 });
 
@@ -55,7 +51,6 @@ function restart_timer () {
 		crossDomain: true,
 		dataType: "json",
 		success: function (response) {
-			console.log(response);
 			if (response.date) {
 				start_time = new Date(response.date);
 				var diff = start_time - now + 60*60*1000 ;
@@ -91,14 +86,27 @@ function restart_timer () {
 			}
 		},
 		error: function(error) {
-				console.log('ERROR:', error);
-			}
+		}
 	});
 
 	
 }
 
 $(document).ready(function() {
+
+	$.ajax({
+		url: web_server_url + '/devices_list/all',
+		type: "GET",
+		crossDomain: true,
+		dataType: "json",
+			success: function (response) {
+				var content_top = generate_content_top(response);
+				$('#Content').prepend(content_top);
+				set_handlers();
+			},
+			error: function(error) {
+			}
+	});
 
 	if (!start_time) {
 		restart_timer();
@@ -107,7 +115,6 @@ $(document).ready(function() {
         window.clearInterval(i);
 	}
 	// проверяем состояние устройств
-	// в данном случае - читаем коллекцию devices из mongo
 	setInterval(function(){
 		$.ajax({
 		url: web_server_url + '/devices_list/all',
@@ -115,7 +122,7 @@ $(document).ready(function() {
 		crossDomain: true,
 		dataType: "json",
 			success: function (response) {
-				console.log('Devices state');
+
 				// двери
 				for (var i = 1; i <= 8; i++) {
 					if (response["door_" + i].state == "opened") {
@@ -126,7 +133,6 @@ $(document).ready(function() {
 						$("#inpDoor" + i).val('Неизвестно');
 					}
 				}
-
 				// аудиоплееры
 				for (var i = 1; i <= 4; i++) {
 					if (response["audio_player_" + i].state == "ch1_stop_ch2_stop") {
@@ -291,58 +297,115 @@ $(document).ready(function() {
 					}
 				});
 
-				$(".DashBoard").find(".BType_01").each(function(element){
+				// обновляем кнопки
+				$.each(response.face.dashboard_buttons, function( index, item ) {
 
+					$(".DashBoard ." + item.style_class).prop('disabled', item.disabled);
+
+					$(".DashBoard ." + item.style_class).removeClass('Active');
+					if (item.highlight) {
+						$(".DashBoard ." + item.style_class).addClass('Active');
+					}
 				});
 
-				$(".DashBoard").find(".BType_01").removeClass("Active");
-				if (response.active_button) {
-					$("." + response.active_button).addClass("Active");
-				}
+				// обновляем поля
+				$.each(response.face.dashboard_fields, function( index, item ) {
 
-				$(".DashBoard").find(".BType_01").prop('disabled', true);
-
-				response.dashboard_buttons.forEach(function f(item){
-					$("." + item).prop('disabled', false);
+					if (item.type == 'text') {
+						$(".State #" + item.id).prop('disabled', item.disabled);
+					} else if (item.type == 'static') {
+						$("#" + item.id).text(item.value);
+					}
 				});
 
 				if (response.quest_completed) {
 					stop_timer();
 				}
 
-
-				$("#QuestState").text(response.quest_state);
-				var timer_state = '';
-				if (response.timer_state.active) {
-					timer_state = response.timer_state.value + '/' + response.timer_state.timeout;
-				} else {
-					timer_state = 'Неактивен';
-				}
-
-				$("#TimerState").text(timer_state);
-				$("#QuestTimer").text(response.game_timer);
-				//$("#QuestError").text(response.quest_error);
-				// if (response.codes) {
-				// 	var codes = '';
-				// 	for (var i = 0; i < response.codes.length; i++) {
-				// 		codes += response.codes[i] + ',';
-				// 	}
-				// 	$("#QuestCodes").text(codes);
-				// }
-				//$("#LastPlayerPass").text(response.last_player_pass ? "Прошёл" : "Не прошёл");
+				prev_response = response;
 
 			},
 			error: function(error) {
-				console.log('ERROR:', error);
 			}
 		});
 	}, 1000);
 
 });
 
+//-----------------------------------------------------------------------------
+// Генерация HTML
+//-----------------------------------------------------------------------------
+function generate_content_top(data) {
+	var raw_html = '';
+	$.each(['Service', 'Quest', 'Test'], function(index, item) {
+		raw_html += generate_top_section(item, data);
+	});
+	return raw_html;
+}
 
-function generate_dashboard (data){
+function generate_top_section (section_name, data) {
+	var raw_html = "<div id='" + section_name + "'>"
+				+ generate_state_top_section (section_name, data)
+				+ generate_dashboard_top_section (section_name, data)
+				+ "</div>";
 
+	return raw_html;
+}
+
+function generate_state_top_section (section_name, data){
+	var raw_html = "<ul class='State'>";
+
+	$.each(data.face.dashboard_fields, function(index, item) {
+		if (item.section == section_name) {
+			raw_html += "<li>";
+			if (item.type == 'static') {
+				raw_html += "<label for='" + item.id + "' class='Label2'>" + item.label + ": </label>"
+							+ "<span id='" + item.id + "'>" + item.value + "</span>";
+			} else if (item.type == 'text') {
+				raw_html += "<label for='" + item.id + "' class='Label1'>" + item.label + ": </label>"
+							+ "<input type='text' name='" + item.name + "' item='" + item.value + "' id='" + item.id + "' class='Input1' />";
+			}
+			raw_html += "</li>";
+		}
+	});
+
+	raw_html += "</ul>";
+
+	return raw_html;
+}
+
+function generate_dashboard_top_section (section_name, data){
+
+	var raw_html = "<ul class='DashBoard'>";
+
+	$.each(data.face.dashboard_buttons, function(index, item) {
+		if (item.section == section_name) {
+			raw_html += "<li>"
+					+ "<input type='button' class='" + item.style_class + " BType_01' value='" + item.title + "'>"
+					+ "</li>";
+		}
+	});
+	raw_html += "</ul>";
+
+	return raw_html;
+}
+
+function generate_device (data) {
+	var raw_html =    "<div class='Device'>"
+					+     "<div class='Status Online'>"
+					+     "</div>"
+					+     "<div class='State'>"
+					+         "<label for='inpTimer' class='Label1'>Таймер</label>"
+					+         "<input type='text' name='_timer' value='' id='inpTimer' class='Input2' disabled/>"
+					+         "<input type='text' name='_timer_state' value='' id='inpTimerState' class='Input1' disabled/>"
+					+     "</div>"
+					+     "<div class='Commands'>"
+					+         "<ul class='Timer'>"
+					+             "<li><a class='Set BType_01'><span>Включить</span></a></li>"
+					+             "<li><a class='Stop BType_01'><span>Выключить</span></a></li>"
+					+         "</ul>"
+					+     "</div>"
+					+ "</div>";
 }
 
 function set_handlers() {
@@ -357,10 +420,8 @@ function set_handlers() {
 			crossDomain: true,
 			dataType: "json",
 				success: function (response) {
-					console.log('get ready');
 				},
 				error: function(error) {
-					console.log('ERROR:', error);
 				}
 		});
 	});
@@ -379,11 +440,9 @@ function set_handlers() {
 			dataType: "json",
 				success: function (response) {
 					$("#inpGamerCount").prop('disabled', true);
-					console.log('game start');
 					restart_timer();
 				},
 				error: function(error) {
-					console.log('ERROR:', error);
 				}
 			});
 		} else {
@@ -402,10 +461,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('service mode');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -420,10 +477,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('service mode');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -439,14 +494,12 @@ function set_handlers() {
 				dataType: "json",
 					success: function (response) {
 						enable_gamer_count();
-						console.log('game reset');
 						start_time = null;
 						$("#QuestTimer").text("NA");
 						stop_timer();
 					},
 					error: function(error) {
 						enable_gamer_count();
-						console.log('ERROR:', error);
 						start_time = null;
 						$("#QuestTimer").text("NA");
 						stop_timer();
@@ -464,10 +517,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('start audio');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -482,10 +533,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('start audio');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -500,10 +549,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('start prompt');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -518,12 +565,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						//$("#inpGamerCount").prop('disabled', false);
-						console.log('start scan');
-						//restart_timer();
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -538,12 +581,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						//$("#inpGamerCount").prop('disabled', false);
-						console.log('stop scan');
-						//restart_timer();
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -559,12 +598,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						//$("#inpGamerCount").prop('disabled', false);
-						console.log('stop scan');
-						//restart_timer();
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -578,12 +613,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						//$("#inpGamerCount").prop('disabled', false);
-						console.log('stop scan');
-						//restart_timer();
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -605,10 +636,8 @@ function set_handlers() {
 					crossDomain: true,
 					dataType: "json",
 						success: function (response) {
-							console.log('button pushed');
 						},
 						error: function(error) {
-							console.log('ERROR:', error);
 						}
 				});
 			}
@@ -623,10 +652,8 @@ function set_handlers() {
 					crossDomain: true,
 					dataType: "json",
 						success: function (response) {
-							console.log('button pushed');
 						},
 						error: function(error) {
-							console.log('ERROR:', error);
 						}
 				});
 			}
@@ -647,10 +674,8 @@ function set_handlers() {
 					crossDomain: true,
 					dataType: "json",
 						success: function (response) {
-							console.log('button pushed');
 						},
 						error: function(error) {
-							console.log('ERROR:', error);
 						}
 				});
 			}
@@ -665,10 +690,8 @@ function set_handlers() {
 					crossDomain: true,
 					dataType: "json",
 						success: function (response) {
-							console.log('button pushed');
 						},
 						error: function(error) {
-							console.log('ERROR:', error);
 						}
 				});
 			}
@@ -689,10 +712,8 @@ function set_handlers() {
 					crossDomain: true,
 					dataType: "json",
 						success: function (response) {
-							console.log('button pushed');
 						},
 						error: function(error) {
-							console.log('ERROR:', error);
 						}
 				});
 			}
@@ -711,10 +732,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('button pushed');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -729,10 +748,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('button pushed');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -747,10 +764,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('button pushed');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -769,29 +784,12 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('rack activated');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
 	});
-	// Кнопка 'Деактивировать многогранник'
-	// $('#Main .Polyhedron .Off').click(function(e){
-	// 	$.ajax({
-	// 		url: build_query('polyhedron', 'disconnected', '0'),
-	// 		type: "GET",
-	// 		crossDomain: true,
-	// 		dataType: "json",
-	// 			success: function (response) {
-	// 				console.log('rack deactivated');
-	// 			},
-	// 			error: function(error) {
-	// 				console.log('ERROR:', error);
-	// 			}
-	// 	});
-	// });
 	// Кнопка 'Поставить многогранник'
 	$('#Main .Polyhedron .Stand').click(function(e){
 		if (confirm("Подтвердите действие")){
@@ -801,10 +799,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('rack deactivated');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -820,10 +816,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('button pushed');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -838,10 +832,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('button pushed');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -856,10 +848,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('button pushed');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -874,10 +864,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('button pushed');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -891,10 +879,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('button pushed');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -908,10 +894,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('button pushed');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -925,10 +909,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('button pushed');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -942,10 +924,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('button pushed');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -959,10 +939,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('button pushed');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -977,10 +955,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('button pushed');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -995,10 +971,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('button pushed');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -1016,10 +990,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('cell enter');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -1034,10 +1006,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('cell enter');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -1051,10 +1021,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('cell enter');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -1068,10 +1036,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('cell enter');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -1085,10 +1051,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('cell enter');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -1103,10 +1067,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('cell enter');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -1120,10 +1082,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('cell enter');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -1136,10 +1096,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('cell enter');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -1152,10 +1110,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('cell enter');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -1168,10 +1124,8 @@ function set_handlers() {
 				crossDomain: true,
 				dataType: "json",
 					success: function (response) {
-						console.log('cell enter');
 					},
 					error: function(error) {
-						console.log('ERROR:', error);
 					}
 			});
 		}
@@ -1191,10 +1145,8 @@ function set_handlers() {
 					crossDomain: true,
 					dataType: "json",
 						success: function (response) {
-							console.log('cell enter');
 						},
 						error: function(error) {
-							console.log('ERROR:', error);
 						}
 				});
 			}
@@ -1208,10 +1160,8 @@ function set_handlers() {
 					crossDomain: true,
 					dataType: "json",
 						success: function (response) {
-							console.log('cell enter');
 						},
 						error: function(error) {
-							console.log('ERROR:', error);
 						}
 				});
 			}
@@ -1225,10 +1175,8 @@ function set_handlers() {
 					crossDomain: true,
 					dataType: "json",
 						success: function (response) {
-							console.log('cell enter');
 						},
 						error: function(error) {
-							console.log('ERROR:', error);
 						}
 				});
 			}
@@ -1247,10 +1195,8 @@ function set_handlers() {
 					crossDomain: true,
 					dataType: "json",
 						success: function (response) {
-							console.log('reloaded');
 						},
 						error: function(error) {
-							console.log('ERROR:', error);
 						}
 				});
 			}

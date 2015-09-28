@@ -117,7 +117,7 @@ router.get('/all', function(req, res, next) {
 		result[devices.list[i].name] = devices.list[i];
 	}
 
-	result.quest_state = gamers.get_game_state();
+	//result.quest_state = gamers.get_game_state();
 
 	result.codes = gamers.codes;
 
@@ -143,13 +143,11 @@ router.get('/all', function(req, res, next) {
 
 	result.quest_completed = (gamers.game_state == 'quest_completed' ? 1 : 0);
 
-	result.timer_state = timers.get();
+	//result.timer_state = timers.get();
 
 
 	// !!!!!! сделать адаптивно - отправлять только изменения!!!
 	result.face = face.get();
-
-
 
 	result.dashboard_buttons = [];
 	for (var button in gamers.dashboard_buttons) {
