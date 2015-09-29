@@ -6,9 +6,9 @@ var http   = require('http');
 router.get('/ready', function(req, res, next) {
 	res.json({success: 1});
 	// обновляем модель
-	var timer           = devices.get('timer');
-	timer.state         = 'ready';
-	timer.current_value = '';
+	//var timer           = devices.get('timer');
+	//timer.state         = 'ready';
+	//timer.current_value = '';
 
 
 	switch(gamers.game_state) {
@@ -84,7 +84,7 @@ router.get('/ready', function(req, res, next) {
 		default:
 			break;
 	}
-
+return;
 	// если ждали шкафа 2 в режиме обслуживания
 	if (gamers.game_state == 'service_mode') {
 		//Закрываем шкаф

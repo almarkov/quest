@@ -8,7 +8,7 @@ var external_config;
 var config_list = [];
 var prev_response = {};
 $.ajax({
-	url: web_server_url + '/devices_list/config',
+	url: web_server_url + '/game/config',
 	type: "GET",
 	crossDomain: true,
 	dataType: "json",
@@ -94,7 +94,7 @@ function restart_timer () {
 $(document).ready(function() {
 
 	$.ajax({
-		url: web_server_url + '/devices_list/all',
+		url: web_server_url + '/game/all',
 		type: "GET",
 		crossDomain: true,
 		dataType: "json",
@@ -118,43 +118,11 @@ $(document).ready(function() {
 	// проверяем состояние устройств
 	setInterval(function(){
 		$.ajax({
-		url: web_server_url + '/devices_list/all',
+		url: web_server_url + '/game/all',
 		type: "GET",
 		crossDomain: true,
 		dataType: "json",
 			success: function (response) {
-
-				// двери
-				for (var i = 1; i <= 8; i++) {
-					if (response["door_" + i].state == "opened") {
-						$("#inpDoor" + i).val('Открыта');
-					} else if (response["door_" + i].state == "closed") {
-						$("#inpDoor" + i).val('Закрыта');
-					} else if (response["door_" + i].state == "no_info") {
-						$("#inpDoor" + i).val('Неизвестно');
-					}
-				}
-				// аудиоплееры
-				for (var i = 1; i <= 4; i++) {
-					if (response["audio_player_" + i].state == "ch1_stop_ch2_stop") {
-						$("#inpAudioPlayer" + i).val('Оба канала выключены');
-					} else if (response["audio_player_" + i].state == "ch1_play_ch2_stop") {
-						$("#inpAudioPlayer" + i).val('Только канал 1 включён' + response["audio_player_" + i].value);
-					} else if (response["audio_player_" + i].state == "ch1_stop_ch2_play") {
-						$("#inpAudioPlayer" + i).val('Только канал 2 включён' + response["audio_player_" + i].value);
-					} else if (response["audio_player_" + i].state == "ch1_play_ch2_play") {
-						$("#inpAudioPlayer" + i).val('Оба канала включены' + response["audio_player_" + i].value);
-					}
-				}
-
-				// видеооплееры
-				for (var i = 1; i <= 3; i++) {
-					if (response["video_player_" + i].state == "playing") {
-						$("#inpVideoPlayer" + i).val('Играет видео' + response["video_player_" + i].value);
-					} else if (response["video_player_" + i].state == "stopped") {
-						$("#inpVideoPlayer" + i).val('Показывает чёрный экран');
-					}
-				}
 
 				// ячейки
 				var codes = [];
@@ -177,125 +145,32 @@ $(document).ready(function() {
 					codes[3] = response.codes[3];
 				}
 
-				for (var i = 1; i <= 5; i++) {
-					if (response["cell_" + i].state == "opened") {
-						$("#inpCell" + i + "State").val('Открыта. ' + codes[i]);
-					} else if (response["cell_" + i].state == "closed") {
-						$("#inpCell" + i + "State").val('Закрыта. ' + codes[i]);
-					}
-				}
+				$.each(response.devices, function(index, item){
 
-				// терминалы
-				for (var i = 1; i <= 4; i++) {
-					if (response["terminal_" + i].state == "active") {
-						$("#inpTerminal" + i + "State").val('Игра');
-					} else if (response["terminal_" + i].state == "sleep") {
-						$("#inpTerminal" + i + "State").val('Сон');
-					}
-				}
-
-				// таймер
-				$("#inpTimer").val(response.timer.current_value.toString());
-				if (response.timer.state == "active") {
-					$("#inpTimerState").val('Активен');
-				} else if (response.timer.state == "ready") {
-					$("#inpTimerState").val('Готов');
-				} else if (response.timer.state == "idle") {
-					$("#inpTimerState").val('Неактивен');
-				}
-
-				// многогранник
-				if (response['polyhedron'].state == "activated") {
-					$("#inpPolyhedron").val('Активирован');
-				} else if (response['polyhedron'].state == "not_installed") {
-					$("#inpPolyhedron").val('Не на подставке');
-				} else if (response['polyhedron'].state == "installed_no_link") {
-					$("#inpPolyhedron").val('На подставке, нет связи');
-				} else if (response['polyhedron'].state == "installed_link_ok") {
-					$("#inpPolyhedron").val('На подставке, на связи');
-				}
-
-				// свет
-				if (response['light'].state == "on") {
-					$("#inpLight").val('Включён');
-				} else if (response['light'].state == "off") {
-					$("#inpLight").val('Выключен');
-				}
-
-				// ремни
-				$("#inpSafetyBelts").val('Пристёгнуто ' + response['safety_belts'].value + ' игроков');
-
-				// вибрация
-				if (response['vibration'].state == "on") {
-					$("#inpVibration").val('Включёна');
-				} else if (response['vibration'].state == "off") {
-					$("#inpVibration").val('Выключена');
-				}
-
-				// подсветка
-				if (response['inf_mirror_backlight'].state == "on") {
-					$("#inpInfMirrorBacklightState").val('Светится ' + response['inf_mirror_backlight'].value);
-				} else if (response['inf_mirror_backlight'].state == "off") {
-					$("#inpInfMirrorBacklightState").val('Не светится');
-				}
-
-				// статуя
-				$("#inpFigureState").val('Вставлено ' + response['figure'].value + ' жетонов');
-
-				// шкаф RFID
-				if (response['locker_2'].state == "opened") {
-					$("#inpLocker2").val('Открыт');
-				} else if (response['locker_2'].state == "closed") {
-					$("#inpLocker2").val('Закрыт');
-				}
-
-				// считыватель карты
-				if (response['card_reader'].state == "passed") {
-					$("#inpCardReader").val('Пройдено');
-				} else if (response['card_reader'].state == "not_passed") {
-					$("#inpCardReader").val('Не пройдено');
-				}
-
-				// дым-машина
-				if (response['smoke'].state == "on") {
-					$("#inpSmoke").val('Включена');
-				} else if (response['smoke'].state == "off") {
-					$("#inpSmoke").val('Выключена');
-				}
-
-				// энергостена
-				if (response['power_wall'].state == "passed") {
-					$("#inpPowerWall").val('Пройдено');
-				} else if (response['power_wall'].state == "not_passed") {
-					$("#inpPowerWall").val('Не пройдено');
-				}
-
-				// статусы устройств
-				$(".Status").removeClass("Offline");
-				external_config.forEach(function f(device) {
-					var element = device.name;
-					// хак
-					var device_element = $("[name=" + element + "_state]");
-					if (!device_element.length) {
-						device_element = $("[name=" + element);
-					}
-					// хак
-					var element_state = device_element.parent().parent().find(".Status");
-					if (response[element].wd_state == 0) {
-						element_state.removeClass("Online");
-						element_state.removeClass("Emulating");
-						element_state.addClass("Offline");
-						device_element.val('Не определён');
+					var value = '';
+					if (item.state) {
+						value = item.states[item.state].title;
 					} else {
-						element_state.removeClass("Offline");
-						if (response[element].wd_emulate) {
-							element_state.removeClass("Online");
-							element_state.addClass("Emulating");
+						value = '';
+					}
+					if (item.value) {
+						if (item.type == 'cell') {
+							value += codes[item.value];
 						} else {
-							element_state.removeClass("Emulating");
-							element_state.addClass("Online");
+							value += item.value;
 						}
 					}
+
+					$('#inp_' + item.name + '_state').val(value);
+
+					var element = $("[name=" + item.name + "_state]");
+					var element_status = element.parent().parent().find(".Status");
+					var status_class = item.wd_state == 0 ? 'Offline'
+										: item.wd_emulate ? 'Emulating' : 'Online';
+
+					element_status.removeClass('Online Emulating Offline');
+					element_status.addClass(status_class);
+
 				});
 
 				// обновляем кнопки
@@ -420,9 +295,11 @@ function generate_device (data) {
 					+     "<div class='Status Online'>"
 					+     "</div>"
 					+     "<div class='State'>"
-					+         "<label for='inp" + data.name + "' class='Label1'>" + data.name + "</label>"
-					+         "<input type='text' name='" + data.name + "' value='' id='inp" + data.name + "' class='Input2' disabled/>"
-					+         "<input type='text' name='" + data.name + "_state' value='' id='inp" + data.name + "state' class='Input1' disabled/>"
+					+         "<label for='inp_" + data.name + "' class='Label1'>" + data.title + "</label>";
+	if (data.has_value) {
+		raw_html +=           "<input type='text' name='" + data.name + "' value='' id='inp_" + data.name + "' class='Input2' />";
+	}
+	raw_html +=               "<input type='text' name='" + data.name + "_state' value='' id='inp_" + data.name + "_state' class='Input1' disabled/>"
 					+     "</div>"
 					+     "<div class='Commands'>"
 					+         "<ul class='" + data.name + "'>";

@@ -41,17 +41,17 @@ exports.get_redirect_url = function (ip, device_id, command_id) {
 exports.build_query = function(device_name, command_name, parameter) {
 
 	if (device_name == 'timer') {
-		return config.web_server_url + '/timer/'+ command + '/' + parameter;
+		return config.web_server_url + '/timer/'+ command_name + '/' + parameter;
 	}
 	if (REAL_MODE) {
 		var device  = exports.get(device_name);
 		var command = device.commands[command_name];
 
 		return "http://"
-			+ config.list[i].ip + ":"
-			+ config.list[i].port + "/" 
-			+ config.list[i].id + "/"
-			+ parseInt(j) + "/"
+			+ device.ip + ":"
+			+ device.port + "/" 
+			+ device.id + "/"
+			+ command.code + "/"
 			+ parameter;
 
 	}

@@ -9,7 +9,6 @@ var http = require('http');
 var routes = require('./routes/index');
 var game = require('./routes/game');
 var timer = require('./routes/timer');
-var devices_list = require('./routes/devices_list');
 var scanner = require('./routes/scanner');
 
 
@@ -146,17 +145,11 @@ app.all('/*', function(req, res, next) {
 app.use('/', routes);
 app.use('/game', game);
 app.use('/timer', timer);
-app.use('/devices_list', devices_list);
 app.use('/scanner', scanner);
 
-app.use('/door_1', door);
-app.use('/door_2', door);
-app.use('/door_3', door);
-app.use('/door_4', door);
-app.use('/door_5', door);
-app.use('/door_6', door);
-app.use('/door_7', door);
-app.use('/door_8', door);
+for (var i = 1; i <= 8; i++) {
+  app.use('/door_' + i, door);  
+}
 
 app.use('/audio_player_1', audio_player_1);
 app.use('/audio_player_2', audio_player_2);
@@ -180,11 +173,9 @@ app.use('/terminal_2', terminal_2);
 app.use('/terminal_3', terminal_3);
 app.use('/terminal_4', terminal_4);
 
-app.use('/cell_1', cell);
-app.use('/cell_2', cell);
-app.use('/cell_3', cell);
-app.use('/cell_4', cell);
-app.use('/cell_5', cell);
+for (var i = 1; i <= 5; i++) {
+  app.use('/cell_' + i, door);  
+}
 
 app.use('/figure', figure);
 

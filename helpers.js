@@ -135,7 +135,6 @@ exports.send_get_with_timeout = function(device, url, n, timeout) {
 
 exports.emulate_watchdog = function(device) {
 
-	//!!!!!! в отдельную ф-цию (поменять simple_copy device - объект на базе config)
 	var state_id = device.states[device.state].code;
 
 	var query = config.web_server_url + '/watchdog' + '?'

@@ -4,6 +4,73 @@ var router = express.Router();
 var child_process = require('child_process');
 var fs = require('fs');
 
+// запрос состояния конфига
+router.get('/config', function(req, res, next) {
+	res.json(config.list);
+});
+
+// запрос состояния модели
+router.get('/all', function(req, res, next) {
+
+	// проверяем окончание времени
+	var now = new Date();
+	if (gamers.start_time && gamers.game_state != 'quest_failed') {
+		if ((now - gamers.start_time - 60*60*1000) > 0) {
+			http.get(config.web_server_url + "/game/time_ended",
+				function(res) {
+					simple_log("time_ended ok");
+				}).on('error', function(e) {
+					simple_log("time_ended error");
+			});
+		}
+	}
+
+	// передача модели в GUI
+	var result = {};
+
+	result.codes = gamers.codes;
+
+
+	if (gamers.start_time) {
+		var now = new Date();
+		var diff = gamers.start_time - now + 60*60*1000 ;
+		var ms = diff % 1000;
+		s  = ((diff - ms)/1000) % 60;
+		m  = ((diff - ms - s* 1000)/60000) % 60;
+		result.game_timer = ('0' + m).slice(-2)	+ ':' + ('0' + s).slice(-2);
+	} else {
+		result.game_timer = 'NA';
+	}
+
+	result.quest_error = gamers.quest_error;
+
+	result.last_player_pass = gamers.last_player_pass;
+
+	result.active_button = gamers.active_button;
+
+	result.gamers_count = gamers.count;
+
+	result.quest_completed = (gamers.game_state == 'quest_completed' ? 1 : 0);
+
+	//result.timer_state = timers.get();
+
+	result.devices = devices.list;
+
+
+	// !!!!!! сделать адаптивно - отправлять только изменения!!!
+	result.face = face.get();
+
+	result.dashboard_buttons = [];
+	for (var button in gamers.dashboard_buttons) {
+		if (gamers.dashboard_buttons[button]) {
+			result.dashboard_buttons.push(button);
+		}
+	}
+
+	res.json(result);
+
+});
+
 // полный сброс
 router.get('/reset', function(req, res, next) {
 
@@ -341,9 +408,11 @@ router.get('/setinterval', function(req, res, next) {
 			devices.list.forEach(function (_device) {
 
 				if (_device.wd_enabled) {
-					if (_device.wd_state) {
+					if (_device.wd_state > 0) {
 						_device.wd_state -= 1;
-					};
+					} else {
+						_device.state = -1;
+					}
 				}
 
 				if (_device.wd_emulate) {
@@ -379,7 +448,8 @@ router.get('/emulate_command/:device/:command/:parameter', function(req, res, ne
 
 	simple_log('request from button: ' + device.name + ' ' + command + ' ' + parameter);
 
-	if (var _command = device.commands[command]) {
+	var _command = device.commands[command];
+	if (_command) {
 		var url = "http://"
 					+ device.ip + ":"
 					+ device.port + "/" 
@@ -388,7 +458,9 @@ router.get('/emulate_command/:device/:command/:parameter', function(req, res, ne
 					+ parameter;
 		helpers.send_get_with_timeout(device, url, 3, 500);
 	}
-	if (var _event = device.events[command]) {
+
+	var _event = device.commands[command];
+	if (_event) {
 		var url =  config.web_server_url + '/' + device.name + '/'+ command + '/' + parameter;
 		http.get(url, function(res) {
 				res.on('data', function(data){

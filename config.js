@@ -19,6 +19,11 @@ exports.types = {
 		},
 		events:   { },
 		states:   {
+			undef: {
+				code:  -1,
+				name:  'undef',
+				title: 'не определён'
+			},
 			closed: {
 				code:  0,
 				name:  'closed',
@@ -35,6 +40,7 @@ exports.types = {
 				title: 'не определён'
 			},
 		},
+		has_value: 0,
 	},
 
 	// аудиоплеер
@@ -74,6 +80,11 @@ exports.types = {
 			},
 		},
 		states:   {
+			undef: {
+				code:  -1,
+				name:  'undef',
+				title: 'не определён'
+			},
 			ch1_stop_ch2_stop: {
 				code:  0,
 				name:  'ch1_stop_ch2_stop',
@@ -95,6 +106,7 @@ exports.types = {
 				title: 'оба канала включены',
 			},
 		},
+		has_value: 0,
 	},
 
 	// видеоплеер
@@ -118,7 +130,24 @@ exports.types = {
 				title: 'воспроизведение завершено',
 			},
 		},
-		states:   [ "stopped", "playing" ]
+		states:   {
+			undef: {
+				code:  -1,
+				name:  'undef',
+				title: 'не определён'
+			},
+			stopped: {
+				code:  0,
+				name:  'stopped',
+				title: 'остановлено',
+			},
+			playing: {
+				code:  1,
+				name:  'playing',
+				title: 'воспроизведение',
+			},
+		},
+		has_value: 0,
 	},
 
 	// ячейка
@@ -144,6 +173,11 @@ exports.types = {
 			},
 		},
 		states:   {
+			undef: {
+				code:  -1,
+				name:  'undef',
+				title: 'не определён'
+			},
 			closed: {
 				code:  0,
 				name:  'closed',
@@ -155,6 +189,7 @@ exports.types = {
 				title: 'открыта'
 			},
 		},
+		has_value: 1,
 	}
 };
 
@@ -175,40 +210,7 @@ if (REAL_MODE) {
 	exports.list = [
 
 		// таймер
-		{
-			id:            127,
-			carrier_id:    127,
-			name:          "timer",
-			title:         'Таймер',
-			ip:            "localhost",
-			port:          "3000",
-			state:         "idle",
-			wd_state:      exports.wd_limit,
-			wd_enabled:    0,
-			value:         5,
-			current_value: "",
-			commands:      {
-				opened: {
-					code:  0,
-					name:  'opened',
-					title: 'открыта'
-				},
-			},
-			events:        {
-				ready: {
-					code:  0,
-					name:  'ready',
-					title: 'готов'
-				},
-			},
-			states:        {
-			},
-			wd_emulate:    0,
-			position:      {
-				column:   1,
-			},
-		},
-
+		
 		// дверь 1
 		{
 			id:            0,
@@ -218,7 +220,7 @@ if (REAL_MODE) {
 			type:          "door",
 			ip:            "192.168.20.157",
 			port:          "80",
-			state:         "closed",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -237,7 +239,7 @@ if (REAL_MODE) {
 			type:          "door",
 			ip:            "192.168.20.156",
 			port:          "80",
-			state:         "closed",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -256,7 +258,7 @@ if (REAL_MODE) {
 			type:          "door",
 			ip:            "192.168.20.155",
 			port:          "80",
-			state:         "closed",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -275,7 +277,7 @@ if (REAL_MODE) {
 			type:          "door",
 			ip:            "192.168.20.155",
 			port:          "80",
-			state:         "closed",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -294,7 +296,7 @@ if (REAL_MODE) {
 			type:          "door",
 			ip:            "192.168.20.159",
 			port:          "80",
-			state:         "closed",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -313,7 +315,7 @@ if (REAL_MODE) {
 			type:          "door",
 			ip:            "192.168.20.155",
 			port:          "80",
-			state:         "closed",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -332,7 +334,7 @@ if (REAL_MODE) {
 			type:          "door",
 			ip:            "192.168.20.157",
 			port:          "80",
-			state:         "closed",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -352,7 +354,7 @@ if (REAL_MODE) {
 			//ip:            "192.168.20.157",
 			ip:            "localhost",
 			port:          "80",
-			state:         "closed",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -367,10 +369,10 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    8,
 			name:          "inf_mirror_backlight",
-			title:         'Подставка',
+			title:         'Подсветка',
 			ip:            "192.168.20.163",
 			port:          "80",
-			state:         "off",
+			state:         'undef',
 			value:         "",
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
@@ -394,6 +396,11 @@ if (REAL_MODE) {
 			events:        {
 			},
 			states:        {
+				undef: {
+					code:  -1,
+					name:  'undef',
+					title: 'не определён'
+				},
 				off: {
 					code:  0,
 					name:  'off',
@@ -405,6 +412,7 @@ if (REAL_MODE) {
 					title: 'включена',
 				},
 			},
+			has_value: 0,
 		},
 
 		// многогранник 
@@ -415,7 +423,7 @@ if (REAL_MODE) {
 			title:         'Многогранник',
 			ip:            "192.168.20.168",
 			port:          "80",
-			state:         "disconnected",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -453,10 +461,15 @@ if (REAL_MODE) {
 				},
 			},
 			states:        {
+				undef: {
+					code:  -1,
+					name:  'undef',
+					title: 'не определён'
+				},
 				not_installed: {
 					code:  0,
 					name:  'not_installed',
-					title: 'разъединён',
+					title: 'Не на подставке',
 				},
 				activated: {
 					code:  1,
@@ -466,14 +479,15 @@ if (REAL_MODE) {
 				installed_link_ok: {
 					code:  2,
 					name:  'installed_link_ok',
-					title: 'установлен, связь есть',
+					title: 'На подставке, на связи',
 				},
 				installed_no_link: {
 					code:  3,
 					name:  'installed_no_link',
-					title: 'установлен, связи нет',
+					title: 'На подставке, нет связи',
 				},
 			},
+			has_value: 0,
 		},
 
 		// свет
@@ -484,7 +498,7 @@ if (REAL_MODE) {
 			title:         'Свет',
 			ip:            "192.168.20.164",
 			port:          "80",
-			state:         "on",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -517,6 +531,11 @@ if (REAL_MODE) {
 				},
 			},
 			states:        {
+				undef: {
+					code:  -1,
+					name:  'undef',
+					title: 'не определён'
+				},
 				off: {
 					code:  0,
 					name:  'off',
@@ -528,6 +547,7 @@ if (REAL_MODE) {
 					title: 'включен',
 				},
 			},
+			has_value: 0,
 		},
 
 		// ремни
@@ -535,9 +555,10 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    11,
 			name:          "safety_belts",
+			title:         'Ремни',
 			ip:            "192.168.20.167",
 			port:          "80",
-			state:         "number_of_fastened",
+			state:         'undef',
 			value:         0,
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
@@ -557,6 +578,11 @@ if (REAL_MODE) {
 				},
 			},
 			states:        {
+				undef: {
+					code:  -1,
+					name:  'undef',
+					title: 'не определён'
+				},
 				number_of_fastened: {
 					code:  1,
 					value: 0,
@@ -564,6 +590,7 @@ if (REAL_MODE) {
 					title: 'ремни пристегнуты',
 				},
 			},
+			has_value: 1,
 		},
 
 		// вибрация
@@ -571,9 +598,10 @@ if (REAL_MODE) {
 			id:            1,
 			carrier_id:    11,
 			name:          "vibration",
+			title:         'Вибрация',
 			ip:            "192.168.20.167",
 			port:          "80",
-			state:         "off",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -606,6 +634,11 @@ if (REAL_MODE) {
 				},
 			},
 			states:        {
+				undef: {
+					code:  -1,
+					name:  'undef',
+					title: 'не определён'
+				},
 				off: {
 					code:  0,
 					name:  'off',
@@ -617,6 +650,7 @@ if (REAL_MODE) {
 					title: 'включена',
 				},
 			},
+			has_value: 0,
 		},
 
 		// ячейка 1
@@ -624,9 +658,10 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    16,
 			name:          "cell_1",
+			title:         'Ячейка 1',
 			ip:            "192.168.20.154",
 			port:          "80",
-			state:         "closed",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -635,6 +670,7 @@ if (REAL_MODE) {
 				column:   2,
 			},
 			type:          "cell",
+			value:         1,
 		},
 
 		// ячейка 2
@@ -642,9 +678,10 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    14,
 			name:          "cell_2",
+			title:         'Ячейка 2',
 			ip:            "192.168.20.152",
 			port:          "80",
-			state:         "closed",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -653,6 +690,7 @@ if (REAL_MODE) {
 				column:   2,
 			},
 			type:          "cell",
+			value:         2,
 		},
 
 		// ячейка 3
@@ -660,9 +698,10 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    15,
 			name:          "cell_3",
+			title:         'Ячейка 3',
 			ip:            "192.168.20.153",
 			port:          "80",
-			state:         "closed",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -671,6 +710,7 @@ if (REAL_MODE) {
 				column:   2,
 			},
 			type:          "cell",
+			value:         3,
 		},
 
 		// ячейка 4
@@ -678,9 +718,10 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    12,
 			name:          "cell_4",
+			title:         'Ячейка 4',
 			ip:            "192.168.20.150",
 			port:          "80",
-			state:         "closed",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -689,6 +730,7 @@ if (REAL_MODE) {
 				column:   2,
 			},
 			type:          "cell",
+			value:         4,
 		},
 
 		// ячейка 5
@@ -696,9 +738,10 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    13,
 			name:          "cell_5",
+			title:         'Ячейка 5',
 			ip:            "192.168.20.151",
 			port:          "80",
-			state:         "closed",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -707,6 +750,7 @@ if (REAL_MODE) {
 				column:   2,
 			},
 			type:          "cell",
+			value:         5,
 		},
 
 		// фигура
@@ -714,9 +758,10 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    17,
 			name:          "figure",
+			title:         'статуя',
 			ip:            "192.168.20.169",
 			port:          "80",
-			state:         "number_of_inserted",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -746,6 +791,11 @@ if (REAL_MODE) {
 				},
 			},
 			states:        {
+				undef: {
+					code:  -1,
+					name:  'undef',
+					title: 'не определён'
+				},
 				number_of_inserted: {
 					code:  1,
 					value: 0,
@@ -753,6 +803,7 @@ if (REAL_MODE) {
 					title: 'вставлено жетонов',
 				},
 			},
+			has_value: 1,
 		},
 
 		// шкаф с кнопкой и RFID картой
@@ -760,9 +811,10 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    18,
 			name:          "locker_2",
+			title:         'шкаф',
 			ip:            "192.168.20.166",
 			port:          "80",
-			state:         "closed",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -784,6 +836,11 @@ if (REAL_MODE) {
 			},
 			events:   { },
 			states:   {
+			undef: {
+				code:  -1,
+				name:  'undef',
+				title: 'не определён'
+			},
 				closed: {
 					code:  0,
 					name:  'closed',
@@ -795,6 +852,7 @@ if (REAL_MODE) {
 					title: 'открыта'
 				},
 			},
+			has_value: 0,
 		},
 
 		// считыватель RFID-карты
@@ -802,9 +860,10 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    19,
 			name:          "card_reader",
+			title:         'RFID',
 			ip:            "192.168.20.171",
 			port:          "80",
-			state:         "not_passed",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -827,6 +886,11 @@ if (REAL_MODE) {
 				},
 			},
 			states:        {
+				undef: {
+					code:  -1,
+					name:  'undef',
+					title: 'не определён'
+				},
 				not_passed: {
 					code:  0,
 					name:  'not_passed',
@@ -838,6 +902,7 @@ if (REAL_MODE) {
 					title: 'пройдена',
 				},
 			},
+			has_value: 0,
 		},
 
 		// энергостена
@@ -845,9 +910,10 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    20,
 			name:          "power_wall",
+			title:         'энергостена',
 			ip:            "192.168.20.170",
 			port:          "80",
-			state:         "not_passed",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    0,
 			wd_emulate:    0,
@@ -864,6 +930,11 @@ if (REAL_MODE) {
 				},
 			},
 			states:        {
+				undef: {
+					code:  -1,
+					name:  'undef',
+					title: 'не определён'
+				},
 				not_passed: {
 					code:  0,
 					name:  'not_passed',
@@ -875,6 +946,7 @@ if (REAL_MODE) {
 					title: 'пройдена',
 				},
 			},
+			has_value: 0,
 		},
 
 		// видеоплеер 1
@@ -882,11 +954,12 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    666,
 			name:          "video_player_1",
+			title:         'видеоплеер 1',
 			type:          "video_player",
 			//ip:            "192.168.20.205",
 			ip:            "localhost",
 			port:          "3000",
-			state:         "stopped",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -902,11 +975,12 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    667,
 			name:          "video_player_2",
+			title:         'видеоплеер 2',
 			type:          "video_player",
 			//ip:            "192.168.20.206",
 			ip:            "localhost",
 			port:          "3000",
-			state:         "stopped",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -922,11 +996,12 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    668,
 			name:          "video_player_3",
+			title:         'видеоплеер 3',
 			type:          "video_player",
 			//ip:            "192.168.20.204",
 			ip:            "localhost",
 			port:          "3000",
-			state:         "stopped",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -942,9 +1017,10 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    865,
 			name:          "terminal_1",
+			title:         'планшет кода',
 			ip:            "192.168.20.180",
 			port:          "8070",
-			state:         "sleep",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -973,6 +1049,11 @@ if (REAL_MODE) {
 				},
 			},
 			states:        {
+				undef: {
+					code:  -1,
+					name:  'undef',
+					title: 'не определён'
+				},
 				sleep: {
 					code:  0,
 					name:  'sleep',
@@ -984,6 +1065,7 @@ if (REAL_MODE) {
 					title: 'активен',
 				},
 			},
+			has_value: 1,
 		},
 
 		// терминал поиска зелёных квадратов
@@ -991,9 +1073,10 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    866,
 			name:          "terminal_2",
+			title:         'планшет квадрат',
 			ip:            "192.168.20.181",
 			port:          "8070",
-			state:         "sleep",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -1027,6 +1110,11 @@ if (REAL_MODE) {
 				},
 			},
 			states:        {
+				undef: {
+					code:  -1,
+					name:  'undef',
+					title: 'не определён'
+				},
 				sleep: {
 					code:  0,
 					name:  'sleep',
@@ -1038,6 +1126,7 @@ if (REAL_MODE) {
 					title: 'активен',
 				},
 			},
+			has_value: 0,
 		},
 
 		// терминал игры светлячок
@@ -1045,9 +1134,10 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    867,
 			name:          "terminal_3",
+			title:         'планшет светлячок',
 			ip:            "192.168.20.183",
 			port:          "8070",
-			state:         "sleep",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -1076,6 +1166,11 @@ if (REAL_MODE) {
 				},
 			},
 			states:        {
+				undef: {
+					code:  -1,
+					name:  'undef',
+					title: 'не определён'
+				},
 				sleep: {
 					code:  0,
 					name:  'sleep',
@@ -1087,6 +1182,7 @@ if (REAL_MODE) {
 					title: 'активен',
 				},
 			},
+			has_value: 0,
 		},
 
 		// терминал ввода кординат
@@ -1094,9 +1190,10 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    868,
 			name:          "terminal_4",
+			title:         'планшет координат',
 			ip:            "192.168.20.182",
 			port:          "8070",
-			state:         "sleep",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -1130,6 +1227,11 @@ if (REAL_MODE) {
 				},
 			},
 			states:        {
+				undef: {
+					code:  -1,
+					name:  'undef',
+					title: 'не определён'
+				},
 				sleep: {
 					code:  0,
 					name:  'sleep',
@@ -1141,6 +1243,7 @@ if (REAL_MODE) {
 					title: 'активен',
 				},
 			},
+			has_value: 0,
 		},
 
 		// аудиоплеер 1
@@ -1148,10 +1251,11 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    768,
 			name:          "audio_player_1",
+			title:         'Аудиоплеер 1',
 			type:          "audio_player",
 			ip:            "192.168.20.193",
 			port:          "8070",
-			state:         "ch1_stop_ch2_stop",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -1167,10 +1271,11 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    767,
 			name:          "audio_player_2",
+			title:         'Аудиоплеер 2',
 			type:          "audio_player",
 			ip:            "192.168.20.192",
 			port:          "8070",
-			state:         "ch1_stop_ch2_stop",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -1186,10 +1291,11 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    766,
 			name:          "audio_player_3",
+			title:         'Аудиоплеер 3',
 			type:          "audio_player",
 			ip:            "192.168.20.191",
 			port:          "8070",
-			state:         "ch1_stop_ch2_stop",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -1206,10 +1312,11 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    765,
 			name:          "audio_player_4",
+			title:         'Аудиоплеер 4',
 			type:          "audio_player",
 			ip:            "192.168.20.190",
 			port:          "8070",
-			state:         "ch1_stop_ch2_stop",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -1225,9 +1332,10 @@ if (REAL_MODE) {
 			id:            0,
 			carrier_id:    21,
 			name:          "smoke",
+			title:         'Дым-машина',
 			ip:            "192.168.20.165",
 			port:          "80",
-			state:         "off",
+			state:         'undef',
 			wd_state:      exports.wd_limit,
 			wd_enabled:    1,
 			sv_port:       0,
@@ -1250,6 +1358,11 @@ if (REAL_MODE) {
 			events:        {
 			},
 			states:        {
+				undef: {
+					code:  -1,
+					name:  'undef',
+					title: 'не определён'
+				},
 				off: {
 					code:  0,
 					name:  'off',
@@ -1261,6 +1374,7 @@ if (REAL_MODE) {
 					title: 'включена',
 				},
 			},
+			has_value: 0,
 		},
 
 	];
@@ -1272,9 +1386,10 @@ for (var i = 0; i < exports.list.length; i++) {
 	var type = config_item.type;
 	if (type) {
 		var type_item = exports.types[type];
-		config_item.commands = type_item.commands;
-		config_item.events   = type_item.events;
-		config_item.states   = type_item.states;
+		config_item.commands  = type_item.commands;
+		config_item.events    = type_item.events;
+		config_item.states    = type_item.states;
+		config_item.has_value = type_item.has_value;
 	}
 }
 
