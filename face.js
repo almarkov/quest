@@ -15,6 +15,10 @@ exports.reset = function () {
 			highlight:   0,
 			section:     'Service',
 			title:       'Приготовиться к началу квеста',
+			confirm:     0,
+			ajax_url:    '/game/get_ready',
+			success_cb:  function (response) {},
+			error_cb:    function(error) {},
 		},
 		start: {
 			style_class: 'Start',
@@ -22,6 +26,29 @@ exports.reset = function () {
 			highlight:   0,
 			section:     'Service',
 			title:       'Начать',
+			confirm:     0,
+			ajax_url:    '/game/start',
+			validate_cb: function (){
+							var gamer_count = $("#inpGamerCount").val();
+							if (!gamer_count) {
+								alert ('Введите количество игроков');
+								return { ok: 0};
+							};
+							if (gamer_count != '2' && gamer_count != '3' && gamer_count != '4') {
+								alert ('Введено неверное количество игроков');
+								return { ok: 0};
+							};
+							return {
+								ok: 1,
+								params: {
+									gamer_count: gamer_count,
+								}
+							};
+			},
+			success_cb:  function (response) {
+							disable_gamer_count();
+			},
+			error_cb:    function(error) {},
 		},
 		service_mode: {
 			style_class: 'ServiceMode',
@@ -29,6 +56,10 @@ exports.reset = function () {
 			highlight:   0,
 			section:     'Service',
 			title:       'Включить режим обслуживания',
+			confirm:     1,
+			ajax_url:    '/game/service_mode',
+			success_cb:  function (response) {},
+			error_cb:    function(error) {},
 		},
 		reset_game: {
 			style_class: 'ResetGame',
@@ -36,20 +67,32 @@ exports.reset = function () {
 			highlight:   0,
 			section:     'Service',
 			title:       'Сбросить',
+			confirm:     1,
+			ajax_url:    '/game/reset',
+			success_cb:  function (response) {
+							enable_gamer_count();
+			},
+			error_cb:    function(error) {},
 		},
 		all_in: {
 			style_class: 'AllIn',
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
-			title:       'Все зашли внутрь'
+			title:       'Все зашли внутрь',
+			confirm:     0,
+			success_cb:  function (response) {},
+			error_cb:    function(error) {},
 		},
 		polyhedron_prompt: {
 			style_class: 'PolyhedronPrompt',
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
-			title:       'Подсказка по многограннику'
+			title:       'Подсказка по многограннику',
+			confirm:     0,
+			success_cb:  function (response) {},
+			error_cb:    function(error) {},
 		},
 		queue: {
 			style_class: 'Queue',
@@ -57,20 +100,29 @@ exports.reset = function () {
 			highlight:   0,
 			section:     'Quest',
 			title:       "Аудио 'в очередь'",
+			confirm:     0,
+			success_cb:  function (response) {},
+			error_cb:    function(error) {},
 		},
 		start_scan: {
 			style_class: 'StartScan',
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
-			title:       'Сканировать игрока'
+			title:       'Сканировать игрока',
+			confirm:     0,
+			success_cb:  function (response) {},
+			error_cb:    function(error) {},
 		},
 		stop_scan: {
 			style_class: 'StopScan',
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
-			title:       'Закончить сканирование игрока'
+			title:       'Закончить сканирование игрока',
+			confirm:     0,
+			success_cb:  function (response) {},
+			error_cb:    function(error) {},
 		},
 	};
 

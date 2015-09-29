@@ -1648,11 +1648,11 @@ exports.timeouts = {
 	T4: 5,
 	T5: 5,
 	A:  3,
-	B:  15,
+	B:  5,
 	C:  8,
 	D:  5,
 	E:  3,
-	CHECK_TIME: 10,
+	CHECK_TIME: 5,
 	SOCKET_WAIT_TIME: 3,
 	DEVICE_RELOAD_TIME: 2,
 }

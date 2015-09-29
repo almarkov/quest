@@ -40,56 +40,56 @@ function stop_timer() {
     }
 }
 
-function restart_timer () {
-	// получаем дату старта для таймера игры
-	start_time = null;
-	var now = new Date();
-	$.ajax({
-		url: web_server_url + '/game/start_time',
-		type: "GET",
-		crossDomain: true,
-		dataType: "json",
-		success: function (response) {
-			if (response.date) {
-				start_time = new Date(response.date);
-				var diff = start_time - now + 60*60*1000 ;
-				var ms = diff % 1000;
-				s  = ((diff - ms)/1000) % 60;
-				m  = ((diff - ms - s* 1000)/60000) % 60;
+// function restart_timer () {
+// 	// получаем дату старта для таймера игры
+// 	start_time = null;
+// 	var now = new Date();
+// 	$.ajax({
+// 		url: web_server_url + '/game/start_time',
+// 		type: "GET",
+// 		crossDomain: true,
+// 		dataType: "json",
+// 		success: function (response) {
+// 			if (response.date) {
+// 				start_time = new Date(response.date);
+// 				var diff = start_time - now + 60*60*1000 ;
+// 				var ms = diff % 1000;
+// 				s  = ((diff - ms)/1000) % 60;
+// 				m  = ((diff - ms - s* 1000)/60000) % 60;
 
-				//таймер квеста(1час)
-				game_timer = setInterval(function () {
-					s = s - 1;
-					if (s == -1) {
-						m = m-1;
-						s = 59;
-					}
-					if (start_time) {
-						if (m < 0) {
-							//$("#QuestTimer").text('Время вышло. Квест провален');
-						} else {
-							//$("#QuestTimer").text(parseInt(m) + ':' + parseInt(s));
-						}
-					} else {
-						//$("#QuestTimer").text('NA');
-					}
-				}, 1000);
+// 				//таймер квеста(1час)
+// 				game_timer = setInterval(function () {
+// 					s = s - 1;
+// 					if (s == -1) {
+// 						m = m-1;
+// 						s = 59;
+// 					}
+// 					if (start_time) {
+// 						if (m < 0) {
+// 							//$("#QuestTimer").text('Время вышло. Квест провален');
+// 						} else {
+// 							//$("#QuestTimer").text(parseInt(m) + ':' + parseInt(s));
+// 						}
+// 					} else {
+// 						//$("#QuestTimer").text('NA');
+// 					}
+// 				}, 1000);
 
-				disable_gamer_count();
-			} else {
+// 				disable_gamer_count();
+// 			} else {
 
-				stop_timer();
-				enable_gamer_count();
-				//$("#QuestTimer").text('NA');
-				return;
-			}
-		},
-		error: function(error) {
-		}
-	});
+// 				stop_timer();
+// 				enable_gamer_count();
+// 				//$("#QuestTimer").text('NA');
+// 				return;
+// 			}
+// 		},
+// 		error: function(error) {
+// 		}
+// 	});
 
 	
-}
+// }
 
 $(document).ready(function() {
 
@@ -99,18 +99,19 @@ $(document).ready(function() {
 		crossDomain: true,
 		dataType: "json",
 			success: function (response) {
+				debugger;
 				var content_top = generate_content_top(response);
 				$('#Content').prepend(content_top);
 				var content_main = generate_content_main(response);
-				$('#Content').append(content_main);		
-				set_handlers();
+				$('#Content').append(content_main);
+				set_handlers(response);
 			},
 			error: function(error) {
 			}
 	});
 
 	if (!start_time) {
-		restart_timer();
+		//restart_timer();
 	}
 	for (var i = 1; i < 99999; i++) {
         window.clearInterval(i);
@@ -313,105 +314,115 @@ function generate_device (data) {
 	return raw_html;
 }
 
-function set_handlers() {
+function set_handlers(data) {
 	//-----------------------------------------------------------------------------
 	// Управление игрой
 	//-----------------------------------------------------------------------------
-	// Подготовка устройств
-	$('.DashBoard .GetReady').click(function(e){
-		$.ajax({
-			url: web_server_url + '/game/get_ready',
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-				},
-				error: function(error) {
+	$.each(data.face.dashboard_buttons, function(index, item){
+		$('.DashBoard .' + item.style_class).click(function(e){
+			debugger;
+			if (item.confirm && !confirm("Подтвердите действие")){
+				return;
+			}
+			var send_data = {}
+			if (item.validate_cb) {
+				var validate = item.validate_cb();
+				if (!validate.ok) {
+					return;
+				} else {
+					send_data = validate.params;
 				}
+			}
+			$.ajax({
+				url: web_server_url + item.ajax_url,
+				type: "GET",
+				crossDomain: true,
+				data: send_data,
+				dataType: "json",
+				success: item.success_cb,
+				error:   item.error_cb,
+			});
 		});
 	});
+	// Подготовка устройств
+	// $('.DashBoard .GetReady').click(function(e){
+	// 	$.ajax({
+	// 		url: web_server_url + '/game/get_ready',
+	// 		type: "GET",
+	// 		crossDomain: true,
+	// 		dataType: "json",
+	// 			success: function (response) {
+	// 			},
+	// 			error: function(error) {
+	// 			}
+	// 	});
+	// });
 	// Инициализация игры
-	$('.DashBoard .Start').click(function(e){
-		if (!$("#inpGamerCount").val()) {
-			alert ('Введите количество игроков');
-			return;
-		}
-		var gamer_count = $("#inpGamerCount").val();
-		if (gamer_count == '2' || gamer_count == '3' || gamer_count == '4') {
-			$.ajax({
-			url: web_server_url + '/game/start' + '/' + gamer_count,
-			type: "GET",
-			crossDomain: true,
-			dataType: "json",
-				success: function (response) {
-					$("#inpGamerCount").prop('disabled', true);
-					restart_timer();
-				},
-				error: function(error) {
-				}
-			});
-		} else {
-			alert ('Введено неверное количество игроков');
-			return;	
-		}
+	// $('.DashBoard .Start').click(function(e){
+	// 	if (!$("#inpGamerCount").val()) {
+	// 		alert ('Введите количество игроков');
+	// 		return;
+	// 	}
+	// 	var gamer_count = $("#inpGamerCount").val();
+	// 	if (gamer_count == '2' || gamer_count == '3' || gamer_count == '4') {
+	// 		$.ajax({
+	// 		url: web_server_url + '/game/start' + '/' + gamer_count,
+	// 		type: "GET",
+	// 		crossDomain: true,
+	// 		dataType: "json",
+	// 			success: function (response) {
+	// 				disable_gamer_count();
+	// 				//restart_timer();
+	// 			},
+	// 			error: function(error) {
+	// 			}
+	// 		});
+	// 	} else {
+	// 		alert ('Введено неверное количество игроков');
+	// 		return;	
+	// 	}
 		
-	});
+	// });
 
 	// режим обслуживания
-	$('.DashBoard .ServiceMode').click(function(e){
-		if (confirm("Подтвердите действие")){
-			$.ajax({
-				url: web_server_url + '/game/service_mode',
-				type: "GET",
-				crossDomain: true,
-				dataType: "json",
-					success: function (response) {
-					},
-					error: function(error) {
-					}
-			});
-		}
-	});
-
-	// калибровка цветовых сенсоров
-	$('.DashBoard .Calibrate').click(function(e){
-		if (confirm("Подтвердите действие")){
-			$.ajax({
-				url: build_query('figure', 'calibrate', '0'),
-				type: "GET",
-				crossDomain: true,
-				dataType: "json",
-					success: function (response) {
-					},
-					error: function(error) {
-					}
-			});
-		}
-	});
+	// $('.DashBoard .ServiceMode').click(function(e){
+	// 	if (confirm("Подтвердите действие")){
+	// 		$.ajax({
+	// 			url: web_server_url + '/game/service_mode',
+	// 			type: "GET",
+	// 			crossDomain: true,
+	// 			dataType: "json",
+	// 				success: function (response) {
+	// 				},
+	// 				error: function(error) {
+	// 				}
+	// 		});
+	// 	}
+	// });
 
 	// Восстанавливаем в модели значения по умолчанию
-	$('.DashBoard .ResetGame').click(function(e){
-		if (confirm("Подтвердите действие")){
-			$.ajax({
-				url: web_server_url + '/game/reset',
-				type: "GET",
-				crossDomain: true,
-				dataType: "json",
-					success: function (response) {
-						enable_gamer_count();
-						start_time = null;
-						$("#QuestTimer").text("NA");
-						stop_timer();
-					},
-					error: function(error) {
-						enable_gamer_count();
-						start_time = null;
-						$("#QuestTimer").text("NA");
-						stop_timer();
-					}
-			});
-		}
-	});
+	// $('.DashBoard .ResetGame').click(function(e){
+	// 	if (confirm("Подтвердите действие")){
+	// 		$.ajax({
+	// 			url: web_server_url + '/game/reset',
+	// 			type: "GET",
+	// 			crossDomain: true,
+	// 			dataType: "json",
+	// 				success: function (response) {
+	// 					enable_gamer_count();
+	// 					start_time = null;
+	// 					$("#QuestTimer").text("NA");
+	// 					stop_timer();
+	// 				},
+	// 				error: function(error) {
+	// 					enable_gamer_count();
+	// 					start_time = null;
+	// 					$("#QuestTimer").text("NA");
+	// 					stop_timer();
+	// 				}
+	// 		});
+	// 	}
+	// });
 
 	// Все зашли
 	$('.DashBoard .AllIn').click(function(e){
@@ -482,38 +493,6 @@ function set_handlers() {
 		if (confirm("Подтвердите действие")){
 			$.ajax({
 				url: web_server_url + '/scanner/stop',
-				type: "GET",
-				crossDomain: true,
-				dataType: "json",
-					success: function (response) {
-					},
-					error: function(error) {
-					}
-			});
-		}
-	});
-
-
-	// Завершить сканирование
-	$('.DashBoard .StopScanAll').click(function(e){
-		if (confirm("Подтвердите действие")){
-			$.ajax({
-				url: web_server_url + '/scanner/stop_all',
-				type: "GET",
-				crossDomain: true,
-				dataType: "json",
-					success: function (response) {
-					},
-					error: function(error) {
-					}
-			});
-		}
-	});
-
-	$('.DashBoard .ClosePowerWall').click(function(e){
-		if (confirm("Подтвердите действие")){
-			$.ajax({
-				url: web_server_url + '/game/close_power_wall',
 				type: "GET",
 				crossDomain: true,
 				dataType: "json",

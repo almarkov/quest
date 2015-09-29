@@ -44,3 +44,29 @@ exports.ymdhms_date = function(date) {
 		+ ':' + ('0' + dt.getMinutes()).slice(-2)
 		+ ':' + ('0' + dt.getSeconds()).slice(-2);
 }
+
+// копирование объектов
+exports.simple_copy_obj = function(obj) {
+	var new_obj = {};
+	for (var k in obj) {
+		new_obj[k] = obj[k];
+	}
+	return new_obj;
+}
+
+// глубокое копирование
+exports.deep_copy_obj = function (obj) {
+    if (typeof obj != "object") {
+        return obj;
+    }
+    var copy = {};
+    for (var key in obj) {
+        if (typeof obj[key] == "object") {
+            copy[key] = this.deep_copy_obj(obj[key]);
+        } else {
+            copy[key] = obj[key];
+        }
+    }
+    return copy;
+};
+

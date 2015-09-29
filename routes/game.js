@@ -59,13 +59,7 @@ router.get('/all', function(req, res, next) {
 
 	// !!!!!! сделать адаптивно - отправлять только изменения!!!
 	result.face = face.get();
-
-	result.dashboard_buttons = [];
-	for (var button in gamers.dashboard_buttons) {
-		if (gamers.dashboard_buttons[button]) {
-			result.dashboard_buttons.push(button);
-		}
-	}
+	dev_log(result.face);
 
 	res.json(result);
 
@@ -96,7 +90,9 @@ router.get('/reset', function(req, res, next) {
 });
 
 // старт игры
-router.get('/start/:count', function(req, res, next) {
+router.get('/start', function(req, res, next) {
+	dev_log(req.body);
+	dev_log(req.query);
 	if (gamers.game_state == 'ready_to_go') { // квест готов к запуску
 
 		face.button_disable('start');
@@ -411,7 +407,7 @@ router.get('/setinterval', function(req, res, next) {
 					if (_device.wd_state > 0) {
 						_device.wd_state -= 1;
 					} else {
-						_device.state = -1;
+						_device.state = 'undef';
 					}
 				}
 
