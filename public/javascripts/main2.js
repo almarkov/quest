@@ -1,4 +1,3 @@
-var dev_url         = "http://localhost:3000";
 var web_server_url   = "http://localhost:3000";
 
 var start_time;

@@ -23,94 +23,7 @@ router.get('/all', function(req, res, next) {
 			});
 		}
 	}
-
-	// уменьшаем таймер
-	// если таймер активен
-	// if (devices.timer().state == 'active') {
-	// 	var new_current_value = devices.timer().current_value - 1*config.wd_multiplicator;
-	// 	// если таймер не досчитал - уменьшаем
-	// 	if (new_current_value > 0) {
-	// 		devices.timer().current_value = new_current_value;
-	// 		// отправляем на сервер текущее значение
-	// 		http.get(config.web_server_url + "/timer/current_value/" + new_current_value.toString(),
-	// 				function(res) {
-	// 					simple_log("timer current_value: " + new_current_value.toString());
-	// 				}).on('error', function(e) {
-	// 					simple_log("timer send current_value error");
-	// 		});
-	// 	// если таймер досчитал - обнуляем, 
-	// 	} else {
-	// 		devices.timer().state         = 'ready';
-	// 		devices.timer().current_value = '';
-
-	// 		// отправляем событие ready
-	// 		simple_log('sending timer ready');
-	// 		http.get(config.web_server_url + "/timer/ready", function(res) {
-	// 				simple_log('sent timer ready');
-	// 			}).on('error', function(e) {
-	// 				simple_log('error sending ready');
-	// 		});
-	// 	}
-	// }
-
-	// watchdog
-	if (config.watchdog_enabled && gamers.wd_on) {
-
-			// devices.list.forEach(function function_name (_device) {
-			// 	if (_device.id == 0 && _device.wd_enabled) {
-			// 		var query = "http://" + _device.ip + ":" +  _device.port + "/255/0/0";
-			// 		var mutex = 0;
-			// 		devices.list_by_carrier_id[_device.carrier_id].forEach(function fn(item){
-			// 			mutex += item.mutex;
-			// 		});
-			// 		if (!mutex) {
-			// 			http.get(query, function(res) {
-			// 				res.on('data', function(data){
-			// 					var result = JSON.parse(data);
-			// 					if (result.success && result.onboard_devices) {
-			// 						//обновить статусы устройств
-			// 						for (var j = 0; j < result.onboard_devices.length; j++) {
-			// 							var device = devices.get_by_id(result.carrier_id, result.onboard_devices[j].id);
-			// 							device.wd_state = 3;
-			// 							device.state = device.states[result.onboard_devices[j].state];
-			// 						}
-			// 					} else {
-			// 						// пометить неответившие устройства
-			// 						for (var j = 0; j < result.onboard_devices.length; j++) {
-			// 							var device = devices.get_by_id(result.carrier_id, result.onboard_devices[j].id);
-			// 							device.wd_state -= 1;
-			// 							device.state = device.states[result.onboard_devices[j].state];
-			// 							// перегружаем если 0
-			// 							if (config.enable_reload) {
-			// 								if (device.wd_state == 0) {
-			// 									http.get(config.web_server_url + '/sendcom/reload/' + device.name, function(res) {
-			// 									}).on('error', function(e) {
-			// 										simple_log('error sendcom reload' + device.name);
-			// 									});
-			// 								}
-			// 							}
-			// 						}
-			// 					}
-			// 				});
-			// 			}).on('error', function(e) {
-			// 				// simple_log("watchdog error");
-			// 				// devices.list_by_carrier_id[_device.carrier_id].forEach(function fn(item){
-			// 				// 	item.wd_state -= 1;
-			// 				// });
-			// 			}).setTimeout( config.wd_error_timeout, function( ) {
-			// 				simple_log("watchdog error");
-			// 				simple_log(_device.ip);
-			// 				devices.list_by_carrier_id[_device.carrier_id].forEach(function fn(item){
-			// 					item.wd_state -= 1;
-			// 				});
-			// 			});
-
-
-			// 		}
-			// 	}
-			// });
-	}
-
+	
 	// передача модели в GUI
 	var result = {};
 	for (var i = 0; i < devices.list.length; i++) {
@@ -144,6 +57,8 @@ router.get('/all', function(req, res, next) {
 	result.quest_completed = (gamers.game_state == 'quest_completed' ? 1 : 0);
 
 	//result.timer_state = timers.get();
+
+	result.devices = devices.list;
 
 
 	// !!!!!! сделать адаптивно - отправлять только изменения!!!

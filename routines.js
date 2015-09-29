@@ -1,3 +1,11 @@
+exports.get_by_field = function(object, field, value) {
+	for (var item in object) {
+		if (item[field] == value) {
+			return item;
+		}
+	}
+}
+
 exports.ymd_date = function(date) {
 	var dt = date || new Date();
   	dt = new Date(dt.getTime() + (dt.getTimezoneOffset() / 60) * -1);

@@ -13,9 +13,17 @@ router.get('/', function(req, res, next) {
 
 		for(var i = 0; i < device_ids.length; i++) {
 			var device = devices.get_by_id(carrier_id, device_ids[i]);
-			if (device && device.wd_enabled) { 
-				device.state = device.states[status_ids[i]];
-				simple_log('set state by watchdog:' + device.states[status_ids[i]]);
+			if (device && device.wd_enabled) {
+
+				// в отдельную функцию
+				for (var state in device.states) {
+					if (state.code == status_ids[i]) {
+						device.state = state.name;
+						simple_log('set state by watchdog:' + state.name);
+						break;
+					}
+				}
+				//device.state = device.states[status_ids[i]];			
 				device.wd_state = 3;
 			}
 		}

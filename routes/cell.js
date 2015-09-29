@@ -33,8 +33,8 @@ router.get('/code_entered/:code', function(req, res, next) {
 		simple_log('comparing with ' + code_to_cmp);
 		if (req.params.code == code_to_cmp) {
 			gamers.codes[index_to_cmp] = '(v)' + gamers.codes[index_to_cmp]; 
-			var player_num = parseInt(gamers.game_states['gamers_opening_cells'].arg) + 1;
-			gamers.game_states['gamers_opening_cells'].arg = player_num.toString();
+			var player_num = parseInt(gamers.game_states['gamers_opening_cells'].args[0]) + 1;
+			gamers.game_states['gamers_opening_cells'].args[0] = player_num.toString();
 			helpers.send_get(device_name, 'open', '0', DISABLE_TIMER, ENABLE_MUTEX,
 				function (params) {
 					devices.get(device_name).state = 'opened';

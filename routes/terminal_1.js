@@ -9,7 +9,7 @@ router.get('/code_entered/:code', function(req, res, next) {
 	res.json({success: 1});
 
 	gamers.quest_error = '';
-	var player_number = parseInt(gamers.game_states['scaning_gamer'].arg);
+	var player_number = parseInt(gamers.game_states['scaning_gamer'].args[0]);
 	// сохраняем код
 	gamers.codes[player_number-1] = req.params.code;
 

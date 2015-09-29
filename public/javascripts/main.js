@@ -1,4 +1,3 @@
-var dev_url         = "http://localhost:3000";
 var web_server_url   = "http://localhost:3000";
 
 var start_time;
@@ -102,6 +101,8 @@ $(document).ready(function() {
 			success: function (response) {
 				var content_top = generate_content_top(response);
 				$('#Content').prepend(content_top);
+				var content_main = generate_content_main(response);
+				$('#Content').append(content_main);		
 				set_handlers();
 			},
 			error: function(error) {
@@ -390,22 +391,49 @@ function generate_dashboard_top_section (section_name, data){
 	return raw_html;
 }
 
+function generate_content_main(data) {
+	var raw_html = "<div id='Main'>";
+
+	$.each([ 1, 2, 3, 4 ], function(index, item) {
+		raw_html += generate_main_column(item, data);
+	});
+
+	raw_html += "</div>";
+	return raw_html;
+}
+
+function generate_main_column(column, data) {
+	var raw_html = "<div id='col" + column + "'>";
+
+	$.each(data.devices, function(index, item){
+		if (item.position.column == column) {
+			raw_html += generate_device(item);
+		}
+	});
+
+	raw_html += "</div>";
+	return raw_html;
+}
+
 function generate_device (data) {
 	var raw_html =    "<div class='Device'>"
 					+     "<div class='Status Online'>"
 					+     "</div>"
 					+     "<div class='State'>"
-					+         "<label for='inpTimer' class='Label1'>Таймер</label>"
-					+         "<input type='text' name='_timer' value='' id='inpTimer' class='Input2' disabled/>"
-					+         "<input type='text' name='_timer_state' value='' id='inpTimerState' class='Input1' disabled/>"
+					+         "<label for='inp" + data.name + "' class='Label1'>" + data.name + "</label>"
+					+         "<input type='text' name='" + data.name + "' value='' id='inp" + data.name + "' class='Input2' disabled/>"
+					+         "<input type='text' name='" + data.name + "_state' value='' id='inp" + data.name + "state' class='Input1' disabled/>"
 					+     "</div>"
 					+     "<div class='Commands'>"
-					+         "<ul class='Timer'>"
-					+             "<li><a class='Set BType_01'><span>Включить</span></a></li>"
-					+             "<li><a class='Stop BType_01'><span>Выключить</span></a></li>"
-					+         "</ul>"
+					+         "<ul class='" + data.name + "'>";
+
+	$.each(data.commands, function(index, item){
+		raw_html +=               "<li><a class='" + item.name + " BType_01'><span>" + item.title + "</span></a></li>";
+	});
+	raw_html +=               "</ul>"
 					+     "</div>"
 					+ "</div>";
+	return raw_html;
 }
 
 function set_handlers() {

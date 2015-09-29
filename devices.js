@@ -31,36 +31,32 @@ exports.get_redirect_url = function (ip, device_id, command_id) {
 		config.list.forEach(function function_name (element) {
 			if (element.ip == ip && element.id == device_id) {
 				res = "/" + element.name;
-				res += "/" + element.commands[command_id];
+				res += "/" + routines.get_by_field(element.commands, 'code', command_id).name;
 			}
 		});
 	}
 	return res;
 }
 
-exports.build_query = function(device, command, parameter) {
+exports.build_query = function(device_name, command_name, parameter) {
 
-	if (device == 'timer') {
+	if (device_name == 'timer') {
 		return config.web_server_url + '/timer/'+ command + '/' + parameter;
 	}
 	if (REAL_MODE) {
-		for (var i = 0; i < config.list.length; i++) {
-			if (config.list[i].name == device) {
-				for (var j = 0; j < config.list[i].commands.length; j++) {
-					if (command == config.list[i].commands[j]) {
-						return "http://"
-							+ config.list[i].ip + ":"
-							+ config.list[i].port + "/" 
-							+ config.list[i].id + "/"
-							+ parseInt(j) + "/"
-							+ parameter;
-					}
-				}
-			}
-		}
+		var device  = exports.get(device_name);
+		var command = device.commands[command_name];
+
+		return "http://"
+			+ config.list[i].ip + ":"
+			+ config.list[i].port + "/" 
+			+ config.list[i].id + "/"
+			+ parseInt(j) + "/"
+			+ parameter;
+
 	}
 	if (EMULATOR_MODE) {
-		return config.web_server_url + '/' + device + '/'+ command + '/' + parameter;
+		return config.web_server_url + '/' + device_name + '/'+ command_name + '/' + parameter;
 	}
 }
 
@@ -69,7 +65,7 @@ exports.int_url_for = function (carrier_id, device_id, event_id) {
 	config.list.forEach(function function_name (element) {
 		if (element.carrier_id == carrier_id && element.id == device_id) {
 			res =  "/" + element.name;
-			res += "/" + element.events[event_id];
+			res += "/" + routines.get_by_field(element.events, 'code', event_id).name;
 		}
 	});
 	return res;
@@ -110,19 +106,3 @@ exports.get = function(name) {
 exports.get_by_id = function(carrier_id, id) {
 	return exports.list_by_id_arduiono_id[carrier_id + '_' + id];
 }
-
-exports.get_command_id = function(device, command){
-	if (command == 'wd') {
-		return 255;
-	}
-	for (var i = 0; i < exports.list.length; i++) {
-		if (device == exports.list[i].name) {
-			for (var j = 0; j < exports.list[i].commands.length; j++) {
-				if (command == exports.list[i].commands[j]) {
-					return j;
-				}
-			}
-		}
-	}
-};
-

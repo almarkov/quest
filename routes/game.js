@@ -379,33 +379,25 @@ router.get('/emulate_command/:device/:command/:parameter', function(req, res, ne
 
 	simple_log('request from button: ' + device.name + ' ' + command + ' ' + parameter);
 
-	if (device.commands) {
-		for (var j = 0; j < device.commands.length; j++) {
-			if (command == device.commands[j] ) {
-				var url = "http://"
-							+ device.ip + ":"
-							+ device.port + "/" 
-							+ device.id + "/"
-							+ parseInt(j) + "/"
-							+ parameter;
-				helpers.send_get_with_timeout(device, url, 3, 500);
-			}
-		}
+	if (var _command = device.commands[command]) {
+		var url = "http://"
+					+ device.ip + ":"
+					+ device.port + "/" 
+					+ device.id + "/"
+					+ _command.code + "/"
+					+ parameter;
+		helpers.send_get_with_timeout(device, url, 3, 500);
 	}
-	if (device.events) {
-		for (var j = 0; j < device.events.length; j++) {
-			if (command == device.events[j]) {
-				var url =  config.web_server_url + '/' + device.name + '/'+ command + '/' + parameter;
-				http.get(url, function(res) {
-						res.on('data', function(data){
-						});
-						res.on('error', function(data){
-						});
-					}).on('error', function(e) {
-						simple_log("get after emulate_command " + device.name +  " " + url + " error");
+	if (var _event = device.events[command]) {
+		var url =  config.web_server_url + '/' + device.name + '/'+ command + '/' + parameter;
+		http.get(url, function(res) {
+				res.on('data', function(data){
 				});
-			}
-		}
+				res.on('error', function(data){
+				});
+			}).on('error', function(e) {
+				simple_log("get after emulate_command " + device.name +  " " + url + " error");
+		});
 	}
 });
 
