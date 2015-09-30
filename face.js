@@ -17,8 +17,8 @@ exports.reset = function () {
 			title:       'Приготовиться к началу квеста',
 			confirm:     0,
 			ajax_url:    '/game/get_ready',
-			success_cb:  function (response) {},
-			error_cb:    function(error) {},
+			success_cb:  "function (response) {}",
+			error_cb:    "function(error) {}",
 		},
 		start: {
 			style_class: 'Start',
@@ -28,27 +28,25 @@ exports.reset = function () {
 			title:       'Начать',
 			confirm:     0,
 			ajax_url:    '/game/start',
-			validate_cb: function (){
-							var gamer_count = $("#inpGamerCount").val();
-							if (!gamer_count) {
-								alert ('Введите количество игроков');
-								return { ok: 0};
-							};
-							if (gamer_count != '2' && gamer_count != '3' && gamer_count != '4') {
-								alert ('Введено неверное количество игроков');
-								return { ok: 0};
-							};
-							return {
-								ok: 1,
-								params: {
-									gamer_count: gamer_count,
-								}
-							};
-			},
-			success_cb:  function (response) {
-							disable_gamer_count();
-			},
-			error_cb:    function(error) {},
+			validate_cb: "function (){"
+						+    "var gamer_count = $('#inpGamerCount').val();"
+						+    "if (!gamer_count) {"
+						+        "alert ('Введите количество игроков');"
+						+        "return { ok: 0};"
+						+    "};"
+						+    "if (gamer_count != '2' && gamer_count != '3' && gamer_count != '4') {"
+						+        "alert ('Введено неверное количество игроков');"
+						+        "return { ok: 0};"
+						+    "};"
+						+    "return {"
+						+        "ok: 1,"
+						+        "params: {"
+						+            "gamer_count: gamer_count,"
+						+        "}"
+						+    "};"
+						+"}",
+			success_cb:  "function (response) {disable_gamer_count();}",
+			error_cb:    "function(error) {}",
 		},
 		service_mode: {
 			style_class: 'ServiceMode',
@@ -58,8 +56,8 @@ exports.reset = function () {
 			title:       'Включить режим обслуживания',
 			confirm:     1,
 			ajax_url:    '/game/service_mode',
-			success_cb:  function (response) {},
-			error_cb:    function(error) {},
+			success_cb:  "function (response) {}",
+			error_cb:    "function(error) {}",
 		},
 		reset_game: {
 			style_class: 'ResetGame',
@@ -69,10 +67,8 @@ exports.reset = function () {
 			title:       'Сбросить',
 			confirm:     1,
 			ajax_url:    '/game/reset',
-			success_cb:  function (response) {
-							enable_gamer_count();
-			},
-			error_cb:    function(error) {},
+			success_cb:  "function (response) {enable_gamer_count(); }",
+			error_cb:    "function(error) {}",
 		},
 		all_in: {
 			style_class: 'AllIn',
@@ -81,8 +77,8 @@ exports.reset = function () {
 			section:     'Quest',
 			title:       'Все зашли внутрь',
 			confirm:     0,
-			success_cb:  function (response) {},
-			error_cb:    function(error) {},
+			success_cb:  "function (response) {}",
+			error_cb:    "function(error) {}",
 		},
 		polyhedron_prompt: {
 			style_class: 'PolyhedronPrompt',
@@ -91,8 +87,8 @@ exports.reset = function () {
 			section:     'Quest',
 			title:       'Подсказка по многограннику',
 			confirm:     0,
-			success_cb:  function (response) {},
-			error_cb:    function(error) {},
+			success_cb:  "function (response) {}",
+			error_cb:    "function(error) {}",
 		},
 		queue: {
 			style_class: 'Queue',
@@ -101,8 +97,8 @@ exports.reset = function () {
 			section:     'Quest',
 			title:       "Аудио 'в очередь'",
 			confirm:     0,
-			success_cb:  function (response) {},
-			error_cb:    function(error) {},
+			success_cb:  "function (response) {}",
+			error_cb:    "function(error) {}",
 		},
 		start_scan: {
 			style_class: 'StartScan',
@@ -111,8 +107,8 @@ exports.reset = function () {
 			section:     'Quest',
 			title:       'Сканировать игрока',
 			confirm:     0,
-			success_cb:  function (response) {},
-			error_cb:    function(error) {},
+			success_cb:  "function (response) {}",
+			error_cb:    "function(error) {}",
 		},
 		stop_scan: {
 			style_class: 'StopScan',
@@ -121,8 +117,8 @@ exports.reset = function () {
 			section:     'Quest',
 			title:       'Закончить сканирование игрока',
 			confirm:     0,
-			success_cb:  function (response) {},
-			error_cb:    function(error) {},
+			success_cb:  "function (response) {}",
+			error_cb:    "function(error) {}",
 		},
 	};
 

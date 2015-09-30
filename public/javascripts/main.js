@@ -99,7 +99,6 @@ $(document).ready(function() {
 		crossDomain: true,
 		dataType: "json",
 			success: function (response) {
-				debugger;
 				var content_top = generate_content_top(response);
 				$('#Content').prepend(content_top);
 				var content_main = generate_content_main(response);
@@ -320,18 +319,23 @@ function set_handlers(data) {
 	//-----------------------------------------------------------------------------
 	$.each(data.face.dashboard_buttons, function(index, item){
 		$('.DashBoard .' + item.style_class).click(function(e){
-			debugger;
 			if (item.confirm && !confirm("Подтвердите действие")){
 				return;
 			}
 			var send_data = {}
 			if (item.validate_cb) {
-				var validate = item.validate_cb();
-				if (!validate.ok) {
+				var validate_f = new Function('return ' + item.validate_cb)();
+				var validate_res = validate_f();
+				if (!validate_res.ok) {
 					return;
 				} else {
-					send_data = validate.params;
+					send_data = validate_res.params;
 				}
+			}
+			var success_cb_f = new Function('response', 'return ' + item.success_cb);
+			var error_cb_f = new Function('error', 'return ' + item.error_cb);
+			if (item.success_cb) {
+
 			}
 			$.ajax({
 				url: web_server_url + item.ajax_url,
@@ -339,11 +343,12 @@ function set_handlers(data) {
 				crossDomain: true,
 				data: send_data,
 				dataType: "json",
-				success: item.success_cb,
-				error:   item.error_cb,
+				success: success_cb_f,
+				error:   error_cb_f,
 			});
 		});
 	});
+
 	// Подготовка устройств
 	// $('.DashBoard .GetReady').click(function(e){
 	// 	$.ajax({
