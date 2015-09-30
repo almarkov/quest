@@ -9,9 +9,6 @@
         <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){
-                if (message_read) {
-                    hide_element('new_message');
-                }
                 $('.face_menu a').click(function(){
                     change_face_left($(this).attr('rel'));
                 })
