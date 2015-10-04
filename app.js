@@ -103,7 +103,7 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 var fs = require('fs');
 var util = require('util');
-var log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'debug.log', {flags : 'a'});
+log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'debug.log', {flags : 'a'});
 var log_stdout = process.stdout;
 
 console.log = function(d) {

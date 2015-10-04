@@ -6,16 +6,30 @@ var fs = require('fs');
 
 // полный сброс
 router.get('/reset', function(req, res, next) {
+
+	// создаём новый лог
+	var dir = 'log/';
+	log_file.end();
+	log_file = fs.createWriteStream(dir + routines.ymd_date() + 'debug.log', {flags : 'a'});
+
+	//удаляем старые файлы лога
+	var log_files = fs.readdirSync(dir).map(function(v) { return v.toString(); }).sort();
+	if (log_files.length > 5) {
+		for (var i = 0; i < log_files.length-5; i++) {
+			fs.unlinkSync(dir + log_files[i]);
+		}
+	}
+
 	// сбрасываем параметры
- 	devices.reset();
+	devices.reset();
 	gamers.reset();
 	http.get(web_server_url + '/sendcom/off/all', function(res) {
-    
-  		}).on('error', function(e) {
-    		simple_log('error sendcom off all');
-  	});
 
-  	http.get(devices.build_query('timer', 'activate', helpers.get_timeout("A")), function(res) {
+		}).on('error', function(e) {
+			simple_log('error sendcom off all');
+	});
+
+	http.get(devices.build_query('timer', 'activate', helpers.get_timeout("A")), function(res) {
 		res.on('data', function(data){
 			var result = JSON.parse(data);
 			devices.get('timer').state = result.state.state;
@@ -25,12 +39,6 @@ router.get('/reset', function(req, res, next) {
 	});
 
 	gamers.game_state = 'devices_off';
-
-	// удаляем старые файлы лога
-	var log_files = fs.readdirSync('log');
-	for (var i = 0; i < log_files.length - 2; i++) {
-		fs.unlinkSync('log/' + log_files[i]);
-	}
 
 	res.json({success: 1});
 });
