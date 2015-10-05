@@ -10,11 +10,19 @@ exports.types = {
 				code:  0,
 				name:  'close',
 				title: 'закрыть',
+				has_button: 1,
+				button: {
+					confirm: 1,
+				},
 			},
 			open: {
 				code:  1,
 				name:  'open',
 				title: 'открыть',
+				has_button: 1,
+				button: {
+					confirm: 1,
+				},
 			},
 		},
 		events:   { },
@@ -72,11 +80,19 @@ exports.types = {
 				code:  0,
 				name:  'ch1_playback_finished',
 				title: 'воспроизведение на канале 1 завершено',
+				has_button: 1,
+				button: {
+					confirm: 1,
+				},
 			},
 			ch2_playback_finished: {
 				code:  3,
 				name:  'ch2_playback_finished',
 				title: 'воспроизведение на канале 2 завершено',
+				has_button: 1,
+				button: {
+					confirm: 1,
+				},
 			},
 		},
 		states:   {
@@ -128,6 +144,10 @@ exports.types = {
 				code:  0,
 				name:  'playback_finished',
 				title: 'воспроизведение завершено',
+				has_button: 1,
+				button: {
+					confirm: 1,
+				},
 			},
 		},
 		states:   {
@@ -157,11 +177,19 @@ exports.types = {
 				code:  0,
 				name:  'close',
 				title: 'закрыть',
+				has_button: 1,
+				button: {
+					confirm: 1,
+				},
 			},
 			open: {
 				code:  1,
 				name:  'open',
 				title: 'открыть',
+				has_button: 1,
+				button: {
+					confirm: 1,
+				},
 			},
 		},
 		events:   {
@@ -170,6 +198,10 @@ exports.types = {
 				value: '',
 				name:  'code_entered',
 				title: 'введён код',
+				has_button: 1,
+				button: {
+					confirm: 1,
+				},
 			},
 		},
 		states:   {
@@ -453,11 +485,19 @@ if (REAL_MODE) {
 					code:  1,
 					name:  'activated',
 					title: 'активирован',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 				connected: {
 					code:  2,
 					name:  'connected',
 					title: 'установлен',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 			},
 			states:        {
@@ -511,11 +551,19 @@ if (REAL_MODE) {
 					code:  0,
 					name:  'off',
 					title: 'выключить',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 				on: {
 					code:  1,
 					name:  'on',
 					title: 'включить',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 			},
 			events:        {
@@ -575,6 +623,11 @@ if (REAL_MODE) {
 					value: 0,
 					name:  'number_of_fastened',
 					title: 'ремни пристегнуты',
+					has_button: 1,
+					button: {
+						confirm:  1,
+						parameter: '10', 
+					},
 				},
 			},
 			states:        {
@@ -614,11 +667,19 @@ if (REAL_MODE) {
 					code:  0,
 					name:  'off',
 					title: 'выключить',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 				on: {
 					code:  1,
 					name:  'on',
 					title: 'включить',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 			},
 			events:        {
@@ -788,6 +849,10 @@ if (REAL_MODE) {
 					value: 0,
 					name:  'number_of_inserted',
 					title: 'вставлено жетонов',
+					button: {
+						confirm:  1,
+						parameter: '9', 
+					},
 				},
 			},
 			states:        {
@@ -827,11 +892,19 @@ if (REAL_MODE) {
 					code:  0,
 					name:  'close',
 					title: 'закрыть',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 				open: {
 					code:  1,
 					name:  'open',
 					title: 'открыть',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 			},
 			events:   { },
@@ -883,6 +956,9 @@ if (REAL_MODE) {
 					code:  1,
 					name:  'card_ok',
 					title: 'карта приложена',
+					button: {
+						confirm:  1,
+					},
 				},
 			},
 			states:        {
@@ -927,6 +1003,10 @@ if (REAL_MODE) {
 					code:  1,
 					name:  'power_ok',
 					title: 'стена деактивирована',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 			},
 			states:        {
@@ -1039,6 +1119,10 @@ if (REAL_MODE) {
 					code:  1,
 					name:  'go',
 					title: 'включить',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 			},
 			events:        {
@@ -1046,6 +1130,10 @@ if (REAL_MODE) {
 					code:  1,
 					name:  'code_entered',
 					title: 'введён код',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 			},
 			states:        {
@@ -1095,6 +1183,11 @@ if (REAL_MODE) {
 					code:  1,
 					name:  'go',
 					title: 'включить',
+					has_button: 1,
+					button: {
+						confirm: 1,
+						parameter: 'right=0;6;7;9;14',
+					},
 				},
 			},
 			events:        {
@@ -1102,11 +1195,19 @@ if (REAL_MODE) {
 					code:  0,
 					name:  'game_failed',
 					title: 'игра провалена',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 				game_passed: {
 					code:  1,
 					name:  'game_passed',
 					title: 'игра пройдена',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 			},
 			states:        {
@@ -1156,6 +1257,10 @@ if (REAL_MODE) {
 					code:  1,
 					name:  'go',
 					title: 'включить',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 			},
 			events:        {
@@ -1163,6 +1268,10 @@ if (REAL_MODE) {
 					code:  1,
 					name:  'game_passed',
 					title: 'игра пройдена',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 			},
 			states:        {
@@ -1212,6 +1321,11 @@ if (REAL_MODE) {
 					code:  1,
 					name:  'go',
 					title: 'включить',
+					has_button: 1,
+					button: {
+						confirm: 1,
+						parameter: '0/right=9847544',
+					},
 				},
 			},
 			events:        {
@@ -1219,11 +1333,19 @@ if (REAL_MODE) {
 					code:  0,
 					name:  'coordinates_entered_fail',
 					title: 'координаты введены неверно',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 				coordinates_entered_true: {
 					code:  1,
 					name:  'coordinates_entered_true',
 					title: 'координаты введены верно',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 			},
 			states:        {
@@ -1348,11 +1470,19 @@ if (REAL_MODE) {
 					code:  0,
 					name:  'off',
 					title: 'выключить',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 				on: {
 					code:  1,
 					name:  'on',
 					title: 'включить',
+					has_button: 1,
+					button: {
+						confirm: 1,
+					},
 				},
 			},
 			events:        {

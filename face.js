@@ -9,6 +9,7 @@ exports.dashboard_fields = {
 
 exports.reset = function () {
 	exports.dashboard_buttons = {
+
 		get_ready: {
 			style_class: 'GetReady',
 			disabled:    1,
@@ -20,6 +21,7 @@ exports.reset = function () {
 			success_cb:  "function (response) {}",
 			error_cb:    "function(error) {}",
 		},
+
 		start: {
 			style_class: 'Start',
 			disabled:    1,
@@ -48,6 +50,7 @@ exports.reset = function () {
 			success_cb:  "function (response) {disable_gamer_count();}",
 			error_cb:    "function(error) {}",
 		},
+
 		service_mode: {
 			style_class: 'ServiceMode',
 			disabled:    1,
@@ -56,9 +59,8 @@ exports.reset = function () {
 			title:       'Включить режим обслуживания',
 			confirm:     1,
 			ajax_url:    '/game/service_mode',
-			success_cb:  "function (response) {}",
-			error_cb:    "function(error) {}",
 		},
+
 		reset_game: {
 			style_class: 'ResetGame',
 			disabled:    0,
@@ -68,47 +70,47 @@ exports.reset = function () {
 			confirm:     1,
 			ajax_url:    '/game/reset',
 			success_cb:  "function (response) {enable_gamer_count(); }",
-			error_cb:    "function(error) {}",
+			error_cb:    "function(error) {enable_gamer_count(); }",
 		},
+
 		all_in: {
 			style_class: 'AllIn',
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
 			title:       'Все зашли внутрь',
-			confirm:     0,
-			success_cb:  "function (response) {}",
-			error_cb:    "function(error) {}",
+			confirm:     1,
+			ajax_url:    '/game/allin',
 		},
+
 		polyhedron_prompt: {
 			style_class: 'PolyhedronPrompt',
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
 			title:       'Подсказка по многограннику',
-			confirm:     0,
-			success_cb:  "function (response) {}",
-			error_cb:    "function(error) {}",
+			confirm:     1,
+			ajax_url:    '/game/polyhedron_prompt',
 		},
+
 		queue: {
 			style_class: 'Queue',
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
 			title:       "Аудио 'в очередь'",
-			confirm:     0,
-			success_cb:  "function (response) {}",
-			error_cb:    "function(error) {}",
+			confirm:     1,
+			ajax_url:    '/game/queue',
 		},
+
 		start_scan: {
 			style_class: 'StartScan',
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
 			title:       'Сканировать игрока',
-			confirm:     0,
-			success_cb:  "function (response) {}",
-			error_cb:    "function(error) {}",
+			confirm:     1,
+			ajax_url:    '/scanner/start',
 		},
 		stop_scan: {
 			style_class: 'StopScan',
@@ -116,9 +118,8 @@ exports.reset = function () {
 			highlight:   0,
 			section:     'Quest',
 			title:       'Закончить сканирование игрока',
-			confirm:     0,
-			success_cb:  "function (response) {}",
-			error_cb:    "function(error) {}",
+			confirm:     1,
+			ajax_url:    '/scanner/stop',
 		},
 	};
 
