@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http');
+var fs = require('fs');
+var util = require('util');
 
 var routes = require('./routes/index');
 var game = require('./routes/game');
@@ -71,11 +73,32 @@ PROD_MODE     = 0;
 EMULATOR_MODE = 0;
 REAL_MODE     = 1;
 
-// конфигурация
-config = require("./config.js");
-
 // вспомогат. ф-ции
 routines       = require("./routines.js");
+
+var log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'debug.log', {flags : 'a'});
+var dev_log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'dev.log', {flags : 'a'});
+var log_stdout = process.stdout;
+
+console.log = function(d) {
+    log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n');
+    log_stdout.write(util.format(d) + '\n');
+};
+
+simple_log = function(d) {
+  log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n');
+  if (DEV_MODE) {
+    log_stdout.write(util.format(d) + '\n');
+  } 
+};
+
+dev_log = function(d) {
+  dev_log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n');
+};
+
+// конфигурация
+config = require("./config.js");
+config.load();
 
 // время начала квеста
 start_time = null;
@@ -108,27 +131,6 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
-var fs = require('fs');
-var util = require('util');
-var log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'debug.log', {flags : 'a'});
-var dev_log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'dev.log', {flags : 'a'});
-var log_stdout = process.stdout;
-
-console.log = function(d) {
-    log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n');
-    log_stdout.write(util.format(d) + '\n');
-};
-
-simple_log = function(d) {
-  log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n');
-  if (DEV_MODE) {
-    log_stdout.write(util.format(d) + '\n');
-  } 
-};
-
-dev_log = function(d) {
-  dev_log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n');
-};
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
