@@ -59,7 +59,6 @@ router.get('/all', function(req, res, next) {
 
 	// !!!!!! сделать адаптивно - отправлять только изменения!!!
 	result.face = face.get();
-	dev_log(result.face);
 
 	res.json(result);
 
@@ -402,7 +401,9 @@ router.get('/setinterval', function(req, res, next) {
 		gamers.intervalObject = setInterval(function() {
 
 			devices.list.forEach(function (_device) {
-
+				if (_device.name == 'office_door_light') {
+					dev_log(_device);
+				}
 				if (_device.wd_enabled) {
 					if (_device.wd_state > 0) {
 						_device.wd_state -= 1;

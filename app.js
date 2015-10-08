@@ -80,7 +80,7 @@ var log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 
 var dev_log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'dev.log', {flags : 'a'});
 var log_stdout = process.stdout;
 
-console.log = function(d) {
+console.log2 = function(d) {
     log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n');
     log_stdout.write(util.format(d) + '\n');
 };
@@ -99,6 +99,7 @@ dev_log = function(d) {
 // конфигурация
 config = require("./config.js");
 config.load();
+console.log(config.list);
 
 // время начала квеста
 start_time = null;
@@ -152,6 +153,8 @@ app.use('/scanner', scanner);
 for (var i = 1; i <= 8; i++) {
   app.use('/door_' + i, door);  
 }
+
+
 
 app.use('/audio_player_1', audio_player_1);
 app.use('/audio_player_2', audio_player_2);
