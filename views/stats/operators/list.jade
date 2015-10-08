@@ -1,0 +1,17 @@
+extends ../../../views/layout
+
+block content
+
+	script(src='/javascripts/stats/operators.list.js')
+
+	h2 Операторы
+	#menu
+		a(href='/stats/operators/create') Добавить
+
+	#OperatorsList
+		table
+			thead
+				th Фамилия, имя
+				th Игры
+				th foo
+			tbody

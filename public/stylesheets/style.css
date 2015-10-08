@@ -116,5 +116,11 @@ ul.DashBoard li {
     background: blue;
 }
 
+/* new styles */
+table {
+    border-collapse: collapse;
+}
 
-    
+table, th, td {
+   border: 1px solid black;
+} 

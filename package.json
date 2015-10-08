@@ -15,6 +15,7 @@
     "serve-favicon": "~2.2.1",
     "mongodb": "*",
     "monk": "*",
-    "node-xlsx": "*"
+    "node-xlsx": "*",
+    "jsonfile": "*"
   }
 }

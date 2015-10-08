@@ -8,7 +8,16 @@ var http = require('http');
 var fs = require('fs');
 var util = require('util');
 
+// разделы системы
 var routes = require('./routes/index');
+
+// управление статистикой
+var stats      = require('./routes/stats');
+
+
+
+
+// управление квестом
 var game = require('./routes/game');
 var timer = require('./routes/timer');
 var scanner = require('./routes/scanner');
@@ -76,11 +85,14 @@ REAL_MODE     = 1;
 // вспомогат. ф-ции
 routines       = require("./routines.js");
 
-var log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'debug.log', {flags : 'a'});
+// СУБД))
+mdb            = require("./mdb.js");
+
+log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'debug.log', {flags : 'a'});
 var dev_log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'dev.log', {flags : 'a'});
 var log_stdout = process.stdout;
 
-console.log2 = function(d) {
+console.log = function(d) {
     log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n');
     log_stdout.write(util.format(d) + '\n');
 };
@@ -99,7 +111,6 @@ dev_log = function(d) {
 // конфигурация
 config = require("./config.js");
 config.load();
-console.log(config.list);
 
 // время начала квеста
 start_time = null;
@@ -146,6 +157,25 @@ app.all('/*', function(req, res, next) {
 });
 
 app.use('/', routes);
+
+app.use('/stats', stats);
+
+var games = require('./routes/stats/games');
+stats.use('/games', games);
+
+var operators = require('./routes/stats/operators');
+stats.use('/operators', operators);
+
+app.use('/api', api);
+
+var api_games = require('./routes/api/games');
+api.use('/games', api_games);
+
+var api_operators = require('./routes/api/operators');
+api.use('/operators', api_operators);
+
+
+
 app.use('/game', game);
 app.use('/timer', timer);
 app.use('/scanner', scanner);

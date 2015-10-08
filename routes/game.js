@@ -103,8 +103,7 @@ router.get('/reset', function(req, res, next) {
 
 // старт игры
 router.get('/start', function(req, res, next) {
-	dev_log(req.body);
-	dev_log(req.query);
+
 	if (gamers.game_state == 'ready_to_go') { // квест готов к запуску
 
 		face.button_disable('start');
@@ -414,9 +413,6 @@ router.get('/setinterval', function(req, res, next) {
 		gamers.intervalObject = setInterval(function() {
 
 			devices.list.forEach(function (_device) {
-				if (_device.name == 'office_door_light') {
-					dev_log(_device);
-				}
 				if (_device.wd_enabled) {
 					if (_device.wd_state > 0) {
 						_device.wd_state -= 1;
