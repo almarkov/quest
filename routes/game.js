@@ -67,6 +67,19 @@ router.get('/all', function(req, res, next) {
 // полный сброс
 router.get('/reset', function(req, res, next) {
 
+	// создаём новый поток для лога
+	var dir = 'log/';
+	log_file.end();
+	log_file = fs.createWriteStream(dir + routines.ymd_date() + 'debug.log', {flags : 'a'});
+
+	//удаляем старые файлы лога, если нужно
+	var log_files = fs.readdirSync(dir).map(function(v) { return v.toString(); }).sort();
+	if (log_files.length > 5) {
+		for (var i = 0; i < log_files.length-5; i++) {
+			fs.unlinkSync(dir + log_files[i]);
+		}
+	}
+
 	// сбрасываем параметры
 	face.reset();
  	devices.reset();
