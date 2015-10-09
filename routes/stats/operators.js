@@ -9,4 +9,21 @@ router.get('/', function(req, res) {
 	});
 });
 
+// создание
+router.get('/create', function(req, res) {
+	res.render('stats/operators/form', {
+		title: 'Создание ',
+	});
+});
+
+// элемент
+router.get('/:id', function(req, res) {
+	console.log(req.params.id);
+	res.render('stats/operators/form', {
+		title: 'Оператор',
+		id:     req.params.id,
+	});
+});
+
+
 module.exports = router;

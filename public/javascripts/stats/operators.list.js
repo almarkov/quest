@@ -9,46 +9,19 @@ $(document).ready(function(){
 function populateOperatorsTable() {
     var tableContent = '';
 
-    $.getJSON( '/api/v1/device_types/', function( data ) {
+    $.getJSON( '/api/operators/list', function( data ) {
         $.each(data, function(){
             tableContent += '<tr>';
 
-            tableContent += '<td><a href="/device_type/' + this._id +  '">' + this.title + '</a></td>'
+            tableContent += '<td><a href="/operators/' + this._id +  '">' + this.name + '</a></td>'
             tableContent += '<td>' + this.name + '</td>';
-
-            tableContent += '<td>';
-            if (this.device_commands) {
-                $.each(this.device_commands, function(){
-                    tableContent += this.title + '  ' + this.name + '  ' + this.dname;
-                    tableContent += '<br>';
-                });
-            }
-            tableContent += '</td>';
-
-            tableContent += '<td>';
-            if (this.device_events) {
-                $.each(this.device_events, function(){
-                    tableContent += this.title + '  ' + this.name + '  ' + this.dname;
-                    tableContent += '<br>';
-                });
-            }
-            tableContent += '</td>';
-
-            tableContent += '<td>';
-            if (this.device_states) {
-                $.each(this.device_states, function(){
-                    tableContent += this.title + '  ' + this.name + '  ' + this.dname;
-                    tableContent += '<br>';
-                });
-            }
-            tableContent += '</td>';
 
             tableContent += '<td><a href="" class="linkdelete" rel="' + this._id + '">Удалить</a></td>'
 
             tableContent += '</tr>';
         });
 
-        $('#deviceTypeList table tbody').html(tableContent);
+        $('#OperatorsList table tbody').html(tableContent);
     });
 }
 
@@ -58,8 +31,8 @@ function deleteOperator() {
     var id = $(this).attr('rel');
 
     $.ajax({
-        type: 'DELETE',
-        url: '/api/v1/device_types/' + id,
+        type: 'GET',
+        url: '/api/operators/' + id + '/delete',
         dataType: 'JSON'
     }).done(function( response ) {
 
@@ -68,7 +41,7 @@ function deleteOperator() {
 
             // window.location.replace("http://localhost:3000/device_types");
             alert('Данные сохранены');
-            populateDeviceTypeTable();
+            populateOperatorsTable();
 
         }
         else {

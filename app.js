@@ -13,8 +13,7 @@ var routes = require('./routes/index');
 
 // управление статистикой
 var stats      = require('./routes/stats');
-
-
+var api        = require('./routes/api');
 
 
 // управление квестом
@@ -86,7 +85,7 @@ REAL_MODE     = 1;
 routines       = require("./routines.js");
 
 // СУБД))
-mdb            = require("./mdb.js");
+mbd            = require("./mbd.js");
 
 log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'debug.log', {flags : 'a'});
 var dev_log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'dev.log', {flags : 'a'});

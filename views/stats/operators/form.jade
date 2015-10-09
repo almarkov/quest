@@ -1,0 +1,15 @@
+extends ../../../views/layout
+
+block content
+
+	script(src='/javascripts/stats/operators.form.js')
+
+	div#OperatorForm
+		h2 Создание/Изменение
+		fieldset
+			input#inputOperatorId(type='hidden', value= id)
+			input#inputOperatorName( type='text', placeholder='Имя')
+			br
+
+		button#btnSaveOperator Сохранить
+		button#btnBackOperator Отменить

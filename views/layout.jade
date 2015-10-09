@@ -3,9 +3,12 @@ html
 	head
 		title= title
 		link(rel='stylesheet', href='/stylesheets/style.css')
+
+		script(src='/javascripts/jquery.min.js')
 	body
 		h2 Главное меню
 		#menu
+			a(href='/index.html') Управление квестом
 			a(href='/stats/operators') Операторы
 			a(href='/stats/games') Список игр
 		block content

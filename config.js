@@ -59,7 +59,6 @@ exports.load = function() {
 			}
 		}
 		if (item.no) {
-			dev_log();
 			last_item = {
 				id:         item.id,
 				carrier_id: item.carrier_id,
