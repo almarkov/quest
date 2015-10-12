@@ -18,7 +18,6 @@ router.get('/create', function(req, res) {
 
 // элемент
 router.get('/:id', function(req, res) {
-	console.log(req.params.id);
 	res.render('stats/operators/form', {
 		title: 'Оператор',
 		id:     req.params.id,

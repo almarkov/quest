@@ -2,64 +2,56 @@ var express = require('express');
 var router = express.Router();
 
 // АПИ
+
 // список
 router.get('/list', function(req, res) {
-	dev_log('oooo1');
 	mbd.select('operators', {}, function(err, result){
-		dev_log('oooo2');
 		res.json(
-			(err === null) ? device_type : { msg: err }
+			(err === null) ? result : { msg: err }
 		);
 	});
-	dev_log('oooo3');
-
 });
 // элемент
 router.get('/:id', function(req, res) {
-	var id = req.params.id;
-	var db = req.db;
-	var device_types = db.get('device_types');
 
-	device_types.findOne({'_id': id},{},function(err, device_type){
+	mbd.findById('operators', req.params.id, function(err, operator){
 		res.json(
-			(err === null) ? device_type : { msg: err }
+			(err === null) ? operator : { msg: err }
 		);
 	});
+
 });
+
 // создание
 router.post('/create', function(req, res) {
-	var device_types = db.get('device_types');
-	device_types.insert(req.body, function(err, result){
+	mbd.insert('operators', req.body, {}, function(err, result){
 		res.send(
 			(err === null) ? { msg: '', new_id: result._id } : { msg: err }
 		);
 	});
 });
+
 // обновление
 router.post('/:id', function(req, res) {
-	var db = req.db;
-	var device_types = db.get('device_types');
-	var id = req.params.id;
-
-	device_types.findAndModify({'_id': id }, {$set: req.body}, function(err, result){
+	mbd.findAndUpdate('operators', {'_id': req.params.id }, req.body, function(err, result){
 		res.send(
 			(err === null) ? { msg: '' } : { msg: err }
 		);
 	});
 });
-// удаление
-router.delete('/:id', function(req, res) {
-	var db = req.db;
-	var device_types = db.get('device_types');
-	var id = req.params.id;
+// // удаление
+// router.delete('/:id', function(req, res) {
+// 	var db = req.db;
+// 	var device_types = db.get('device_types');
+// 	var id = req.params.id;
 
-	device_types.remove({_id: id}, function(err, result){
-		res.json({
-			msg: ((err === null) ? '' : err ),
-			data: result,
-		});
-	})
-});
+// 	device_types.remove({_id: id}, function(err, result){
+// 		res.json({
+// 			msg: ((err === null) ? '' : err ),
+// 			data: result,
+// 		});
+// 	})
+// });
 
 // // удаление команды из типа устройства
 // router.delete('/:id/:table/:item_id', function(req, res) {

@@ -8,8 +8,8 @@ $(document).ready(function(){
 });
 
 function fillOperatorForm(fields) {
-	
-	var id = $('#OperatorForm fieldset input#inputDeviceTypeId').val();
+
+	var id = $('#OperatorForm fieldset input#inputOperatorId').val();
 	// изменение
 	if (id) {
 		$.getJSON( '/api/operators/' + id, function( data ) {
@@ -38,7 +38,7 @@ function saveOperator(event) {
 	if(errorCount === 0) {
 
 		// If it is, compile all user info into one object
-		var newDeviceType = {
+		var newOperator = {
 			'name': $('#OperatorForm fieldset input#inputOperatorName').val(),
 		};
 
@@ -47,7 +47,7 @@ function saveOperator(event) {
 			 // Use AJAX to post the object to our adduser service
 			$.ajax({
 				type: 'POST',
-				data: newDeviceType,
+				data: newOperator,
 				url: '/api/operators/' + _id,
 				dataType: 'JSON'
 			}).done(function( response ) {
@@ -57,6 +57,7 @@ function saveOperator(event) {
 
 					// window.location.replace("http://localhost:3000/device_types");
 					alert('Данные сохранены');
+                    window.location = "/stats/operators";
 
 				}
 				else {
@@ -72,7 +73,7 @@ function saveOperator(event) {
 			// Use AJAX to post the object to our adduser service
 			$.ajax({
 				type: 'POST',
-				data: newDeviceType,
+				data: newOperator,
 				url: '/api/operators/create',
 				dataType: 'JSON'
 			}).done(function( response ) {
@@ -82,6 +83,7 @@ function saveOperator(event) {
 
 					alert('Данные сохранены');
 					$('#OperatorForm fieldset input#inputOperatorId').val(response.new_id);
+                    window.location = "/stats/operators";
 
 				}
 				else {
@@ -102,5 +104,5 @@ function saveOperator(event) {
 };
 
 function backOperator() {
-	// redirect to device types list
+	window.location = "/stats/operators";
 }

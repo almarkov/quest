@@ -13,7 +13,7 @@ function populateOperatorsTable() {
         $.each(data, function(){
             tableContent += '<tr>';
 
-            tableContent += '<td><a href="/operators/' + this._id +  '">' + this.name + '</a></td>'
+            tableContent += '<td><a href="/stats/operators/' + this._id +  '">' + this.name + '</a></td>'
             tableContent += '<td>' + this.name + '</td>';
 
             tableContent += '<td><a href="" class="linkdelete" rel="' + this._id + '">Удалить</a></td>'
