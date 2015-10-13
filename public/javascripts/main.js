@@ -33,57 +33,6 @@ function enable_gamer_count() {
 	$("#inpGamerCount").val('');
 }
 
-// function restart_timer () {
-// 	// получаем дату старта для таймера игры
-// 	start_time = null;
-// 	var now = new Date();
-// 	$.ajax({
-// 		url: web_server_url + '/game/start_time',
-// 		type: "GET",
-// 		crossDomain: true,
-// 		dataType: "json",
-// 		success: function (response) {
-// 			if (response.date) {
-// 				start_time = new Date(response.date);
-// 				var diff = start_time - now + 60*60*1000 ;
-// 				var ms = diff % 1000;
-// 				s  = ((diff - ms)/1000) % 60;
-// 				m  = ((diff - ms - s* 1000)/60000) % 60;
-
-// 				//таймер квеста(1час)
-// 				game_timer = setInterval(function () {
-// 					s = s - 1;
-// 					if (s == -1) {
-// 						m = m-1;
-// 						s = 59;
-// 					}
-// 					if (start_time) {
-// 						if (m < 0) {
-// 							//$("#QuestTimer").text('Время вышло. Квест провален');
-// 						} else {
-// 							//$("#QuestTimer").text(parseInt(m) + ':' + parseInt(s));
-// 						}
-// 					} else {
-// 						//$("#QuestTimer").text('NA');
-// 					}
-// 				}, 1000);
-
-// 				disable_gamer_count();
-// 			} else {
-
-// 				stop_timer();
-// 				enable_gamer_count();
-// 				//$("#QuestTimer").text('NA');
-// 				return;
-// 			}
-// 		},
-// 		error: function(error) {
-// 		}
-// 	});
-
-	
-// }
-
 $(document).ready(function() {
 
 	$.ajax({
@@ -234,6 +183,25 @@ function generate_state_top_section (section_name, data){
 			} else if (item.type == 'text') {
 				raw_html += "<label for='" + item.id + "' class='Label1'>" + item.label + ": </label>"
 							+ "<input type='text' name='" + item.name + "' item='" + item.value + "' id='" + item.id + "' class='Input1' />";
+			} else if (item.type == 'select') {
+				raw_html += "<label for='" + item.id + "' class='Label1'>" + item.label + ": </label>"
+							+ "<select name='" + item.name + "' item='" + item.value + "' id='" + item.id + "' class='Input1'>";
+				var options = $.ajax({
+					url: web_server_url + "/api/operators/list",
+					type:       "GET",
+					crossDomain: true,
+					data:        {},
+					async:       false,
+					dataType:    "json",
+					success:     function(){},
+					error:       function(){},
+				}).responseJSON;
+
+				raw_html += "<option value='" + "-1" + "'>[Выберите опреатора]</option>";
+				$.each(options, function(index, item){
+					raw_html += "<option value='" + item._id + "'>" + item.name + "</option>";
+				});
+				raw_html += "</select>";
 			}
 			raw_html += "</li>";
 		}

@@ -9,6 +9,11 @@ router.get('/', function(req, res, next) {
 
 // редирект по обработчикам событий от устройств
 router.get('/:carrier_id/:device_id/:action/:parameter', function(req, res, next) {
+
+	if (isNaN(parseInt(req.params.carrier_id))) {
+		next();
+		return;
+	}
 	res.send(1);
 	var query = devices.int_url_for(req.params.carrier_id, parseInt(req.params.device_id), req.params.action) + "/" + req.params.parameter;
 

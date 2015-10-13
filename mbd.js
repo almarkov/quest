@@ -61,6 +61,7 @@ exports.findAndUpdate = function(table, query, params, callback) {
 		for (var field in query) {
 			if (data.items[i][field] != query[field]) {
 				flag = 0;
+				break;
 			}
 		}
 		if (flag) {
@@ -74,8 +75,39 @@ exports.findAndUpdate = function(table, query, params, callback) {
 
 }
 
-exports.delete = function(table, params) {
+exports.remove = function(table, query, callback) {
+	var data = load_table(table);
 
+	var to_remove = [];
+	var current_id = 0;
+	for (var i = 0; i < data.meta.count; i++) {
+		var flag = 1;
+		for (var field in query) {
+			if (data.items[i][field] != query[field]) {
+				flag = 0;
+				break;
+			}
+		}
+		if (flag) {
+			to_remove.push(i);
+		} else {
+			if (data.items[i]._id > current_id ) {
+				current_id = data.items[i]._id;
+			}
+		}
+	}
+
+	for (var i = 0; i < to_remove.length; i++) {
+		var t = data.items[to_remove[i]];
+		data.items[to_remove[i]] = data.items[data.meta.count-1-i];
+		data.items[data.meta.count-1-i] = t;
+	}
+	data.items.splice(-1, to_remove.length);
+	data.meta.count      -= to_remove.length;
+	data.meta.current_id = current_id;
+
+	save_table(table, data.items, data.meta);
+	callback(null, null);
 }
 
 

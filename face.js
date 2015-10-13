@@ -133,6 +133,16 @@ exports.reset = function () {
 			section:  'Service',
 			value:    '',
 		},
+		operator: {
+			name:     '_operator',
+			type:     'select',
+			source:   'operators',
+			label:    'Оператор',
+			id:       'inpOperator',
+			disabled: 0,
+			section:  'Service',
+			value:    '',
+		},
 		quest_state: {
 			type:     'static',
 			label:    'Состояние квеста',

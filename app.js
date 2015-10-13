@@ -173,8 +173,6 @@ api.use('/games', api_games);
 var api_operators = require('./routes/api/operators');
 api.use('/operators', api_operators);
 
-
-
 app.use('/game', game);
 app.use('/timer', timer);
 app.use('/scanner', scanner);

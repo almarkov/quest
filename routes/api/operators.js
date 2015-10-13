@@ -39,19 +39,15 @@ router.post('/:id', function(req, res) {
 		);
 	});
 });
-// // удаление
-// router.delete('/:id', function(req, res) {
-// 	var db = req.db;
-// 	var device_types = db.get('device_types');
-// 	var id = req.params.id;
+// удаление
+router.get('/:id/delete', function(req, res) {
 
-// 	device_types.remove({_id: id}, function(err, result){
-// 		res.json({
-// 			msg: ((err === null) ? '' : err ),
-// 			data: result,
-// 		});
-// 	})
-// });
+	mbd.remove('operators', {_id: req.params.id}, function(err, result){
+		res.json({
+			msg: ((err === null) ? '' : err ),
+		});
+	})
+});
 
 // // удаление команды из типа устройства
 // router.delete('/:id/:table/:item_id', function(req, res) {

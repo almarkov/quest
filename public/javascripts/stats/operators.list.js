@@ -29,6 +29,7 @@ function deleteOperator() {
     event.preventDefault();
 
     var id = $(this).attr('rel');
+    debugger;
 
     $.ajax({
         type: 'GET',
