@@ -111,6 +111,10 @@ dev_log = function(d) {
 config = require("./config.js");
 config.load();
 
+// логика квеста
+logic = require("./logic.js");
+logic.load();
+
 // время начала квеста
 start_time = null;
 
