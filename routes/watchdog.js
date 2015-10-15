@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 				// в отдельную функцию
 				var state = routines.get_by_field(device.states, 'code', status_ids[i]);
 				device.state = state.name;
-				simple_log('set state by watchdog:' + state.name);
+				//simple_log('set state by watchdog:' + state.name);
 				device.wd_state = 3;
 				
 			}

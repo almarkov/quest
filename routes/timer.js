@@ -60,25 +60,28 @@ router.get('/ready', function(req, res, next) {
 
 		// подготовка закончилась
 		case 'preparation':
-			for (var i = 1; i <= 8; i++) {
-				devices.get('door_' + i).state = 'closed';
-			}
+			// for (var i = 1; i <= 8; i++) {
+			// 	devices.get('door_' + i).state = 'closed';
+			// }
 
-			for (var i = 1; i <= 5; i++) {
-				devices.get('cell_' + i).state = 'closed';
-			}
-			for (var i = 1; i <= 4; i++) {
-				devices.get('terminal_' + i).state = 'sleep';
-			}
-			devices.get('locker_2').state    = 'closed';
+			// for (var i = 1; i <= 5; i++) {
+			// 	devices.get('cell_' + i).state = 'closed';
+			// }
+			// for (var i = 1; i <= 4; i++) {
+			// 	devices.get('terminal_' + i).state = 'sleep';
+			// }
+			// devices.get('locker_2').state    = 'closed';
 
-			devices.get('light').state    = 'on';
-			devices.get('inf_mirror_backlight').state = 'off';
-			devices.get('vibration').state    = 'off';
+			// devices.get('light').state    = 'on';
+			// devices.get('inf_mirror_backlight').state = 'off';
+			// devices.get('vibration').state    = 'off';
 
 			// готов к запуску
 			gamers.set_game_state('ready_to_go', []);
 			face.button_enable('start');
+
+			logic.init();
+
 			break;
 
 		default:

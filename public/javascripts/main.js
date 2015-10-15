@@ -20,7 +20,7 @@ $.ajax({
 
 function build_query(device, item, parameter) {
 	return web_server_url
-		+ "/game/emulate_item"
+		+ "/game/emulate_command"
 		+ '/' + device + '/'+ item + '/' + parameter;
 }
 

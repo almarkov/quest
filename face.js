@@ -73,6 +73,18 @@ exports.reset = function () {
 			error_cb:    "function(error) {enable_gamer_count(); }",
 		},
 
+		players_start: {
+			style_class: 'PlayersStart',
+			disabled:    0,
+			highlight:   0,
+			section:     'Service',
+			title:       'Игроки на старте',
+			confirm:     1,
+			ajax_url:    '/game/players_start',
+			success_cb:  "function (response) { }",
+			error_cb:    "function(error) { }",
+		},
+
 		all_in: {
 			style_class: 'AllIn',
 			disabled:    1,

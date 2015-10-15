@@ -104,28 +104,40 @@ router.get('/reset', function(req, res, next) {
 // старт игры
 router.get('/start', function(req, res, next) {
 
-	if (gamers.game_state == 'ready_to_go') { // квест готов к запуску
+	// if (gamers.game_state == 'ready_to_go') { // квест готов к запуску
 
-		face.button_disable('start');
-		face.button_disable('get_ready');
+	// 	face.button_disable('start');
+	// 	face.button_disable('get_ready');
 
-		// начинаем часовой отсчёт
-		gamers.start_time = new Date();
-		// фиксируем число игроков
-		gamers.count = parseInt(req.params.count);
+	// 	// начинаем часовой отсчёт
+	// 	gamers.start_time = new Date();
+	// 	// фиксируем число игроков
+	// 	gamers.count = parseInt(req.params.count);
 
-		gamers.game_state = 'opening_door_1_and_waiting';
+	// 	gamers.game_state = 'opening_door_1_and_waiting';
 
-		//  открываем дверь 1
-		helpers.send_get('door_1', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX, 
-			function(params){
-				devices.get('door_1').state = 'opened';
-			}, {}
-		);
+	// 	//  открываем дверь 1
+	// 	helpers.send_get('door_1', 'open', '0', DISABLE_TIMER, ENABLE_MUTEX, 
+	// 		function(params){
+	// 			devices.get('door_1').state = 'opened';
+	// 		}, {}
+	// 	);
 
-		face.button_enable('all_in');
-		face.button_highlight_on('all_in');
-	}
+	// 	face.button_enable('all_in');
+	// 	face.button_highlight_on('all_in');
+	// }
+	res.json({success: 1});
+	dev_log('start_pushed');
+	logic.submit_event('Нажата кнопка', 'Начать');
+
+
+
+});
+
+// старт игры
+router.get('/players_start', function(req, res, next) {
+
+	logic.submit_event('Нажата кнопка', 'Игроки на старте');
 
 	res.json({success: 1});
 
@@ -202,66 +214,66 @@ router.get('/get_ready', function(req, res, next) {
 
 	gamers.set_game_state('preparation', []);
 
-	for (var i = 1; i <= 8; i++) {
-		queue.push('door_' + i, 'close', '0', DISABLE_TIMER);
-	}
+	// for (var i = 1; i <= 8; i++) {
+	// 	queue.push('door_' + i, 'close', '0', DISABLE_TIMER);
+	// }
 
-	// закрываем ячейки
-	for (var i = 1; i <= 5; i++) {
-		queue.push('cell_' + i, 'close', '0', DISABLE_TIMER);
-	}
+	// // закрываем ячейки
+	// for (var i = 1; i <= 5; i++) {
+	// 	queue.push('cell_' + i, 'close', '0', DISABLE_TIMER);
+	// }
 
-	// запускаем аудио на первом канале
-	queue.push('audio_player_4', 'play_channel_1', config.audio_files[19].value, DISABLE_TIMER,
-		function(params){
-			var device = devices.get('audio_player_4');
-			device.value = config.audio_files[19].alias;
-			device.state = "ch1_play_ch2_stop";
-		}, {}
-	);
-	// выключаем аудио на первом канале
-	for (var i = 1; i <= 3; i++) {
-		queue.push('audio_player_' + i, 'stop_channel_1', '0', DISABLE_TIMER);
-	}
+	// // запускаем аудио на первом канале
+	// queue.push('audio_player_4', 'play_channel_1', config.audio_files[19].value, DISABLE_TIMER,
+	// 	function(params){
+	// 		var device = devices.get('audio_player_4');
+	// 		device.value = config.audio_files[19].alias;
+	// 		device.state = "ch1_play_ch2_stop";
+	// 	}, {}
+	// );
+	// // выключаем аудио на первом канале
+	// for (var i = 1; i <= 3; i++) {
+	// 	queue.push('audio_player_' + i, 'stop_channel_1', '0', DISABLE_TIMER);
+	// }
 
-	// выключаем аудио на втором канале
-	for (var i = 1; i <= 4; i++) {
-		queue.push('audio_player_' + i, 'stop_channel_2', '0', DISABLE_TIMER);
-	}
+	// // выключаем аудио на втором канале
+	// for (var i = 1; i <= 4; i++) {
+	// 	queue.push('audio_player_' + i, 'stop_channel_2', '0', DISABLE_TIMER);
+	// }
 
-	// включаем экраны 1,2,3
-	for (var i = 1; i <= 3; i++) {
-		queue.push('video_player_' + i, 'play', config.video_files[3].value, DISABLE_TIMER,
-			function(params){
-				var device = devices.get('video_player_' + params.index);
-				device.value = config.video_files[3].alias;
-				device.state = 'playing';
-			}, 
-			{
-				index: i
-			}
-		);
-	}
+	// // включаем экраны 1,2,3
+	// for (var i = 1; i <= 3; i++) {
+	// 	queue.push('video_player_' + i, 'play', config.video_files[3].value, DISABLE_TIMER,
+	// 		function(params){
+	// 			var device = devices.get('video_player_' + params.index);
+	// 			device.value = config.video_files[3].alias;
+	// 			device.state = 'playing';
+	// 		}, 
+	// 		{
+	// 			index: i
+	// 		}
+	// 	);
+	// }
 
-	// выключаем подсветку
-	queue.push('inf_mirror_backlight', 'off', '0', DISABLE_TIMER);
+	// // выключаем подсветку
+	// queue.push('inf_mirror_backlight', 'off', '0', DISABLE_TIMER);
 
-	// включаем подсветку статуи
-	queue.push('figure', 'backlight_on', '0', DISABLE_TIMER);
+	// // включаем подсветку статуи
+	// queue.push('figure', 'backlight_on', '0', DISABLE_TIMER);
 
-	// включаем свет
-	queue.push('light', 'on', '0', DISABLE_TIMER);
+	// // включаем свет
+	// queue.push('light', 'on', '0', DISABLE_TIMER);
 
-	// выключаем вибрацию
-	queue.push('vibration', 'off', '0', DISABLE_TIMER);
+	// // выключаем вибрацию
+	// queue.push('vibration', 'off', '0', DISABLE_TIMER);
 
-	// выключаем планешеты
-	for (var i = 1; i <= 4; i++) {
-		queue.push('terminal_' + i, 'black_screen', '0', DISABLE_TIMER);
-	}
+	// // выключаем планешеты
+	// for (var i = 1; i <= 4; i++) {
+	// 	queue.push('terminal_' + i, 'black_screen', '0', DISABLE_TIMER);
+	// }
 
-	// сбрасываем считыватель RFID
-	queue.push('card_reader', 'reset', '0', DISABLE_TIMER);
+	// // сбрасываем считыватель RFID
+	// queue.push('card_reader', 'reset', '0', DISABLE_TIMER);
 
 	timers.start(helpers.get_timeout('B'));
 
@@ -454,29 +466,31 @@ router.get('/emulate_command/:device/:command/:parameter', function(req, res, ne
 
 	simple_log('request from button: ' + device.name + ' ' + command + ' ' + parameter);
 
-	var _command = device.commands[command];
-	if (_command) {
-		var url = "http://"
-					+ device.ip + ":"
-					+ device.port + "/" 
-					+ device.id + "/"
-					+ _command.code + "/"
-					+ parameter;
-		helpers.send_get_with_timeout(device, url, 3, 500);
-	}
+	logic.submit_event('Рапорт устройства', '' + device + '/' + command + '/N', parameter);
 
-	var _event = device.commands[command];
-	if (_event) {
-		var url =  config.web_server_url + '/' + device.name + '/'+ command + '/' + parameter;
-		http.get(url, function(res) {
-				res.on('data', function(data){
-				});
-				res.on('error', function(data){
-				});
-			}).on('error', function(e) {
-				simple_log("get after emulate_command " + device.name +  " " + url + " error");
-		});
-	}
+	// var _command = device.commands[command];
+	// if (_command) {
+	// 	var url = "http://"
+	// 				+ device.ip + ":"
+	// 				+ device.port + "/" 
+	// 				+ device.id + "/"
+	// 				+ _command.code + "/"
+	// 				+ parameter;
+	// 	helpers.send_get_with_timeout(device, url, 3, 500);
+	// }
+
+	// var _event = device.commands[command];
+	// if (_event) {
+	// 	var url =  config.web_server_url + '/' + device.name + '/'+ command + '/' + parameter;
+	// 	http.get(url, function(res) {
+	// 			res.on('data', function(data){
+	// 			});
+	// 			res.on('error', function(data){
+	// 			});
+	// 		}).on('error', function(e) {
+	// 			simple_log("get after emulate_command " + device.name +  " " + url + " error");
+	// 	});
+	// }
 });
 
 module.exports = router;
