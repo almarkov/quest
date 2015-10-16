@@ -3,6 +3,15 @@ var xlsx = require('node-xlsx');
 exports.variables_hash = {};
 exports.stages_hash    = {};
 
+exports.set_variable = function(name, value) {
+	exports.variables_hash[name].value = value;
+}
+
+
+exports.get_variable = function(name) {
+	return exports.variables_hash[name].value;
+}
+
 exports.load = function() {
 	var obj = xlsx.parse('logic.xlsx');
 
@@ -24,7 +33,7 @@ exports.load = function() {
 		exports.variables_hash[item.name] = {
 			description: item.description,
 			name:        item.name,
-			value:       '3',
+			value:       '',
 		};
 	}
 
@@ -35,18 +44,21 @@ exports.load = function() {
 		'stage_description',
 
 		'stage_action_type',
-		'stage_action_arg',
+		'stage_action_url',
+		'stage_action_parameter',
 		'stage_action_description',
 
 		'event_type',
-		'event_arg',
+		'event_url',
+		'event_parameter',
 		'event_description',
 
 		'event_condition_value',
 		'event_condition_description',
 
 		'event_action_type',
-		'event_action_arg',
+		'event_action_url',
+		'event_action_parameter',
 	];
 
 	for (var i = 2; i < stages.length; i++) {
@@ -72,7 +84,8 @@ exports.load = function() {
 			var stage_action = {
 				description: item.stage_action_description,
 				type:        item.stage_action_type,
-				arg:         item.stage_action_arg,
+				url:         item.stage_action_url,
+				parameter:   item.stage_action_parameter,
 			};
 			last_stage.actions.push(stage_action);
 		}
@@ -80,7 +93,8 @@ exports.load = function() {
 		if (item.event_type) {
 			last_event = {
 				type:        item.event_type,
-				arg:         item.event_arg.split("\/"),
+				url:         item.event_url,
+				parameter:   item.event_parameter,
 				description: item.event_description,
 				conditions:  [],
 			};
@@ -96,10 +110,11 @@ exports.load = function() {
 			last_event.conditions.push(last_event_condition);
 		}
 		// действия при выполнении условия
-		if (item.event_condition_value) {
+		if (item.event_action_type) {
 			var event_condition_action = {
-				type: item.event_action_type,
-				arg:  item.event_action_arg,
+				type:       item.event_action_type,
+				url:        item.event_action_url,
+				parameter:  item.event_action_parameter,
 			};
 			last_event_condition.actions.push(event_condition_action);
 		}
@@ -121,6 +136,8 @@ exports.switch_stage = function(new_stage) {
 	dev_log(new_stage);
 	//меняем текущий этап
 	exports.current_stage = new_stage;
+	//меняем поле на экране
+	face.field_set_value('quest_state', exports.stages_hash[new_stage].description);
 
 	// выполянем действия нового этапа
 	exports.stages_hash[exports.current_stage].actions.forEach(function(action){
@@ -129,25 +146,27 @@ exports.switch_stage = function(new_stage) {
 
 	// ставим ожидание событий
 	clearInterval(exports.event_interval_object);
-	dev_log('switch_stage2');
 	exports.event_interval_object = setInterval(function(){
-		dev_log('setInterval');
-		dev_log(exports.current_stage);
 		exports.stages_hash[exports.current_stage].events.forEach(function(event_){
-			dev_log('cycek');
 			// если событие произошло
-			dev_log(event_);
 			if (event_.happened) {
 				dev_log('happened');
+				dev_log(event_);
 				event_.conditions.forEach(function(condition){
 					var str = condition.value.toString();
-					if (event_.arg[2] && event_.arg[2] != '0') {
-						var re  = new RegExp(event_.arg[2], "g");
-						str = str.replace(re, event_.value);
+					console.log(str);
+					console.log(event_.parameter);
+					console.log(event_.value);
+					if (event_.parameter && event_.value && event_.parameter != '0') {
+						var re  = new RegExp(event_.parameter, "g");
+						str = str.replace(re, event_.value.toString());
 					}
+					console.log(str);
 					str = exports.parse_variables(str);
+					console.log(str);
 					var result = eval(str);
-					// если условие истинно, выполняем его дествия
+					console.log(result);
+					// если условие истинно, выполняем его действия
 					if (result) {
 						dev_log(condition);
 						clearInterval(exports.event_interval_object);
@@ -157,8 +176,6 @@ exports.switch_stage = function(new_stage) {
 						})
 					}
 				})
-				// выключаем ожидание
-				event_.happened = 0;
 			}
 		})
 	},
@@ -170,6 +187,7 @@ exports.parse_variables = function(src) {
 	dev_log(src);
 	var dst = src;
 	for (var variable in exports.variables_hash) {
+		console.log(exports.variables_hash[variable]);
 		var re = new RegExp(exports.variables_hash[variable].name, "g");
 		dst = dst.replace(re, exports.variables_hash[variable].value);
 	}
@@ -181,33 +199,40 @@ exports.execute_action = function(action) {
 	dev_log(action);
 	switch(action.type) {
 		case 'Команда устройству':
-			var args = action.arg.split("\/");
-			queue.push(args[0], args[1], args[2], DISABLE_TIMER);
+			var args = action.url.split("\/");
+			queue.push(args[0], args[1], action.parameter, DISABLE_TIMER);
 			break;
 
 		case 'Переход на этап':
-			exports.switch_stage(action.arg);
+			exports.switch_stage(action.parameter);
 			break;
 
 		case 'Инициализировать таймер':
+			mtimers.start(action.url, action.parameter);
 			break;
 	}
 }
 
-exports.submit_event = function (event_type, arg, value) {
+exports.submit_event = function (event_type, url, value) {
 	dev_log('submit_event');
 	dev_log(event_type);
-	dev_log(arg);
+	dev_log(url);
 	dev_log(value);
 	switch(event_type) {
+		case 'Таймер готов':
+			exports.stages_hash[exports.current_stage].events.forEach(function(event_){
+				if (event_.url == url) {
+					event_.happened = 1;
+					dev_log(event_);
+				}
+			});
+			break;	
+
 		case 'Нажата кнопка':
 			dev_log(exports.stages_hash[exports.current_stage]);
 			exports.stages_hash[exports.current_stage].events.forEach(function(event_){
-				dev_log(event_);
-				dev_log(event_.arg[0]);
-				if (event_.arg[0] == arg) {
+				if (event_.parameter == url) {
 					event_.happened = 1;
-					dev_log('new_event');
 					dev_log(event_);
 				}
 			});
@@ -215,9 +240,10 @@ exports.submit_event = function (event_type, arg, value) {
 
 		case 'Рапорт устройства':
 			exports.stages_hash[exports.current_stage].events.forEach(function(event_){
-				if (event_.arg[0] == arg) {
+				if (event_.url == url) {
 					event_.happened = 1;
-					event_.value = value
+					event_.value = value;
+					dev_log(event_);
 				}
 			});
 			break;

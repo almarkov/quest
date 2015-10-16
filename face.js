@@ -11,7 +11,6 @@ exports.reset = function () {
 	exports.dashboard_buttons = {
 
 		get_ready: {
-			style_class: 'GetReady',
 			disabled:    1,
 			highlight:   0,
 			section:     'Service',
@@ -23,7 +22,6 @@ exports.reset = function () {
 		},
 
 		start: {
-			style_class: 'Start',
 			disabled:    1,
 			highlight:   0,
 			section:     'Service',
@@ -31,28 +29,33 @@ exports.reset = function () {
 			confirm:     0,
 			ajax_url:    '/game/start',
 			validate_cb: "function (){"
-						+    "var gamer_count = $('#inpGamerCount').val();"
-						+    "if (!gamer_count) {"
+						+    "var gamers_count = $('#inpGamerCount').val();"
+						+    "if (!gamers_count) {"
 						+        "alert ('Введите количество игроков');"
 						+        "return { ok: 0};"
 						+    "};"
-						+    "if (gamer_count != '2' && gamer_count != '3' && gamer_count != '4') {"
+						+    "if (gamers_count != '2' && gamers_count != '3' && gamers_count != '4' && gamers_count != '5') {"
 						+        "alert ('Введено неверное количество игроков');"
+						+        "return { ok: 0};"
+						+    "};"
+						+    "var operator_id = $('#inpOperatorId').val();"
+						+    "if (!operator_id || operator_id == '-1') {"
+						+        "alert ('Выберите оператора');"
 						+        "return { ok: 0};"
 						+    "};"
 						+    "return {"
 						+        "ok: 1,"
 						+        "params: {"
-						+            "gamer_count: gamer_count,"
+						+            "gamers_count: gamers_count,"
+						+            "operator_id: operator_id,"
 						+        "}"
 						+    "};"
 						+"}",
-			success_cb:  "function (response) {disable_gamer_count();}",
+			success_cb:  "function (response) {}",
 			error_cb:    "function(error) {}",
 		},
 
 		service_mode: {
-			style_class: 'ServiceMode',
 			disabled:    1,
 			highlight:   0,
 			section:     'Service',
@@ -62,19 +65,17 @@ exports.reset = function () {
 		},
 
 		reset_game: {
-			style_class: 'ResetGame',
 			disabled:    0,
 			highlight:   0,
 			section:     'Service',
 			title:       'Сбросить',
 			confirm:     1,
 			ajax_url:    '/game/reset',
-			success_cb:  "function (response) {enable_gamer_count(); }",
-			error_cb:    "function(error) {enable_gamer_count(); }",
+			success_cb:  "function (response) {}",
+			error_cb:    "function(error) {}",
 		},
 
 		players_start: {
-			style_class: 'PlayersStart',
 			disabled:    0,
 			highlight:   0,
 			section:     'Service',
@@ -86,7 +87,6 @@ exports.reset = function () {
 		},
 
 		all_in: {
-			style_class: 'AllIn',
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
@@ -96,7 +96,6 @@ exports.reset = function () {
 		},
 
 		polyhedron_prompt: {
-			style_class: 'PolyhedronPrompt',
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
@@ -106,7 +105,6 @@ exports.reset = function () {
 		},
 
 		queue: {
-			style_class: 'Queue',
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
@@ -116,7 +114,6 @@ exports.reset = function () {
 		},
 
 		start_scan: {
-			style_class: 'StartScan',
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
@@ -125,7 +122,6 @@ exports.reset = function () {
 			ajax_url:    '/scanner/start',
 		},
 		stop_scan: {
-			style_class: 'StopScan',
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
@@ -136,8 +132,8 @@ exports.reset = function () {
 	};
 
 	exports.dashboard_fields = {
-		gamer_count: {
-			name:     '_gamer_count',
+		gamers_count: {
+			name:     '_gamers_count',
 			type:     'text',
 			label:    'Число игроков',
 			id:       'inpGamerCount',
@@ -145,12 +141,12 @@ exports.reset = function () {
 			section:  'Service',
 			value:    '',
 		},
-		operator: {
-			name:     '_operator',
+		operator_id: {
+			name:     '_operator_id',
 			type:     'select',
 			source:   'operators',
 			label:    'Оператор',
-			id:       'inpOperator',
+			id:       'inpOperatorId',
 			disabled: 0,
 			section:  'Service',
 			value:    '',

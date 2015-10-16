@@ -39,12 +39,20 @@ exports.get_redirect_url = function (ip, device_id, command_id) {
 }
 
 exports.build_query = function(device_name, command_name, parameter) {
-
+dev_log('build_query');dev_log(device_name);
+dev_log(command_name);dev_log(parameter);
+console.log('build_query');
+console.log(device_name);
+console.log(command_name);
+console.log(parameter);
 	if (device_name == 'timer') {
 		return config.web_server_url + '/timer/'+ command_name + '/' + parameter;
 	}
 	if (REAL_MODE) {
+		console.log(device);
 		var device  = exports.get(device_name);
+		dev_log(device);
+		dev_log(device.commands);
 		var command = device.commands[command_name];
 
 		return "http://"
@@ -69,7 +77,6 @@ exports.int_url_for = function (carrier_id, device_id, event_id) {
 		}
 	});
 	return res;
-	
 }
 
 // сброс значений до конфига

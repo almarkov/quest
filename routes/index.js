@@ -15,23 +15,28 @@ router.get('/:carrier_id/:device_id/:action/:parameter', function(req, res, next
 		return;
 	}
 	res.send(1);
-	var query = devices.int_url_for(req.params.carrier_id, parseInt(req.params.device_id), req.params.action) + "/" + req.params.parameter;
 
-	var url = config.web_server_url + query;
+	var device  = devices.get_by_id(req.params.carrier_id, req.params.device_id);
+	var device_name = device.name;
+	var event_name  = routines.get_by_field(device.events, 'code', req.params.action).name;
+	logic.submit_event('Рапорт устройства', device_name + '/' + event_name, req.params.parameter);
+	// var query = devices.int_url_for(req.params.carrier_id, parseInt(req.params.device_id), req.params.action) + "/" + req.params.parameter;
 
-	simple_log('<-'
-		+ ' ' + req.params.carrier_id
-		+ ' ' + req.params.device_id
-		+ ' ' + req.params.action
-		+ ' ' + req.params.parameter 
-		+ '  decoded: ' + query
-	);
+	// var url = config.web_server_url + query;
 
-	http.get(url, function(res1) {
-			simple_log("Got response" );
-		}).on('error', function(e) {
-			simple_log("Got error ");
-	});
+	// simple_log('<-'
+	// 	+ ' ' + req.params.carrier_id
+	// 	+ ' ' + req.params.device_id
+	// 	+ ' ' + req.params.action
+	// 	+ ' ' + req.params.parameter 
+	// 	+ '  decoded: ' + query
+	// );
+
+	// http.get(url, function(res1) {
+	// 		simple_log("Got response" );
+	// 	}).on('error', function(e) {
+	// 		simple_log("Got error ");
+	// });
 });
 
 // редирект по эмуляторам устройств

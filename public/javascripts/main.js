@@ -24,14 +24,14 @@ function build_query(device, item, parameter) {
 		+ '/' + device + '/'+ item + '/' + parameter;
 }
 
-function disable_gamer_count() {
-	$("#inpGamerCount").prop('disabled', true);
-}
+// function disable_gamer_count() {
+// 	$("#inpGamerCount").prop('disabled', true);
+// }
 
-function enable_gamer_count() {
-	$("#inpGamerCount").prop('disabled', false);
-	$("#inpGamerCount").val('');
-}
+// function enable_gamer_count() {
+// 	$("#inpGamerCount").prop('disabled', false);
+// 	$("#inpGamerCount").val('');
+// }
 
 $(document).ready(function() {
 
@@ -117,23 +117,25 @@ $(document).ready(function() {
 				});
 
 				// обновляем кнопки
-				$.each(response.face.dashboard_buttons, function( index, item ) {
+				$.each(response.face.dashboard_buttons, function( name, item ) {
 
-					$(".DashBoard ." + item.style_class).prop('disabled', item.disabled);
+					$("#btn_" + name).prop('disabled', item.disabled);
 
-					$(".DashBoard ." + item.style_class).removeClass('Active');
+					$("#btn_" + name).removeClass('Active');
 					if (item.highlight) {
-						$(".DashBoard ." + item.style_class).addClass('Active');
+						$("#btn_" + name).addClass('Active');
 					}
 				});
 
 				// обновляем поля
-				$.each(response.face.dashboard_fields, function( index, item ) {
+				$.each(response.face.dashboard_fields, function( name, item ) {
 
 					if (item.type == 'text') {
 						$(".State #" + item.id).prop('disabled', item.disabled);
 					} else if (item.type == 'static') {
 						$("#" + item.id).text(item.value);
+					} else if (item.type == 'select') {
+						$("#" + item.id).prop('disabled', item.disabled);
 					}
 				});
 
@@ -216,10 +218,10 @@ function generate_dashboard_top_section (section_name, data){
 
 	var raw_html = "<ul class='DashBoard'>";
 
-	$.each(data.face.dashboard_buttons, function(index, item) {
+	$.each(data.face.dashboard_buttons, function(name, item) {
 		if (item.section == section_name) {
 			raw_html += "<li>"
-					+ "<input type='button' class='" + item.style_class + " BType_01' value='" + item.title + "'>"
+					+ "<input type='button' id='btn_" + name + "' class='BType_01' value='" + item.title + "'>"
 					+ "</li>";
 		}
 	});
@@ -252,28 +254,28 @@ function generate_main_column(column, data) {
 	return raw_html;
 }
 
-function generate_device (data) {
+function generate_device (device) {
 	var raw_html =    "<div class='Device'>"
 					+     "<div class='Status Online' onclick=''>"
 					+     "</div>"
 					+     "<div class='State'>"
-					+         "<label for='inp_" + data.name + "' class='Label1'>" + data.title + "</label>";
-	if (data.has_value) {
-		raw_html +=           "<input type='text' name='" + data.name + "' value='' id='inp_" + data.name + "' class='Input2' />";
+					+         "<label for='inp_" + device.name + "' class='Label1'>" + device.title + "</label>";
+	if (device.has_value) {
+		raw_html +=           "<input type='text' name='" + device.name + "' value='' id='inp_" + device.name + "' class='Input2' />";
 	}
-	raw_html +=               "<input type='text' name='" + data.name + "_state' value='' id='inp_" + data.name + "_state' class='Input1' disabled/>"
+	raw_html +=               "<input type='text' name='" + device.name + "_state' value='' id='inp_" + device.name + "_state' class='Input1' disabled/>"
 					+     "</div>"
 					+     "<div class='Commands'>"
-					+         "<ul class='" + data.name + "'>";
+					+         "<ul class='" + device.name + "'>";
 
-	$.each(data.commands, function(index, item){
+	$.each(device.commands, function(command_name, item){
 		if (item.has_button) {
-			raw_html +=           "<li><a class='" + item.name + " BType_01'><span>" + item.title + "</span></a></li>";
+			raw_html +=           "<li><a id='btn_cmd_" + device.name + "_" + command_name + "' class='BType_01'><span>" + item.title + "</span></a></li>";
 		}
 	});
-	$.each(data.events, function(index, item){
+	$.each(device.events, function(event_name, item){
 		if (item.has_button) {
-			raw_html +=           "<li><a class='" + item.name + " BType_01'><span>" + item.title + "</span></a></li>";
+			raw_html +=           "<li><a id='btn_evt_" + device.name + "_" + event_name + "' class='BType_01'><span>" + item.title + "</span></a></li>";
 		}
 	});
 	raw_html +=               "</ul>"
@@ -290,8 +292,8 @@ function set_handlers(data) {
 	//-----------------------------------------------------------------------------
 	// Управление игрой
 	//-----------------------------------------------------------------------------
-	$.each(data.face.dashboard_buttons, function(index, item){
-		$('.DashBoard .' + item.style_class).click(function(e){
+	$.each(data.face.dashboard_buttons, function(name, item){
+		$("#btn_" + name).click(function(e){
 			if (item.confirm && !confirm("Подтвердите действие")){
 				return;
 			}
@@ -329,9 +331,9 @@ function set_handlers(data) {
 
 	// события и команды
 	$.each(data.devices, function(device_index, device){
-		$.each(device.commands, function(item_index, item){
+		$.each(device.commands, function(command_name, item){
 			if (item.has_button) {
-				$('.Device .Commands .' + device.name + ' .' + item.name).click(function(e){
+				$('#btn_cmd_' + device.name + '_' + command_name).click(function(e){
 
 					if (item.button.confirm && !confirm("Подтвердите действие")){
 						return;
@@ -357,9 +359,9 @@ function set_handlers(data) {
 				});
 			}
 		});
-		$.each(device.events, function(item_index, item){
+		$.each(device.events, function(event_name, item){
 			if (item.has_button) {
-				$('.Device .Commands .' + device.name + ' .' + item.name).click(function(e){
+				$('#btn_evt_' + device.name + '_' + event_name).click(function(e){
 
 					if (item.button.confirm && !confirm("Подтвердите действие")){
 						return;

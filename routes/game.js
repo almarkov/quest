@@ -127,11 +127,12 @@ router.get('/start', function(req, res, next) {
 	// 	face.button_highlight_on('all_in');
 	// }
 	res.json({success: 1});
+	face.field_disable('gamers_count');
+	face.field_disable('operator_id');
+	logic.set_variable('gamers_count', parseInt(req.query.gamers_count));
+	logic.set_variable('operator_id',  req.query.operator_id);
 	dev_log('start_pushed');
 	logic.submit_event('Нажата кнопка', 'Начать');
-
-
-
 });
 
 // старт игры
@@ -466,7 +467,7 @@ router.get('/emulate_command/:device/:command/:parameter', function(req, res, ne
 
 	simple_log('request from button: ' + device.name + ' ' + command + ' ' + parameter);
 
-	logic.submit_event('Рапорт устройства', '' + device + '/' + command + '/N', parameter);
+	logic.submit_event('Рапорт устройства', '' + device.name + '/' + command, parameter);
 
 	// var _command = device.commands[command];
 	// if (_command) {

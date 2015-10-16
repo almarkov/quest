@@ -129,6 +129,8 @@ devices.reset();
 gamers = require("./gamers.js");
 // новый таймер
 timers = require("./timers.js");
+// новый таймеры
+mtimers = require("./mtimers.js");
 // ф-ции для изменения фронта
 face   = require("./face.js");
 
