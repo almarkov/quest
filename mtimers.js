@@ -3,6 +3,7 @@ exports.timers_hash = {};
 exports.start = function(name, timeout, callback) {
 	var timer = {
 		timeout: timeout,
+		name:    name,
 		value:   0,
 		active:  1,
 		ready:   0,
@@ -19,4 +20,11 @@ exports.start = function(name, timeout, callback) {
 			logic.submit_event('Таймер готов', timer.name, timer.value);
 		}
 	}, 1000);
+}
+
+exports.reset = function() {
+	for (var timer in exports.timers_hash) {
+		clearInterval(exports.timers_hash[timer]._intervalObject);
+	}
+	exports.timers_hash = {};
 }

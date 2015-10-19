@@ -1,5 +1,6 @@
 var http   = require('http');
 var child_process = require('child_process');
+var fs = require('fs');
 
 exports.send_get = function(device_name, command, parameter, enable_timer, enable_mutex, cb, params) {
 
@@ -155,6 +156,39 @@ exports.emulate_watchdog = function(device) {
 //----------------------------------------------------------------------------
 // независимые функции (лучше в отдельный файл?)
 //----------------------------------------------------------------------------
+// сброс всего
+exports.reset = function(){
+	// создаём новый поток для лога
+	var dir = 'log/';
+	log_file.end();
+	log_file = fs.createWriteStream(dir + routines.ymd_date() + 'debug.log', {flags : 'a'});
+
+	//удаляем старые файлы лога, если нужно
+	var log_files = fs.readdirSync(dir).map(function(v) { return v.toString(); }).sort();
+	if (log_files.length > 5) {
+		for (var i = 0; i < log_files.length-5; i++) {
+			fs.unlinkSync(dir + log_files[i]);
+		}
+	}
+
+	// сбрасываем параметры
+	mtimers.reset();
+	face.reset();
+ 	devices.reset();
+	gamers.reset();
+	queue.reset();
+
+  	//gamers.set_game_state('devices_off', []);
+  	//timers.start(helpers.get_timeout("A"));
+
+	// удаляем старые файлы лога
+	var log_files = fs.readdirSync('log');
+	for (var i = 0; i < log_files.length - 2; i++) {
+		fs.unlinkSync('log/' + log_files[i]);
+	}
+
+	logic.submit_event('Внутреннее событие', 'start');
+}
 
 // работа с COM - включение/выключение устройств
 exports.turn_on_devices = function() {
@@ -171,10 +205,25 @@ exports.turn_off_devices = function() {
 	});
 }
 
-// вкючаем проверку watchdog
+// включаем проверку watchdog
 exports.turn_on_wd_check = function() {
 	http.get(config.web_server_url + '/game/setinterval', function(res) {
 		}).on('error', function(e) {
 			simple_log('error game setinterval');
 	});
+}
+
+// смотрим результаты проверки wd
+exports.wd_check_result = function() {
+	var errors = '';
+	var err_cnt = 0;
+	for (var i = 0; i < devices.list.length; i++) {
+		if (!devices.list[i].wd_state) {
+			errors += devices.list[i].name;
+			err_cnt += 1;
+		}
+	}
+	dev_log('wd_check_result');
+	dev_log(errors);
+	logic.set_variable('error', "'" + errors + "'");
 }

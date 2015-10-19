@@ -64,45 +64,59 @@ router.get('/all', function(req, res, next) {
 
 });
 
-// полный сброс
-router.get('/reset', function(req, res, next) {
-
-	// создаём новый поток для лога
-	var dir = 'log/';
-	log_file.end();
-	log_file = fs.createWriteStream(dir + routines.ymd_date() + 'debug.log', {flags : 'a'});
-
-	//удаляем старые файлы лога, если нужно
-	var log_files = fs.readdirSync(dir).map(function(v) { return v.toString(); }).sort();
-	if (log_files.length > 5) {
-		for (var i = 0; i < log_files.length-5; i++) {
-			fs.unlinkSync(dir + log_files[i]);
-		}
-	}
-
-	// сбрасываем параметры
-	face.reset();
- 	devices.reset();
-	gamers.reset();
-	queue.reset();
-
+// выключение устройств
+router.get('/devices_off', function(req, res, next) {
 	// выключаем устройства
 	helpers.turn_off_devices();
 
-  	gamers.set_game_state('devices_off', []);
-  	timers.start(helpers.get_timeout("A"));
+	res.json({success: 1});
+});
 
-	// удаляем старые файлы лога
-	var log_files = fs.readdirSync('log');
-	for (var i = 0; i < log_files.length - 2; i++) {
-		fs.unlinkSync('log/' + log_files[i]);
-	}
+// включение и проверка устройств
+router.get('/devices_on', function(req, res, next) {
+	// включаем устройства
+	helpers.turn_on_devices();
+
+	// включаем проверку(через 2 секунды после включения)
+	setTimeout(function(){
+		helpers.turn_on_wd_check();
+
+		// ещё через 5 секунд смотрим результаты
+		setTimeout(function(){
+			helpers.wd_check_result();
+		}, 5000);
+
+	}, 2000);
+
+	//
+
+	res.json({success: 1});
+});
+
+// 'запуск' сервера
+router.get('/start', function(req, res, next) {
+	// выключаем устройства
+	//helpers.turn_on_devices();
+});
+
+// кнопка сбросить
+router.get('/reset', function(req, res, next) {
+
+	logic.submit_event('Нажата кнопка', 'Сбросить');
+
+	res.json({success: 1});
+});
+
+// полный сброс
+router.get('/reset_all', function(req, res, next) {
+
+	helpers.reset();
 
 	res.json({success: 1});
 });
 
 // старт игры
-router.get('/start', function(req, res, next) {
+router.get('/start_game', function(req, res, next) {
 
 	// if (gamers.game_state == 'ready_to_go') { // квест готов к запуску
 

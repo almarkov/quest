@@ -21,13 +21,13 @@ exports.reset = function () {
 			error_cb:    "function(error) {}",
 		},
 
-		start: {
+		start_game: {
 			disabled:    1,
 			highlight:   0,
 			section:     'Service',
-			title:       'Начать',
+			title:       'Начать игру',
 			confirm:     0,
-			ajax_url:    '/game/start',
+			ajax_url:    '/game/start_game',
 			validate_cb: "function (){"
 						+    "var gamers_count = $('#inpGamerCount').val();"
 						+    "if (!gamers_count) {"
@@ -76,58 +76,49 @@ exports.reset = function () {
 		},
 
 		players_start: {
-			disabled:    0,
+			disabled:    1,
 			highlight:   0,
-			section:     'Service',
-			title:       'Игроки на старте',
+			section:     'Quest',
+			title:       'Все игроки на старте',
 			confirm:     1,
 			ajax_url:    '/game/players_start',
 			success_cb:  "function (response) { }",
 			error_cb:    "function(error) { }",
 		},
 
-		all_in: {
+		cam_reloaded: {
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
-			title:       'Все зашли внутрь',
+			title:       'Камера перегружена',
 			confirm:     1,
-			ajax_url:    '/game/allin',
+			ajax_url:    '/game/cam_reloaded',
 		},
 
-		polyhedron_prompt: {
+		scan_last_group: {
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
-			title:       'Подсказка по многограннику',
+			title:       'Сканировать последнюю группу людей',
 			confirm:     1,
-			ajax_url:    '/game/polyhedron_prompt',
+			ajax_url:    '/scanner/scan_last_group',
+		},
+		scan_not_last_group: {
+			disabled:    1,
+			highlight:   0,
+			section:     'Quest',
+			title:       'Сканировать последнюю группу людей',
+			confirm:     1,
+			ajax_url:    '/scanner/scan_not_last_group',
 		},
 
-		queue: {
+		confirm_end_scan: {
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
-			title:       "Аудио 'в очередь'",
+			title:       "Подтвердить окончание сканирования",
 			confirm:     1,
-			ajax_url:    '/game/queue',
-		},
-
-		start_scan: {
-			disabled:    1,
-			highlight:   0,
-			section:     'Quest',
-			title:       'Сканировать игрока',
-			confirm:     1,
-			ajax_url:    '/scanner/start',
-		},
-		stop_scan: {
-			disabled:    1,
-			highlight:   0,
-			section:     'Quest',
-			title:       'Закончить сканирование игрока',
-			confirm:     1,
-			ajax_url:    '/scanner/stop',
+			ajax_url:    '/game/confirm_end_scan',
 		},
 	};
 

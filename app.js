@@ -264,9 +264,6 @@ app.use(function(err, req, res, next) {
 });
 
 // инициализируем квест
-http.get(config.web_server_url + '/game/reset', function(res) {
-  }).on('error', function(e) {
-    simple_log('error reset game');
-});
+logic.init();
 
 module.exports = app;

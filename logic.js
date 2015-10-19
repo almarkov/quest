@@ -1,4 +1,5 @@
 var xlsx = require('node-xlsx');
+var http   = require('http');
 
 exports.variables_hash = {};
 exports.stages_hash    = {};
@@ -120,6 +121,25 @@ exports.load = function() {
 		}
 	}
 
+	// хак - события, выполняемые на каждом этапе
+	for (var stage in exports.stages_hash) {
+		var action = {
+			type: 'Переход на этап',
+			url:  '',
+			parameter: '1',
+		};
+		var condition = {
+			value: '1',
+			actions: [action]
+		}
+		exports.stages_hash[stage].events.push({
+			type: 'Нажата кнопка',
+			url:  '',
+			parameter: 'Сбросить',
+			conditions: [condition],
+		});
+	} 
+
 }
 
 exports.current_stage = '';
@@ -128,7 +148,7 @@ exports.event_interval_object = {};
 
 exports.init = function() {
 	dev_log('init');
-	exports.switch_stage('10');
+	exports.switch_stage('1');
 }
 
 exports.switch_stage = function(new_stage) {
@@ -198,6 +218,16 @@ exports.execute_action = function(action) {
 	dev_log('execute_action');
 	dev_log(action);
 	switch(action.type) {
+		case 'Внутренняя команда':
+			var query = config.web_server_url + '/game/' + action.parameter;
+			http.get(query, function(res) {
+					res.on('error', function(data){
+					});
+				}).on('error', function(e) {
+					simple_log(query + " error");
+			});
+			break;
+
 		case 'Команда устройству':
 			var args = action.url.split("\/");
 			queue.push(args[0], args[1], action.parameter, DISABLE_TIMER);
@@ -210,6 +240,10 @@ exports.execute_action = function(action) {
 		case 'Инициализировать таймер':
 			mtimers.start(action.url, action.parameter);
 			break;
+
+		case 'Активировать кнопку':
+			face.button_enable(action.parameter);
+			break;
 	}
 }
 
@@ -219,6 +253,14 @@ exports.submit_event = function (event_type, url, value) {
 	dev_log(url);
 	dev_log(value);
 	switch(event_type) {
+		case 'Внутреннее событие':
+			exports.stages_hash[exports.current_stage].events.forEach(function(event_){
+				if (event_.parameter == url) {
+					event_.happened = 1;
+					dev_log(event_);
+				}
+			});
+			break;	
 		case 'Таймер готов':
 			exports.stages_hash[exports.current_stage].events.forEach(function(event_){
 				if (event_.url == url) {
