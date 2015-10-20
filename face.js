@@ -16,7 +16,6 @@ exports.reset = function () {
 			section:     'Service',
 			title:       'Приготовиться к началу квеста',
 			confirm:     0,
-			ajax_url:    '/game/get_ready',
 			success_cb:  "function (response) {}",
 			error_cb:    "function(error) {}",
 		},
@@ -61,7 +60,6 @@ exports.reset = function () {
 			section:     'Service',
 			title:       'Включить режим обслуживания',
 			confirm:     1,
-			ajax_url:    '/game/service_mode',
 		},
 
 		reset_game: {
@@ -70,7 +68,6 @@ exports.reset = function () {
 			section:     'Service',
 			title:       'Сбросить',
 			confirm:     1,
-			ajax_url:    '/game/reset',
 			success_cb:  "function (response) {}",
 			error_cb:    "function(error) {}",
 		},
@@ -81,7 +78,6 @@ exports.reset = function () {
 			section:     'Quest',
 			title:       'Все игроки на старте',
 			confirm:     1,
-			ajax_url:    '/game/players_start',
 			success_cb:  "function (response) { }",
 			error_cb:    "function(error) { }",
 		},
@@ -92,7 +88,6 @@ exports.reset = function () {
 			section:     'Quest',
 			title:       'Камера перегружена',
 			confirm:     1,
-			ajax_url:    '/game/chamber_overloaded',
 		},
 
 		scan_last_group: {
@@ -101,7 +96,6 @@ exports.reset = function () {
 			section:     'Quest',
 			title:       'Сканировать последнюю группу людей',
 			confirm:     1,
-			ajax_url:    '/scanner/scan_last_group',
 		},
 		scan_not_last_group: {
 			disabled:    1,
@@ -109,7 +103,6 @@ exports.reset = function () {
 			section:     'Quest',
 			title:       'Сканировать непоследнюю группу людей',
 			confirm:     1,
-			ajax_url:    '/scanner/scan_not_last_group',
 		},
 
 		confirm_end_scan: {
@@ -118,7 +111,6 @@ exports.reset = function () {
 			section:     'Quest',
 			title:       "Подтвердить окончание сканирования",
 			confirm:     1,
-			ajax_url:    '/game/confirm_end_scan',
 		},
 	};
 

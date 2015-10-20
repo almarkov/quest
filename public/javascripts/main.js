@@ -3,20 +3,7 @@ var web_server_url   = "http://localhost:3000";
 var start_time;
 var m, s;
 
-var external_config;
-var config_list = [];
 var prev_response = {};
-$.ajax({
-	url: web_server_url + '/game/config',
-	type: "GET",
-	crossDomain: true,
-	dataType: "json",
-		success: function (response) {
-			external_config = response;
-		},
-		error: function(error) {
-		}
-});
 
 function build_query(device, item, parameter) {
 	return web_server_url
@@ -307,12 +294,15 @@ function set_handlers(data) {
 					send_data = validate_res.params;
 				}
 			}
+			send_data.title = item.title;
 
 			var success_cb = item.success_cb || default_success_cb;
 			var success_cb_f = new Function('response', 'return ' + success_cb);
 
 			var error_cb = item.error_cb || default_error_cb;
 			var error_cb_f = new Function('error', 'return ' + error_cb);
+
+			var ajax_url = item.ajax_url || '/game/dashboard_button_pushed';
 
 			$.ajax({
 				url: web_server_url + item.ajax_url,
