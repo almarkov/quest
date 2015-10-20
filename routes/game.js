@@ -297,21 +297,21 @@ router.get('/time_ended', function(req, res, next) {
 	gamers.game_state = 'quest_failed';
 	gamers.start_time = null;
 
-	var command = 'open';
-	helpers.send_get('door_1', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-	helpers.send_get('door_2', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-	helpers.send_get('door_3', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-	helpers.send_get('door_5', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	// var command = 'open';
+	// helpers.send_get('door_1', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	// helpers.send_get('door_2', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	// helpers.send_get('door_3', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	// helpers.send_get('door_5', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
 
-	setTimeout(function () {
-		helpers.send_get('door_4', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-		helpers.send_get('door_7', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-		setTimeout(function () {
-			helpers.send_get('door_6', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-			helpers.send_get('door_8', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	// setTimeout(function () {
+	// 	helpers.send_get('door_4', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	// 	helpers.send_get('door_7', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	// 	setTimeout(function () {
+	// 		helpers.send_get('door_6', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
+	// 		helpers.send_get('door_8', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
 				
-		}, 2*1000);
-	}, 2*1000);
+	// 	}, 2*1000);
+	// }, 2*1000);
 	res.json({result: 1});
 });
 
