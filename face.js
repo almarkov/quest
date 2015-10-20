@@ -107,7 +107,7 @@ exports.reset = function () {
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
-			title:       'Сканировать последнюю группу людей',
+			title:       'Сканировать непоследнюю группу людей',
 			confirm:     1,
 			ajax_url:    '/scanner/scan_not_last_group',
 		},

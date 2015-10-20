@@ -123,20 +123,33 @@ exports.load = function() {
 
 	// хак - события, выполняемые на каждом этапе
 	for (var stage in exports.stages_hash) {
-		var action = {
-			type: 'Переход на этап',
-			url:  '',
-			parameter: '1',
-		};
-		var condition = {
-			value: '1',
-			actions: [action]
-		}
+		// кнопка сбросить
 		exports.stages_hash[stage].events.push({
 			type: 'Нажата кнопка',
 			url:  '',
 			parameter: 'Сбросить',
-			conditions: [condition],
+			conditions: [{
+				value: '1',
+				actions: [{
+					type: 'Переход на этап',
+					url:  '',
+					parameter: '1',
+				}],
+			}],
+		});
+		// кнопка камера перегружена
+		exports.stages_hash[stage].events.push({
+			type: 'Нажата кнопка',
+			url:  '',
+			parameter: 'Камера перегружена',
+			conditions: [{
+				value: '1',
+				actions: [{
+					type: 'Команда устройству',
+					url:  'audio_player1 play_channel1 :audio1',
+					parameter: 'audio1',
+				}],
+			}],
 		});
 	} 
 
@@ -230,7 +243,7 @@ exports.execute_action = function(action) {
 
 		case 'Команда устройству':
 			var args = action.url.split(" ");
-			queue.push(args[0], args[1], action.parameter, DISABLE_TIMER);
+			queue.push(args[0], args[1], args[2], DISABLE_TIMER);
 			break;
 
 		case 'Переход на этап':
