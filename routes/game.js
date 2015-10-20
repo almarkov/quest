@@ -100,6 +100,14 @@ router.get('/start', function(req, res, next) {
 });
 
 // кнопка сбросить
+router.get('/reset_all', function(req, res, next) {
+
+	helpers.reset();
+
+	res.json({success: 1});
+});
+
+// кнопка сбросить
 router.get('/reset', function(req, res, next) {
 
 	logic.submit_event('Нажата кнопка', 'Сбросить');
@@ -107,10 +115,18 @@ router.get('/reset', function(req, res, next) {
 	res.json({success: 1});
 });
 
-// полный сброс
-router.get('/reset_all', function(req, res, next) {
+// кнопка приготоовиться к началу
+router.get('/get_ready', function(req, res, next) {
 
-	helpers.reset();
+	logic.submit_event('Нажата кнопка', 'Приготовиться к началу квеста');
+
+	res.json({success: 1});
+});
+
+// кнопка обслуживание
+router.get('/service_mode', function(req, res, next) {
+
+	logic.submit_event('Нажата кнопка', 'Включить режим обслуживания');
 
 	res.json({success: 1});
 });
@@ -146,7 +162,7 @@ router.get('/start_game', function(req, res, next) {
 	logic.set_variable('gamers_count', parseInt(req.query.gamers_count));
 	logic.set_variable('operator_id',  req.query.operator_id);
 	dev_log('start_pushed');
-	logic.submit_event('Нажата кнопка', 'Начать');
+	logic.submit_event('Нажата кнопка', 'Начать игру');
 });
 
 // старт игры
@@ -224,107 +240,107 @@ router.get('/polyhedron_prompt', function(req, res, next) {
 
 });
 
-// подготовка устройств
-router.get('/get_ready', function(req, res, next) {
+// // подготовка устройств
+// router.get('/get_ready', function(req, res, next) {
 
-	gamers.set_game_state('preparation', []);
+// 	//gamers.set_game_state('preparation', []);
 
-	// for (var i = 1; i <= 8; i++) {
-	// 	queue.push('door_' + i, 'close', '0', DISABLE_TIMER);
-	// }
+// 	// for (var i = 1; i <= 8; i++) {
+// 	// 	queue.push('door_' + i, 'close', '0', DISABLE_TIMER);
+// 	// }
 
-	// // закрываем ячейки
-	// for (var i = 1; i <= 5; i++) {
-	// 	queue.push('cell_' + i, 'close', '0', DISABLE_TIMER);
-	// }
+// 	// // закрываем ячейки
+// 	// for (var i = 1; i <= 5; i++) {
+// 	// 	queue.push('cell_' + i, 'close', '0', DISABLE_TIMER);
+// 	// }
 
-	// // запускаем аудио на первом канале
-	// queue.push('audio_player_4', 'play_channel_1', config.audio_files[19].value, DISABLE_TIMER,
-	// 	function(params){
-	// 		var device = devices.get('audio_player_4');
-	// 		device.value = config.audio_files[19].alias;
-	// 		device.state = "ch1_play_ch2_stop";
-	// 	}, {}
-	// );
-	// // выключаем аудио на первом канале
-	// for (var i = 1; i <= 3; i++) {
-	// 	queue.push('audio_player_' + i, 'stop_channel_1', '0', DISABLE_TIMER);
-	// }
+// 	// // запускаем аудио на первом канале
+// 	// queue.push('audio_player_4', 'play_channel_1', config.audio_files[19].value, DISABLE_TIMER,
+// 	// 	function(params){
+// 	// 		var device = devices.get('audio_player_4');
+// 	// 		device.value = config.audio_files[19].alias;
+// 	// 		device.state = "ch1_play_ch2_stop";
+// 	// 	}, {}
+// 	// );
+// 	// // выключаем аудио на первом канале
+// 	// for (var i = 1; i <= 3; i++) {
+// 	// 	queue.push('audio_player_' + i, 'stop_channel_1', '0', DISABLE_TIMER);
+// 	// }
 
-	// // выключаем аудио на втором канале
-	// for (var i = 1; i <= 4; i++) {
-	// 	queue.push('audio_player_' + i, 'stop_channel_2', '0', DISABLE_TIMER);
-	// }
+// 	// // выключаем аудио на втором канале
+// 	// for (var i = 1; i <= 4; i++) {
+// 	// 	queue.push('audio_player_' + i, 'stop_channel_2', '0', DISABLE_TIMER);
+// 	// }
 
-	// // включаем экраны 1,2,3
-	// for (var i = 1; i <= 3; i++) {
-	// 	queue.push('video_player_' + i, 'play', config.video_files[3].value, DISABLE_TIMER,
-	// 		function(params){
-	// 			var device = devices.get('video_player_' + params.index);
-	// 			device.value = config.video_files[3].alias;
-	// 			device.state = 'playing';
-	// 		}, 
-	// 		{
-	// 			index: i
-	// 		}
-	// 	);
-	// }
+// 	// // включаем экраны 1,2,3
+// 	// for (var i = 1; i <= 3; i++) {
+// 	// 	queue.push('video_player_' + i, 'play', config.video_files[3].value, DISABLE_TIMER,
+// 	// 		function(params){
+// 	// 			var device = devices.get('video_player_' + params.index);
+// 	// 			device.value = config.video_files[3].alias;
+// 	// 			device.state = 'playing';
+// 	// 		}, 
+// 	// 		{
+// 	// 			index: i
+// 	// 		}
+// 	// 	);
+// 	// }
 
-	// // выключаем подсветку
-	// queue.push('inf_mirror_backlight', 'off', '0', DISABLE_TIMER);
+// 	// // выключаем подсветку
+// 	// queue.push('inf_mirror_backlight', 'off', '0', DISABLE_TIMER);
 
-	// // включаем подсветку статуи
-	// queue.push('figure', 'backlight_on', '0', DISABLE_TIMER);
+// 	// // включаем подсветку статуи
+// 	// queue.push('figure', 'backlight_on', '0', DISABLE_TIMER);
 
-	// // включаем свет
-	// queue.push('light', 'on', '0', DISABLE_TIMER);
+// 	// // включаем свет
+// 	// queue.push('light', 'on', '0', DISABLE_TIMER);
 
-	// // выключаем вибрацию
-	// queue.push('vibration', 'off', '0', DISABLE_TIMER);
+// 	// // выключаем вибрацию
+// 	// queue.push('vibration', 'off', '0', DISABLE_TIMER);
 
-	// // выключаем планешеты
-	// for (var i = 1; i <= 4; i++) {
-	// 	queue.push('terminal_' + i, 'black_screen', '0', DISABLE_TIMER);
-	// }
+// 	// // выключаем планешеты
+// 	// for (var i = 1; i <= 4; i++) {
+// 	// 	queue.push('terminal_' + i, 'black_screen', '0', DISABLE_TIMER);
+// 	// }
 
-	// // сбрасываем считыватель RFID
-	// queue.push('card_reader', 'reset', '0', DISABLE_TIMER);
+// 	// // сбрасываем считыватель RFID
+// 	// queue.push('card_reader', 'reset', '0', DISABLE_TIMER);
 
-	timers.start(helpers.get_timeout('B'));
+// 	//timers.start(helpers.get_timeout('B'));
 
-	res.json({success: 1});
+// 	res.json({success: 1});
 
-});
+// });
 
-// режим обслуживания
-router.get('/service_mode', function(req, res, next) {
+// // режим обслуживания
+// router.get('/service_mode', function(req, res, next) {
 
-	//  режим обслуживания
-	gamers.set_game_state('service_mode', []);
+// 	//  режим обслуживания
+// 	gamers.set_game_state('service_mode', []);
 
-	// открываем двери
-	for (var i = 1; i <= 8; i++) {
-		queue.push('door_' + i, 'open', '0', DISABLE_TIMER);
-	}
+// 	// открываем двери
+// 	for (var i = 1; i <= 8; i++) {
+// 		queue.push('door_' + i, 'open', '0', DISABLE_TIMER);
+// 	}
 
-	// открываем ячейки
-	for (var i = 1; i <= 5; i++) {
-		queue.push('cell_' + i, 'open', '0', DISABLE_TIMER);
-	}
+// 	// открываем ячейки
+// 	for (var i = 1; i <= 5; i++) {
+// 		queue.push('cell_' + i, 'open', '0', DISABLE_TIMER);
+// 	}
 
-	// открываем шкаф с картой
-	queue.push('locker_2', 'open', '0', 2);
+// 	// открываем шкаф с картой
+// 	queue.push('locker_2', 'open', '0', 2);
 
-	for (var i = 1; i <= 8; i++) {
-		devices.get('door_' + i).state = 'opened';
-	}
-	for (var i = 1; i <= 5; i++) {
-		devices.get('cell_' + i).state = 'opened';
-	}
-	devices.get('locker_2').state    = 'opened';
+// 	for (var i = 1; i <= 8; i++) {
+// 		devices.get('door_' + i).state = 'opened';
+// 	}
+// 	for (var i = 1; i <= 5; i++) {
+// 		devices.get('cell_' + i).state = 'opened';
+// 	}
+// 	devices.get('locker_2').state    = 'opened';
 
-	res.json({success: 1});
-});
+// 	res.json({success: 1});
+// });
 
 // время начала игры
 router.get('/start_time', function(req, res, next) {

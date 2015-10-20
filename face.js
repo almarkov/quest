@@ -86,13 +86,13 @@ exports.reset = function () {
 			error_cb:    "function(error) { }",
 		},
 
-		cam_reloaded: {
+		chamber_overloaded: {
 			disabled:    1,
 			highlight:   0,
 			section:     'Quest',
 			title:       'Камера перегружена',
 			confirm:     1,
-			ajax_url:    '/game/cam_reloaded',
+			ajax_url:    '/game/chamber_overloaded',
 		},
 
 		scan_last_group: {

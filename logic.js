@@ -229,7 +229,7 @@ exports.execute_action = function(action) {
 			break;
 
 		case 'Команда устройству':
-			var args = action.url.split("\/");
+			var args = action.url.split(" ");
 			queue.push(args[0], args[1], action.parameter, DISABLE_TIMER);
 			break;
 
@@ -243,6 +243,10 @@ exports.execute_action = function(action) {
 
 		case 'Активировать кнопку':
 			face.button_enable(action.parameter);
+			break;
+
+		case 'Активировать кнопку':
+			face.button_disable(action.parameter);
 			break;
 	}
 }
