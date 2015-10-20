@@ -305,7 +305,7 @@ function set_handlers(data) {
 			var ajax_url = item.ajax_url || '/game/dashboard_button_pushed';
 
 			$.ajax({
-				url: web_server_url + item.ajax_url,
+				url: web_server_url + ajax_url,
 				type: "GET",
 				crossDomain: true,
 				data: send_data,
