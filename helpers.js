@@ -162,7 +162,7 @@ exports.reset = function(){
 	var dir = 'log/';
 	log_file.end();
 	log_file = fs.createWriteStream(dir + routines.ymd_date() + 'debug.log', {flags : 'a'});
-
+ 
 	//удаляем старые файлы лога, если нужно
 	var log_files = fs.readdirSync(dir).map(function(v) { return v.toString(); }).sort();
 	if (log_files.length > 5) {

@@ -99,6 +99,13 @@ router.get('/reset_all', function(req, res, next) {
 	res.json({success: 1});
 });
 
+// переключить на этап(для тестов)
+router.get('/switch_stage', function(req, res, next) {
+	res.json({success: 1})
+	dev_log('switch_stage by button')
+	logic.switch_stage(req.query.new_stage)
+})
+
 // старт игры
 router.get('/start_game', function(req, res, next) {
 

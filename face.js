@@ -112,6 +112,28 @@ exports.reset = function () {
 			title:       "Подтвердить окончание сканирования",
 			confirm:     1,
 		},
+
+		switch_stage: {
+			disabled:    0,
+			highlight:   0,
+			section:     'Test',
+			ajax_url:    '/game/switch_stage',
+			title:       "Переключить на этап",
+			validate_cb: "function (){"
+						+    "var new_stage = $('#inpNewStage').val();"
+						+    "if (!new_stage) {"
+						+        "alert ('Введите этап');"
+						+        "return { ok: 0};"
+						+    "};"
+						+    "return {"
+						+        "ok: 1,"
+						+        "params: {"
+						+            "new_stage: new_stage,"
+						+        "}"
+						+    "};"
+						+"}",
+			confirm:     0,
+		},
 	};
 
 	exports.dashboard_fields = {
@@ -154,6 +176,15 @@ exports.reset = function () {
 			id:       'QuestTimer',
 			section:  'Quest',
 			value:    'NA',
+		},
+		new_stage: {
+			name:     '_new_stage',
+			type:     'text',
+			label:    'Этап',
+			id:       'inpNewStage',
+			disabled: 0,
+			section:  'Test',
+			value:    '',
 		},
 	};
 };

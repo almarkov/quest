@@ -23,6 +23,7 @@ exports.start = function(name, timeout, callback) {
 }
 
 exports.stop = function(name, variable) {
+	console.log(exports.timers_hash);
 	var timer = exports.timers_hash[name];
 	clearInterval(timer._intervalObject);
 	logic.set_variable(variable, timer.value);
