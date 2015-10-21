@@ -5,12 +5,19 @@ exports.variables_hash = {};
 exports.stages_hash    = {};
 
 exports.set_variable = function(name, value) {
-	exports.variables_hash[name].value = value;
+	var variable = exports.variables_hash[name];
+	if (variable) {
+		variable.value = value;
+	}
 }
 
 
 exports.get_variable = function(name) {
-	return exports.variables_hash[name].value;
+	var variable = exports.variables_hash[name];
+	if (variable) {
+		return variable.value = value;
+	}
+	return null;
 }
 
 exports.load = function() {
@@ -170,7 +177,9 @@ exports.switch_stage = function(new_stage) {
 	//меняем текущий этап
 	exports.current_stage = new_stage;
 	//меняем поле на экране
-	face.field_set_value('quest_state', exports.stages_hash[new_stage].description);
+	var description = exports.stages_hash[new_stage].description;
+	description = exports.parse_variables(description);
+	face.field_set_value('quest_state', description);
 
 	// выполянем действия нового этапа
 	exports.stages_hash[exports.current_stage].actions.forEach(function(action){
@@ -258,8 +267,12 @@ exports.execute_action = function(action) {
 			face.button_enable(action.parameter);
 			break;
 
-		case 'Активировать кнопку':
+		case 'Деактивировать кнопку':
 			face.button_disable(action.parameter);
+			break;
+
+		case 'Остановить таймер':
+			mtimers.stop(action.url, action.parameter);
 			break;
 	}
 }

@@ -22,6 +22,13 @@ exports.start = function(name, timeout, callback) {
 	}, 1000);
 }
 
+exports.stop = function(name, variable) {
+	var timer = exports.timers_hash[name];
+	clearInterval(timer._intervalObject);
+	logic.set_variable(variable, timer.value);
+
+}
+
 exports.reset = function() {
 	for (var timer in exports.timers_hash) {
 		clearInterval(exports.timers_hash[timer]._intervalObject);
