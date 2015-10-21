@@ -57,7 +57,7 @@ function saveOperator(event) {
 
 					// window.location.replace("http://localhost:3000/device_types");
 					alert('Данные сохранены');
-                    window.location = "/stats/operators";
+					window.location = "/stats/operators";
 
 				}
 				else {

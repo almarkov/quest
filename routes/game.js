@@ -106,6 +106,13 @@ router.get('/switch_stage', function(req, res, next) {
 	logic.switch_stage(req.query.new_stage)
 })
 
+// сохранить данные о прохождении в бд
+router.get('/dump_result', function(req, res, next) {
+	res.json({success: 1})
+	
+})
+
+
 // старт игры
 router.get('/start_game', function(req, res, next) {
 

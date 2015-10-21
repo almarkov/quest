@@ -9,4 +9,13 @@ router.get('/', function(req, res) {
 	});
 });
 
+// элемент
+router.get('/:id', function(req, res) {
+	res.render('stats/games/form', {
+		title: 'Игра',
+		id:     req.params.id,
+	});
+});
+
+
 module.exports = router;
