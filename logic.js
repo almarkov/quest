@@ -71,24 +71,45 @@ exports.load = function() {
 		'event_action_url',
 		'event_action_parameter',
 	];
-
+	var last_stage = []
+	var last_event, last_event_condition;
 	for (var i = 2; i < stages.length; i++) {
 		var item = {};
 		for (var j = 0; j < stage_fields.length; j++) {
 			item[stage_fields[j]] = stages[i][j];
 		}
 
-		var last_stage, last_event, last_event_condition;
+
 		// этап
 		if (item.stage_no) {
-			last_stage = {
-				no:          item.stage_no,
-				description: item.stage_description,
-				actions:     [],
-				events:      [],
-			};
+			last_stage = []
+			var stage_nums = parse_stages(item.stage_no.toString())
 
-			exports.stages_hash[item.stage_no] = last_stage;
+			stage_nums.forEach(function(stage_num){
+				dev_log(stage_num)
+				if (exports.stages_hash[stage_num]) {
+					last_stage.push(exports.stages_hash[stage_num]);
+				} else {
+					var new_stage = {
+						no:          stage_num,
+						description: item.stage_description || '',
+						actions:     [],
+						events:      [],
+					}
+					exports.stages_hash[stage_num] = new_stage
+					last_stage.push(exports.stages_hash[stage_num])
+				}
+			})
+
+			// last_stage = {
+			// 	no:          item.stage_no,
+			// 	description: item.stage_description || '',
+			// 	actions:     [],
+			// 	events:      [],
+			// };
+
+			// exports.stages_hash[item.stage_no] = last_stage;
+			//}
 		}
 		// действия, выполняемые на этапе
 		if (item.stage_action_type) {
@@ -98,7 +119,11 @@ exports.load = function() {
 				url:         item.stage_action_url,
 				parameter:   item.stage_action_parameter,
 			};
-			last_stage.actions.push(stage_action);
+			dev_log('stage_action');
+			dev_log(last_stage)
+			last_stage.forEach(function(stage){
+				stage.actions.push(stage_action)
+			})
 		}
 		// события, обрабатываемые на этапе
 		if (item.event_type) {
@@ -109,7 +134,9 @@ exports.load = function() {
 				description: item.event_description,
 				conditions:  [],
 			};
-			last_stage.events.push(last_event);
+			last_stage.forEach(function(stage){
+				stage.events.push(last_event)
+			})
 		}
 		// условия для события
 		if (item.event_condition_value) {
@@ -130,23 +157,25 @@ exports.load = function() {
 			last_event_condition.actions.push(event_condition_action);
 		}
 	}
-
+	dev_log('edeuidheuidheuidh');
+dev_log(exports.stages_hash[20].actions);
+dev_log(exports.stages_hash[20].events);
 	// хак - события, выполняемые на каждом этапе
 	for (var stage in exports.stages_hash) {
-		// кнопка сбросить
-		exports.stages_hash[stage].events.push({
-			type: 'Нажата кнопка',
-			url:  '',
-			parameter: 'Сбросить',
-			conditions: [{
-				value: '1',
-				actions: [{
-					type: 'Переход на этап',
-					url:  '',
-					parameter: '1',
-				}],
-			}],
-		});
+		// // кнопка сбросить
+		// exports.stages_hash[stage].events.push({
+		// 	type: 'Нажата кнопка',
+		// 	url:  '',
+		// 	parameter: 'Сбросить',
+		// 	conditions: [{
+		// 		value: '1',
+		// 		actions: [{
+		// 			type: 'Переход на этап',
+		// 			url:  '',
+		// 			parameter: '1',
+		// 		}],
+		// 	}],
+		// });
 		// кнопка камера перегружена
 		exports.stages_hash[stage].events.push({
 			type: 'Нажата кнопка',
@@ -214,7 +243,7 @@ exports.switch_stage = function(new_stage) {
 					// если условие истинно, выполняем его действия
 					if (result) {
 						dev_log(condition);
-						clearInterval(exports.event_interval_object);
+						//clearInterval(exports.event_interval_object);
 						event_.happened = 0;
 						condition.actions.forEach(function(action){
 							exports.execute_action(action);
@@ -324,4 +353,22 @@ exports.submit_event = function (event_type, url, value) {
 			break;
 
 	}
+}
+
+function parse_stages(stages_str) {
+	var stages = []
+	var intervals = stages_str.split(',')
+	intervals.forEach(function(interval){
+		var bounds = interval.split('-')
+		if (bounds.length == 1) {
+			stages.push(bounds[0])
+		} else if (bounds.length == 2) {
+			var left = parseInt(bounds[0])
+			var right = parseInt(bounds[1])
+			for (var i = left; i <= right; i++){
+				stages.push(i.toString())
+			}
+		}
+	})
+	return stages
 }
