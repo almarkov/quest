@@ -157,9 +157,7 @@ exports.load = function() {
 			last_event_condition.actions.push(event_condition_action);
 		}
 	}
-	dev_log('edeuidheuidheuidh');
-dev_log(exports.stages_hash[20].actions);
-dev_log(exports.stages_hash[20].events);
+
 	// хак - события, выполняемые на каждом этапе
 	for (var stage in exports.stages_hash) {
 		// // кнопка сбросить
