@@ -16,6 +16,7 @@
     "mongodb": "*",
     "monk": "*",
     "node-xlsx": "*",
-    "jsonfile": "*"
+    "jsonfile": "*",
+    "request": "*"
   }
 }

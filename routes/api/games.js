@@ -5,7 +5,7 @@ var router = express.Router();
 
 // список
 router.get('/list', function(req, res) {
-	mbd.select('games', {}, function(err, result){
+	mbd.select('games', {join: {operators: {key: 'operator_id', alias: 'operator'}} }, function(err, result){
 		res.json(
 			(err === null) ? result : { msg: err }
 		);
@@ -24,7 +24,9 @@ router.get('/:id', function(req, res) {
 
 // создание
 router.post('/create', function(req, res) {
+	console.log('cccreatr1');
 	mbd.insert('games', req.body, {}, function(err, result){
+		console.log('cccreatr2');
 		res.send(
 			(err === null) ? { msg: '', new_id: result._id } : { msg: err }
 		);

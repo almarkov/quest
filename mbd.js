@@ -11,9 +11,25 @@ var util = require('util');
 
 // API
 exports.select = function(table, query, callback) {
-
+console.log('select');
 	var data = load_table(table);
 
+	var join_data_hash = {};
+console.log(query);
+	if (query.join) {
+		for (var join_table in query.join) {
+			join_data_hash[join_table] = load_table(join_table).items_by_id;
+		}
+console.log(join_data_hash);
+		data.items.forEach(function(item){
+			for (var join_table in query.join) {
+				var join = query.join[join_table];
+				item[join.alias]
+					= join_data_hash[join_table][item[join.key]];
+			}
+		});
+	}
+console.log(data);
 	callback(null, data.items);
 
 }
@@ -124,9 +140,16 @@ function load_table(table) {
 		});
 	}
 
+	var items = jsonfile.readFileSync(file, {throws: false}) || [];
+	var items_by_id = {};
+	items.forEach(function (item){
+		items_by_id[item._id] = item;
+	});
+
 	return {
-		meta:  jsonfile.readFileSync(meta_file, {throws: false}),
-		items: jsonfile.readFileSync(file, {throws: false}) || [],
+		meta:        jsonfile.readFileSync(meta_file, {throws: false}),
+		items:       items,
+		items_by_id: items_by_id,
 	}
 }
 function save_table(table, items, meta) {

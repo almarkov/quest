@@ -3,6 +3,7 @@ var http   = require('http');
 var router = express.Router();
 var child_process = require('child_process');
 var fs = require('fs');
+var request = require('request')
 
 // запрос состояния модели
 router.get('/all', function(req, res, next) {
@@ -108,8 +109,24 @@ router.get('/switch_stage', function(req, res, next) {
 
 // сохранить данные о прохождении в бд
 router.get('/dump_result', function(req, res, next) {
-	res.json({success: 1})
 	
+	var req1 = request.post(
+		config.web_server_url + '/api/games/create',
+		{
+			form: {
+				operator_id: logic.get_variable('operator_id'),
+				duration:    logic.get_variable('quest_time'),
+				dt_start:    logic.get_variable('dt_start'),
+			}
+		},
+		function (error, response, body) {
+			if (!error && response.statusCode == 200) {
+				console.log(body)
+			}
+			console.log(error)
+		}
+	);
+	res.json({success: 1})
 })
 
 
@@ -121,6 +138,7 @@ router.get('/start_game', function(req, res, next) {
 	face.field_disable('operator_id');
 	logic.set_variable('gamers_count', parseInt(req.query.gamers_count));
 	logic.set_variable('operator_id',  req.query.operator_id);
+	logic.set_variable('dt_start',  new Date());
 	dev_log('start_pushed');
 	logic.submit_event('Нажата кнопка', 'Начать игру');
 
