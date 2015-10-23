@@ -298,7 +298,8 @@ exports.execute_action = function(action) {
 }
 
 exports.submit_event = function (event_type, url, value) {
-
+dev_log(event_type);
+dev_log(url);
 	switch(event_type) {
 		case 'Внутреннее событие':
 			exports.stages_hash[exports.current_stage].events.forEach(function(event_){

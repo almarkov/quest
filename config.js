@@ -1,8 +1,5 @@
 var xlsx = require('node-xlsx')
 
-// период wd в мс
-exports.wd_timer = 1000
-
 // список устройств
 exports.list = []
 
@@ -57,7 +54,7 @@ exports.load = function() {
 				ip:         item.ip || 'localhost',
 				port:       item.port || 3000,
 				state:      'undef',
-				wd_state:   global.get('watchdog_fail_ticks_count'),
+				wd_state:   globals.get('watchdog_fail_ticks_count'),
 				sv_port:    0,
 				position:   {
 					column: item.position,

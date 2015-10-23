@@ -349,7 +349,7 @@ function set_handlers(data) {
 		var name = element.replace('_state', '');
 		if (!name.match(/terminal|audio_player|video_player/)) {
 			if (confirm("Подтвердите перезагрузку")){
-				debugger;
+
 				$.ajax({
 					url: web_server_url + '/sendcom/reload/' + name,
 					type: "GET",

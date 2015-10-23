@@ -135,12 +135,12 @@ exports.emulate_watchdog = function(device) {
 // независимые функции (лучше в отдельный файл?)
 //----------------------------------------------------------------------------
 // сброс всего
-exports.reset = function(){
+exports.reset = function(){	dev_log('oj1')
 	// создаём новый поток для лога
 	var dir = 'log/';
 	log_file.end();
 	log_file = fs.createWriteStream(dir + routines.ymd_date() + 'debug.log', {flags : 'a'});
- 
+ 	dev_log('oj1')
 	//удаляем старые файлы лога, если нужно
 	var log_files = fs.readdirSync(dir).map(function(v) { return v.toString(); }).sort();
 	if (log_files.length > 5) {
@@ -151,10 +151,13 @@ exports.reset = function(){
 
 	// сбрасываем параметры
 	mtimers.reset();
+	dev_log('oj1')
 	face.reset();
+	dev_log('oj2')
  	devices.reset();
+ 	dev_log('oj3')
 	queue.reset();
-
+dev_log('oj4')
 	// удаляем старые файлы лога
 	var log_files = fs.readdirSync('log');
 	for (var i = 0; i < log_files.length - 2; i++) {

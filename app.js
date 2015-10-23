@@ -8,7 +8,7 @@ var http         = require('http')
 var fs           = require('fs')
 var util         = require('util')
 
-var globals      = require('./globals.js')
+globals          = require('./globals.js')
 globals.load()
 
 // константы(убрать)
@@ -82,12 +82,11 @@ ENABLE_TIMER  = config.default_timer_value
 devices = require("./devices.js")
 devices.reset()
 
-// новый таймер
-timers = require("./timers.js")
 // новый таймеры
 mtimers = require("./mtimers.js")
 // ф-ции для изменения фронта
 face   = require("./face.js")
+face.reset()
 // ф-ции, сокращающие запросы
 helpers = require("./helpers.js")
 // реализация http get-запросов с помощью FIFO

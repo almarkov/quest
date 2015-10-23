@@ -1,6 +1,6 @@
 var jsonfile     = require('jsonfile')
 
-exports.globals_hash  = {};
+exports.globals_hash  = {}
 
 exports.load = function() {
 	var config_file = 'config.json'
