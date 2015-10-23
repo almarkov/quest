@@ -261,7 +261,7 @@ exports.execute_action = function(action) {
 
 	switch(action.type) {
 		case 'Внутренняя команда':
-			var query = config.web_server_url + '/game/' + action.parameter;
+			var query = globals.get('web_server_url') + '/game/' + action.parameter;
 			http.get(query, function(res) {
 					res.on('error', function(data){
 					});

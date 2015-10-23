@@ -79,28 +79,6 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 		}
 	}, config.mutex_timeout);
 
-	
-}
-
-exports.send_com = function(name, command) {
-	var num;
-	if (name == 'all') {
-		num = 254;
-	} else {
-		num = devices.get(name).sv_port;
-	}
-
-
-	if (!name.match(/terminal|audio_player|video_player/)) {
-		child_process.exec('sendcom.exe ' 
-			+ config.port_num + ' '
-			+ '255' + ' '
-			+ num + ' '
-			+ command
-			, function(error, stdout, stderr){
-			simple_log('on: ' + name + ', carrier_id: ' + num);
-		});
-	}
 }
 
 exports.get_timeout = function(timer) {
@@ -138,7 +116,7 @@ exports.emulate_watchdog = function(device) {
 
 	var state_id = device.states[device.state].code;
 
-	var query = config.web_server_url + '/watchdog' + '?'
+	var query = globals.get('web_server_url') + '/watchdog' + '?'
 		+ 'carrier_id[0]=' + device.carrier_id 
 		+ '&device_id[0]=' + device.id
 		+ '&status_id[0]=' + state_id;
@@ -188,14 +166,14 @@ exports.reset = function(){
 
 // работа с COM - включение/выключение устройств
 exports.turn_on_devices = function() {
-	http.get(config.web_server_url + '/sendcom/on/all', function(res) {
+	http.get(globals.get('web_server_url') + '/sendcom/on/all', function(res) {
 		}).on('error', function(e) {
 			simple_log('error sendcom on all');
 	});
 }
 
 exports.turn_off_devices = function() {
-	http.get(config.web_server_url + '/sendcom/off/all', function(res) {   
+	http.get(globals.get('web_server_url') + '/sendcom/off/all', function(res) {   
 		}).on('error', function(e) {
 			simple_log('error sendcom off all');
 	});
@@ -203,7 +181,7 @@ exports.turn_off_devices = function() {
 
 // включаем проверку watchdog
 exports.turn_on_wd_check = function() {
-	http.get(config.web_server_url + '/game/setinterval', function(res) {
+	http.get(globals.get('web_server_url') + '/game/setinterval', function(res) {
 		}).on('error', function(e) {
 			simple_log('error game setinterval');
 	});

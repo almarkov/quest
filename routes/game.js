@@ -73,7 +73,7 @@ router.get('/switch_stage', function(req, res, next) {
 router.get('/dump_result', function(req, res, next) {
 	
 	request.post(
-		config.web_server_url + '/api/games/create',
+		globals.get('web_server_url') + '/api/games/create',
 		{
 			form: {
 				operator_id: logic.get_variable('operator_id'),
@@ -137,7 +137,7 @@ router.get('/setinterval', function(req, res, next) {
 					helpers.emulate_watchdog(_device)
 				}
 			});
-		}, 1000)
+		}, globals.get('watchdog_check_timer'))
 	}
 
 	res.json(SUCCESS_RESULT);
@@ -147,14 +147,14 @@ router.get('/setinterval', function(req, res, next) {
 // вкл/выкл эмуляцию wd для устройства
 router.get('/emulate_watchdog/:device_name/', function(req, res, next) {
 
-	var device_name = req.params.device_name;
+	var device_name = req.params.device_name
 
-	var device = devices.get(device_name);
+	var device = devices.get(device_name)
 
 	//вкл/выкл
-	device.wd_emulate = device.wd_emulate ? 0 : 1;
+	device.wd_emulate = device.wd_emulate ? 0 : 1
 
-	res.json(SUCCESS_RESULT);
+	res.json(SUCCESS_RESULT)
 })
 
 // Обработка кнопок

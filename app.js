@@ -8,6 +8,9 @@ var http         = require('http')
 var fs           = require('fs')
 var util         = require('util')
 
+var globals      = require('./globals.js')
+globals.load()
+
 // константы(убрать)
 ENABLE_TIMER  = 1
 DISABLE_TIMER = 0

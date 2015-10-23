@@ -345,10 +345,11 @@ function set_handlers(data) {
 
 	// перезагрузка устройства
 	$('#Main .Device .Status').click(function(e){
-		var element = e.srcElement.parentElement.children[1].children[1].name;
+		var element = e.target.parentElement.children[1].children[1].name;
 		var name = element.replace('_state', '');
 		if (!name.match(/terminal|audio_player|video_player/)) {
 			if (confirm("Подтвердите перезагрузку")){
+				debugger;
 				$.ajax({
 					url: web_server_url + '/sendcom/reload/' + name,
 					type: "GET",

@@ -17,56 +17,56 @@
 exports.get_by_field = function(object, field, value) {
 	for (var item in object) {
 		if (object[item][field] == value) {
-			return object[item];
+			return object[item]
 		}
 	}
-	return null;
+	return null
 }
 
 // дата в формате 'yyyy-mm-dd'
 exports.ymd_date = function(date) {
-	var dt = date || new Date();
-  	dt = new Date(dt.getTime() + (dt.getTimezoneOffset() / 60) * -1);
+	var dt = date || new Date()
+  	dt = new Date(dt.getTime() + (dt.getTimezoneOffset() / 60) * -1)
 	return dt.getFullYear()
 		+ '-' + ('0' + (dt.getMonth() + 1)).slice(-2)
-		+ '-' + ('0' + dt.getDate()).slice(-2);
+		+ '-' + ('0' + dt.getDate()).slice(-2)
 
 }
 
 // дата в формате 'yyyy-mm-dd HH:MM:SS'
 exports.ymdhms_date = function(date) {
-	var dt = date || new Date();
-	dt = new Date(dt.getTime() + (dt.getTimezoneOffset() / 60) * -1);
+	var dt = date || new Date()
+	dt = new Date(dt.getTime() + (dt.getTimezoneOffset() / 60) * -1)
 	return dt.getFullYear()
 		+ '-' + ('0' + (dt.getMonth() + 1)).slice(-2)
 		+ '-' + ('0' + dt.getDate()).slice(-2)
 		+ ' ' + ('0' + dt.getHours()).slice(-2)
 		+ ':' + ('0' + dt.getMinutes()).slice(-2)
-		+ ':' + ('0' + dt.getSeconds()).slice(-2);
+		+ ':' + ('0' + dt.getSeconds()).slice(-2)
 }
 
-// копирование объектов
+// поверхностное объектов
 exports.simple_copy_obj = function(obj) {
-	var new_obj = {};
+	var new_obj = {}
 	for (var k in obj) {
-		new_obj[k] = obj[k];
+		new_obj[k] = obj[k]
 	}
-	return new_obj;
+	return new_obj
 }
 
 // глубокое копирование
 exports.deep_copy_obj = function (obj) {
     if (typeof obj != "object") {
-        return obj;
+        return obj
     }
-    var copy = {};
+    var copy = {}
     for (var key in obj) {
         if (typeof obj[key] == "object") {
-            copy[key] = this.deep_copy_obj(obj[key]);
+            copy[key] = this.deep_copy_obj(obj[key])
         } else {
-            copy[key] = obj[key];
+            copy[key] = obj[key]
         }
     }
-    return copy;
-};
+    return copy
+}
 

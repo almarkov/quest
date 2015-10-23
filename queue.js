@@ -53,7 +53,7 @@ exports.get = function(query, device) {
 
 		// таймаут
 		if (timer_value) {
-			timers.start(timer_value)
+			//timers.start(timer_value)
 		}
 
 		// доп. действия после запроса
