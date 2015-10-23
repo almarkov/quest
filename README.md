@@ -1,27 +1,36 @@
 # quest
 # useful things
 # start:
+```bash
 node app.js
+```
 
-# Обновление raspberry raspbian 
+# Обновление raspberry raspbian
+```bash
 sudo apt-get upgrade
 sudo apt-get update
+```
 
 # linux-arm node.js
 Download Node.js source
-Raspberry Pi Model A, B, B+ and Compute Module 
+Raspberry Pi Model A, B, B+ and Compute Module
+```bash
 wget https://nodejs.org/dist/v4.0.0/node-v4.0.0-linux-armv6l.tar.gz 
 tar -xvf node-v4.0.0-linux-armv6l.tar.gz 
 cd node-v4.0.0-linux-armv6l
+```
 
-Raspberry Pi 2 Model B 
+Raspberry Pi 2 Model B
+```bash
 wget https://nodejs.org/dist/v4.0.0/node-v4.0.0-linux-armv7l.tar.gz 
 tar -xvf node-v4.0.0-linux-armv7l.tar.gz 
 cd node-v4.0.0-linux-armv7l
+```
 
 Copy to /usr/local
+```bash
 sudo cp -R * /usr/local/
-
+```
 That's it! To check Node.js is properly install and you have the right version, run the command node -v
 
 
@@ -30,17 +39,22 @@ Auto running a script
 Create the script
 Create a folder to store the script in
 
+```bash
 mkdir ./bin
 cd ./bin
+```
 Create the script using the nano text editor
 
+```bash
 sudo nano script_auto_run
 In the nano editor, type this script:
-
-\#!/bin/bash
-\# Script to start our application
+```
+```bash
+#!/bin/bash
+# Script to start our application
 echo "Doing autorun script..."
 sudo /home/pi/projects/my_project.a &
+```
  
 Replace "sudo /home/pi/projects/my_project.a &" with the commands you want carried out.  The "&" means do the command in the background.
 
@@ -50,27 +64,33 @@ Save it by pressing Ctrl+X, " Y", ENTER
 
 This script needs to be made executable by typing this :
 
+```bash
 sudo chmod 755 script_auto_run
- 
+```
+
 You can test the script works by typing
-
+```bash
 /home/pi/bin/script_auto_run
-
+```
 Setting it to be run
 To launch the script at start-up edit the “rc.local” file needs to be edited.
-
+```bash
 sudo nano /etc/rc.local
-
+```
 Add the following line:
 
+```bash
 /home/pi/bin/script_auto_run
+```
 Save it by pressing Ctrl+X, " Y", ENTER
 
 Re-boot your RPi and it will run.
 
 # omxplayer install
+```bash
 sudo apt-get update
 sudo apt-get -y install omxplayer
+```
 Usage: omxplayer [OPTIONS] [FILE]
 Options :
          -h / --help                    print this help
@@ -103,10 +123,11 @@ Options :
               --video_fifo  n           Size of video output fifo in MB
               --audio_queue n           Size of audio input queue in MB
               --video_queue n           Size of video input queue in MB
-
+```bash
 pid=$(ps -o pid= -C omxplayer)
 kill $pid
-
+```
+```bash
 mkfifo /tmp/cmd
 
 omxplayer -ohdmi mymedia.avi < /tmp/cmd
@@ -116,9 +137,10 @@ echo . > /tmp/cmd (Start omxplayer running as the command will initial wait for 
 echo -n p > /tmp/cmd - Playback is paused
 
 echo -n q > /tmp/cmd - Playback quits
-
-
+```
+```bash
  NOREFRESH=1 omxplayer video.mp4
+```
 
 # rasberry autologin
 How to automatically login to Raspberry Pi text console as pi user.
