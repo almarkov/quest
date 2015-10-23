@@ -1,80 +1,45 @@
-var express = require('express');
-var router = express.Router();
-var http   = require('http');
+var express = require('express')
+var http    = require('http')
+var router  = express.Router();
+
 
 // запуск GUI
 router.get('/', function(req, res, next) {
-	res.render('index.html', {site: siate});
-});
+	res.render('index.html', {site: siate})
+})
 
 // редирект по обработчикам событий от устройств
 router.get('/:carrier_id/:device_id/:action/:parameter', function(req, res, next) {
 
+	// если первый параметр - не число, то это не событие от устройства, передаём следующему обработчику
 	if (isNaN(parseInt(req.params.carrier_id))) {
-		next();
-		return;
+		next()
+		return
 	}
-	res.send(1);
 
-	var device  = devices.get_by_id(req.params.carrier_id, req.params.device_id);
-	var device_name = device.name;
-	var event_name  = routines.get_by_field(device.events, 'code', req.params.action).name;
-	logic.submit_event('Рапорт устройства', device_name + '/' + event_name, req.params.parameter);
-	// var query = devices.int_url_for(req.params.carrier_id, parseInt(req.params.device_id), req.params.action) + "/" + req.params.parameter;
+	res.send(1)
 
-	// var url = config.web_server_url + query;
+	var device  = devices.get_by_id(req.params.carrier_id, req.params.device_id)
+	if (device) {
 
-	// simple_log('<-'
-	// 	+ ' ' + req.params.carrier_id
-	// 	+ ' ' + req.params.device_id
-	// 	+ ' ' + req.params.action
-	// 	+ ' ' + req.params.parameter 
-	// 	+ '  decoded: ' + query
-	// );
+		var event_ = routines.get_by_field(device.events, 'code', req.params.action)
+		if (event_) {
 
-	// http.get(url, function(res1) {
-	// 		simple_log("Got response" );
-	// 	}).on('error', function(e) {
-	// 		simple_log("Got error ");
-	// });
-});
-
-// редирект по эмуляторам устройств
-router.get('/:device_id/:action/:parameter', function(req, res, next) {
-
-	if (parseInt(req.params.device_id) == 255) {
-		res.json({'success': 1, 'carrier_id': 144,  'onboard_devices': []});
-	} else {
-
-
-		if ((parseInt(req.params.device_id) || parseInt(req.params.device_id) == "0")) {
-
-			// эмуляция обработки запросов
-			var req_ip = req.ip;
-			if (req_ip == "::1" || req_ip == "::ffff:127.0.0.1") {
-				req_ip = "localhost";
-			} 
-
-			var query = devices.get_redirect_url(req_ip, parseInt(req.params.device_id), req.params.action) + "/" + req.params.parameter;
-			simple_log('->'
-				+ ' ' + req.params.device_id
-				+ ' ' + req.params.action
-				+ ' ' + req.params.parameter 
-				+ '  decoded: ' + query
-			);
-
-			res.redirect(301, query);
+			logic.submit_event('Рапорт устройства', device.name + '/' + event_.name, req.params.parameter)
 
 		} else {
-			// обработка событий - переход к соответсвтующему .js модулю
-			simple_log('->'
-				+ ' ' + req.params.device_id
-				+ ' ' + req.params.action
-				+ ' ' + req.params.parameter 
-			);
-			next();
+			simple_log('Событие от устройства не обработано: не найдено событие устройства ' + device.name
+					+ ' с code=' + req.params.action
+			)
 		}
-	}
-});
 
-module.exports = router;
+	} else {
+		simple_log('Событие от устройства не обработано: не найдено устройство' +
+					+ ' с carrier_id=' + req.params.carrier_id
+					+ ' и device_id=' + req.params.device_id
+		)
+	}
+
+})
+
+module.exports = router

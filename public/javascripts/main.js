@@ -1,6 +1,5 @@
 var web_server_url   = "http://localhost:3000";
 
-var start_time;
 var m, s;
 
 var prev_response = {};
@@ -29,9 +28,6 @@ $(document).ready(function() {
 			}
 	});
 
-	if (!start_time) {
-		//restart_timer();
-	}
 	for (var i = 1; i < 99999; i++) {
         window.clearInterval(i);
 	}
@@ -45,27 +41,6 @@ $(document).ready(function() {
 		dataType: "json",
 			success: function (response) {
 
-				// ячейки
-				var codes = [];
-				codes[5] = response.codes[4];// фиолетовая
-				// хак
-				if (response.gamers_count == 2) {
-					codes[4] = response.codes[0];
-					codes[1] = response.codes[1];
-					codes[2] = '';
-					codes[3] = '';
-				} else if (response.gamers_count == 3) {
-					codes[4] = response.codes[1];
-					codes[1] = response.codes[0];
-					codes[2] = response.codes[2];
-					codes[3] = '';
-				} else if (response.gamers_count == 4) {
-					codes[4] = response.codes[2];
-					codes[1] = response.codes[0];
-					codes[2] = response.codes[1];
-					codes[3] = response.codes[3];
-				}
-
 				$.each(response.devices, function(index, item){
 
 					var value = '';
@@ -75,11 +50,7 @@ $(document).ready(function() {
 						value = '';
 					}
 					if (item.value) {
-						if (item.type == 'cell') {
-							value += codes[item.value];
-						} else {
-							value += item.value;
-						}
+						value += item.value;
 					}
 
 					$('#inp_' + item.name + '_state').val(value);

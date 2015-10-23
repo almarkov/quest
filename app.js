@@ -21,6 +21,8 @@ PROD_MODE     = 0
 EMULATOR_MODE = 0
 REAL_MODE     = 1
 
+SUCCESS_RESULT = {success: 1}
+
 // разделы системы
 var routes       = require('./routes/index')
 
@@ -30,8 +32,6 @@ var api          = require('./routes/api')
 
 // управление квестом
 var game         = require('./routes/game')
-var timer        = require('./routes/timer')
-var wd           = require('./routes/wd')
 var sendcom      = require('./routes/sendcom')
 var watchdog     = require('./routes/watchdog')
 
@@ -78,8 +78,7 @@ ENABLE_TIMER  = config.default_timer_value
 // глобальные объекты на сервере, соответствующие устройствам
 devices = require("./devices.js")
 devices.reset()
-// игроки
-gamers = require("./gamers.js")
+
 // новый таймер
 timers = require("./timers.js")
 // новый таймеры
@@ -130,9 +129,6 @@ var api_operators = require('./routes/api/operators')
 api.use('/operators', api_operators)
 
 app.use('/game', game)
-app.use('/timer', timer)
-
-app.use('/wd', wd)
 
 app.use('/sendcom', sendcom)
 

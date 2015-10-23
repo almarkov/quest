@@ -86,7 +86,6 @@ exports.load = function() {
 			var stage_nums = parse_stages(item.stage_no.toString())
 
 			stage_nums.forEach(function(stage_num){
-				dev_log(stage_num)
 				if (exports.stages_hash[stage_num]) {
 					last_stage.push(exports.stages_hash[stage_num]);
 				} else {
@@ -119,8 +118,6 @@ exports.load = function() {
 				url:         item.stage_action_url,
 				parameter:   item.stage_action_parameter,
 			};
-			dev_log('stage_action');
-			dev_log(last_stage)
 			last_stage.forEach(function(stage){
 				stage.actions.push(stage_action)
 			})
@@ -197,13 +194,10 @@ exports.current_stage = '';
 exports.event_interval_object = {};
 
 exports.init = function() {
-	dev_log('init');
 	exports.switch_stage('1');
 }
 
 exports.switch_stage = function(new_stage) {
-	dev_log('switch_stage');
-	dev_log(new_stage);
 	//меняем текущий этап
 	exports.current_stage = new_stage;
 	//меняем поле на экране
@@ -222,8 +216,6 @@ exports.switch_stage = function(new_stage) {
 		exports.stages_hash[exports.current_stage].events.forEach(function(event_){
 			// если событие произошло
 			if (event_.happened) {
-				dev_log('happened');
-				dev_log(event_);
 				event_.conditions.forEach(function(condition){
 					var str = condition.value.toString();
 					console.log(str);
@@ -240,7 +232,7 @@ exports.switch_stage = function(new_stage) {
 					console.log(result);
 					// если условие истинно, выполняем его действия
 					if (result) {
-						dev_log(condition);
+
 						//clearInterval(exports.event_interval_object);
 						event_.happened = 0;
 						condition.actions.forEach(function(action){
@@ -255,8 +247,7 @@ exports.switch_stage = function(new_stage) {
 }
 
 exports.parse_variables = function(src) {
-	dev_log('parse_variables');
-	dev_log(src);
+
 	var dst = src;
 	for (var variable in exports.variables_hash) {
 		console.log(exports.variables_hash[variable]);
@@ -267,8 +258,7 @@ exports.parse_variables = function(src) {
 }
 
 exports.execute_action = function(action) {
-	dev_log('execute_action');
-	dev_log(action);
+
 	switch(action.type) {
 		case 'Внутренняя команда':
 			var query = config.web_server_url + '/game/' + action.parameter;
@@ -308,16 +298,12 @@ exports.execute_action = function(action) {
 }
 
 exports.submit_event = function (event_type, url, value) {
-	dev_log('submit_event');
-	dev_log(event_type);
-	dev_log(url);
-	dev_log(value);
+
 	switch(event_type) {
 		case 'Внутреннее событие':
 			exports.stages_hash[exports.current_stage].events.forEach(function(event_){
 				if (event_.parameter == url) {
 					event_.happened = 1;
-					dev_log(event_);
 				}
 			});
 			break;	
@@ -325,17 +311,14 @@ exports.submit_event = function (event_type, url, value) {
 			exports.stages_hash[exports.current_stage].events.forEach(function(event_){
 				if (event_.url == url) {
 					event_.happened = 1;
-					dev_log(event_);
 				}
 			});
 			break;	
 
 		case 'Нажата кнопка':
-			dev_log(exports.stages_hash[exports.current_stage]);
 			exports.stages_hash[exports.current_stage].events.forEach(function(event_){
 				if (event_.parameter == url) {
 					event_.happened = 1;
-					dev_log(event_);
 				}
 			});
 			break;
@@ -345,7 +328,6 @@ exports.submit_event = function (event_type, url, value) {
 				if (event_.url == url) {
 					event_.happened = 1;
 					event_.value = value;
-					dev_log(event_);
 				}
 			});
 			break;

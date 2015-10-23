@@ -175,11 +175,7 @@ exports.reset = function(){
 	mtimers.reset();
 	face.reset();
  	devices.reset();
-	gamers.reset();
 	queue.reset();
-
-  	//gamers.set_game_state('devices_off', []);
-  	//timers.start(helpers.get_timeout("A"));
 
 	// удаляем старые файлы лога
 	var log_files = fs.readdirSync('log');
@@ -223,7 +219,5 @@ exports.wd_check_result = function() {
 			err_cnt += 1;
 		}
 	}
-	dev_log('wd_check_result');
-	dev_log(errors);
 	logic.set_variable('error', "'" + errors + "'");
 }

@@ -15,6 +15,8 @@ exports.list_by_name = {};
 exports.list_by_id_arduiono_id = {};
 exports.list_by_carrier_id = {};
 
+exports.intervalObject = null;
+
 exports.ext_url_for = function (object_name) {
 	for (var i = 0; i < config.list.length; i++) {
 		if (config.list[i].name == object_name) {
@@ -24,6 +26,7 @@ exports.ext_url_for = function (object_name) {
 }
 
 exports.get_redirect_url = function (ip, device_id, command_id) {
+	dev_log('get_redirect_url')
 	var res = "";
 	if (device_id == 255) {
 		return "/wd/0";
@@ -39,20 +42,13 @@ exports.get_redirect_url = function (ip, device_id, command_id) {
 }
 
 exports.build_query = function(device_name, command_name, parameter) {
-dev_log('build_query');dev_log(device_name);
-dev_log(command_name);dev_log(parameter);
-console.log('build_query');
-console.log(device_name);
-console.log(command_name);
-console.log(parameter);
+
 	if (device_name == 'timer') {
 		return config.web_server_url + '/timer/'+ command_name + '/' + parameter;
 	}
 	if (REAL_MODE) {
 		console.log(device);
 		var device  = exports.get(device_name);
-		dev_log(device);
-		dev_log(device.commands);
 		var command = device.commands[command_name];
 
 		return "http://"
@@ -96,6 +92,11 @@ exports.reset = function() {
 
 	}
 	exports.default_timer_value = config.default_timer_value;
+
+	if (exports.intervalObject) {
+		clearInterval(exports.intervalObject);
+	}
+	exports.intervalObject = null;
 
 }
 
