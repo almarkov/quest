@@ -11,15 +11,6 @@ function build_query(device, item, parameter) {
 		+ '/' + device + '/'+ item + '/' + parameter;
 }
 
-// function disable_gamer_count() {
-// 	$("#inpGamerCount").prop('disabled', true);
-// }
-
-// function enable_gamer_count() {
-// 	$("#inpGamerCount").prop('disabled', false);
-// 	$("#inpGamerCount").val('');
-// }
-
 $(document).ready(function() {
 
 	$.ajax({

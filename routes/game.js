@@ -8,24 +8,10 @@ var request = require('request')
 // запрос состояния модели
 router.get('/all', function(req, res, next) {
 
-	// проверяем окончание времени
-	var now = new Date();
-	if (gamers.start_time && gamers.game_state != 'quest_failed') {
-		if ((now - gamers.start_time - 60*60*1000) > 0) {
-			http.get(config.web_server_url + "/game/time_ended",
-				function(res) {
-					simple_log("time_ended ok");
-				}).on('error', function(e) {
-					simple_log("time_ended error");
-			});
-		}
-	}
-
 	// передача модели в GUI
 	var result = {};
 
 	result.codes = gamers.codes;
-
 
 	if (gamers.start_time) {
 		var now = new Date();
@@ -168,29 +154,6 @@ router.get('/start_time', function(req, res, next) {
 	} else {
 		res.json({date: null});
 	}
-});
-
-// время закончилось
-router.get('/time_ended', function(req, res, next) {
-	gamers.game_state = 'quest_failed';
-	gamers.start_time = null;
-
-	var command = 'open';
-	helpers.send_get('door_1', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-	helpers.send_get('door_2', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-	helpers.send_get('door_3', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-	helpers.send_get('door_5', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-
-	setTimeout(function () {
-		helpers.send_get('door_4', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-		helpers.send_get('door_7', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-		setTimeout(function () {
-			helpers.send_get('door_6', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-			helpers.send_get('door_8', command, '0', DISABLE_TIMER, ENABLE_MUTEX);
-				
-		}, 2*1000);
-	}, 2*1000);
-	res.json({result: 1});
 });
 
 // проверка wd - каждую секунду счётчик wd уменьшаем на 1
