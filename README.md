@@ -1,13 +1,13 @@
 # quest
 # useful things
-start:
+# start:
 node app.js
-//--------------------------------------------------------------------------------------------------
+
+# Обновление raspberry raspbian 
 sudo apt-get upgrade
 sudo apt-get update
 
-
-//--------------------------------------------------------------------------------------------------
+# linux-arm node.js
 Download Node.js source
 Raspberry Pi Model A, B, B+ and Compute Module 
 wget https://nodejs.org/dist/v4.0.0/node-v4.0.0-linux-armv6l.tar.gz 
@@ -25,7 +25,7 @@ sudo cp -R * /usr/local/
 That's it! To check Node.js is properly install and you have the right version, run the command node -v
 
 
-//--------------------------------------------------------------------------------------------------
+# script autorun
 Auto running a script
 Create the script
 Create a folder to store the script in
@@ -37,8 +37,8 @@ Create the script using the nano text editor
 sudo nano script_auto_run
 In the nano editor, type this script:
 
-#!/bin/bash
-# Script to start our application
+\#!/bin/bash
+\# Script to start our application
 echo "Doing autorun script..."
 sudo /home/pi/projects/my_project.a &
  
@@ -68,7 +68,7 @@ Save it by pressing Ctrl+X, " Y", ENTER
 
 Re-boot your RPi and it will run.
 
-//--------------------------------------------------------------------------------------------------
+# omxplayer install
 sudo apt-get update
 sudo apt-get -y install omxplayer
 Usage: omxplayer [OPTIONS] [FILE]
@@ -120,8 +120,7 @@ echo -n q > /tmp/cmd - Playback quits
 
  NOREFRESH=1 omxplayer video.mp4
 
-//--------------------------------------------------------------------------------------------------
-Auto Login
+# rasberry autologin
 How to automatically login to Raspberry Pi text console as pi user.
 Step 1: Open a terminal session and edit inittab file.
 sudo nano /etc/inittab
@@ -130,7 +129,7 @@ Navigate to the following line in inittab
 1:2345:respawn:/sbin/getty 115200 tty1
 
 And add a # at the beginning of the line to comment it out
-#1:2345:respawn:/sbin/getty 115200 tty1
+\#1:2345:respawn:/sbin/getty 115200 tty1
 Step 3: Add login program to inittab.
 Add the following line just below the commented line1:2345:respawn:/bin/login -f pi tty1 </dev/tty1 >/dev/tty1 2>&1
 This will run the login program with pi user and without any authentication
