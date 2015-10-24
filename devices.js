@@ -26,7 +26,6 @@ exports.ext_url_for = function (object_name) {
 }
 
 exports.get_redirect_url = function (ip, device_id, command_id) {
-	dev_log('get_redirect_url')
 	var res = "";
 	if (device_id == 255) {
 		return "/wd/0";

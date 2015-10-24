@@ -171,5 +171,4 @@ app.use(function(err, req, res, next) {
 
 // инициализируем квест
 logic.init()
-dev_log(globals.globals_hash)
 module.exports = app
