@@ -11,7 +11,7 @@ exports.start = function(name, timeout, callback) {
 	exports.timers_hash[name] = timer;
 	timer._intervalObject = setInterval(function() {
 		timer.value += 1;
-		console.log(timer);
+
 		face.field_set_value(name, timer.value + '/' + timer.timeout);
 		if (timer.value == timeout) {
 			clearInterval(timer._intervalObject);
@@ -23,7 +23,7 @@ exports.start = function(name, timeout, callback) {
 }
 
 exports.stop = function(name, variable) {
-	console.log(exports.timers_hash);
+
 	var timer = exports.timers_hash[name];
 	clearInterval(timer._intervalObject);
 	logic.set_variable(variable, timer.value);

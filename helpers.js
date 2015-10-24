@@ -135,7 +135,8 @@ exports.emulate_watchdog = function(device) {
 // независимые функции (лучше в отдельный файл?)
 //----------------------------------------------------------------------------
 // сброс всего
-exports.reset = function(){	dev_log('oj1')
+exports.reset = function(){
+	dev_log('oj1')
 	// создаём новый поток для лога
 	var dir = 'log/';
 	log_file.end();

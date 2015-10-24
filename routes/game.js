@@ -59,6 +59,7 @@ router.get('/start', function(req, res, next) {
 
 // кнопка сбросить
 router.get('/reset_all', function(req, res, next) {
+	dev_log('here is')
 	helpers.reset()
 	res.json(SUCCESS_RESULT)
 })
