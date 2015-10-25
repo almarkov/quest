@@ -72,6 +72,28 @@ exports.reset = function () {
 			error_cb:    "function(error) {}",
 		},
 
+		switch_stage: {
+			disabled:    0,
+			highlight:   0,
+			section:     'Quest',
+			ajax_url:    '/game/switch_stage',
+			title:       "Переключить на этап",
+			validate_cb: "function (){"
+						+    "var new_stage = $('#inpNewStage').val();"
+						+    "if (!new_stage) {"
+						+        "alert ('Введите этап');"
+						+        "return { ok: 0};"
+						+    "};"
+						+    "return {"
+						+        "ok: 1,"
+						+        "params: {"
+						+            "new_stage: new_stage,"
+						+        "}"
+						+    "};"
+						+"}",
+			confirm:     0,
+		},
+
 		players_start: {
 			disabled:    1,
 			highlight:   0,
@@ -113,27 +135,7 @@ exports.reset = function () {
 			confirm:     1,
 		},
 
-		switch_stage: {
-			disabled:    0,
-			highlight:   0,
-			section:     'Test',
-			ajax_url:    '/game/switch_stage',
-			title:       "Переключить на этап",
-			validate_cb: "function (){"
-						+    "var new_stage = $('#inpNewStage').val();"
-						+    "if (!new_stage) {"
-						+        "alert ('Введите этап');"
-						+        "return { ok: 0};"
-						+    "};"
-						+    "return {"
-						+        "ok: 1,"
-						+        "params: {"
-						+            "new_stage: new_stage,"
-						+        "}"
-						+    "};"
-						+"}",
-			confirm:     0,
-		},
+		
 	};
 
 	exports.dashboard_fields = {
@@ -183,7 +185,7 @@ exports.reset = function () {
 			label:    'Этап',
 			id:       'inpNewStage',
 			disabled: 0,
-			section:  'Test',
+			section:  'Quest',
 			value:    '',
 		},
 	};
