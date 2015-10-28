@@ -55,7 +55,6 @@ function send_com_exec(name, command) {
 			+ command
 		child_process.exec(exec_str
 			, function(error, stdout, stderr){
-			simple_log('on: ' + name + ', carrier_id: ' + num)
 		})
 
 	}

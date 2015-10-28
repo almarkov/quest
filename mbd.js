@@ -11,16 +11,13 @@ var util = require('util');
 
 // API
 exports.select = function(table, query, callback) {
-console.log('select');
 	var data = load_table(table);
 
 	var join_data_hash = {};
-console.log(query);
 	if (query.join) {
 		for (var join_table in query.join) {
 			join_data_hash[join_table] = load_table(join_table).items_by_id;
 		}
-console.log(join_data_hash);
 		data.items.forEach(function(item){
 			for (var join_table in query.join) {
 				var join = query.join[join_table];
@@ -29,7 +26,6 @@ console.log(join_data_hash);
 			}
 		});
 	}
-console.log(data);
 	callback(null, data.items);
 
 }

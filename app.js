@@ -12,12 +12,6 @@ globals          = require('./globals.js')
 globals.load()
 
 // константы(убрать)
-ENABLE_MUTEX  = 1
-DISABLE_MUTEX = 0
-
-DEV_MODE      = 1
-PROD_MODE     = 0
-
 SUCCESS_RESULT = {success: 1}
 
 // разделы системы
@@ -52,9 +46,7 @@ console.log = function(d) {
 
 simple_log = function(d) {
 	log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n')
-	if (DEV_MODE) {
-		log_stdout.write(util.format(d) + '\n')
-	}
+	log_stdout.write(util.format(d) + '\n')
 }
 
 dev_log = function(d) {
@@ -139,7 +131,6 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-console.log(app.get('env'))
 if (app.get('env') === 'development') {
 	app.use(function(err, req, res, next) {
 		res.status(err.status || 500)
