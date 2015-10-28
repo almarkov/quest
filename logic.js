@@ -1,22 +1,22 @@
-var xlsx = require('node-xlsx');
-var http   = require('http');
+var xlsx   = require('node-xlsx')
+var http   = require('http')
 
-exports.variables_hash = {};
-exports.stages_hash    = {};
+exports.variables_hash = {}
+exports.stages_hash    = {}
 
 exports.set_variable = function(name, value) {
-	var variable = exports.variables_hash[name];
+	var variable = exports.variables_hash[name]
 	if (variable) {
-		variable.value = value;
+		variable.value = value
 	} else {
-		exports.variables_hash[name] = {value: value, name: name, description: 'system' };
+		exports.variables_hash[name] = {value: value, name: name, description: 'system' }
 	}
 }
 
 
 exports.get_variable = function(name) {
-	console.log(name);
-	var variable = exports.variables_hash[name];
+	console.log(name)
+	var variable = exports.variables_hash[name]
 	if (variable) {
 		return variable.value;
 	}

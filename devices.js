@@ -9,8 +9,8 @@ exports.intervalObject = null
 
 exports.build_query = function(device_name, command_name, parameter) {
 
-	var device  = exports.get(device_name);
-	var command = device.commands[command_name];
+	var device  = exports.get(device_name)
+	var command = device.commands[command_name]
 
 	return "http://"
 		+ device.ip + ":"
