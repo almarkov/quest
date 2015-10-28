@@ -1,6 +1,8 @@
 var http = require('http')
 
-exports.list = [];
+// список очередей
+// для каждого ip - одна очередь
+exports.list = []
 
 // строим очередь заново из config
 exports.reset = function() {
@@ -12,57 +14,57 @@ exports.reset = function() {
 	})
 }
 
-exports.push = function(device_name, command, parameter, cb, params) {
-	var device = devices.get(device_name);
-	var query = {};
-	query.url = devices.build_query(device_name, command, parameter);
-	query.cb     = cb;
-	query.params = params;
+// запрос get
+// если очередь пуста, сразу выполняем
+// иначе помещаем в соотв. очередь
+exports.push = function(device_name, command, parameter) {
+	var device = devices.get(device_name)
+	var query = {}
+	query.url = devices.build_query(device_name, command, parameter)
 	if (exports.list[device.ip]) {
 		if (exports.list[device.ip].free) {
-			exports.list[device.ip].free = 0;
-			exports.get(query, device);
+			exports.list[device.ip].free = 0
+			exports.get(query, device)
 		} else {
-			exports.list[device.ip].queries.push(query);
+			exports.list[device.ip].queries.push(query)
 		}
 	}
 }
 
+// если очередь непуста, достаём запрос и выполняем
+// иначе - помечаем очередь пустой
 exports.shift =  function(device) {
 	if (device) {
 		if (exports.list[device.ip]) {
 			if (exports.list[device.ip].queries.length) {
-				var query = exports.list[device.ip].queries.shift();
-				exports.get(query, device);
+				var query = exports.list[device.ip].queries.shift()
+				exports.get(query, device)
 			} else {
-				exports.list[device.ip].free = 1;
+				exports.list[device.ip].free = 1
 			}
 		}
 	}
 }
 
-// упрощённый get
+// упрощённый get (обёртка над http.get)
+// выполняем запрос, после - сразу следующий из очереди
 exports.get = function(query, device) {
-	var cb = query.cb;
-	var params = query.params;
-	var device = device;
+
+	var device = device
 	// простой get
 	var request = http.get(query.url, function(res) {
 
 		// доп. действия после запроса
-		if (cb) {
-			cb(params || {});
-		}
-		exports.shift(device);
+		exports.shift(device)
 
 	// обработка ошибок
 	}).on('error', function(e) {
 		if (e.code === 'ETIMEDOUT') {
 
 		} else {
-			exports.shift(device);
+			exports.shift(device)
 		}
 	}).setTimeout( globals.get('socket_wait_time'), function( ) {
-		exports.shift(device);
-	});
+		exports.shift(device)
+	})
 }

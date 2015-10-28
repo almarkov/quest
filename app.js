@@ -18,9 +18,6 @@ DISABLE_MUTEX = 0
 DEV_MODE      = 1
 PROD_MODE     = 0
 
-EMULATOR_MODE = 0
-REAL_MODE     = 1
-
 SUCCESS_RESULT = {success: 1}
 
 // разделы системы
