@@ -130,37 +130,3 @@ exports.load = function() {
 		}
 	}
 }
-
-// время таймера
-exports.default_timer_value = '1';
-exports.timeouts = {
-	T1: 5,
-	T2: 5,
-	T3: 5,
-	T4: 5,
-	T5: 5,
-	A:  3,
-	B:  5,
-	C:  8,
-	D:  5,
-	E:  3,
-	CHECK_TIME: 5,
-	SOCKET_WAIT_TIME: 3,
-	DEVICE_RELOAD_TIME: 2,
-}
-
-// watchdog
-exports.watchdog_enabled = 1;
-exports.enable_reload = 1;
-
-// правильные координаты
-exports.coordinates = '9847544';
-
-// порт для включения/выключения arduino
-exports.port_num = '4';
-
-exports.wd_error_timeout = 100;
-exports.wd_multiplicator = 1;
-
-exports.mutex_timeout = 500;
-exports.mutex_repeats_count = 5;

@@ -2,6 +2,9 @@ var http   = require('http');
 
 var fs = require('fs');
 
+exports.mutex_timeout = 500;
+exports.mutex_repeats_count = 5;
+
 exports.send_get = function(device_name, command, parameter, enable_timer, enable_mutex, cb, params) {
 
 	simple_log('-> ' + device_name + ' ' + command + ' ' + parameter);
@@ -9,7 +12,7 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 	var query  = devices.build_query(device_name, command, parameter);
 	var device = devices.get(device_name);
 
-	var n_cnt = config.mutex_repeats_count;
+	var n_cnt = exports.mutex_repeats_count;
 	var _interval = setInterval(function() {
 		if (!device.mutex) {
 			if (enable_mutex) {
@@ -41,7 +44,7 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 					}
 				}).on('error', function(e) {
 					simple_log("first attempt " + device_name +  " " + command + " error");
-				}).setTimeout( helpers.get_timeout('SOCKET_WAIT_TIME')*1000, function( ) {
+				}).setTimeout( globals.get('socket_wait_time'), function( ) {
 					if (enable_mutex) {
 						device.mutex = 0;
 					}
@@ -77,7 +80,7 @@ exports.send_get = function(device_name, command, parameter, enable_timer, enabl
 				clearInterval(_interval);
 			}
 		}
-	}, config.mutex_timeout);
+	}, exports.mutex_timeout);
 
 }
 

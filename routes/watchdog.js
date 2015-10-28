@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 	var status_ids = req.query.status_id
 	var carrier_id = req.query.carrier_id
 
-	if (config.watchdog_enabled) {
+	if (globals.get('enable_watchdog')) {
 
 		for(var i = 0; i < device_ids.length; i++) {
 

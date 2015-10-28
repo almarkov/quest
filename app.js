@@ -12,9 +12,6 @@ globals          = require('./globals.js')
 globals.load()
 
 // константы(убрать)
-ENABLE_TIMER  = 1
-DISABLE_TIMER = 0
-
 ENABLE_MUTEX  = 1
 DISABLE_MUTEX = 0
 
@@ -54,7 +51,7 @@ var log_stdout = process.stdout
 console.log = function(d) {
 	log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n')
 	log_stdout.write(util.format(d) + '\n')
-};
+}
 
 simple_log = function(d) {
 	log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n')
@@ -74,9 +71,6 @@ config.load()
 // логика квеста
 logic = require("./logic.js")
 logic.load()
-
-// по умолчанию - время таймер в ENABLE_TIMER(убрать)
-ENABLE_TIMER  = config.default_timer_value
 
 // глобальные объекты на сервере, соответствующие устройствам
 devices = require("./devices.js")
@@ -151,7 +145,7 @@ app.use(function(req, res, next) {
 console.log(app.get('env'))
 if (app.get('env') === 'development') {
 	app.use(function(err, req, res, next) {
-		res.status(err.status || 500);
+		res.status(err.status || 500)
 		res.render('error', {
 			message: err.message,
 			error: err

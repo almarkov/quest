@@ -90,7 +90,6 @@ exports.reset = function() {
 		exports.list_by_carrier_id[exports.list[i].carrier_id].push(exports.list[i]);
 
 	}
-	exports.default_timer_value = config.default_timer_value;
 
 	if (exports.intervalObject) {
 		clearInterval(exports.intervalObject);

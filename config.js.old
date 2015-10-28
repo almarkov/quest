@@ -1788,7 +1788,6 @@ exports.timeouts = {
 }
 
 // watchdog
-exports.watchdog_enabled = 1;
 exports.enable_reload = 1;
 
 // правильные координаты

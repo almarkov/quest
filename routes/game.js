@@ -121,7 +121,7 @@ router.get('/dashboard_button_pushed', function(req, res, next) {
 //     посылаем wd вручную, отображается синим
 router.get('/setinterval', function(req, res, next) {
 
-	if (config.watchdog_enabled) {
+	if (globals.get('enable_watchdog')) {
 
 		devices.intervalObject = setInterval(function() {
 
@@ -141,7 +141,7 @@ router.get('/setinterval', function(req, res, next) {
 		}, globals.get('watchdog_check_timer'))
 	}
 
-	res.json(SUCCESS_RESULT);
+	res.json(SUCCESS_RESULT)
 
 })
 

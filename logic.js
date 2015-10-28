@@ -275,7 +275,7 @@ exports.execute_action = function(action) {
 
 		case 'Команда устройству':
 			var args = action.url.split(" ");
-			queue.push(args[0], args[1], args[2], DISABLE_TIMER);
+			queue.push(args[0], args[1], args[2]);
 			break;
 
 		case 'Переход на этап':

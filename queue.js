@@ -1,4 +1,4 @@
-var http = require('http');
+var http = require('http')
 
 exports.list = [];
 
@@ -8,15 +8,14 @@ exports.reset = function() {
 		exports.list[device.ip] = {
 			queries: [],
 			free:    1,
-		};
-	});
+		}
+	})
 }
 
-exports.push = function(device_name, command, parameter, timer, cb, params) {
+exports.push = function(device_name, command, parameter, cb, params) {
 	var device = devices.get(device_name);
 	var query = {};
 	query.url = devices.build_query(device_name, command, parameter);
-	query.timer = timer;
 	query.cb     = cb;
 	query.params = params;
 	if (exports.list[device.ip]) {
@@ -46,15 +45,9 @@ exports.shift =  function(device) {
 exports.get = function(query, device) {
 	var cb = query.cb;
 	var params = query.params;
-	var timer_value = query.timer;
 	var device = device;
 	// простой get
 	var request = http.get(query.url, function(res) {
-
-		// таймаут
-		if (timer_value) {
-			//timers.start(timer_value)
-		}
 
 		// доп. действия после запроса
 		if (cb) {
@@ -69,7 +62,7 @@ exports.get = function(query, device) {
 		} else {
 			exports.shift(device);
 		}
-	}).setTimeout( helpers.get_timeout('SOCKET_WAIT_TIME')*1000, function( ) {
+	}).setTimeout( globals.get('socket_wait_time'), function( ) {
 		exports.shift(device);
 	});
 }

@@ -1,6 +1,6 @@
 var express       = require('express')
 var http          = require('http')
-var child_process = require('child_process');
+var child_process = require('child_process')
 var router        = express.Router()
 
 // включить
@@ -38,7 +38,7 @@ router.get('/reload/:name', function(req, res, next) {
 
 function send_com_exec(name, command) {
 
-	var num;
+	var num
 	if (name == 'all') {
 		num = 254
 	} else {
@@ -49,10 +49,10 @@ function send_com_exec(name, command) {
 	if (!name.match(/terminal|audio_player|video_player/)) {
 
 		var exec_str = 'sendcom.exe ' 
-			+ config.port_num + ' '
+			+ globals.get('com_port_num') + ' '
 			+ '255' + ' '
 			+ num + ' '
-			+ command;
+			+ command
 		child_process.exec(exec_str
 			, function(error, stdout, stderr){
 			simple_log('on: ' + name + ', carrier_id: ' + num)
