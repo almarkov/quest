@@ -15,7 +15,6 @@ exports.set_variable = function(name, value) {
 
 
 exports.get_variable = function(name) {
-	console.log(name)
 	var variable = exports.variables_hash[name]
 	if (variable) {
 		return variable.value;
@@ -230,7 +229,6 @@ exports.parse_variables = function(src) {
 
 	var dst = src;
 	for (var variable in exports.variables_hash) {
-		console.log(exports.variables_hash[variable]);
 		var re = new RegExp(exports.variables_hash[variable].name, "g");
 		dst = dst.replace(re, exports.variables_hash[variable].value);
 	}

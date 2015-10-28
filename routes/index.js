@@ -5,7 +5,7 @@ var router  = express.Router();
 
 // запуск GUI
 router.get('/', function(req, res, next) {
-	res.render('index.html', {site: siate})
+	res.render('index.html', {})
 })
 
 // редирект по обработчикам событий от устройств
@@ -28,13 +28,20 @@ router.get('/:carrier_id/:device_id/:action/:parameter', function(req, res, next
 			logic.submit_event('Рапорт устройства', device.name + '/' + event_.name, req.params.parameter)
 
 		} else {
-			simple_log('Событие от устройства не обработано: не найдено событие устройства ' + device.name
+			mlog.simple('Событие от устройства не обработано: не найдено событие устройства ' + device.name
+					+ ' с code=' + req.params.action
+			)
+			mlog.dev('Событие от устройства не обработано: не найдено событие устройства ' + device.name
 					+ ' с code=' + req.params.action
 			)
 		}
 
 	} else {
-		simple_log('Событие от устройства не обработано: не найдено устройство' +
+		mlog.simple('Событие от устройства не обработано: не найдено устройство' +
+					+ ' с carrier_id=' + req.params.carrier_id
+					+ ' и device_id=' + req.params.device_id
+		)
+		mlog.dev('Событие от устройства не обработано: не найдено устройство' +
 					+ ' с carrier_id=' + req.params.carrier_id
 					+ ' и device_id=' + req.params.device_id
 		)

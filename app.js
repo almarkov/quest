@@ -4,10 +4,15 @@ var favicon      = require('serve-favicon')
 var logger       = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser   = require('body-parser')
-var http         = require('http')
-var fs           = require('fs')
-var util         = require('util')
 
+// вспомогат. ф-ции
+routines         = require("./routines.js")
+
+// логгинг
+mlog             = require("./mlog.js")
+mlog.reset()
+
+// глобальные константы из config.json
 globals          = require('./globals.js')
 globals.load()
 
@@ -19,6 +24,7 @@ var routes       = require('./routes/index')
 
 // управление статистикой
 var stats        = require('./routes/stats')
+// апи для статистики
 var api          = require('./routes/api')
 
 // управление квестом
@@ -28,32 +34,10 @@ var watchdog     = require('./routes/watchdog')
 
 var app          = express()
 
-// вспомогат. ф-ции
-routines         = require("./routines.js")
-
 // СУБД))
 mbd              = require("./mbd.js")
 
-// логгинг(в модуль)
-log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'debug.log', {flags : 'a'})
-var dev_log_file = fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'dev.log', {flags : 'a'})
-var log_stdout = process.stdout
-
-console.log = function(d) {
-	log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n')
-	log_stdout.write(util.format(d) + '\n')
-}
-
-simple_log = function(d) {
-	log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n')
-	log_stdout.write(util.format(d) + '\n')
-}
-
-dev_log = function(d) {
-	dev_log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n')
-}
-
-// конфигурация
+// конфигурация устройств
 config = require("./config.js")
 config.load()
 
@@ -61,25 +45,27 @@ config.load()
 logic = require("./logic.js")
 logic.load()
 
-// глобальные объекты на сервере, соответствующие устройствам
+// объекты на сервере, соответствующие устройствам
 devices = require("./devices.js")
 devices.reset()
 
-// новый таймеры
+// таймеры
 mtimers = require("./mtimers.js")
-// ф-ции для изменения фронта
+
+// интерфейс оператора
 face   = require("./face.js")
 face.reset()
+
 // ф-ции, сокращающие запросы
 helpers = require("./helpers.js")
-// реализация http get-запросов с помощью FIFO
+
+// реализация http get-запросов к устройствам с помощью FIFO
 queue = require("./queue.js")
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
 
-// uncomment after placing your favicon in /public
 app.use(favicon(__dirname + '/public/favicon.ico'))
 app.use(logger('dev'))
 
@@ -95,16 +81,21 @@ app.all('/*', function(req, res, next) {
 	next()
 })
 
+// index.html
 app.use('/', routes)
 
+// cтатистика
 app.use('/stats', stats)
 
+// игры
 var games = require('./routes/stats/games')
 stats.use('/games', games)
 
+// операторы
 var operators = require('./routes/stats/operators')
 stats.use('/operators', operators)
 
+// апи для статистики
 app.use('/api', api)
 
 var api_games = require('./routes/api/games')
@@ -113,10 +104,10 @@ api.use('/games', api_games)
 var api_operators = require('./routes/api/operators')
 api.use('/operators', api_operators)
 
+// модули, доступные через http ('API' квеста)
+// нужны для прямой передачи из интерфейса
 app.use('/game', game)
-
 app.use('/sendcom', sendcom)
-
 app.use('/watchdog', watchdog)
 
 
