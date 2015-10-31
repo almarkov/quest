@@ -49,7 +49,8 @@ exports.shift =  function(device) {
 // упрощённый get (обёртка над http.get)
 // выполняем запрос, после - сразу следующий из очереди
 exports.get = function(query, device) {
-
+	mlog.dev('Исходящий запрос')
+	mlog.dev(query)
 	var device = device
 	// простой get
 	var request = http.get(query.url, function(res) {
