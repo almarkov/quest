@@ -168,6 +168,12 @@ router.get('/emulate_command/:device/:command/:parameter', function(req, res, ne
 	mlog.simple('request from button: ' + device.name + ' ' + command + ' ' + parameter)
 	mlog.dev('request from button: ' + device.name + ' ' + command + ' ' + parameter)
 
+	var _command = device.commands[command];
+	if (_command) {
+		queue.push(device.name, command, parameter )
+		return
+	}
+
 	logic.submit_event('Рапорт устройства', '' + device.name + '/' + command, parameter)
 
 })
