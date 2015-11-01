@@ -28,7 +28,7 @@ exports.reset = function() {
 		exports.list[i] = routines.simple_copy_obj(config.list[i])
 		var device = exports.list[i]
 		exports.list_by_name[device.name] = device
-		exports.list_by_id_arduiono_id[device.carrier_id + '_' + device.id] = exports.device
+		exports.list_by_id_arduiono_id[device.carrier_id + '_' + device.id] = device
 	}
 
 	if (exports.intervalObject) {
