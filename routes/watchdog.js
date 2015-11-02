@@ -8,13 +8,13 @@ router.get('/', function(req, res, next) {
 	var device_ids = req.query.di
 	var status_ids = req.query.si
 	var carrier_id = req.query.carrier_id
-
+mlog.dev(req.query)
 	if (globals.get('enable_watchdog')) {
 
 		for(var i = 0; i < device_ids.length; i++) {
 
 			var device = devices.get_by_id(carrier_id, device_ids[i])
-
+mlog.dev(device)
 			if (device && device.wd_enabled) {
 
 				var state = routines.get_by_field(device.states, 'code', status_ids[i])
@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
 				device.state = state.name
 
 				device.wd_state = globals.get('watchdog_fail_ticks_count')
-
+mlog.dev(device)
 			}
 		}
 	}
