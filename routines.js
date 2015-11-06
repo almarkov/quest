@@ -26,11 +26,10 @@ exports.get_by_field = function(object, field, value) {
 // дата в формате 'yyyy-mm-dd'
 exports.ymd_date = function(date) {
 	var dt = date || new Date()
-  	dt = new Date(dt.getTime() + (dt.getTimezoneOffset() / 60) * -1)
+	dt = new Date(dt.getTime() + (dt.getTimezoneOffset() / 60) * -1)
 	return dt.getFullYear()
 		+ '-' + ('0' + (dt.getMonth() + 1)).slice(-2)
 		+ '-' + ('0' + dt.getDate()).slice(-2)
-
 }
 
 // дата в формате 'yyyy-mm-dd HH:MM:SS'

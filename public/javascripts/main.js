@@ -1,5 +1,3 @@
-var web_server_url   = "http://localhost:3000";
-
 var m, s;
 
 var prev_response = {};

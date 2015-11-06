@@ -5,7 +5,7 @@ var router  = express.Router();
 
 // запуск GUI
 router.get('/', function(req, res, next) {
-	res.render('index.html', {})
+	res.render('index', {web_server_url: globals.get('web_server_url') })
 })
 
 // редирект по обработчикам событий от устройств

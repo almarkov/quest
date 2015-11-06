@@ -1,5 +1,14 @@
-extends layout
+doctype html
+html
+	head
+		title= "Управление игрой"
+		link(href='/stylesheets/style.css', rel='stylesheet')
+		script(type='text/javascript', src='/javascripts/jquery.min.js')
+	body
+		a(href='/stats/')= "Статистика"
+		#Content
 
-block content
-  h1= title
-  p Welcome to #{title}
+	script(type='text/javascript').
+		web_server_url="#{web_server_url}";
+
+	script(type='text/javascript', src='/javascripts/main.js')

@@ -25,7 +25,6 @@ exports.reset = function(){
 }
 
 exports.simple = function(d) {
-	console.log('simple')
 	exports.log_file.write(routines.ymdhms_date() + "       " + util.format(d) + '\r\n')
 	exports.log_stdout.write(util.format(d) + '\n')
 }
