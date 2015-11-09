@@ -26,6 +26,7 @@ var routes       = require('./routes/index')
 var stats        = require('./routes/stats')
 // апи для статистики
 var api          = require('./routes/api')
+license          = require('./license.js')
 
 // управление квестом
 var game         = require('./routes/game')
@@ -143,5 +144,7 @@ app.use(function(err, req, res, next) {
 })
 
 // инициализируем квест
-logic.init()
+license.check()
+
+
 module.exports = app

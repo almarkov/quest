@@ -15,10 +15,10 @@ exports.reset = function(){
 	exports.dev_log_file =  fs.createWriteStream(__dirname + '/log/' + routines.ymd_date() + 'dev.log', {flags : 'a'})
 	exports.log_stdout = process.stdout
 
-	//удаляем старые файлы лога, если нужно
+	var retain_files_cnt = 5
 	var log_files = fs.readdirSync(dir).map(function(v) { return v.toString(); }).sort()
-	if (log_files.length > 5) {
-		for (var i = 0; i < log_files.length-5; i++) {
+	if (log_files.length > retain_files_cnt) {
+		for (var i = 0; i < log_files.length - retain_files_cnt; i++) {
 			fs.unlinkSync(dir + log_files[i])
 		}
 	}
