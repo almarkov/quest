@@ -13,9 +13,6 @@ exports.check = function(){
 		if (err)  throw err
 		var hash  = crypto.createHash('md5').update(macAddress).digest('hex')
 		var hash2 = crypto.createHash('md5').update(hash).digest('hex')
-		console.log(hash2)
-		console.log(key)
-		console.log(key == hash2)
 		if (key == hash2) {
 			logic.init();
 		} else {
