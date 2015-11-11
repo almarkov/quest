@@ -60,7 +60,7 @@ exports.get = function(query) {
 	mlog.dev('modbus query send')
 	mlog.dev(query)
 
-	exports.pyshell = new PythonShell('my_script.py')
+	exports.pyshell = new PythonShell('modbus.py')
 
 	exports.pyshell.send(query.url);
 
