@@ -9,7 +9,7 @@ exports.check = function(){
 	} catch (e) {
 		get_license();
 	}
-	var mac = getmac.getMac(function(err,macAddress){
+	getmac.getMac(function(err,macAddress){
 		if (err)  throw err
 		var hash  = crypto.createHash('md5').update(macAddress).digest('hex')
 		var hash2 = crypto.createHash('md5').update(hash).digest('hex')
@@ -23,7 +23,6 @@ exports.check = function(){
 }
 
 function get_license() {
-	var md5sum = crypto.createHash('md5');
 	getmac.getMac(function(err,macAddress){
 		if (err)  throw err
 		var hash = crypto.createHash('md5').update(macAddress).digest('hex')

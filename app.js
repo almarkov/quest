@@ -4,6 +4,8 @@ var favicon      = require('serve-favicon')
 var logger       = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser   = require('body-parser')
+var PythonShell  = require('python-shell')
+
 
 // вспомогат. ф-ции
 routines         = require("./routines.js")
@@ -62,6 +64,10 @@ helpers = require("./helpers.js")
 
 // реализация http get-запросов к устройствам с помощью FIFO
 queue = require("./queue.js")
+
+// реализация "modbus"-протокола общения с устройствами с помощью FIFO
+modbus_queue = require("./modbus_queue.js")
+//modbus_queue.reset()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -144,7 +150,14 @@ app.use(function(err, req, res, next) {
 })
 
 // инициализируем квест
-license.check()
+//license.check()
+
+
+modbus_queue.push('switch1_lock', 'on', '0');
+modbus_queue.push('switch1_lock', 'off', '0');
+
+ 
+// end the input stream and allow the process to exit 
 
 
 module.exports = app

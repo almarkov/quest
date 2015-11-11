@@ -16,6 +16,7 @@
     "morgan": "~1.5.3",
     "node-xlsx": "*",
     "request": "*",
-    "serve-favicon": "~2.2.1"
+    "serve-favicon": "~2.2.1",
+    "python-shell": "*"
   }
 }
