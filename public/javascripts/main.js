@@ -80,7 +80,17 @@ $(document).ready(function() {
 					if (item.type == 'text') {
 						$(".State #" + item.id).prop('disabled', item.disabled);
 					} else if (item.type == 'static') {
-						$("#" + item.id).text(item.value);
+						var val = item.value;
+						if (item.id == 'QuestTimer') {
+							var t = item.value.split('\/');
+							if (t.length == 2) {
+								var r = t[1]-t[0];
+								var m = ('0' + (r/60|0)).slice(-2);
+								var s = ('0' + (r-m*60)).slice(-2);
+								val = m + ':' + s;
+							}
+						}
+						$("#" + item.id).text(val);
 					} else if (item.type == 'select') {
 						$("#" + item.id).prop('disabled', item.disabled);
 					}
