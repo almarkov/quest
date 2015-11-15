@@ -1,0 +1,2 @@
+sudo apt-get install python-serial
+sudo npm install -g python-shell

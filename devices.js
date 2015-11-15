@@ -21,6 +21,20 @@ exports.build_query = function(device_name, command_name, parameter) {
 
 }
 
+exports.build_modbus_query = function(device_name, command_name, parameter) {
+
+	var device  = exports.get(device_name)
+	var command = device.commands[command_name]
+
+	return '' + device.carrier_id// carrier_id
+		+ device.id        // device_id
+		+ command.code     // command_id
+		+ parameter        // param1
+		+ '0'              // param2
+		+ '0'              // crc16
+		+ '0';
+}
+
 // сброс значений до конфига
 exports.reset = function() {
 	for (var i = 0; i < config.list.length; i++) {
