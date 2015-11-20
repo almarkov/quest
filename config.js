@@ -27,6 +27,8 @@ exports.load = function() {
 		'event_name',    //     "Название рапорта"
 		'event_title',   //     "Название рапорта в веб-интерфейсе"
 		'event_param',   //     "Параметр рапорта"
+		'event_src_st',  //     "Исходное состояние устройства для рапорта"
+		'event_dst_st',  //     "Конечное состояние устройства для рапорта"
 		'state_code',    // "ID состояния"
 		'state_name',    //     "Название состояния в коде"
 		'state_title',   //     "Название состояния в веб-интерфейсе"
@@ -119,6 +121,8 @@ exports.load = function() {
 					confirm:   globals.get('enable_buttons_confirm'),
 					parameter: item.event_param ? params[1] : undefined, 
 				}
+				last_item.events[item.event_name].event_src_st = item.event_src_st
+				last_item.events[item.event_name].event_dst_st = item.event_dst_st
 			}
 		}
 		if (typeof item.state_code !== 'undefined') {
