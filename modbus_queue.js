@@ -17,26 +17,19 @@ exports.reset = function() {
 
 // если очередь пуста, сразу выполняем
 // иначе помещаем в соотв. очередь
-exports.push = function(device_name, command, parameter) {
+exports.push = function(query_str) {
 
 	mlog.dev('modbus queue push')
-	mlog.dev(device_name)
-	mlog.dev(command)
-	mlog.dev(parameter)
-	console.log('modbus queue push')
-	console.log(device_name)
-	console.log(command)
-	console.log(parameter)
+	mlog.dev(query_str)
 
-	var device = devices.get(device_name)
-	var query = {}
-	query.url = devices.build_modbus_query(device_name, command, parameter)
+	console.log('modbus queue push')
+	console.log(query_str)
 
 	if (exports.free) {
 		exports.list.free = 0
-		exports.get(query, device)
+		exports.get(query)
 	} else {
-		exports.list.push(query)
+		exports.list.push(query_str)
 	}
 }
 
@@ -60,15 +53,15 @@ exports.get = function(query) {
 	mlog.dev('modbus query send')
 	mlog.dev(query)
 
-	exports.pyshell = new PythonShell('modbus.py')
+	exports.pyshell = new PythonShell('request.py', {mode: 'binary', pythonOptions: ['-u']})
 
-	exports.pyshell.send(query.url);
+	exports.pyshell.send(query);
 
-	exports.pyshell.on('message', function (message) {
+	exports.pyshell.stdout.on('data', function (data) {
 
 		mlog.dev('modbus response get')
-		mlog.dev(message)
-		console.log(message)
+		mlog.dev(data)
+		console.log(data)
 		
 	})
 

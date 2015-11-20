@@ -20,12 +20,13 @@ for line in sys.stdin:
 	GPIO.output(busy_pin, 1)
 	# send command to serial
 	command = [chr(ord(x)-ord('0')) for x in line[:-1]]
+
 	port.write(''.join(command))
 	# pin 4 -> 0
 	GPIO.output(busy_pin, 0)
 	# read response from serial
-	rcv = port.read(7)
-	# rcv = command
+	# rcv = port.read(7)
+	rcv = command
 	# send response to node
 	rcv = [chr(ord(x)+ord('0'))  for x in rcv]
 	print ''.join(rcv)

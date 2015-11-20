@@ -256,8 +256,8 @@ exports.execute_action = function(action) {
 			break;
 
 		case 'Команда устройству':
-			var args = action.url.split(" ");
-			queue.push(args[0], args[1], args[2]);
+			var args = action.url.split(" ")
+			var query = devices.build_and_exec_query(args[0], args[1], args[2])		
 			break;
 
 		case 'Переход на этап':

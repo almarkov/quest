@@ -151,13 +151,26 @@ app.use(function(err, req, res, next) {
 
 // инициализируем квест
 //license.check()
+//logic.init();
 
+var PythonShell  = require('python-shell')
+var pyshell      = new PythonShell('init_gpio.py', {mode: 'binary', pythonOptions: ['-u']})
 
-modbus_queue.push('switch1_lock', 'on', '0');
-modbus_queue.push('switch1_lock', 'off', '0');
+pyshell.end(function (err) {
+	if (err) throw err;
+	mlog.dev('init gpio ok')
+	console.log('init gpio ok')
+})
 
- 
-// end the input stream and allow the process to exit 
+// тестирование команд - в конфиге надо вместо ip поставить пустую строку, чтобы
+// было понятно, что это устройство общается через UART
+logic.execute_action({
+	type: 'Команда устройству',
+	args: 'switch1_lock on 0',
+})
 
+// тестирование watchdog
+var carrier_id = 1;
+modbus_queue.push(devices.build_modbus_state_query(carrier_id);
 
 module.exports = app
