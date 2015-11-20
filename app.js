@@ -43,6 +43,7 @@ mbd              = require("./mbd.js")
 // конфигурация устройств
 config = require("./config.js")
 config.load()
+console.log(config.list)
 
 // логика квеста
 logic = require("./logic.js")
