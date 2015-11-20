@@ -27,7 +27,7 @@ exports.push = function(query_str) {
 
 	if (exports.free) {
 		exports.list.free = 0
-		exports.get(query)
+		exports.get(query_str)
 	} else {
 		exports.list.push(query_str)
 	}

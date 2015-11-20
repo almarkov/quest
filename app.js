@@ -166,11 +166,11 @@ pyshell.end(function (err) {
 // было понятно, что это устройство общается через UART
 logic.execute_action({
 	type: 'Команда устройству',
-	args: 'switch1_lock on 0',
+	url: 'switch1_lock on 0',
 })
 
 // тестирование watchdog
 var carrier_id = 1;
-modbus_queue.push(devices.build_modbus_state_query(carrier_id);
+modbus_queue.push(devices.build_modbus_state_query(carrier_id));
 
 module.exports = app
