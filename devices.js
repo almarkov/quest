@@ -38,7 +38,10 @@ exports.build_query = function(device_name, command_name, parameter) {
 }
 
 exports.build_and_exec_query = function(device_name, command_name, parameter) {
-
+console.log('build_and_exec_query')
+console.log(device_name)
+console.log(command_name)
+console.log(parameter)
 	var device  = exports.get(device_name)
 	var command = device.commands[command_name]
 

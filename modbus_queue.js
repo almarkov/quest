@@ -61,7 +61,7 @@ exports.get = function(query) {
 
 		mlog.dev('modbus response get')
 		if (data[1] == 255) { // вочдог
-			
+			helpers.process_watchdog(data)	
 		}
 		mlog.dev(data)
 		console.log(data)

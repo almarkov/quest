@@ -1,6 +1,19 @@
 var http   = require('http')
 var fs     = require('fs')
 
+exports.process_watchdog = function(data) {
+	var carrier_id = '' + data[0]
+
+	var carrier = devices.get_by_carrier_id(carrier_id)
+
+	for (var  i = 0; i < carrier.devices.length; i++ ) {
+		var new_status = '' + data[2+i*2]
+		var new_value  = data[3+i*2] 		
+	}
+
+
+}
+
 // эмуляция wd -
 // сервер посылает watchdog от имени устройства самому себе
 exports.emulate_watchdog = function(device) {
