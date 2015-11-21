@@ -7,10 +7,32 @@ exports.process_watchdog = function(data) {
 	var carrier = devices.get_by_carrier_id(carrier_id)
 
 	for (var  i = 0; i < carrier.devices.length; i++ ) {
-		var new_status = '' + data[2+i*2]
-		var new_value  = data[3+i*2] 		
-	}
+		var device = carrier.devices[i]
 
+		var old_state = device.state
+		var old_value = device.value
+		
+		var state = routines.get_by_field(device.states, 'code', '' + data[2+i*2])
+		var new_state = state.name
+		var new_value  = data[3+i*2]
+
+		if (device.events) {
+			device.events.forEach(function(event_) {
+				if (
+					((event_.event_src_st == old_state) || (event_.event_src_st == '*'))
+					&& ((event_.event_dst_st == new_state) || (event_.event_dst_st == '*'))
+					) {
+
+					logic.submit_event('Рапорт устройства', '' + device.name + '/' + event_.name, new_value.toString())
+				}
+			});
+		}
+
+		device.state = new_state
+		device.value = new_value
+		device.wd_state = globals.get('watchdog_fail_ticks_count')
+
+	}
 
 }
 

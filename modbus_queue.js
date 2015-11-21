@@ -60,11 +60,12 @@ exports.get = function(query) {
 	exports.pyshell.stdout.on('data', function (data) {
 
 		mlog.dev('modbus response get')
+		mlog.dev(data)
+		console.log('modbus response get')
+		console.log(data)
 		if (data[1] == 255) { // вочдог
 			helpers.process_watchdog(data)	
 		}
-		mlog.dev(data)
-		console.log(data)
 		
 	})
 
