@@ -60,6 +60,9 @@ exports.get = function(query) {
 	exports.pyshell.stdout.on('data', function (data) {
 
 		mlog.dev('modbus response get')
+		if (data[1] == 255) { // вочдог
+			
+		}
 		mlog.dev(data)
 		console.log(data)
 		
