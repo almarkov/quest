@@ -125,8 +125,10 @@ router.get('/setinterval', function(req, res, next) {
 		devices.intervalObject = setInterval(function() {
 
 			for (var carrier_id in devices.list_by_carrier_id ) {
-				var query = devices.build_modbus_state_query(carrier_id);
-				modbus_queue.push(query);
+				if (!devices.list_by_carrier_id[carrier_id].ip) {
+					var query = devices.build_modbus_state_query(carrier_id);
+					modbus_queue.push(query);
+				}
 			}
 
 			devices.list.forEach(function (_device) {

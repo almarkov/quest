@@ -36,7 +36,7 @@ ul.DashBoard li {
 }
 
 .Device {
-	height: 66px;
+	height: 110px;
 	width: 320px;
 	border: 2px solid black;
 }
@@ -69,28 +69,60 @@ ul.DashBoard li {
 	position: absolute;
 	left: 2px;
 	width: 20px;
-	height: 66px;
+	height: 110px;
 }
 
-.Device div.State {
+.Device div.Title {
 	position: absolute;
 	left: 22px;
 	width: 300px;
-	height: 66px;
+	height: 22px;
+}
+.Device div.State {
+	position: relative;
+	top: 22px;
+	left: 22px;
+	width: 300px;
+	height: 22px;
+}
+.Device div.InputField {
+	position: relative;
+	top: 22px;
+	left: 22px;
+	width: 300px;
+	height: 22px;
 }
 .Device div.Commands {
 	position: relative;
+	top: 22px;
 	left: 22px;
 	width: 300px;
-	height: 66px;
+	height: 22px;
 }
 
 .Device div.Commands ul {
-	margin-top: 22px;
+	margin: 0px;
 	padding-left: 2px;
 }
 
 .Device div.Commands ul li{
+	display: inline-block;
+	margin-right: 10px;
+}
+.Device div.Events {
+	position: relative;
+	top: 22px;
+	left: 22px;
+	width: 300px;
+	height: 22px;
+}
+
+.Device div.Events ul {
+	margin: 0px;
+	padding-left: 2px;
+}
+
+.Device div.Events ul li{
 	display: inline-block;
 	margin-right: 10px;
 }

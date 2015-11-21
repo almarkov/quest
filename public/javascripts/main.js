@@ -215,6 +215,45 @@ function generate_device (device) {
 	var raw_html =    "<div class='Device'>"
 					+     "<div class='Status Online' onclick=''>"
 					+     "</div>"
+					+     "<div class='Title'>"
+					+         "<label for='inp_" + device.name + "' class='Label1'>" + device.title + "</label>"
+					+     "</div>"
+					+     "<div class='State'>"
+					+         "<input type='text' name='" + device.name + "_state' value='' id='inp_" + device.name + "_state' class='Input1' disabled/>"
+					+     "</div>"
+					+     "<div class='InputField'>";
+	if (device.has_value) {
+		raw_html +=           "<input type='text' name='" + device.name + "' value='' id='inp_" + device.name + "' class='Input2' />";
+	}
+	raw_html +=           "</div>"
+					+     "<div class='Commands'>"
+					+         "<ul class='" + device.name + "'>";
+
+	$.each(device.commands, function(command_name, item){
+		if (item.has_button) {
+			raw_html +=           "<li><a id='btn_cmd_" + device.name + "_" + command_name + "' class='BType_01'><span>" + item.title + "</span></a></li>";
+		}
+	});
+	raw_html +=               "</ul>"
+					+     "</div>"
+					+     "<div class='Events'>"
+					+         "<ul class='" + device.name + "'>";
+
+	$.each(device.events, function(event_name, item){
+		if (item.has_button) {
+			raw_html +=           "<li><a id='btn_evt_" + device.name + "_" + event_name + "' class='BType_01'><span>" + item.title + "</span></a></li>";
+		}
+	});
+	raw_html +=               "</ul>"
+					+     "</div>"
+					+ "</div>";
+	return raw_html;
+}
+
+function generate_device_ (device) {
+	var raw_html =    "<div class='Device'>"
+					+     "<div class='Status Online' onclick=''>"
+					+     "</div>"
 					+     "<div class='State'>"
 					+         "<label for='inp_" + device.name + "' class='Label1'>" + device.title + "</label>";
 	if (device.has_value) {
