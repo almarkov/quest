@@ -52,6 +52,8 @@ exports.get = function(query) {
 
 	mlog.dev('modbus query send')
 	mlog.dev(query)
+	console.log('modbus query send')
+	console.log(query)
 
 	exports.pyshell = new PythonShell('request.py', {mode: 'binary', pythonOptions: ['-u']})
 

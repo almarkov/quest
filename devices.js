@@ -108,7 +108,7 @@ exports.build_modbus_state_query = function(carrier_id) {
 	var length = exports.list_by_carrier_id[carrier_id].devices.length
 
 	return new Buffer([
-		4+ length,        // ожидаемая длина ответа
+		4+ length*2,        // ожидаемая длина ответа
 		0+ carrier_id, // carrier_id
 		255,           //
 		0,             // crc16
