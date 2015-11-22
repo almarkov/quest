@@ -3,12 +3,14 @@ var fs     = require('fs')
 
 exports.process_watchdog = function(data) {
 console.log('process_watchdog')
+console.log(data)
 	var carrier_id = '' + data[0]
 
 	var carrier = devices.get_by_carrier_id(carrier_id)
-
+console.log(carrier.devices.length)
 	for (var  i = 0; i < carrier.devices.length; i++ ) {
 		var device = carrier.devices[i]
+		console.log(i)
 console.log(device.name)
 console.log(device.states)
 console.log('' + data[2+i*2])
