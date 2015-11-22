@@ -119,7 +119,7 @@ exports.build_modbus_state_query = function(carrier_id) {
 
 // сброс значений до конфига
 exports.reset = function() {
-	exports.list_by_id_carrier_id = {}
+	exports.list_by_carrier_id = {}
 	for (var i = 0; i < config.list.length; i++) {
 		// копируем из config + создаём хэши для быстрого доступа
 		exports.list[i] = routines.simple_copy_obj(config.list[i])
