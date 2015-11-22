@@ -123,6 +123,8 @@ exports.reset = function() {
 		// копируем из config + создаём хэши для быстрого доступа
 		exports.list[i] = routines.simple_copy_obj(config.list[i])
 		var device = exports.list[i]
+		console.log(i)
+		console.log(device.name)
 		exports.list_by_name[device.name] = device
 		exports.list_by_id_carrier_id[device.carrier_id + '_' + device.id] = device
 		if (exports.list_by_carrier_id[device.carrier_id]) {
