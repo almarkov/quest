@@ -2,16 +2,19 @@ var http   = require('http')
 var fs     = require('fs')
 
 exports.process_watchdog = function(data) {
+console.log('process_watchdog')
 	var carrier_id = '' + data[0]
 
 	var carrier = devices.get_by_carrier_id(carrier_id)
 
 	for (var  i = 0; i < carrier.devices.length; i++ ) {
 		var device = carrier.devices[i]
-
+console.log(device.name)
+console.log(device.states)
+console.log('' + data[2+i*2])
 		var old_state = device.state
 		var old_value = device.value
-		
+
 		var state = routines.get_by_field(device.states, 'code', '' + data[2+i*2])
 		var new_state = state.name
 		var new_value  = data[3+i*2]
