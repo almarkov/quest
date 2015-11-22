@@ -14,7 +14,7 @@ def make_request(req):
 	out_gpio('0')
 	while(port.inWaiting() == 0):
 		time.sleep(0.5)
-	res = port.read(req[0])
+	res = port.read(ord(req[0]))
 	sys.stdout.write(res)
 
 
