@@ -12,7 +12,6 @@ console.log(carrier.devices.length)
 		var device = carrier.devices[i]
 		console.log(i)
 console.log(device.name)
-console.log(device.states)
 console.log('' + data[2+i*2])
 		var old_state = device.state
 		var old_value = device.value

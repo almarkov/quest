@@ -53,7 +53,7 @@ exports.load = function() {
 				carrier_id: item.carrier_id,
 				name:       item.name,
 				title:      item.title,
-				ip:         item.ip || 'localhost',
+				ip:         item.ip || '',
 				port:       item.port || 3000,
 				state:      'undef',
 				wd_state:   globals.get('watchdog_fail_ticks_count'),
