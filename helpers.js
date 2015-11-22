@@ -17,7 +17,8 @@ exports.process_watchdog = function(data) {
 		var new_value  = data[3+i*2]
 
 		if (device.events) {
-			device.events.forEach(function(event_) {
+			for (var name in device.events) {
+				var event_ = device.events[name]
 				if (
 					((event_.event_src_st == old_state) || (event_.event_src_st == '*'))
 					&& ((event_.event_dst_st == new_state) || (event_.event_dst_st == '*'))
@@ -25,7 +26,7 @@ exports.process_watchdog = function(data) {
 
 					logic.submit_event('Рапорт устройства', '' + device.name + '/' + event_.name, new_value.toString())
 				}
-			});
+			}
 		}
 
 		device.state = new_state
