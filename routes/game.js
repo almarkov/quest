@@ -128,7 +128,7 @@ router.get('/setinterval', function(req, res, next) {
 				console.log('send watchdog')
 				console.log(carrier_id)
 				console.log(devices.list_by_carrier_id[carrier_id].ip)
-				if (!devices.list_by_carrier_id[carrier_id].ip) {
+				if (devices.list_by_carrier_id[carrier_id].ip == 'localhost') {
 					var query = devices.build_modbus_state_query(carrier_id);
 					modbus_queue.push(query);
 				}
