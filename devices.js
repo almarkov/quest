@@ -104,18 +104,26 @@ exports.build_modbus_command_query = function(device_name, command_name, paramet
 	])
 }
 
-exports.build_modbus_state_query = function(carrier_id) {
+exports.build_modbus_state_query = function() {
+	var i = 0
+	var buffers = []
+	buffers.push(new Buffer([255, 0]))
 
-	var length = exports.list_by_carrier_id[carrier_id].devices.length
-
-	return new Buffer([
-		4+ length*2,        // ожидаемая длина ответа
-		0+ carrier_id, // carrier_id
-		255,           //
-		0,             // crc16
-		0              // crc16
-	])
-
+	for (var carrier_id in exports.list_by_carrier_id) {
+		if (!exports.list_by_carrier_id[carrier_id].ip) {
+			i += 1
+			var length = exports.list_by_carrier_id[carrier_id].devices.length
+			buffers.push(new Buffer([
+				4+ length*2,   // ожидаемая длина ответа
+				0+ carrier_id, // carrier_id
+				255,           //
+				0,             // crc16
+				0              // crc16
+			]))
+		}
+	}
+	buffers[0][1] = i;
+	return Buffer.concat(buffers, 2+i*5)
 }
 
 // сброс значений до конфига

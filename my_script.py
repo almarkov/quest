@@ -1,11 +1,17 @@
 import sys, json
 import array
+import time
 
 # for line in sys.stdin:
 # 	print len(line)
 # 	print ''.join([x for x in line[:-1]])
 st = sys.stdin.read()
-st = '\x32\x33'
+#st = '\x32\x33'
+sys.stdout.write(st)
+st = sys.stdin.read()
+sys.stdout.write(st)
+st = sys.stdin.read()
+time.sleep(3.9)
 sys.stdout.write(st)
 # for x in range(0, 5):
 # 	c=sys.stdin.read(1)

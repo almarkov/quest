@@ -4,39 +4,43 @@ var fs     = require('fs')
 exports.process_watchdog = function(data) {
 console.log('process_watchdog')
 console.log(data)
-	var carrier_id = '' + data[0]
 
-	var carrier = devices.get_by_carrier_id(carrier_id)
-console.log(carrier.devices.length)
-	for (var  i = 0; i < carrier.devices.length; i++ ) {
-		var device = carrier.devices[i]
-		console.log(i)
-console.log(device.name)
-console.log('' + data[2+i*2])
-		var old_state = device.state
-		var old_value = device.value
+	var carrier_id_index = 0
 
-		var state = routines.get_by_field(device.states, 'code', '' + data[2+i*2])
-		var new_state = state.name
-		var new_value  = data[3+i*2]
+	while (data[carrier_id_index] && carrier_id_index < data.length) {
 
-		if (device.events) {
-			for (var name in device.events) {
-				var event_ = device.events[name]
-				if (
-					((event_.event_src_st == old_state) || (event_.event_src_st == '*'))
-					&& ((event_.event_dst_st == new_state) || (event_.event_dst_st == '*'))
-					) {
+		var carrier_id = '' + data[carrier_id_index]
+		var carrier = devices.get_by_carrier_id(carrier_id)
+		var devices_length = carrier.devices.length
+		for (i = 0; i < devices_length; i++ ) {
+			var device = carrier.devices[i]
 
-					logic.submit_event('Рапорт устройства', '' + device.name + '/' + event_.name, new_value.toString())
+			var old_state = device.state
+			var old_value = device.value
+
+			var state = routines.get_by_field(device.states, 'code', '' + data[2+i*2])
+			var new_state = state.name
+			var new_value  = data[3+i*2]
+
+			if (device.events) {
+				for (var name in device.events) {
+					var event_ = device.events[name]
+					if (
+						((event_.event_src_st == old_state) || (event_.event_src_st == '*'))
+						&& ((event_.event_dst_st == new_state) || (event_.event_dst_st == '*'))
+						) {
+
+						logic.submit_event('Рапорт устройства', '' + device.name + '/' + event_.name, new_value.toString())
+					}
 				}
 			}
+
+			device.state = new_state
+			device.value = new_value
+			device.wd_state = globals.get('watchdog_fail_ticks_count')
 		}
 
-		device.state = new_state
-		device.value = new_value
-		device.wd_state = globals.get('watchdog_fail_ticks_count')
-
+		carrier_id_index += devices_length*2 + 4
 	}
 
 }

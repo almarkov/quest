@@ -124,14 +124,8 @@ router.get('/setinterval', function(req, res, next) {
 
 		devices.wd_interval_object = setInterval(function(){
 
-			for (var carrier_id in devices.list_by_carrier_id ) {
-				console.log('send watchdog')
-				console.log(carrier_id)
-				if (!devices.list_by_carrier_id[carrier_id].ip) {
-					var query = devices.build_modbus_state_query(carrier_id);
-					modbus_queue.push(query);
-				}
-			}
+			var query = devices.build_modbus_state_query();
+			modbus_queue.push(query);
 
 		}, globals.get('watchdog_send_timer'))
 

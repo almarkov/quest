@@ -42,6 +42,7 @@ exports.ymdhms_date = function(date) {
 		+ ' ' + ('0' + dt.getHours()).slice(-2)
 		+ ':' + ('0' + dt.getMinutes()).slice(-2)
 		+ ':' + ('0' + dt.getSeconds()).slice(-2)
+		+ '.' + ('00' + dt.getMilliseconds()).slice(-3)
 }
 
 // поверхностное объектов
