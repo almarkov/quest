@@ -7,6 +7,7 @@ exports.list_by_id_carrier_id = {}
 exports.list_by_carrier_id = {}
 
 exports.intervalObject = null
+exports.wd_interval_object = null
 
 exports.build_query = function(device_name, command_name, parameter) {
 
@@ -142,8 +143,11 @@ exports.reset = function() {
 	if (exports.intervalObject) {
 		clearInterval(exports.intervalObject)
 	}
+	if (exports.wd_interval_object) {
+		clearInterval(exports.wd_interval_object)
+	}
 	exports.intervalObject = null
-
+	exports.wd_interval_object = null
 }
 
 // устройство по имени

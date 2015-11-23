@@ -122,17 +122,20 @@ router.get('/setinterval', function(req, res, next) {
 
 	if (globals.get('enable_watchdog')) {
 
-		devices.intervalObject = setInterval(function() {
+		devices.wd_interval_object = setInterval(function(){
 
 			for (var carrier_id in devices.list_by_carrier_id ) {
 				console.log('send watchdog')
 				console.log(carrier_id)
-				console.log(devices.list_by_carrier_id[carrier_id].ip)
 				if (!devices.list_by_carrier_id[carrier_id].ip) {
 					var query = devices.build_modbus_state_query(carrier_id);
 					modbus_queue.push(query);
 				}
 			}
+
+		}, globals.get('watchdog_send_timer'))
+
+		devices.intervalObject = setInterval(function() {
 
 			devices.list.forEach(function (_device) {
 				if (_device.wd_enabled) {
