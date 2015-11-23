@@ -45,7 +45,7 @@ exports.shift =  function() {
 		var query = exports.list.shift()
 		exports.get(query)
 	} else {
-		exports.list.free = 1
+		exports.free = 1
 	}
 }
 
