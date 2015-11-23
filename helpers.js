@@ -73,6 +73,7 @@ exports.reset = function(){
 	face.reset()
  	devices.reset()
 	queue.reset()
+	modbus_queue.reset()
 
 	// стартуем снова
 	logic.submit_event('Внутреннее событие', 'start')
