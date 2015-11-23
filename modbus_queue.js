@@ -24,8 +24,9 @@ exports.push = function(query_str) {
 
 	console.log('modbus queue push')
 	console.log(query_str)
+	console.log(exports.free)
 
-	if (exports.free) {
+	if (exports.free == 1) {
 		exports.list.free = 0
 		exports.get(query_str)
 	} else {
