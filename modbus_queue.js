@@ -21,13 +21,14 @@ exports.push = function(query_str) {
 
 	mlog.dev('modbus queue push')
 	mlog.dev(query_str)
+	mlog.dev(exports.free)
 
 	console.log('modbus queue push')
 	console.log(query_str)
 	console.log(exports.free)
 
 	if (exports.free == 1) {
-		exports.list.free = 0
+		exports.free = 0
 		exports.get(query_str)
 	} else {
 		exports.list.push(query_str)
@@ -74,8 +75,8 @@ exports.get = function(query) {
 
 	exports.pyshell.end(function (err) {
 		if (err) throw err;
-		mlog.dev('modbus py ended')
-		console.log('modbus py ended')
+		mlog.dev('request.py ended')
+		console.log('request.py ended')
 		exports.shift()
 	})
 }
