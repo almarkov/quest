@@ -27,7 +27,7 @@ def make_request(req):
 	else:
 		out_gpio('1')
 		port.write(req[1:])
-		time.sleep(0.004)
+		time.sleep(0.006)
 		out_gpio('0')
 		f = 0
 		while(port.inWaiting() == 0 and f < 5):
