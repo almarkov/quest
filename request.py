@@ -16,7 +16,7 @@ def make_request(req):
 			time.sleep(0.004)
 			out_gpio('0')
 			f = 0
-			while(port.inWaiting() == 0 && f < 5):
+			while(port.inWaiting() == 0 and f < 5):
 				time.sleep(0.01)
 				f = f+1
 			res = port.read(ord(req[2+5*i]))
@@ -29,7 +29,7 @@ def make_request(req):
 		time.sleep(0.004)
 		out_gpio('0')
 		f = 0
-		while(port.inWaiting() == 0 && f < 5):
+		while(port.inWaiting() == 0 and f < 5):
 			time.sleep(0.01)
 			f = f+1
 		res = port.read(ord(req[0]))

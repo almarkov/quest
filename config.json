@@ -3,7 +3,7 @@
 	"watchdog_fail_ticks_count":   3,
 	"watchdog_check_timer":        1000,
 	"watchdog_send_timer":         1000,
-	"web_server_url":              "http://localhost:3000",
+	"web_server_url":              "http://192.168.1.39:3000",
 	"enable_buttons_confirm":      0,
 	"enable_watchdog":             1,
 	"com_port_num":                4,
