@@ -177,7 +177,7 @@ router.get('/emulate_command/:device/:command/:parameter', function(req, res, ne
 
 	var _command = device.commands[command];
 	if (_command) {
-		queue.push(device.name, command, parameter )
+		devices.build_and_exec_query(device.name, command, parameter )
 		return
 	}
 
