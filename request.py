@@ -10,6 +10,7 @@ def out_gpio(value):
 def make_request(req):
 	# watchdog
 	if ord(req[0]) == 255:
+		res = ''
 		for i in range(0,ord(req[1])):
 			out_gpio('1')
 			port.write(req[3+5*i:7+5*i])
@@ -19,8 +20,8 @@ def make_request(req):
 			while(port.inWaiting() == 0 and f < 5):
 				time.sleep(0.01)
 				f = f+1
-			res = port.read(ord(req[2+5*i]))
-			sys.stdout.write(res)
+			res += port.read(ord(req[2+5*i]))
+		sys.stdout.write(res)
 
 	# command
 	else:
