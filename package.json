@@ -15,8 +15,9 @@
     "jsonfile": "*",
     "morgan": "~1.5.3",
     "node-xlsx": "*",
+    "python-shell": "*",
     "request": "*",
     "serve-favicon": "~2.2.1",
-    "python-shell": "*"
+    "ws": "^0.8.0"
   }
 }
