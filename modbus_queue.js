@@ -34,6 +34,7 @@ exports.reset = function() {
 		if (data[1] == 255) { // вочдог
 			helpers.process_watchdog(data)	
 		}
+		exports.shift()
 	});
 
 	// exports.pyshell.stdout.on('data', function(data){
@@ -88,6 +89,8 @@ exports.get = function(query) {
 	mlog.dev(query)
 	console.log('modbus query send')
 	console.log(query)
+
+	exports.ws.send(query)
 
 	// http.get('http://127.0.0.1:8000/' + query.toString('ascii') , function(res) {
 	// 		res.on('data', function(data){
