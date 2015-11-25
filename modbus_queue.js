@@ -16,11 +16,11 @@ exports.reset = function() {
 	exports.free = 0
 
 	if (exports.pyshell) {
-		exports.pyshell.exit(1)
+		//exports.pyshell.exit(1)
 		exports.pyshell = undefined
 		exports.ws = undefined
 	}
-	exports.pyshell = child_process.spawn('python', ['-u', 'websocket_server.py']);
+	
 	exports.ws = new WebSocket('ws://localhost:8000');
 	//exports.pyshell.stdout.pipe(process.stdout,  { end: false });
 	exports.ws.on('open', function(data) {

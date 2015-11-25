@@ -162,6 +162,8 @@ pyshell.end(function (err) {
 	console.log('init gpio ok')
 })
 
+
+ws_pyshell = child_process.spawn('python', ['-u', 'websocket_server.py']);
 // тестирование команд - в конфиге надо вместо ip поставить пустую строку, чтобы
 // было понятно, что это устройство общается через UART
 // logic.execute_action({
