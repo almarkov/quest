@@ -1,9 +1,11 @@
 var http = require('http')
-var PythonShell  = require('python-shell')
+var child_process = require('child_process')
+var WebSocket = require('ws')
 
 exports.list = []
 exports.pyshell = undefined
 exports.free = 1
+exports.ws = undefined
 
 // строим очередь заново из config
 exports.reset = function() {
@@ -13,6 +15,36 @@ exports.reset = function() {
 	exports.list = []
 	exports.free = 1
 
+	if (exports.pyshell) {
+		exports.pyshell.exit(1)
+		exports.pyshell = undefined
+		exports.ws = undefined
+	}
+	exports.pyshell = child_process.spawn('python', ['-u', 'websocket_server.py']);
+	exports.ws = new WebSocket('ws://localhost:8000');
+	//exports.pyshell.stdout.pipe(process.stdout,  { end: false });
+
+	exports.ws.on('message', function(data, flags) {
+	  	// flags.binary will be set if a binary data is received.
+	  	// flags.masked will be set if the data was masked.
+		mlog.dev('modbus response get')
+		mlog.dev(data)
+		console.log('modbus response get')
+		console.log(data)
+		if (data[1] == 255) { // вочдог
+			helpers.process_watchdog(data)	
+		}
+	});
+
+	// exports.pyshell.stdout.on('data', function(data){
+	// 	mlog.dev('modbus response get')
+	// 	mlog.dev(data)
+	// 	console.log('modbus response get')
+	// 	console.log(data)
+	// 	if (data[1] == 255) { // вочдог
+	// 		helpers.process_watchdog(data)	
+	// 	}
+	// })
 }
 
 // если очередь пуста, сразу выполняем
@@ -57,15 +89,58 @@ exports.get = function(query) {
 	console.log('modbus query send')
 	console.log(query)
 
+	// http.get('http://127.0.0.1:8000/' + query.toString('ascii') , function(res) {
+	// 		res.on('data', function(data){
+	// 			console.log('modbus get data succ')
+	// 		})
+	// 		res.on('error', function(data){
+	// 			console.log('modbus get data err')
+	// 		})
+	// 	}).on('error', function(e) {
+	// 		console.log('modbus get err(maybeok)')
+	// })
+
+	// exports.pyshell = new PythonShell('request.py', {mode: 'binary', pythonOptions: ['-u']})
+
+	// exports.pyshell.send(query);
+
+	// exports.pyshell.stdout.on('data', function (data) {
+
+	// 	mlog.dev('modbus response get')
+	// 	mlog.dev(data)
+	// 	console.log('modbus response get')
+	// 	console.log(data)
+	// 	if (data[1] == 255) { // вочдог
+	// 		helpers.process_watchdog(data)	
+	// 	}
+		
+	// })
+
+	// exports.pyshell.end(function (err) {
+	// 	if (err) throw err;
+	// 	mlog.dev('request.py ended')
+	// 	console.log('request.py ended')
+	// 	exports.shift()
+	// })
+}
+
+// выполняем запрос, после - сразу следующий из очереди
+exports.wget = function(query) {
+
+	mlog.dev('modbus query wsend')
+	mlog.dev(query)
+	console.log('modbus query wsend')
+	console.log(query)
+
 	exports.pyshell = new PythonShell('request.py', {mode: 'binary', pythonOptions: ['-u']})
 
 	exports.pyshell.send(query);
 
 	exports.pyshell.stdout.on('data', function (data) {
 
-		mlog.dev('modbus response get')
+		mlog.dev('modbus response wget')
 		mlog.dev(data)
-		console.log('modbus response get')
+		console.log('modbus response wget')
 		console.log(data)
 		if (data[1] == 255) { // вочдог
 			helpers.process_watchdog(data)	
@@ -80,3 +155,4 @@ exports.get = function(query) {
 		exports.shift()
 	})
 }
+

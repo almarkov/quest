@@ -10,3 +10,4 @@ touch mbd/operators.meta.json
 touch mbd/games.json
 touch mbd/games.meta.json
 chmod 755 -R mbd
+pip install git+https://github.com/dpallot/simple-websocket-server.git
