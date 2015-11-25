@@ -13,7 +13,7 @@ exports.reset = function() {
 	mlog.dev('modbus queue reset')
 
 	exports.list = []
-	exports.free = 1
+	exports.free = 0
 
 	if (exports.pyshell) {
 		exports.pyshell.exit(1)
@@ -23,7 +23,9 @@ exports.reset = function() {
 	exports.pyshell = child_process.spawn('python', ['-u', 'websocket_server.py']);
 	exports.ws = new WebSocket('ws://localhost:8000');
 	//exports.pyshell.stdout.pipe(process.stdout,  { end: false });
-
+	exports.ws.on('open', function(data) {
+		exports.shift()
+	});
 	exports.ws.on('message', function(data, flags) {
 	  	// flags.binary will be set if a binary data is received.
 	  	// flags.masked will be set if the data was masked.
