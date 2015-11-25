@@ -47,5 +47,5 @@ class SimpleEcho(WebSocket):
 
 port = serial.Serial("/dev/ttyUSB0", baudrate=9600, timeout=0.1)
 
-server = SimpleWebSocketServer('', 8000, SimpleEcho)
+server = SimpleWebSocketServer('', 3030, SimpleEcho)
 server.serveforever()

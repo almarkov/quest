@@ -21,7 +21,7 @@ exports.reset = function() {
 		exports.ws = undefined
 	}
 	
-	exports.ws = new WebSocket('ws://localhost:8000');
+	exports.ws = new WebSocket('ws://localhost:3030');
 	//exports.pyshell.stdout.pipe(process.stdout,  { end: false });
 	exports.ws.on('open', function(data) {
 		exports.shift()
