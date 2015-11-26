@@ -26,12 +26,13 @@ def send_req(req, write_wait):
 def make_request(req):
 	res = ''
 	# watchdog
-	if ord(req[0]) == 255:
-		for i in range(0,ord(req[1])):
-			res += send_req(req[2+5*i:7+5*i], 0.004)
+	if req[0] == 255:
+		for i in range(0,req[1]):
+			res = res + "".join(send_req(map(chr, req[2+5*i:7+5*i]), 0.004))
 	# command
 	else:
-		res = send_req(req, 0.006)
+		res = res + "".join(send_req(map(chr, req), 0.006))
+	return res
 
 class SimpleEcho(WebSocket):
 

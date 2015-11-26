@@ -30,11 +30,12 @@ exports.reset = function() {
 	  	// flags.binary will be set if a binary data is received.
 	  	// flags.masked will be set if the data was masked.
 		mlog.dev('modbus response get')
+		mlog.dev(flags)
 		mlog.dev(data)
 		console.log('modbus response get')
-		console.log(data)
+		console.log(flags)
 		if (data[1] == 255) { // вочдог
-			helpers.process_watchdog(data)	
+			helpers.process_watchdog(data)
 		}
 		exports.shift()
 	});
