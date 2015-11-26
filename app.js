@@ -163,8 +163,12 @@ pyshell.end(function (err) {
 	console.log('init gpio ok')
 })
 
+// modbus_queue.reset();
+// modbus_queue.push(new Buffer([0xff, 0x03, 0x1c, 0x01, 0xff, 0x00, 0x00, 0x1c, 0x02, 0xff, 0x00, 0x00, 0x18, 0x03, 0xff, 0x00, 0x00]))
 
-ws_pyshell = child_process.spawn('python', ['-u', 'websocket_server.py']);
+
+//ws_pyshell = child_process.spawn('python', ['-u', 'websocket_server.py']);
+//ws_pyshell.stdout.pipe(process.stdout,  { end: false });
 // тестирование команд - в конфиге надо вместо ip поставить пустую строку, чтобы
 // было понятно, что это устройство общается через UART
 // logic.execute_action({
