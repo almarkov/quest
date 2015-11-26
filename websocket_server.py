@@ -36,8 +36,8 @@ def make_request(req):
 class SimpleEcho(WebSocket):
 
     def handleMessage(self):
-        res = make_request(self.data)
-        self.sendMessage(res)
+        #res = make_request(self.data)
+        self.sendMessage(self.data)
 
     def handleConnected(self):
     	pass

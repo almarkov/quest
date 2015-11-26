@@ -152,7 +152,7 @@ app.use(function(err, req, res, next) {
 
 // инициализируем квест
 //license.check()
-logic.init();
+//logic.init();
 
 var PythonShell  = require('python-shell')
 var pyshell      = new PythonShell('init_gpio.py', {mode: 'binary', pythonOptions: ['-u']})
@@ -175,5 +175,7 @@ ws_pyshell = child_process.spawn('python', ['-u', 'websocket_server.py']);
 // тестирование watchdog
 // var carrier_id = 1;
 // modbus_queue.push(devices.build_modbus_state_query(carrier_id));
+modbus_queue.reset();
+modbus_queue.push(new Buffer([0xff, 0x03, 0x1c, 0x01, 0xff, 0x00, 0x00, 0x1c, 0x02, 0xff, 0x00, 0x00, 0x18, 0x03, 0xff, 0x00, 0x00]));
 
 module.exports = app
