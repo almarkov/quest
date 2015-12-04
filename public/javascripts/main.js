@@ -57,7 +57,7 @@ $(document).ready(function() {
 
 					var element = $("[name=" + item.name + "_state]");
 					var element_status = element.parent().parent().find(".Status");
-					var status_class = item.wd_state == 0 ? 'Offline'
+					var status_class = item.state == 'undef' ? 'Offline'
 										: item.wd_emulate ? 'Emulating' : 'Online';
 
 					element_status.removeClass('Online Emulating Offline');
@@ -77,6 +77,9 @@ $(document).ready(function() {
 				});
 
 				// обновляем поля
+				//if (response.face.dashboard_fields.length > 0) {
+					console.log(response.face.dashboard_fields)
+				//}
 				$.each(response.face.dashboard_fields, function( name, item ) {
 
 					if (item.type == 'text') {
@@ -321,7 +324,7 @@ function set_handlers(data) {
 				crossDomain: true,
 				data: send_data,
 				dataType: "json",
-				success: success_cb_f,
+				success: success_cb_f(),
 				error:   error_cb_f,
 			});
 		});

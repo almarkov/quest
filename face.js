@@ -18,6 +18,7 @@ exports.reset = function () {
 			confirm:     0,
 			success_cb:  "function (response) {}",
 			error_cb:    "function(error) {}",
+			to_send:     1,
 		},
 
 		start_game: {
@@ -52,6 +53,7 @@ exports.reset = function () {
 						+"}",
 			success_cb:  "function (response) {}",
 			error_cb:    "function(error) {}",
+			to_send:     1,
 		},
 
 		service_mode: {
@@ -60,6 +62,7 @@ exports.reset = function () {
 			section:     'Service',
 			title:       'Включить режим обслуживания',
 			confirm:     1,
+			to_send:     1,
 		},
 
 		reset_game: {
@@ -68,8 +71,9 @@ exports.reset = function () {
 			section:     'Service',
 			title:       'Сбросить',
 			confirm:     1,
-			success_cb:  "function (response) {}",
+			success_cb:  "function (response) {alert('Reloading..');shown=0}",
 			error_cb:    "function(error) {}",
+			to_send:     1,
 		},
 
 		switch_stage: {
@@ -92,6 +96,7 @@ exports.reset = function () {
 						+    "};"
 						+"}",
 			confirm:     0,
+			to_send:     1,
 		},
 
 		players_start: {
@@ -102,6 +107,7 @@ exports.reset = function () {
 			confirm:     1,
 			success_cb:  "function (response) { }",
 			error_cb:    "function(error) { }",
+			to_send:     1,
 		},
 
 		chamber_overloaded: {
@@ -110,6 +116,7 @@ exports.reset = function () {
 			section:     'Quest',
 			title:       'Камера перегружена',
 			confirm:     1,
+			to_send:     1,
 		},
 
 		scan_last_group: {
@@ -118,6 +125,7 @@ exports.reset = function () {
 			section:     'Quest',
 			title:       'Сканировать последнюю группу людей',
 			confirm:     1,
+			to_send:     1,
 		},
 		scan_not_last_group: {
 			disabled:    1,
@@ -125,6 +133,7 @@ exports.reset = function () {
 			section:     'Quest',
 			title:       'Сканировать непоследнюю группу людей',
 			confirm:     1,
+			to_send:     1,
 		},
 
 		confirm_end_scan: {
@@ -133,6 +142,7 @@ exports.reset = function () {
 			section:     'Quest',
 			title:       "Подтвердить окончание сканирования",
 			confirm:     1,
+			to_send:     1,
 		},
 
 		
@@ -147,6 +157,7 @@ exports.reset = function () {
 			disabled: 0,
 			section:  'Service',
 			value:    '',
+			to_send:  1,
 		},
 		operator_id: {
 			name:     '_operator_id',
@@ -157,6 +168,7 @@ exports.reset = function () {
 			disabled: 0,
 			section:  'Service',
 			value:    '',
+			to_send:  1,
 		},
 		quest_state: {
 			type:     'static',
@@ -164,6 +176,7 @@ exports.reset = function () {
 			id:       'QuestState',
 			section:  'Service',
 			value:    'NA',
+			to_send:  1,
 		},
 		timer_state: {
 			type:     'static',
@@ -171,6 +184,7 @@ exports.reset = function () {
 			id:       'TimerState',
 			section:  'Service',
 			value:    'NA',
+			to_send:  1,
 		},
 		quest_timer: {
 			type:     'static',
@@ -178,6 +192,7 @@ exports.reset = function () {
 			id:       'QuestTimer',
 			section:  'Quest',
 			value:    'NA',
+			to_send:  1,
 		},
 		new_stage: {
 			name:     '_new_stage',
@@ -187,6 +202,7 @@ exports.reset = function () {
 			disabled: 0,
 			section:  'Quest',
 			value:    '',
+			to_send:  1,
 		},
 	};
 };
@@ -194,42 +210,49 @@ exports.reset = function () {
 exports.button_highlight_on = function(button){
 	if (exports.dashboard_buttons[button]) {
 		exports.dashboard_buttons[button].highlight = 1;
+		exports.dashboard_buttons[button].to_send += 1;
 	}
 };
 
 exports.button_highlight_off = function(button){
 	if (exports.dashboard_buttons[button]) {
 		exports.dashboard_buttons[button].highlight = 0;
+		exports.dashboard_buttons[button].to_send += 1;
 	}
 };
 
 exports.button_disable = function(button){
 	if (exports.dashboard_buttons[button]) {
 		exports.dashboard_buttons[button].disabled = 1;
+		exports.dashboard_buttons[button].to_send += 1;
 	}
 };
 
 exports.button_enable = function(button){
 	if (exports.dashboard_buttons[button]) {
 		exports.dashboard_buttons[button].disabled = 0;
+		exports.dashboard_buttons[button].to_send += 1;
 	}
 };
 
 exports.field_set_value = function(field, value){
 	if (exports.dashboard_fields[field]) {
 		exports.dashboard_fields[field].value = value;
+		exports.dashboard_fields[field].to_send += 1;
 	}
 }
 
 exports.field_disable = function(field){
 	if (exports.dashboard_fields[field]) {
 		exports.dashboard_fields[field].disabled = 1;
+		exports.dashboard_fields[field].to_send += 1;
 	}
 }
 
 exports.field_enable = function(field){
 	if (exports.dashboard_fields[field]) {
 		exports.dashboard_fields[field].disabled = 0;
+		exports.dashboard_fields[field].to_send += 1;
 	}
 }
 
