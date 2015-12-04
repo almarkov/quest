@@ -28,23 +28,23 @@ router.get('/:carrier_id/:device_id/:action/:parameter', function(req, res, next
 			logic.submit_event('Рапорт устройства', device.name + '/' + event_.name, req.params.parameter)
 
 		} else {
-			mlog.simple('Событие от устройства не обработано: не найдено событие устройства ' + device.name
-					+ ' с code=' + req.params.action
-			)
-			mlog.dev('Событие от устройства не обработано: не найдено событие устройства ' + device.name
-					+ ' с code=' + req.params.action
-			)
+			// mlog.simple('Событие от устройства не обработано: не найдено событие устройства ' + device.name
+			// 		+ ' с code=' + req.params.action
+			// )
+			// mlog.dev('Событие от устройства не обработано: не найдено событие устройства ' + device.name
+			// 		+ ' с code=' + req.params.action
+			// )
 		}
 
 	} else {
-		mlog.simple('Событие от устройства не обработано: не найдено устройство' +
-					+ ' с carrier_id=' + req.params.carrier_id
-					+ ' и device_id=' + req.params.device_id
-		)
-		mlog.dev('Событие от устройства не обработано: не найдено устройство' +
-					+ ' с carrier_id=' + req.params.carrier_id
-					+ ' и device_id=' + req.params.device_id
-		)
+		// mlog.simple('Событие от устройства не обработано: не найдено устройство' +
+		// 			+ ' с carrier_id=' + req.params.carrier_id
+		// 			+ ' и device_id=' + req.params.device_id
+		// )
+		// mlog.dev('Событие от устройства не обработано: не найдено устройство' +
+		// 			+ ' с carrier_id=' + req.params.carrier_id
+		// 			+ ' и device_id=' + req.params.device_id
+		// )
 	}
 
 })

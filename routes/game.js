@@ -213,8 +213,8 @@ router.get('/emulate_command/:device/:command/:parameter', function(req, res, ne
 	var command = req.params.command
 	var parameter = req.params.parameter
 
-	mlog.simple('request from button: ' + device.name + ' ' + command + ' ' + parameter)
-	mlog.dev('request from button: ' + device.name + ' ' + command + ' ' + parameter)
+	// mlog.simple('request from button: ' + device.name + ' ' + command + ' ' + parameter)
+	// mlog.dev('request from button: ' + device.name + ' ' + command + ' ' + parameter)
 
 	var _command = device.commands[command];
 	if (_command) {

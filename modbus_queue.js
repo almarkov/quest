@@ -10,7 +10,7 @@ exports.ws = undefined
 // строим очередь заново из config
 exports.reset = function() {
 
-	mlog.dev('modbus queue reset')
+	// mlog.dev('modbus queue reset')
 
 	exports.list = []
 	exports.free = 0
@@ -31,7 +31,6 @@ exports.reset = function() {
 	  	// flags.masked will be set if the data was masked.
 		mlog.dev('modbus response get')
 		mlog.dev(flags)
-		mlog.dev(data)
 		console.log('modbus response get')
 		console.log(flags)
 		if (data[1] == 255) { // вочдог
@@ -55,14 +54,14 @@ exports.reset = function() {
 // иначе помещаем в соотв. очередь
 exports.push = function(query_str) {
 
-	mlog.dev('modbus queue push')
-	mlog.dev(query_str)
-	mlog.dev(exports.free)
+	// mlog.dev('modbus queue push')
+	// mlog.dev(query_str)
+	// mlog.dev(exports.free)
 
-	console.log('modbus queue push')
-	console.log(query_str)
-	console.log(exports.free)
-	console.log(exports.list.length)
+	// console.log('modbus queue push')
+	// console.log(query_str)
+	// console.log(exports.free)
+	// console.log(exports.list.length)
 
 	if (exports.free == 1) {
 		exports.free = 0
@@ -76,7 +75,7 @@ exports.push = function(query_str) {
 // иначе - помечаем очередь пустой
 exports.shift =  function() {
 
-	mlog.dev('modbus queue shift')
+	// mlog.dev('modbus queue shift')
 
 	if (exports.list.length) {
 		var query = exports.list.shift()
@@ -130,36 +129,3 @@ exports.get = function(query) {
 	// 	exports.shift()
 	// })
 }
-
-// выполняем запрос, после - сразу следующий из очереди
-exports.wget = function(query) {
-
-	mlog.dev('modbus query wsend')
-	mlog.dev(query)
-	console.log('modbus query wsend')
-	console.log(query)
-
-	exports.pyshell = new PythonShell('request.py', {mode: 'binary', pythonOptions: ['-u']})
-
-	exports.pyshell.send(query);
-
-	exports.pyshell.stdout.on('data', function (data) {
-
-		mlog.dev('modbus response wget')
-		mlog.dev(data)
-		console.log('modbus response wget')
-		console.log(data)
-		if (data[1] == 255) { // вочдог
-			helpers.process_watchdog(data)	
-		}
-		
-	})
-
-	exports.pyshell.end(function (err) {
-		if (err) throw err;
-		mlog.dev('request.py ended')
-		console.log('request.py ended')
-		exports.shift()
-	})
-}
-
