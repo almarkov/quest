@@ -10,6 +10,8 @@ function build_query(device, item, parameter) {
 
 $(document).ready(function() {
 
+	shown = 0;
+
 	$.ajax({
 		url: web_server_url + '/game/all',
 		type: "GET",
@@ -33,12 +35,12 @@ $(document).ready(function() {
 	// проверяем состояние устройств
 	setInterval(function(){
 		$.ajax({
-		url: web_server_url + '/game/all',
+		url: web_server_url + (shown ? '/game/all_light' : '/game/all'),
 		type: "GET",
 		crossDomain: true,
 		dataType: "json",
 			success: function (response) {
-
+				shown = 1
 				$.each(response.devices, function(index, item){
 
 					var value = '';
@@ -106,7 +108,7 @@ $(document).ready(function() {
 			error: function(error) {
 			}
 		});
-	}, 1000);
+	}, web_ui_refresh_time);
 
 });
 

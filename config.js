@@ -56,12 +56,14 @@ exports.load = function() {
 				ip:         item.ip || '',
 				port:       item.port || 3000,
 				state:      'undef',
+				prev_state: 'undef',
 				wd_state:   globals.get('watchdog_fail_ticks_count'),
 				sv_port:    0,
 				position:   {
 					column: item.position,
 				},
 				value:      '',
+				prev_value: '',
 				commands:   {},
 				events:     {},
 				states:     {

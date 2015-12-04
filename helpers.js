@@ -37,6 +37,8 @@ console.log(data)
 
 			device.state = new_state
 			device.value = new_value
+			device.prev_state = old_state
+			device.prev_value = old_value
 			device.wd_state = globals.get('watchdog_fail_ticks_count')
 		}
 

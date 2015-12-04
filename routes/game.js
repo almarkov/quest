@@ -20,6 +20,29 @@ router.get('/all', function(req, res, next) {
 
 })
 
+// запрос состояния модели
+router.get('/all_light', function(req, res, next) {
+
+	// передача модели в GUI
+	var result = {}
+
+	result.devices = []
+
+	devices.list.forEach(function (_device) {
+		if (_device.prev_value != _device.value
+			|| _device.prev_state != _device.state) {
+			result.devices.push(_device);
+		}
+	});
+
+	// сделать адаптивно - отправлять только изменения
+	result.face = face.get()
+
+	res.json(result)
+
+})
+
+
 // --------------------------------------------------------------------
 // системные команды(как-то сконнектить с logic.js)
 // --------------------------------------------------------------------

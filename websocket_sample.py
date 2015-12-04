@@ -5,7 +5,7 @@ from SimpleWebSocketServer import *
 class SimpleEcho(WebSocket):
 
     def handleMessage(self):
-        res = self.data
+        res = '\x01\xFF\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         self.sendMessage(res)
 
     def handleConnected(self):
