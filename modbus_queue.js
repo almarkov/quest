@@ -29,10 +29,10 @@ exports.reset = function() {
 	exports.ws.on('message', function(data, flags) {
 	  	// flags.binary will be set if a binary data is received.
 	  	// flags.masked will be set if the data was masked.
-		mlog.dev('modbus response get')
-		mlog.dev(flags)
-		console.log('modbus response get')
-		console.log(flags)
+		// mlog.dev('modbus response get')
+		// mlog.dev(flags)
+		// console.log('modbus response get')
+		// console.log(flags)
 		if (data[1] == 255) { // вочдог
 			helpers.process_watchdog(data)
 		}
@@ -53,7 +53,7 @@ exports.reset = function() {
 // если очередь пуста, сразу выполняем
 // иначе помещаем в соотв. очередь
 exports.push = function(query_str) {
-
+	
 	// mlog.dev('modbus queue push')
 	// mlog.dev(query_str)
 	// mlog.dev(exports.free)
@@ -88,10 +88,10 @@ exports.shift =  function() {
 // выполняем запрос, после - сразу следующий из очереди
 exports.get = function(query) {
 
-	mlog.dev('modbus query send')
-	mlog.dev(query)
-	console.log('modbus query send')
-	console.log(query)
+	// mlog.dev('modbus query send')
+	// mlog.dev(query)
+	// console.log('modbus query send')
+	// console.log(query)
 
 	exports.ws.send(query)
 

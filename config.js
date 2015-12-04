@@ -4,7 +4,6 @@ var xlsx = require('node-xlsx')
 exports.list = []
 
 exports.load = function() {
-
 	var obj = xlsx.parse('config.xlsx')
 	var data = obj[0].data
 

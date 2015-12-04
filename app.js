@@ -8,12 +8,20 @@ var PythonShell  = require('python-shell')
 var child_process = require('child_process')
 
 
+
 // вспомогат. ф-ции
 routines         = require("./routines.js")
 
 // логгинг
 mlog             = require("./mlog.js")
 mlog.reset()
+
+//произв.
+benchmarks       = require("./benchmarks.js")
+setTimeout(function(){
+	mlog.dev(benchmarks.get)
+}, 1000*60*1)
+
 
 // глобальные константы из config.json
 globals          = require('./globals.js')
