@@ -5,7 +5,7 @@ var router        = express.Router()
 
 // включить
 router.get('/on/:name', function(req, res, next) {
-
+	benchmarks.add('sendcomjs_on')
 	send_com_exec(req.params.name, '1')
 
 	res.json(SUCCESS_RESULT)
@@ -14,7 +14,7 @@ router.get('/on/:name', function(req, res, next) {
 
 // выключить
 router.get('/off/:name', function(req, res, next) {
-
+	benchmarks.add('sendcomjs_off')
 	send_com_exec(req.params.name, '0')
 
 	res.json(SUCCESS_RESULT)
@@ -23,10 +23,11 @@ router.get('/off/:name', function(req, res, next) {
 
 // перезагрузить 
 router.get('/reload/:name', function(req, res, next) {
-
+	benchmarks.add('sendcomjs_reload')
 	send_com_exec(req.params.name, '0')
 
 	setTimeout(function () {
+			benchmarks.add('sendcomjs_reload_settimeout')
 			send_com_exec(req.params.name, '1')
 		}, 
 		globals.get('device_reload_time')
@@ -37,7 +38,7 @@ router.get('/reload/:name', function(req, res, next) {
 })
 
 function send_com_exec(name, command) {
-
+	benchmarks.add('sendcomjs_send_com_exec')
 	var num
 	if (name == 'all') {
 		num = 254

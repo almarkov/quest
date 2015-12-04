@@ -4,6 +4,7 @@ var xlsx = require('node-xlsx')
 exports.list = []
 
 exports.load = function() {
+	benchmarks.add('configjs_load')
 	var obj = xlsx.parse('config.xlsx')
 	var data = obj[0].data
 
@@ -56,7 +57,7 @@ exports.load = function() {
 				port:       item.port || 3000,
 				state:      'undef',
 				prev_state: 'undef',
-				wd_state:   globals.get('watchdog_fail_ticks_count'),
+				wd_state:   WATCHDOG_FAIL_TICKS_COUNT,
 				sv_port:    0,
 				position:   {
 					column: item.position,

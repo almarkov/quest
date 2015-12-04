@@ -4,7 +4,7 @@ var router  = express.Router()
 
 // обработка wd от устройства
 router.get('/', function(req, res, next) {
-
+	benchmarks.add('watchdog_')
 	var device_ids = req.query.di
 	var status_ids = req.query.si
 	var carrier_id = req.query.carrier_id
@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
 
 				device.state = state.name
 
-				device.wd_state = globals.get('watchdog_fail_ticks_count')
+				device.wd_state = WATCHDOG_FAIL_TICKS_COUNT
 
 			}
 		}

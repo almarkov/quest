@@ -78,7 +78,7 @@ $(document).ready(function() {
 
 				// обновляем поля
 				//if (response.face.dashboard_fields.length > 0) {
-					console.log(response.face.dashboard_fields)
+				//	console.log(response.face.dashboard_fields)
 				//}
 				$.each(response.face.dashboard_fields, function( name, item ) {
 

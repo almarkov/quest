@@ -7,7 +7,8 @@ var bodyParser   = require('body-parser')
 var PythonShell  = require('python-shell')
 var child_process = require('child_process')
 
-
+//произв.
+benchmarks       = require("./benchmarks.js")
 
 // вспомогат. ф-ции
 routines         = require("./routines.js")
@@ -16,12 +17,9 @@ routines         = require("./routines.js")
 mlog             = require("./mlog.js")
 mlog.reset()
 
-//произв.
-benchmarks       = require("./benchmarks.js")
 setTimeout(function(){
-	mlog.dev(benchmarks.get)
-}, 1000*60*1)
-
+	mlog.dev(benchmarks.get())
+}, 1000*60*10)
 
 // глобальные константы из config.json
 globals          = require('./globals.js')
@@ -29,6 +27,7 @@ globals.load()
 
 // константы(убрать)
 SUCCESS_RESULT = {success: 1}
+WATCHDOG_FAIL_TICKS_COUNT = globals.get('watchdog_fail_ticks_count')
 
 // разделы системы
 var routes       = require('./routes/index')
@@ -135,7 +134,8 @@ app.use(function(req, res, next) {
 })
 
 // error handlers
-
+console.log('NODE_ENV: '+ process.env.NODE_ENV);
+console.log('NODE_ENV: '+ app.get('env'));
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
@@ -166,7 +166,11 @@ var PythonShell  = require('python-shell')
 var pyshell      = new PythonShell('init_gpio.py', {mode: 'binary', pythonOptions: ['-u']})
 
 pyshell.end(function (err) {
-	if (err) throw err;
+	if (err) {
+		mlog.dev('init gpio error')
+		console.log('init gpio error')
+		return;
+	}
 	mlog.dev('init gpio ok')
 	console.log('init gpio ok')
 })

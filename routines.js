@@ -15,6 +15,7 @@
 // 		field2: value4,
 // 	}
 exports.get_by_field = function(object, field, value) {
+	benchmarks.add('routinesjs_get_by_field')
 	for (var item in object) {
 		if (object[item][field] == value) {
 			return object[item]
@@ -25,6 +26,7 @@ exports.get_by_field = function(object, field, value) {
 
 // дата в формате 'yyyy-mm-dd'
 exports.ymd_date = function(date) {
+	benchmarks.add('routinesjs_ymd_date')
 	var dt = date || new Date()
 	dt = new Date(dt.getTime() + (dt.getTimezoneOffset() / 60) * -1)
 	return dt.getFullYear()
@@ -34,6 +36,7 @@ exports.ymd_date = function(date) {
 
 // дата в формате 'yyyy-mm-dd HH:MM:SS'
 exports.ymdhms_date = function(date) {
+	benchmarks.add('routinesjs_ymdhms_date')
 	var dt = date || new Date()
 	dt = new Date(dt.getTime() + (dt.getTimezoneOffset() / 60) * -1)
 	return dt.getFullYear()
@@ -47,6 +50,7 @@ exports.ymdhms_date = function(date) {
 
 // поверхностное объектов
 exports.simple_copy_obj = function(obj) {
+	benchmarks.add('routinesjs_simple_copy_obj')
 	var new_obj = {}
 	for (var k in obj) {
 		new_obj[k] = obj[k]
@@ -56,6 +60,7 @@ exports.simple_copy_obj = function(obj) {
 
 // глубокое копирование
 exports.deep_copy_obj = function (obj) {
+	benchmarks.add('routinesjs_deep_copy_obj')
     if (typeof obj != "object") {
         return obj
     }

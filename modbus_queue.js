@@ -9,7 +9,7 @@ exports.ws = undefined
 
 // строим очередь заново из config
 exports.reset = function() {
-
+	benchmarks.add('modbusqueuejs_reset')
 	// mlog.dev('modbus queue reset')
 
 	exports.list = []
@@ -27,8 +27,7 @@ exports.reset = function() {
 		exports.shift()
 	});
 	exports.ws.on('message', function(data, flags) {
-	  	// flags.binary will be set if a binary data is received.
-	  	// flags.masked will be set if the data was masked.
+		benchmarks.add('modbusqueuejs_ws_message')
 		// mlog.dev('modbus response get')
 		// mlog.dev(flags)
 		// console.log('modbus response get')
@@ -53,7 +52,7 @@ exports.reset = function() {
 // если очередь пуста, сразу выполняем
 // иначе помещаем в соотв. очередь
 exports.push = function(query_str) {
-	
+	benchmarks.add('modbusqueuejs_push')
 	// mlog.dev('modbus queue push')
 	// mlog.dev(query_str)
 	// mlog.dev(exports.free)
@@ -74,7 +73,7 @@ exports.push = function(query_str) {
 // если очередь непуста, достаём запрос и выполняем
 // иначе - помечаем очередь пустой
 exports.shift =  function() {
-
+	benchmarks.add('modbusqueuejs_shift')
 	// mlog.dev('modbus queue shift')
 
 	if (exports.list.length) {
@@ -87,7 +86,7 @@ exports.shift =  function() {
 
 // выполняем запрос, после - сразу следующий из очереди
 exports.get = function(query) {
-
+	benchmarks.add('modbusqueuejs_get')
 	// mlog.dev('modbus query send')
 	// mlog.dev(query)
 	// console.log('modbus query send')

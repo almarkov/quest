@@ -8,6 +8,7 @@ exports.dashboard_fields = {
 
 
 exports.reset = function () {
+	benchmarks.add('facejs_reset')
 	exports.dashboard_buttons = {
 
 		get_ready: {
@@ -208,6 +209,7 @@ exports.reset = function () {
 };
 
 exports.button_highlight_on = function(button){
+	benchmarks.add('facejs_button_highlight_on')
 	if (exports.dashboard_buttons[button]) {
 		exports.dashboard_buttons[button].highlight = 1;
 		exports.dashboard_buttons[button].to_send += 1;
@@ -215,6 +217,7 @@ exports.button_highlight_on = function(button){
 };
 
 exports.button_highlight_off = function(button){
+	benchmarks.add('facejs_button_highlight_off')
 	if (exports.dashboard_buttons[button]) {
 		exports.dashboard_buttons[button].highlight = 0;
 		exports.dashboard_buttons[button].to_send += 1;
@@ -222,6 +225,7 @@ exports.button_highlight_off = function(button){
 };
 
 exports.button_disable = function(button){
+	benchmarks.add('facejs_button_disable')
 	if (exports.dashboard_buttons[button]) {
 		exports.dashboard_buttons[button].disabled = 1;
 		exports.dashboard_buttons[button].to_send += 1;
@@ -229,6 +233,7 @@ exports.button_disable = function(button){
 };
 
 exports.button_enable = function(button){
+	benchmarks.add('facejs_button_enable')
 	if (exports.dashboard_buttons[button]) {
 		exports.dashboard_buttons[button].disabled = 0;
 		exports.dashboard_buttons[button].to_send += 1;
@@ -236,6 +241,7 @@ exports.button_enable = function(button){
 };
 
 exports.field_set_value = function(field, value){
+	benchmarks.add('facejs_field_set_value')
 	if (exports.dashboard_fields[field]) {
 		exports.dashboard_fields[field].value = value;
 		exports.dashboard_fields[field].to_send += 1;
@@ -243,6 +249,7 @@ exports.field_set_value = function(field, value){
 }
 
 exports.field_disable = function(field){
+	benchmarks.add('facejs_field_disable')
 	if (exports.dashboard_fields[field]) {
 		exports.dashboard_fields[field].disabled = 1;
 		exports.dashboard_fields[field].to_send += 1;
@@ -250,6 +257,7 @@ exports.field_disable = function(field){
 }
 
 exports.field_enable = function(field){
+	benchmarks.add('facejs_field_enable')
 	if (exports.dashboard_fields[field]) {
 		exports.dashboard_fields[field].disabled = 0;
 		exports.dashboard_fields[field].to_send += 1;
@@ -257,6 +265,7 @@ exports.field_enable = function(field){
 }
 
 exports.get = function() {
+	benchmarks.add('facejs_get')
 	return {
 		dashboard_buttons: exports.dashboard_buttons,
 		dashboard_fields:  exports.dashboard_fields,

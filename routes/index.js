@@ -5,12 +5,13 @@ var router  = express.Router();
 
 // запуск GUI
 router.get('/', function(req, res, next) {
+	benchmarks.add('indexjs_')
 	res.render('index', {web_server_url: globals.get('web_server_url'), web_ui_refresh_time: globals.get('web_ui_refresh_time') })
 })
 
 // редирект по обработчикам событий от устройств
 router.get('/:carrier_id/:device_id/:action/:parameter', function(req, res, next) {
-
+	benchmarks.add('indexjs_withparams')
 	// если первый параметр - не число, то это не событие от устройства, передаём следующему обработчику
 	if (isNaN(parseInt(req.params.carrier_id))) {
 		next()
