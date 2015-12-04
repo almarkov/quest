@@ -24,6 +24,7 @@ router.get('/:carrier_id/:device_id/:action/:parameter', function(req, res, next
 	if (device) {
 
 		var event_ = routines.get_by_field(device.events, 'code', req.params.action)
+		var event_ = device.events_code_hash[req.params.action]
 		if (event_) {
 
 			logic.submit_event('Рапорт устройства', device.name + '/' + event_.name, req.params.parameter)

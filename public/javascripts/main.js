@@ -111,7 +111,7 @@ $(document).ready(function() {
 			error: function(error) {
 			}
 		});
-	}, web_ui_refresh_time);
+	}, parseInt(web_ui_refresh_time));
 
 });
 

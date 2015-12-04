@@ -9,6 +9,10 @@ exports.list_by_carrier_id = {}
 exports.intervalObject = null
 exports.wd_interval_object = null
 
+
+// переменные, которые можно сгенерить сразу после сброса
+exports.modbus_state_query = undefined
+
 exports.build_query = function(device_name, command_name, parameter) {
 	benchmarks.add('devicesjs_build_query')
 	var device  = exports.get(device_name)
@@ -136,6 +140,7 @@ exports.reset = function() {
 		// копируем из config + создаём хэши для быстрого доступа
 		exports.list[i] = routines.simple_copy_obj(config.list[i])
 		var device = exports.list[i]
+
 		exports.list_by_name[device.name] = device
 		exports.list_by_id_carrier_id[device.carrier_id + '_' + device.id] = device
 		if (exports.list_by_carrier_id[device.carrier_id]) {
@@ -157,6 +162,8 @@ exports.reset = function() {
 	}
 	exports.intervalObject = null
 	exports.wd_interval_object = null
+
+	exports.modbus_state_query = exports.build_modbus_state_query();
 }
 
 // устройство по имени

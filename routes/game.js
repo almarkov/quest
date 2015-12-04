@@ -171,7 +171,7 @@ router.get('/setinterval', function(req, res, next) {
 
 		devices.wd_interval_object = setInterval(function(){
 			benchmarks.add('gamejs_devices_on_setinterval_1')
-			var query = devices.build_modbus_state_query();
+			var query = devices.modbus_state_query;
 			modbus_queue.push(query);
 
 		}, globals.get('watchdog_send_timer'))

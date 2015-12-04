@@ -18,6 +18,7 @@ router.get('/', function(req, res, next) {
 			if (device && device.wd_enabled) {
 
 				var state = routines.get_by_field(device.states, 'code', status_ids[i])
+				var state = device.states_code_hash[status_ids[i]]
 
 				device.state = state.name
 

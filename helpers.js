@@ -8,7 +8,6 @@ exports.process_watchdog = function(data) {
 	// mlog.dev('process_watchdog')
 	// mlog.dev(data)
 
-
 	var carrier_id_index = 0
 
 	while (data[carrier_id_index] && carrier_id_index < data.length) {
@@ -22,7 +21,7 @@ exports.process_watchdog = function(data) {
 			var old_state = device.state
 			var old_value = device.value
 
-			var state = routines.get_by_field(device.states, 'code', '' + data[2+i*2])
+			var state = device.states_code_hash['' + data[2+i*2]];
 			var new_state = state.name
 			var new_value  = data[3+i*2]
 
