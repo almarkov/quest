@@ -4,7 +4,7 @@ var xlsx = require('node-xlsx')
 exports.list = []
 
 exports.load = function() {
-
+	benchmarks.add('configjs_load')
 	var obj = xlsx.parse('config.xlsx')
 	var data = obj[0].data
 
@@ -56,14 +56,18 @@ exports.load = function() {
 				ip:         item.ip || '',
 				port:       item.port || 3000,
 				state:      'undef',
-				wd_state:   globals.get('watchdog_fail_ticks_count'),
+				prev_state: 'undef',
+				wd_state:   WATCHDOG_FAIL_TICKS_COUNT,
 				sv_port:    0,
 				position:   {
 					column: item.position,
 				},
 				value:      '',
+				prev_value: '',
 				commands:   {},
+				commands_code_hash: {},
 				events:     {},
+				events_code_hash: {},
 				states:     {
 					undef: {
 						code:  -1,
@@ -71,6 +75,7 @@ exports.load = function() {
 						title: 'не определён'
 					},
 				},
+				states_code_hash: {},
 				has_value:  item.has_value && item.has_value == 1 ? 1 : 0,
 			}
 			switch (item.wd){
@@ -133,4 +138,21 @@ exports.load = function() {
 			}
 		}
 	}
+
+	// создаём хэши для каждого устройства
+	// для быстрого доступа к событиям, командам и состояниям
+	exports.list.forEach(function(device){
+		for(var event_name in device.events) {
+			var event_ = device.events[event_name];
+			device.events_code_hash[event_.code] = event_;
+		}
+		for(var command_name in device.commands) {
+			var command = device.commands[command_name];
+			device.commands_code_hash[command.code] = command;
+		}
+		for(var state_name in device.states) {
+			var state = device.states[state_name];
+			device.states_code_hash[state.code] = state;
+		}
+	})
 }

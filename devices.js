@@ -9,8 +9,12 @@ exports.list_by_carrier_id = {}
 exports.intervalObject = null
 exports.wd_interval_object = null
 
-exports.build_query = function(device_name, command_name, parameter) {
 
+// переменные, которые можно сгенерить сразу после сброса
+exports.modbus_state_query = undefined
+
+exports.build_query = function(device_name, command_name, parameter) {
+	benchmarks.add('devicesjs_build_query')
 	var device  = exports.get(device_name)
 	var command = device.commands[command_name]
 
@@ -39,10 +43,11 @@ exports.build_query = function(device_name, command_name, parameter) {
 }
 
 exports.build_and_exec_query = function(device_name, command_name, parameter) {
-console.log('build_and_exec_query')
-console.log(device_name)
-console.log(command_name)
-console.log(parameter)
+	benchmarks.add('devicesjs_build_and_exec_query')
+// console.log('build_and_exec_query')
+// console.log(device_name)
+// console.log(command_name)
+// console.log(parameter)
 	var device  = exports.get(device_name)
 	var command = device.commands[command_name]
 
@@ -75,7 +80,7 @@ console.log(parameter)
 }
 
 exports.build_modbus_query = function(device_name, command_name, parameter) {
-
+	benchmarks.add('devicesjs_build_modbus_query')
 	var device  = exports.get(device_name)
 	var command = device.commands[command_name]
 
@@ -89,7 +94,7 @@ exports.build_modbus_query = function(device_name, command_name, parameter) {
 }
 
 exports.build_modbus_command_query = function(device_name, command_name, parameter) {
-
+	benchmarks.add('devicesjs_build_modbus_command_query')
 	var device  = exports.get(device_name)
 	var command = device.commands[command_name]
 
@@ -105,6 +110,7 @@ exports.build_modbus_command_query = function(device_name, command_name, paramet
 }
 
 exports.build_modbus_state_query = function() {
+	benchmarks.add('devicesjs_build_modbus_state_query')
 	var i = 0
 	var buffers = []
 	buffers.push(new Buffer([255, 0]))
@@ -128,13 +134,13 @@ exports.build_modbus_state_query = function() {
 
 // сброс значений до конфига
 exports.reset = function() {
+	benchmarks.add('devicesjs_reset')
 	exports.list_by_carrier_id = {}
 	for (var i = 0; i < config.list.length; i++) {
 		// копируем из config + создаём хэши для быстрого доступа
 		exports.list[i] = routines.simple_copy_obj(config.list[i])
 		var device = exports.list[i]
-		console.log(i)
-		console.log(device.name)
+
 		exports.list_by_name[device.name] = device
 		exports.list_by_id_carrier_id[device.carrier_id + '_' + device.id] = device
 		if (exports.list_by_carrier_id[device.carrier_id]) {
@@ -156,19 +162,24 @@ exports.reset = function() {
 	}
 	exports.intervalObject = null
 	exports.wd_interval_object = null
+
+	exports.modbus_state_query = exports.build_modbus_state_query();
 }
 
 // устройство по имени
 exports.get = function(name) {
+	benchmarks.add('devicesjs_get')
 	return exports.list_by_name[name];
 }
 
 // устройство по id + carrier_id
 exports.get_by_id = function(carrier_id, id) {
+	benchmarks.add('devicesjs_get_by_id')
 	return exports.list_by_id_carrier_id[carrier_id + '_' + id];
 }
 
 // устройства по carrier_id
 exports.get_by_carrier_id = function(carrier_id) {
+	benchmarks.add('devicesjs_get_by_carrier_id')
 	return exports.list_by_carrier_id[carrier_id];
 }
