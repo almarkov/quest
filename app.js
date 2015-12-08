@@ -7,7 +7,7 @@ var bodyParser   = require('body-parser')
 var PythonShell  = require('python-shell')
 var child_process = require('child_process')
 
-//произв.
+// тесты производительности
 benchmarks       = require("./benchmarks.js")
 
 // вспомогат. ф-ции
@@ -17,16 +17,12 @@ routines         = require("./routines.js")
 mlog             = require("./mlog.js")
 mlog.reset()
 
-setTimeout(function(){
-	mlog.dev(benchmarks.get())
-}, 1000*60*10)
-
 // глобальные константы из config.json
 globals          = require('./globals.js')
 globals.load()
 
-// константы(убрать)
-SUCCESS_RESULT = {success: 1}
+// константы
+SUCCESS_RESULT            = {success: 1}
 WATCHDOG_FAIL_TICKS_COUNT = globals.get('watchdog_fail_ticks_count')
 
 // разделы системы
@@ -125,7 +121,6 @@ app.use('/game', game)
 app.use('/sendcom', sendcom)
 app.use('/watchdog', watchdog)
 
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
 	var err = new Error('Not Found')
@@ -162,34 +157,15 @@ app.use(function(err, req, res, next) {
 //license.check()
 logic.init();
 
+// инициализация gpio
 var PythonShell  = require('python-shell')
 var pyshell      = new PythonShell('init_gpio.py', {mode: 'binary', pythonOptions: ['-u']})
-
 pyshell.end(function (err) {
 	if (err) {
 		mlog.dev('init gpio error')
-		console.log('init gpio error')
 		return;
 	}
 	mlog.dev('init gpio ok')
-	console.log('init gpio ok')
 })
-
-// modbus_queue.reset();
-// modbus_queue.push(new Buffer([0xff, 0x03, 0x1c, 0x01, 0xff, 0x00, 0x00, 0x1c, 0x02, 0xff, 0x00, 0x00, 0x18, 0x03, 0xff, 0x00, 0x00]))
-
-
-//ws_pyshell = child_process.spawn('python', ['-u', 'websocket_server.py']);
-//ws_pyshell.stdout.pipe(process.stdout,  { end: false });
-// тестирование команд - в конфиге надо вместо ip поставить пустую строку, чтобы
-// было понятно, что это устройство общается через UART
-// logic.execute_action({
-// 	type: 'Команда устройству',
-// 	url: 'switch1_lock on 0',
-// })
-
-// тестирование watchdog
-// var carrier_id = 1;
-// modbus_queue.push(devices.build_modbus_state_query(carrier_id));
 
 module.exports = app

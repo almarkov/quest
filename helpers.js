@@ -3,10 +3,6 @@ var fs     = require('fs')
 
 exports.process_watchdog = function(data) {
 	benchmarks.add('helpersjs_process_watchdog')
-	// console.log('process_watchdog')
-	// console.log(data)
-	// mlog.dev('process_watchdog')
-	// mlog.dev(data)
 
 	var carrier_id_index = 0
 

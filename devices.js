@@ -44,10 +44,7 @@ exports.build_query = function(device_name, command_name, parameter) {
 
 exports.build_and_exec_query = function(device_name, command_name, parameter) {
 	benchmarks.add('devicesjs_build_and_exec_query')
-// console.log('build_and_exec_query')
-// console.log(device_name)
-// console.log(command_name)
-// console.log(parameter)
+
 	var device  = exports.get(device_name)
 	var command = device.commands[command_name]
 
@@ -74,7 +71,7 @@ exports.build_and_exec_query = function(device_name, command_name, parameter) {
 			0                     // crc16
 		]);
 
-		modbus_queue.push(buf)
+		modbus_queue.unshift(buf)
 
 	}
 }
