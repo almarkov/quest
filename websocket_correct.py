@@ -33,21 +33,21 @@ def make_request(req):
 	# command
 	else:
 		uu = "".join(map(chr, req))
-		yy = send_req(map(chr, req), 0.006)
+		yy = send_req(uu, 0.006)
 		res = res + "".join(yy)
 	return res
 
 class SimpleEcho(WebSocket):
 
-    def handleMessage(self):
-        res = make_request(self.data)
-        self.sendMessage(res)
+	def handleMessage(self):
+		res = make_request(self.data)
+		self.sendMessage(res)
 
-    def handleConnected(self):
-    	pass
+	def handleConnected(self):
+		pass
 
-    def handleClose(self):
-    	pass
+	def handleClose(self):
+		pass
 
 print 'starting...'
 server = SimpleWebSocketServer('', 3030, SimpleEcho)
