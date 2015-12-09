@@ -41,7 +41,7 @@ exports.load = function() {
 		var item  = {}
 		var last_item
 		for (var j = 0; j < fields.length; j++) {
-			if (fields[j].match(/name/) && line[j] ) {
+			if (fields[j].match(/name|event_src_st|event_dst_st/) && line[j] ) {
 				item[fields[j]] = line[j].replace(' ', '_').toLowerCase()
 			} else {
 				item[fields[j]] = line[j]
