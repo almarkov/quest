@@ -5,7 +5,7 @@
 node app.js
 ```
 
-# Обновление raspberry raspbian
+# Обновление raspberry raspbian  
 ```bash
 sudo apt-get upgrade
 sudo apt-get update
@@ -34,10 +34,10 @@ sudo cp -R * /usr/local/
 That's it! To check Node.js is properly install and you have the right version, run the command node -v
 
 
-# script autorun
-Auto running a script
-Create the script
-Create a folder to store the script in
+# script autorun  
+Auto running a script  
+Create the script  
+Create a folder to store the script in  
 
 ```bash
 mkdir ./bin
@@ -56,37 +56,38 @@ echo "Doing autorun script..."
 sudo /home/pi/projects/my_project.a &
 ```
  
-Replace "sudo /home/pi/projects/my_project.a &" with the commands you want carried out.  The "&" means do the command in the background.
+Replace "sudo /home/pi/projects/my_project.a &" with the commands you want carried out.  
+The "&" means do the command in the background.  
 
-Note that when executing a command without logging is as a user you can't depend on any path or environment variables so you must provide full paths to everything.
+Note that when executing a command without logging is as a user you can't depend on any path or environment variables so you must provide full paths to everything.  
 
-Save it by pressing Ctrl+X, " Y", ENTER
+Save it by pressing Ctrl+X, " Y", ENTER  
 
-This script needs to be made executable by typing this :
+This script needs to be made executable by typing this:  
 
 ```bash
 sudo chmod 755 script_auto_run
 ```
 
-You can test the script works by typing
+You can test the script works by typing  
 ```bash
 /home/pi/bin/script_auto_run
 ```
-Setting it to be run
-To launch the script at start-up edit the “rc.local” file needs to be edited.
+Setting it to be run  
+To launch the script at start-up edit the “rc.local” file needs to be edited.  
 ```bash
 sudo nano /etc/rc.local
 ```
-Add the following line:
+Add the following line:  
 
 ```bash
 /home/pi/bin/script_auto_run
 ```
-Save it by pressing Ctrl+X, " Y", ENTER
+Save it by pressing Ctrl+X, " Y", ENTER  
 
-Re-boot your RPi and it will run.
+Re-boot your RPi and it will run.  
 
-# omxplayer install
+# omxplayer install  
 ```bash
 sudo apt-get update
 sudo apt-get -y install omxplayer
@@ -154,16 +155,16 @@ And add a # at the beginning of the line to comment it out
 \#1:2345:respawn:/sbin/getty 115200 tty1
 Step 3: Add login program to inittab.
 Add the following line just below the commented line1:2345:respawn:/bin/login -f pi tty1 </dev/tty1 >/dev/tty1 2>&1
-This will run the login program with pi user and without any authentication
-Step 4: Save and Exit.
-Press Ctrl+X to exit nano editor followed by Y to save the file and then press Enter to confirm the filename.
-Reboot the pi and it will boot straight on to the shell prompt pi@raspberrypi without prompting you to enter username or password. But this isn't enough; you need your Pi to automatically run some command or a script. which is explained in the next section.
-Run a Script after login
-How to automatically run a script after login.
-Step 1: Open a terminal session and edit the file /etc/profile
-sudo nano /etc/profile
-Step 2: Add the following line to the end of the file
-. /home/pi/your_script_name.sh
-replace the script name and path with correct name and path of your start-up script.
-Step 3: Save and Exit
-Press Ctrl+X to exit nano editor followed by Y to save the file.
+This will run the login program with pi user and without any authentication  
+Step 4: Save and Exit.  
+Press Ctrl+X to exit nano editor followed by Y to save the file and then press Enter to confirm the filename.  
+Reboot the pi and it will boot straight on to the shell prompt pi@raspberrypi without prompting you to enter username or password. But this isn't enough; you need your Pi to automatically run some command or a script. which is explained in the next section.  
+Run a Script after login  
+How to automatically run a script after login.  
+Step 1: Open a terminal session and edit the file /etc/profile  
+sudo nano /etc/profile  
+Step 2: Add the following line to the end of the file  
+. /home/pi/your_script_name.sh  
+replace the script name and path with correct name and path of your start-up script.  
+Step 3: Save and Exit  
+Press Ctrl+X to exit nano editor followed by Y to save the file.  
