@@ -1,0 +1,3 @@
+#!/bin/sh
+ cd /sys/devices
+ echo 18 > export
