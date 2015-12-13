@@ -57,16 +57,26 @@ exports.push = function(query_str) {
 	// mlog.dev(query_str)
 	// mlog.dev(exports.free)
 
-	// console.log('modbus queue push')
+	console.log('modbus queue push')
 	// console.log(query_str)
 	// console.log(exports.free)
-	// console.log(exports.list.length)
+	console.log(exports.list.length)
 
 	if (exports.free == 1) {
 		exports.free = 0
 		exports.get(query_str)
 	} else {
 		exports.list.push(query_str)
+	}
+}
+
+exports.unshift = function(query_str) {
+	console.log('modbus_queue_unshift')
+	if (exports.free == 1) {
+		exports.free = 0
+		exports.get(query_str) 
+	} else {
+		exports.list.unshift(query_str)
 	}
 }
 

@@ -5,8 +5,8 @@ exports.process_watchdog = function(data) {
 	benchmarks.add('helpersjs_process_watchdog')
 	// console.log('process_watchdog')
 	// console.log(data)
-	// mlog.dev('process_watchdog')
-	// mlog.dev(data)
+	//mlog.dev('process_watchdog')
+	//mlog.dev(data)
 
 	var carrier_id_index = 0
 
@@ -16,18 +16,31 @@ exports.process_watchdog = function(data) {
 		var carrier = devices.get_by_carrier_id(carrier_id)
 		var devices_length = carrier.devices.length
 		for (i = 0; i < devices_length; i++ ) {
+			
 			var device = carrier.devices[i]
-
+			//mlog.dev(device)
 			var old_state = device.state
 			var old_value = device.value
 
 			var state = device.states_code_hash['' + data[2+i*2]];
 			var new_state = state.name
 			var new_value  = data[3+i*2]
-
+			//if (device.name == 'pinball_lock_button'){
+//mlog.dev('pblb')
+			//mlog.dev(new_state)
+			//mlog.dev(new_value)
+			//mlog.dev(old_state)
+			//mlog.dev(old_value)
+			//if ((new_state == 'pushed' && old_state == 'not_pushed')
+			//|| (new_state == 'not_pushed' && old_state == 'pushed')) {
+			//	mlog.dev('aaaaaaaaaaaa')
+			//	mlog.dev(device);
+			//}
+			//}
 			if (device.events) {
 				for (var name in device.events) {
 					var event_ = device.events[name]
+					//mlog.dev(event_)
 					if (
 						((event_.event_src_st == old_state) || (event_.event_src_st == '*'))
 						&& ((event_.event_dst_st == new_state) || (event_.event_dst_st == '*'))

@@ -17,7 +17,7 @@ def send_req(req, write_wait):
 	out_gpio('0')
 	f = 0
 	while(port.inWaiting() == 0 and f < 5):
-		time.sleep(0.01)
+		time.sleep(0.004)
 		f = f+1
 	res = port.read(ord(req[0]))
 	return res
@@ -33,7 +33,7 @@ def make_request(req):
 	# command
 	else:
 		uu = "".join(map(chr, req))
-		yy = send_req(map(chr, req), 0.006)
+		yy = send_req(uu, 0.006)
 		res = res + "".join(yy)
 	return res
 

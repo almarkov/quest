@@ -74,7 +74,7 @@ exports.build_and_exec_query = function(device_name, command_name, parameter) {
 			0                     // crc16
 		]);
 
-		modbus_queue.push(buf)
+		modbus_queue.unshift(buf)
 
 	}
 }

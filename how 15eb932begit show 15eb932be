@@ -1,0 +1,42 @@
+commit f835557c2d77317a0360b2d3e9ca3d901ef56b60
+Author: termik <djuriev@gmail.com>
+Date:   Thu Nov 26 12:37:10 2015 +0000
+
+    ddd
+
+diff --git a/app.js b/app.js
+index 2651638..2edd400 100755
+--- a/app.js
++++ b/app.js
+@@ -152,7 +152,7 @@ app.use(function(err, req, res, next) {
+ 
+ // инициализируем квест
+ //license.check()
+-logic.init();
++//logic.init();
+ 
+ var PythonShell  = require('python-shell')
+ var pyshell      = new PythonShell('init_gpio.py', {mode: 'binary', pythonOptions: ['-u']})
+@@ -175,5 +175,7 @@ ws_pyshell = child_process.spawn('python', ['-u', 'websocket_server.py']);
+ // тестирование watchdog
+ // var carrier_id = 1;
+ // modbus_queue.push(devices.build_modbus_state_query(carrier_id));
++modbus_queue.reset();
++modbus_queue.push(new Buffer([0xff, 0x03, 0x1c, 0x01, 0xff, 0x00, 0x00, 0x1c, 0x02, 0xff, 0x00, 0x00, 0x18, 0x03, 0xff, 0x00, 0x00]));
+ 
+ module.exports = app
+diff --git a/websocket_server.py b/websocket_server.py
+index 5407f63..ac39cab 100644
+--- a/websocket_server.py
++++ b/websocket_server.py
+@@ -36,8 +36,8 @@ def make_request(req):
+ class SimpleEcho(WebSocket):
+ 
+     def handleMessage(self):
+-        res = make_request(self.data)
+-        self.sendMessage(res)
++        #res = make_request(self.data)
++        self.sendMessage(self.data)
+ 
+     def handleConnected(self):
+     	pass
