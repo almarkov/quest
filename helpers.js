@@ -25,9 +25,9 @@ exports.process_watchdog = function(data) {
 				var old_state = device.state
 				var old_value = device.value
 
-				var state = device.states_code_hash['' + data[2+i*2]];
+				var state = device.states_code_hash['' + data[2 + carrier_id_index + i*2]];
 				var new_state = state.name
-				var new_value  = data[3+i*2]
+				var new_value  = data[3 + carrier_id_index +i*2]
 
 				if (device.events) {
 					for (var name in device.events) {
