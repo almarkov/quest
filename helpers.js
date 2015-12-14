@@ -10,10 +10,11 @@ exports.process_watchdog = function(data) {
 
 	var carrier_id_index = 0
 
-	while (carrier_id_index < data.length && data[carrier_id_index]) {
+	while ((carrier_id_index < data.length) && data[carrier_id_index]) {
 
 		var carrier_id = '' + data[carrier_id_index]
 		mlog.dev('carrier_id')
+		mlog.dev(carrier_id_index)
 		mlog.dev(carrier_id)
 		if (carrier_id) {
 			var carrier = devices.get_by_carrier_id(carrier_id)
@@ -53,6 +54,8 @@ exports.process_watchdog = function(data) {
 		}
 
 		carrier_id_index += devices_length*2 + 4
+		mlog.dev(data.length)
+		mlog.dev(carrier_id_index)
 	}
 
 }
