@@ -10,7 +10,7 @@ exports.process_watchdog = function(data) {
 
 	var carrier_id_index = 0
 
-	while (data[carrier_id_index] && carrier_id_index < data.length) {
+	while (carrier_id_index < data.length && data[carrier_id_index]) {
 
 		var carrier_id = '' + data[carrier_id_index]
 		mlog.dev('carrier_id')
