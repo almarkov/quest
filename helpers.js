@@ -22,7 +22,10 @@ exports.process_watchdog = function(data) {
 			for (i = 0; i < devices_length; i++ ) {
 				
 				var device = carrier.devices[i]
-				//mlog.dev(device)
+				console.log(device.name)
+				console.log(device.states_code_hash)
+				console.log(2 + carrier_id_index + i*2])
+				console.log(data[2 + carrier_id_index + i*2])
 				var old_state = device.state
 				var old_value = device.value
 
