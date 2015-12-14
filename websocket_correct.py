@@ -28,13 +28,11 @@ def make_request(req):
 	# watchdog
 	if req[0] == 255:
 		for i in range(0,req[1]):
-			uu = "".join(map(chr, req[2+5*i:7+5*i]))
-			yy = send_req(uu, 0.004)
+			yy = send_req(bytes(req[2+5*i:7+5*i]), 0.004)
 			res = res + "".join(yy)
 	# command
 	else:
-		uu = "".join(map(chr, req))
-		yy = send_req(uu, 0.006)
+		yy = send_req(bytes(req), 0.006)
 		res = res + "".join(yy)
 	return res
 
