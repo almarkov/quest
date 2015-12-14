@@ -41,7 +41,7 @@ router.get('/all_light', function(req, res, next) {
 			state:_device.state,
 			value:_device.value,
 			name: _device.name,
-			title: _device.states[_device.state].title,
+			states: _device.states,
 			wd_emulate: wd_emulate
 		})
 	});
