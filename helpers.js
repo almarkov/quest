@@ -13,52 +13,46 @@ exports.process_watchdog = function(data) {
 	while ((carrier_id_index < data.length) && data[carrier_id_index]) {
 
 		var carrier_id = '' + data[carrier_id_index]
-		mlog.dev('carrier_id')
-		mlog.dev(carrier_id_index)
-		mlog.dev(carrier_id)
 		if (carrier_id) {
 			var carrier = devices.get_by_carrier_id(carrier_id)
-			var devices_length = carrier.devices.length
-			for (i = 0; i < devices_length; i++ ) {
-				
-				var device = carrier.devices[i]
-				console.log(device.name)
-				console.log(device.states_code_hash)
-				console.log(2 + carrier_id_index + i*2)
-				console.log(data[2 + carrier_id_index + i*2])
-				var old_state = device.state
-				var old_value = device.value
+			if (carrier) {
+				var devices_length = carrier.devices.length
+				for (i = 0; i < devices_length; i++ ) {
+					
+					var device = carrier.devices[i]
+					var old_state = device.state
+					var old_value = device.value
 
-				var state = device.states_code_hash['' + data[2 + carrier_id_index + i*2]];
-				var new_state = state.name
-				var new_value  = data[3 + carrier_id_index +i*2]
+					var state = device.states_code_hash['' + data[2 + carrier_id_index + i*2]];
+					if (state) {
+						var new_state = state.name
+						var new_value  = data[3 + carrier_id_index + i*2]
 
-				if (device.events) {
-					for (var name in device.events) {
-						var event_ = device.events[name]
-						//mlog.dev(event_)
-						if (
-							((event_.event_src_st == old_state) || (event_.event_src_st == '*'))
-							&& ((event_.event_dst_st == new_state) || (event_.event_dst_st == '*'))
-							) {
+						if (device.events) {
+							for (var name in device.events) {
+								var event_ = device.events[name]
+								if (
+									((event_.event_src_st == old_state) || (event_.event_src_st == '*'))
+									&& ((event_.event_dst_st == new_state) || (event_.event_dst_st == '*'))
+									) {
 
-							logic.submit_event('Рапорт устройства', '' + device.name + '/' + event_.name, new_value.toString())
+									logic.submit_event('Рапорт устройства', '' + device.name + '/' + event_.name, new_value.toString())
+								}
+							}
 						}
+
+						device.state = new_state
+						device.value = new_value
+						device.prev_state = old_state
+						device.prev_value = old_value
+						device.wd_state = WATCHDOG_FAIL_TICKS_COUNT
 					}
 				}
-
-				device.state = new_state
-				device.value = new_value
-				device.prev_state = old_state
-				device.prev_value = old_value
-				device.wd_state = WATCHDOG_FAIL_TICKS_COUNT
 			}
 		} else {
 		}
 
 		carrier_id_index += devices_length*2 + 4
-		mlog.dev(data.length)
-		mlog.dev(carrier_id_index)
 	}
 
 }
