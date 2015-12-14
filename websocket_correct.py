@@ -3,7 +3,7 @@ import sys
 import time
 from SimpleWebSocketServer import *
 
-port = serial.Serial("/dev/ttyUSB0", baudrate=9600, timeout=0.03)
+port = serial.Serial("/dev/ttyUSB0", baudrate=9600, timeout=0.1)
 
 def out_gpio(value):
 	f_val = open('/sys/class/gpio/gpio18/value', 'w')
@@ -17,8 +17,9 @@ def send_req(req, write_wait):
 	out_gpio('0')
 	f = 0
 	while(port.inWaiting() == 0 and f < 5):
-		time.sleep(0.004)
+		time.sleep(0.002)
 		f = f+1
+	time.sleep(0.040)
 	res = port.read(ord(req[0]))
 	return res
 
