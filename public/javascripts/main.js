@@ -43,15 +43,16 @@ $(document).ready(function() {
 				shown = 1
 				$.each(response.devices, function(index, item){
 
-					var value = '';
-					if (item.state) {
-						value = item.states[item.state].title;
-					} else {
-						value = '';
-					}
-					if (item.value) {
-						value += item.value;
-					}
+					// var value = '';
+					// if (item.state) {
+					// 	value = item.states[item.state].title;
+					// } else {
+					// 	value = '';
+					// }
+					// if (item.value) {
+					// 	value += item.value;
+					// }
+					var value = '' + item.title + item.value;
 
 					$('#inp_' + item.name + '_state').val(value);
 

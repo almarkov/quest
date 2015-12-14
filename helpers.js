@@ -43,8 +43,8 @@ exports.process_watchdog = function(data) {
 
 						device.state = new_state
 						device.value = new_value
-						device.prev_state = old_state
-						device.prev_value = old_value
+						// device.prev_state = old_state
+						// device.prev_value = old_value
 						device.wd_state = WATCHDOG_FAIL_TICKS_COUNT
 					}
 				}
