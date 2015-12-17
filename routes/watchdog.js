@@ -17,10 +17,13 @@ router.get('/', function(req, res, next) {
 
 			if (device && device.wd_enabled) {
 
-				var state = routines.get_by_field(device.states, 'code', status_ids[i])
+				var old_state = device.state;
+
+				//var state = routines.get_by_field(device.states, 'code', status_ids[i])
 				var state = device.states_code_hash[status_ids[i]]
 
 				device.state = state.name
+				device.prev_state = old_state;
 
 				device.wd_state = WATCHDOG_FAIL_TICKS_COUNT
 
