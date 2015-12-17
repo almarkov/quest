@@ -150,9 +150,11 @@ router.get('/start_game', function(req, res, next) {
 
 	face.field_disable('gamers_count')
 	face.field_disable('operator_id')
+	face.field_disable('language')
 
 	logic.set_variable('gamers_count', parseInt(req.query.gamers_count))
 	logic.set_variable('operator_id',  req.query.operator_id)
+	logic.set_variable('language',  req.query.language)
 	logic.set_variable('dt_start',     new Date())
 
 	logic.submit_event('Нажата кнопка', 'Начать игру')

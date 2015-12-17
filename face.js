@@ -44,11 +44,17 @@ exports.reset = function () {
 						+        "alert ('Выберите оператора');"
 						+        "return { ok: 0};"
 						+    "};"
+						+    "var language = $('#inpLanguage').val();"
+						+    "if (!language || language == '-1') {"
+						+        "alert ('Выберите язык медиафайлов');"
+						+        "return { ok: 0};"
+						+    "};"
 						+    "return {"
 						+        "ok: 1,"
 						+        "params: {"
 						+            "gamers_count: gamers_count,"
-						+            "operator_id: operator_id,"
+						+            "operator_id:  operator_id,"
+						+            "language:     language,"
 						+        "}"
 						+    "};"
 						+"}",
@@ -163,9 +169,27 @@ exports.reset = function () {
 		operator_id: {
 			name:     '_operator_id',
 			type:     'select',
+			source_type: 'db',
 			source:   'operators',
 			label:    'Оператор',
 			id:       'inpOperatorId',
+			select_text: 'Выберите оператора',
+			disabled: 0,
+			section:  'Service',
+			value:    '',
+			to_send:  1,
+		},
+		language: {
+			name:     '_language',
+			type:     'select',
+			source_type: 'raw',
+			source:   [
+				{_id:'english', name: 'Английский'},
+				{_id:'spanish', name: 'Испанский'}
+			],
+			label:    'Язык медиафайлов',
+			id:       'inpLanguage',
+			select_text: 'Выберите язык',
 			disabled: 0,
 			section:  'Service',
 			value:    '',
