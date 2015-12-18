@@ -17,10 +17,6 @@ routines         = require("./routines.js")
 mlog             = require("./mlog.js")
 mlog.reset()
 
-setTimeout(function(){
-	mlog.dev(benchmarks.get())
-}, 1000*60*10)
-
 // глобальные константы из config.json
 globals          = require('./globals.js')
 globals.load()
