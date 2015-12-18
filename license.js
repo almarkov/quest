@@ -3,7 +3,7 @@ var fs     = require('fs')
 var crypto = require('crypto');
 
 exports.check = function(){
-	benchmarks.add('licensejs_check')
+	//benchmarks.add('licensejs_check')
 	var key;
 	try {
 		key = fs.readFileSync('license', 'utf8')
@@ -24,7 +24,7 @@ exports.check = function(){
 }
 
 function get_license() {
-	benchmarks.add('licensejs_get_license')
+	//benchmarks.add('licensejs_get_license')
 	getmac.getMac(function(err,macAddress){
 		if (err)  throw err
 		var hash = crypto.createHash('md5').update(macAddress).digest('hex')

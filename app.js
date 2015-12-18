@@ -69,6 +69,9 @@ helpers = require("./helpers.js")
 // реализация http get-запросов к устройствам с помощью FIFO
 queue = require("./queue.js")
 
+// gpio
+gpio = require("./gpio.js")
+
 // реализация "modbus"-протокола общения с устройствами с помощью FIFO
 modbus_queue = require("./modbus_queue.js")
 //modbus_queue.reset()
@@ -129,8 +132,8 @@ app.use(function(req, res, next) {
 })
 
 // error handlers
-console.log('NODE_ENV: '+ process.env.NODE_ENV);
-console.log('NODE_ENV: '+ app.get('env'));
+console.log('NODE_ENV: '+ process.env.NODE_ENV)
+console.log('NODE_ENV: '+ app.get('env'))
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
@@ -142,7 +145,6 @@ if (app.get('env') === 'development') {
 		})
 	})
 }
-
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
@@ -153,19 +155,11 @@ app.use(function(err, req, res, next) {
 	})
 })
 
-// инициализируем квест
-//license.check()
-logic.init();
+// инициализируем gpio
+// !!добавить выполнение скрипта, который создаёт gpio18, если нужно
+gpio.init()
 
-// инициализация gpio
-var PythonShell  = require('python-shell')
-var pyshell      = new PythonShell('init_gpio.py', {mode: 'binary', pythonOptions: ['-u']})
-pyshell.end(function (err) {
-	if (err) {
-		mlog.dev('init gpio error')
-		return;
-	}
-	mlog.dev('init gpio ok')
-})
+// инициализация логики квеста
+logic.init()
 
 module.exports = app

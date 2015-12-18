@@ -1,7 +1,7 @@
 exports.timers_hash = {};
 
 exports.start = function(name, timeout, callback) {
-	benchmarks.add('mtimersjs_start')
+	//benchmarks.add('mtimersjs_start')
 	var timer = {
 		timeout: timeout,
 		name:    name,
@@ -11,7 +11,7 @@ exports.start = function(name, timeout, callback) {
 	};
 	exports.timers_hash[name] = timer;
 	timer._intervalObject = setInterval(function() {
-		benchmarks.add('mtimersjs_start_setinterval')
+		//benchmarks.add('mtimersjs_start_setinterval')
 		timer.value += 1;
 
 		face.field_set_value(name, timer.value + '/' + timer.timeout);
@@ -25,7 +25,7 @@ exports.start = function(name, timeout, callback) {
 }
 
 exports.stop = function(name, variable) {
-	benchmarks.add('mtimersjs_stop')
+	//benchmarks.add('mtimersjs_stop')
 	var timer = exports.timers_hash[name];
 	clearInterval(timer._intervalObject);
 	logic.set_variable(variable, timer.value);
@@ -33,7 +33,7 @@ exports.stop = function(name, variable) {
 }
 
 exports.reset = function() {
-	benchmarks.add('mtimersjs_reset')
+	//benchmarks.add('mtimersjs_reset')
 	for (var timer in exports.timers_hash) {
 		clearInterval(exports.timers_hash[timer]._intervalObject);
 	}

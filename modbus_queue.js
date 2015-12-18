@@ -8,7 +8,7 @@ exports.ws = undefined
 
 // строим очередь заново из config
 exports.reset = function() {
-	benchmarks.add('modbusqueuejs_reset')
+	//benchmarks.add('modbusqueuejs_reset')
 
 	exports.list = []
 	exports.free = 0
@@ -25,7 +25,7 @@ exports.reset = function() {
 	})
 
 	exports.ws.on('message', function(data, flags) {
-		benchmarks.add('modbusqueuejs_ws_message')
+		//benchmarks.add('modbusqueuejs_ws_message')
 		if (data[1] == 255) { // вочдог
 			helpers.process_watchdog(data)
 		}
@@ -36,8 +36,7 @@ exports.reset = function() {
 // если очередь пуста, сразу выполняем
 // иначе помещаем в соотв. очередь
 exports.push = function(query_str) {
-	benchmarks.add('modbusqueuejs_push')
-
+	//benchmarks.add('modbusqueuejs_push')
 	if (exports.free == 1) {
 		exports.free = 0
 		exports.get(query_str)
@@ -46,25 +45,20 @@ exports.push = function(query_str) {
 	}
 }
 
-// если очередь пуста, сразу выполняем
-// иначе помещаем в соотв. очередь
 exports.unshift = function(query_str) {
-	benchmarks.add('modbusqueuejs_unshift')
-
+	// benchmarks.add('modbusqueuejs_unshift')
 	if (exports.free == 1) {
 		exports.free = 0
-		exports.get(query_str)
+		exports.get(query_str) 
 	} else {
 		exports.list.unshift(query_str)
 	}
 }
 
-
 // если очередь непуста, достаём запрос и выполняем
 // иначе - помечаем очередь пустой
 exports.shift =  function() {
-	benchmarks.add('modbusqueuejs_shift')
-
+	//benchmarks.add('modbusqueuejs_shift')
 	if (exports.list.length) {
 		var query = exports.list.shift()
 		exports.get(query)
@@ -75,7 +69,7 @@ exports.shift =  function() {
 
 // выполняем запрос, после - сразу следующий из очереди
 exports.get = function(query) {
-	benchmarks.add('modbusqueuejs_get')
+	//benchmarks.add('modbusqueuejs_get')
 
 	exports.ws.send(query)
 }

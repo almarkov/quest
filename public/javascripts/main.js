@@ -1,5 +1,3 @@
-var m, s;
-
 function build_query(device, item, parameter) {
 	return web_server_url
 		+ "/game/emulate_command"
@@ -39,17 +37,13 @@ $(document).ready(function() {
 		dataType: "json",
 			success: function (response) {
 				shown = 1
+
+				//обновляем устройства
 				$.each(response.devices, function(index, item){
 
-					var value = '';
-					if (item.state) {
-						value = item.states[item.state].title;
-					} else {
-						value = '';
-					}
-					if (item.value) {
-						value += item.value;
-					}
+					item.state = item.state || 'undef';
+					item.value = item.value || '';
+					var value = '' + item.states[item.state].title + item.value;
 
 					$('#inp_' + item.name + '_state').val(value);
 
@@ -138,18 +132,23 @@ function generate_state_top_section (section_name, data){
 			} else if (item.type == 'select') {
 				raw_html += "<label for='" + item.id + "' class='Label1'>" + item.label + ": </label>"
 							+ "<select name='" + item.name + "' item='" + item.value + "' id='" + item.id + "' class='Input1'>";
-				var options = $.ajax({
-					url: web_server_url + "/api/operators/list",
-					type:       "GET",
-					crossDomain: true,
-					data:        {},
-					async:       false,
-					dataType:    "json",
-					success:     function(){},
-					error:       function(){},
-				}).responseJSON;
+				var options;
+				if (item.source_type == 'db') {
+					options = $.ajax({
+						url: web_server_url + "/api/" + item.source + "/list",
+						type:       "GET",
+						crossDomain: true,
+						data:        {},
+						async:       false,
+						dataType:    "json",
+						success:     function(){},
+						error:       function(){},
+					}).responseJSON;
+				} else {
+					options = item.source;
+				}
 
-				raw_html += "<option value='" + "-1" + "'>[Выберите опреатора]</option>";
+				raw_html += "<option value='" + "-1" + "'>[" + item.select_text + "]</option>";
 				$.each(options, function(index, item){
 					raw_html += "<option value='" + item._id + "'>" + item.name + "</option>";
 				});
