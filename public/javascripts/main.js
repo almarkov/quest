@@ -45,8 +45,8 @@ $(document).ready(function() {
 				//обновляем устройства
 				$.each(response.devices, function(index, item){
 
-					item.state ||= 'undef';
-					item.value ||= '';
+					item.state = item.state || 'undef';
+					item.value = item.value || '';
 					var value = '' + item.states[item.state].title + item.value;
 
 					$('#inp_' + item.name + '_state').val(value);

@@ -69,6 +69,9 @@ helpers = require("./helpers.js")
 // реализация http get-запросов к устройствам с помощью FIFO
 queue = require("./queue.js")
 
+// gpio
+gpio = require("./gpio.js")
+
 // реализация "modbus"-протокола общения с устройствами с помощью FIFO
 modbus_queue = require("./modbus_queue.js")
 //modbus_queue.reset()
@@ -143,7 +146,6 @@ if (app.get('env') === 'development') {
 		})
 	})
 }
-
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
@@ -154,41 +156,11 @@ app.use(function(err, req, res, next) {
 	})
 })
 
-// инициализируем квест
-//license.check()
-//logic.init();
+// инициализируем gpio
+// !!добавить выполнение скрипта, который создаёт gpio18, если нужно
+gpio.init()
 
-var PythonShell  = require('python-shell')
-var pyshell      = new PythonShell('init_gpio.py', {mode: 'binary', pythonOptions: ['-u']})
-
-pyshell.end(function (err) {
-	if (err) {
-		mlog.dev('init gpio error')
-		console.log('init gpio error')
-		return;
-	}
-	mlog.dev('init gpio ok')
-	console.log('init gpio ok')
-})
-
-// modbus_queue.reset();
-// modbus_queue.push(new Buffer([0xff, 0x03, 0x1c, 0x01, 0xff, 0x00, 0x00, 0x1c, 0x02, 0xff, 0x00, 0x00, 0x18, 0x03, 0xff, 0x00, 0x00]))
-
-
-//ws_pyshell = child_process.spawn('python', ['-u', 'websocket_server.py']);
-//ws_pyshell.stdout.pipe(process.stdout,  { end: false });
-// тестирование команд - в конфиге надо вместо ip поставить пустую строку, чтобы
-// было понятно, что это устройство общается через UART
-// logic.execute_action({
-// 	type: 'Команда устройству',
-// 	url: 'switch1_lock on 0',
-// })
-
-// тестирование watchdog
-// var carrier_id = 1;
-// modbus_queue.push(devices.build_modbus_state_query(carrier_id));
-//modbus_queue.reset();
-//modbus_queue.push(new Buffer([0xff, 0x03, 0x1c, 0x01, 0xff, 0x00, 0x00, 0x1c, 0x02, 0xff, 0x00, 0x00, 0x18, 0x03, 0xff, 0x00, 0x00]));
+// инициализация логики квеста
 logic.init()
 
 module.exports = app
