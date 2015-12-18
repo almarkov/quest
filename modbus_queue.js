@@ -3,7 +3,6 @@ var child_process = require('child_process')
 var WebSocket = require('ws')
 
 exports.list = []
-exports.pyshell = undefined
 exports.free = 1
 exports.ws = undefined
 
@@ -14,15 +13,8 @@ exports.reset = function() {
 
 	exports.list = []
 	exports.free = 0
-
-	if (exports.pyshell) {
-		//exports.pyshell.exit(1)
-		exports.pyshell = undefined
-		exports.ws = undefined
-	}
 	
 	exports.ws = new WebSocket('ws://localhost:3030');
-	//exports.pyshell.stdout.pipe(process.stdout,  { end: false });
 	exports.ws.on('open', function(data) {
 		exports.shift()
 	});

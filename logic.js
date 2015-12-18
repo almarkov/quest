@@ -128,7 +128,7 @@ exports.load = function() {
 		if (item.event_type) {
 			last_event = {
 				type:        item.event_type,
-				url:         item.event_url,
+				url:         item.event_url ? item.event_url.replace(" ", "\\") : '',
 				parameter:   item.event_parameter,
 				description: item.event_description,
 				conditions:  [],
@@ -263,7 +263,8 @@ exports.execute_action = function(action) {
 			break;
 
 		case 'Команда устройству':
-			var args = action.url.split(" ")
+			var re = /\s+|\//
+			var args = action.url.split(re)
 			var param = exports.parse_variables(args[2])
 			var query = devices.build_and_exec_query(args[0], args[1], param)
 			break;
