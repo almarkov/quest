@@ -5,7 +5,7 @@ exports.variables_hash = {}
 exports.stages_hash    = {}
 
 exports.set_variable = function(name, value) {
-	benchmarks.add('logicjs_set_variable')
+	//benchmarks.add('logicjs_set_variable')
 	var variable = exports.variables_hash[name]
 	if (variable) {
 		variable.value = value
@@ -16,7 +16,7 @@ exports.set_variable = function(name, value) {
 
 
 exports.get_variable = function(name) {
-	benchmarks.add('logicjs_get_variable')
+	//benchmarks.add('logicjs_get_variable')
 	var variable = exports.variables_hash[name]
 	if (variable) {
 		return variable.value;
@@ -25,7 +25,7 @@ exports.get_variable = function(name) {
 }
 
 exports.load = function() {
-	benchmarks.add('logicjs_load')
+	//benchmarks.add('logicjs_load')
 	var obj = xlsx.parse('logic.xlsx');
 
 	// переменные
@@ -182,12 +182,12 @@ exports.current_stage = '';
 exports.event_interval_object = {};
 
 exports.init = function() {
-	benchmarks.add('logicjs_init')
+	//benchmarks.add('logicjs_init')
 	exports.switch_stage('1');
 }
 
 exports.switch_stage = function(new_stage) {
-	benchmarks.add('logicjs_switch_stage')
+	//benchmarks.add('logicjs_switch_stage')
 	
 	// mlog.dev('Переключение на этап');
 	// mlog.dev(new_stage);
@@ -206,7 +206,7 @@ exports.switch_stage = function(new_stage) {
 	// ставим ожидание событий
 	clearInterval(exports.event_interval_object);
 	exports.event_interval_object = setInterval(function(){
-		benchmarks.add('logicjs_switch_stage_setinterval')
+		//benchmarks.add('logicjs_switch_stage_setinterval')
 		exports.stages_hash[exports.current_stage].events.forEach(function(event_){
 			// если событие произошло
 			if (event_.happened) {
@@ -235,7 +235,7 @@ exports.switch_stage = function(new_stage) {
 }
 
 exports.parse_variables = function(src) {
-	benchmarks.add('logicjs_parse_variables')
+	//benchmarks.add('logicjs_parse_variables')
 	var dst = src;
 	for (var variable in exports.variables_hash) {
 		var re = new RegExp(exports.variables_hash[variable].name, "g");
@@ -245,7 +245,7 @@ exports.parse_variables = function(src) {
 }
 
 exports.execute_action = function(action) {
-	benchmarks.add('logicjs_execute_action')
+	//benchmarks.add('logicjs_execute_action')
 
 	 mlog.dev('Выполнение действия');
 	 mlog.dev(action);
@@ -291,7 +291,7 @@ exports.execute_action = function(action) {
 }
 
 exports.submit_event = function (event_type, url, value) {
-	benchmarks.add('logicjs_submit_event')
+	//benchmarks.add('logicjs_submit_event')
 
 	 mlog.dev('Произошло событие');
 	 mlog.dev(event_type);
@@ -335,7 +335,7 @@ exports.submit_event = function (event_type, url, value) {
 }
 
 function parse_stages(stages_str) {
-	benchmarks.add('logicjs_parse_stages')
+	//benchmarks.add('logicjs_parse_stages')
 	var stages = []
 	var intervals = stages_str.split(',')
 	intervals.forEach(function(interval){

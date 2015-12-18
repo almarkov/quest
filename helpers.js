@@ -2,7 +2,7 @@ var http   = require('http')
 var fs     = require('fs')
 
 exports.process_watchdog = function(data) {
-	benchmarks.add('helpersjs_process_watchdog')
+	//benchmarks.add('helpersjs_process_watchdog')
 	// console.log('process_watchdog')
 	// console.log(data)
 	// mlog.dev('process_watchdog')
@@ -60,7 +60,7 @@ exports.process_watchdog = function(data) {
 // эмуляция wd -
 // сервер посылает watchdog от имени устройства самому себе
 exports.emulate_watchdog = function(device) {
-	benchmarks.add('helpersjs_emulate_watchdog')
+	//benchmarks.add('helpersjs_emulate_watchdog')
 	var state_id = device.states[device.state].code
 
 	var query = globals.get('web_server_url') + '/watchdog' + '?'
@@ -82,7 +82,7 @@ exports.emulate_watchdog = function(device) {
 //----------------------------------------------------------------------------
 // сброс всего
 exports.reset = function(){
-	benchmarks.add('helpersjs_reset')
+	//benchmarks.add('helpersjs_reset')
 	// сбрасываем параметры
 	mlog.reset()
 	mtimers.reset()
@@ -97,14 +97,14 @@ exports.reset = function(){
 
 // работа с COM - включение/выключение устройств
 exports.turn_on_devices = function() {
-	benchmarks.add('helpersjs_turn_on_devices')
+	//benchmarks.add('helpersjs_turn_on_devices')
 	http.get(globals.get('web_server_url') + '/sendcom/on/all', function(res) {
 		}).on('error', function(e) {
 	})
 }
 
 exports.turn_off_devices = function() {
-	benchmarks.add('helpersjs_turn_off_devices')
+	//benchmarks.add('helpersjs_turn_off_devices')
 	http.get(globals.get('web_server_url') + '/sendcom/off/all', function(res) {   
 		}).on('error', function(e) {
 	})
@@ -112,7 +112,7 @@ exports.turn_off_devices = function() {
 
 // включаем проверку watchdog
 exports.turn_on_wd_check = function() {
-	benchmarks.add('helpersjs_turn_on_wd_check')
+	//benchmarks.add('helpersjs_turn_on_wd_check')
 	http.get(globals.get('web_server_url') + '/game/setinterval', function(res) {
 		}).on('error', function(e) {
 	})
@@ -120,7 +120,7 @@ exports.turn_on_wd_check = function() {
 
 // смотрим результаты проверки wd
 exports.wd_check_result = function() {
-	benchmarks.add('helpersjs_wd_check_result')
+	//benchmarks.add('helpersjs_wd_check_result')
 	var errors = ''
 	var err_cnt = 0
 	for (var i = 0; i < devices.list.length; i++) {

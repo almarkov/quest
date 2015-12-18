@@ -7,7 +7,7 @@ var router        = express.Router()
 
 // запрос состояния модели
 router.get('/all', function(req, res, next) {
-	benchmarks.add('gamejs_all')
+	//benchmarks.add('gamejs_all')
 	// передача модели в GUI
 	var result = {}
 
@@ -22,7 +22,7 @@ router.get('/all', function(req, res, next) {
 
 // запрос состояния модели
 router.get('/all_light', function(req, res, next) {
-	benchmarks.add('gamejs_all_light')
+	//benchmarks.add('gamejs_all_light')
 	// передача модели в GUI
 	var result = {}
 
@@ -73,7 +73,7 @@ router.get('/all_light', function(req, res, next) {
 // --------------------------------------------------------------------
 // выключение устройств
 router.get('/devices_off', function(req, res, next) {
-	benchmarks.add('gamejs_devices_off')
+	//benchmarks.add('gamejs_devices_off')
 	// выключаем устройства
 	helpers.turn_off_devices()
 
@@ -82,18 +82,18 @@ router.get('/devices_off', function(req, res, next) {
 
 // включение и проверка устройств
 router.get('/devices_on', function(req, res, next) {
-	benchmarks.add('gamejs_devices_on')
+	//benchmarks.add('gamejs_devices_on')
 	// включаем устройства
 	helpers.turn_on_devices()
 
 	// включаем проверку(через 2 секунды после включения)(тоже как-то вписать в логику)
 	setTimeout(function(){
-		benchmarks.add('gamejs_devices_on_settimeout_1')
+		//benchmarks.add('gamejs_devices_on_settimeout_1')
 		helpers.turn_on_wd_check()
 
 		// ещё через 5 секунд смотрим результаты
 		setTimeout(function(){
-			benchmarks.add('gamejs_devices_on_settimeout_2')
+			//benchmarks.add('gamejs_devices_on_settimeout_2')
 			helpers.wd_check_result()
 		}, 5000)
 
@@ -105,27 +105,27 @@ router.get('/devices_on', function(req, res, next) {
 
 // 'запуск' сервера
 router.get('/start', function(req, res, next) {
-	benchmarks.add('gamejs_start')
+	//benchmarks.add('gamejs_start')
 	res.json(SUCCESS_RESULT)
 })
 
 // кнопка сбросить
 router.get('/reset_all', function(req, res, next) {
-	benchmarks.add('gamejs_reset_all')
+	//benchmarks.add('gamejs_reset_all')
 	helpers.reset()
 	res.json(SUCCESS_RESULT)
 })
 
 // переключить на этап(для тестов)
 router.get('/switch_stage', function(req, res, next) {
-	benchmarks.add('gamejs_all')
+	//benchmarks.add('gamejs_all')
 	logic.switch_stage(req.query.new_stage)
 	res.json(SUCCESS_RESULT)
 })
 
 // сохранить данные о прохождении в бд
 router.get('/dump_result', function(req, res, next) {
-	benchmarks.add('gamejs_dump_result')
+	//benchmarks.add('gamejs_dump_result')
 	request.post(
 		globals.get('web_server_url') + '/api/games/create',
 		{
@@ -145,7 +145,7 @@ router.get('/dump_result', function(req, res, next) {
 
 // кнопка 'Начать игру'
 router.get('/start_game', function(req, res, next) {
-	benchmarks.add('gamejs_start_game')
+	//benchmarks.add('gamejs_start_game')
 	res.json(SUCCESS_RESULT)
 
 	face.field_disable('gamers_count')
@@ -163,7 +163,7 @@ router.get('/start_game', function(req, res, next) {
 
 // нажатие обычных кнопок
 router.get('/dashboard_button_pushed', function(req, res, next) {
-	benchmarks.add('gamejs_dashboard_button_pushed')
+	//benchmarks.add('gamejs_dashboard_button_pushed')
 	logic.submit_event('Нажата кнопка', req.query.title)
 	res.json(SUCCESS_RESULT)
 
@@ -175,18 +175,18 @@ router.get('/dashboard_button_pushed', function(req, res, next) {
 // если включена эмуляция
 //     посылаем wd вручную, отображается синим
 router.get('/setinterval', function(req, res, next) {
-	benchmarks.add('gamejs_setinterval')
+	//benchmarks.add('gamejs_setinterval')
 	if (globals.get('enable_watchdog')) {
 
 		devices.wd_interval_object = setInterval(function(){
-			benchmarks.add('gamejs_devices_on_setinterval_1')
+			//benchmarks.add('gamejs_devices_on_setinterval_1')
 			var query = devices.modbus_state_query;
 			modbus_queue.push(query);
 
 		}, globals.get('watchdog_send_timer'))
 
 		devices.intervalObject = setInterval(function() {
-			benchmarks.add('gamejs_devices_on_setinterval_2')
+			//benchmarks.add('gamejs_devices_on_setinterval_2')
 			devices.list.forEach(function (_device) {
 				if (_device.wd_enabled) {
 					if (_device.wd_state > 0) {
@@ -209,7 +209,7 @@ router.get('/setinterval', function(req, res, next) {
 
 // вкл/выкл эмуляцию wd для устройства
 router.get('/emulate_watchdog/:device_name/', function(req, res, next) {
-	benchmarks.add('gamejs_emulate_watchdog')
+	//benchmarks.add('gamejs_emulate_watchdog')
 	var device_name = req.params.device_name
 
 	var device = devices.get(device_name)
@@ -222,7 +222,7 @@ router.get('/emulate_watchdog/:device_name/', function(req, res, next) {
 
 // Обработка кнопок
 router.get('/emulate_command/:device/:command/:parameter', function(req, res, next) {
-	benchmarks.add('gamejs_emulate_command')
+	//benchmarks.add('gamejs_emulate_command')
 	res.json(SUCCESS_RESULT)
 
 	var device = devices.get(req.params.device)
