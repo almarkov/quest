@@ -78,7 +78,13 @@ exports.reset = function () {
 			section:     'Service',
 			title:       'Сбросить',
 			confirm:     1,
-			success_cb:  "function (response) {alert('Reloading..');shown=0}",
+			success_cb:  "function (response) {"
+						+     "alert('Reloading..');"
+						+     "$('#inpOperatorId').val(-1);"
+						+     "$('#inpLanguage').val(-1);"
+						+     "$('#inpGamerCount').val('');"
+						+     "shown=0;"
+						+"}",
 			error_cb:    "function(error) {}",
 			to_send:     1,
 		},
