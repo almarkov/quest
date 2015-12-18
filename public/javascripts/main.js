@@ -1,7 +1,3 @@
-var m, s;
-
-var prev_response = {};
-
 function build_query(device, item, parameter) {
 	return web_server_url
 		+ "/game/emulate_command"
@@ -93,12 +89,6 @@ $(document).ready(function() {
 						$("#" + item.id).prop('disabled', item.disabled);
 					}
 				});
-
-				if (response.quest_completed) {
-					stop_timer();
-				}
-
-				prev_response = response;
 
 			},
 			error: function(error) {

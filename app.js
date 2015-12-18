@@ -133,8 +133,8 @@ app.use(function(req, res, next) {
 })
 
 // error handlers
-console.log('NODE_ENV: '+ process.env.NODE_ENV);
-console.log('NODE_ENV: '+ app.get('env'));
+console.log('NODE_ENV: '+ process.env.NODE_ENV)
+console.log('NODE_ENV: '+ app.get('env'))
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {

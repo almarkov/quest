@@ -34,7 +34,7 @@ exports.load = function() {
 		'state_title',   //     "Название состояния в веб-интерфейсе"
 	]
 
-	var start_line = 3;// пропускаем заголовки
+	var start_line = 3// пропускаем заголовки
 	for (var i = start_line; i < data.length; i++) {
 		var line = data[i]
 
@@ -101,7 +101,7 @@ exports.load = function() {
 				code:   item.command_code,
 				name:   item.command_name,
 				title:   item.command_name,
-			};
+			}
 			if (item.command_title) {
 				last_item.commands[item.command_name].title = item.command_title
 				last_item.commands[item.command_name].has_button = 1
@@ -118,7 +118,7 @@ exports.load = function() {
 			if (item.event_title) {
 				last_item.events[item.event_name].title = item.event_title
 				last_item.events[item.event_name].has_button = 1
-				var params;
+				var params
 				if (item.event_param) {
 					params = item.event_param.split(',')
 				}
@@ -143,16 +143,16 @@ exports.load = function() {
 	// для быстрого доступа к событиям, командам и состояниям
 	exports.list.forEach(function(device){
 		for(var event_name in device.events) {
-			var event_ = device.events[event_name];
-			device.events_code_hash[event_.code] = event_;
+			var event_ = device.events[event_name]
+			device.events_code_hash[event_.code] = event_
 		}
 		for(var command_name in device.commands) {
-			var command = device.commands[command_name];
-			device.commands_code_hash[command.code] = command;
+			var command = device.commands[command_name]
+			device.commands_code_hash[command.code] = command
 		}
 		for(var state_name in device.states) {
-			var state = device.states[state_name];
-			device.states_code_hash[state.code] = state;
+			var state = device.states[state_name]
+			device.states_code_hash[state.code] = state
 		}
 	})
 }
