@@ -41,18 +41,13 @@ $(document).ready(function() {
 		dataType: "json",
 			success: function (response) {
 				shown = 1
+
+				//обновляем устройства
 				$.each(response.devices, function(index, item){
 
-					var value = '';
-					if (item.state) {
-						value = item.states[item.state].title;
-					} else {
-						value = '';
-					}
-					if (item.value) {
-						value += item.value;
-					}
-					//var value = '' + item.title + item.value;
+					item.state ||= 'undef';
+					item.value ||= '';
+					var value = '' + item.states[item.state].title + item.value;
 
 					$('#inp_' + item.name + '_state').val(value);
 
@@ -78,9 +73,6 @@ $(document).ready(function() {
 				});
 
 				// обновляем поля
-				//if (response.face.dashboard_fields.length > 0) {
-				//	console.log(response.face.dashboard_fields)
-				//}
 				$.each(response.face.dashboard_fields, function( name, item ) {
 
 					if (item.type == 'text') {
