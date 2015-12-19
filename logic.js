@@ -288,6 +288,11 @@ exports.execute_action = function(action) {
 		case 'Остановить таймер':
 			mtimers.stop(action.url, action.parameter);
 			break;
+
+		case 'Присвоить значение':
+			exports.set_variable(action.url, action.parameter);
+			break;
+
 	}
 }
 
