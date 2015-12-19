@@ -3,9 +3,15 @@ var router  = express.Router()
 
 // список
 router.get('/', function(req, res) {
-	res.render('stats/list', {
-		title:        'Управление статистикой',
-	})
+	if (session.is_logged()) {
+		res.render('stats/list', {
+			title:        'Управление статистикой',
+		})
+	} else {
+		res.render('login', {
+			title:        'Вход в управление статистикой',
+		})
+	}
 })
 
 module.exports = router

@@ -43,6 +43,8 @@ var app          = express()
 
 // СУБД))
 mbd              = require("./mbd.js")
+// сессии
+session          = require("./session.js")
 
 // конфигурация устройств
 config = require("./config.js")
@@ -117,6 +119,9 @@ api.use('/games', api_games)
 
 var api_operators = require('./routes/api/operators')
 api.use('/operators', api_operators)
+
+var api_auth = require('./routes/api/auth')
+api.use('/auth', api_auth)
 
 // модули, доступные через http ('API' квеста)
 // нужны для прямой передачи из интерфейса

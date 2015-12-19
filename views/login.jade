@@ -1,0 +1,16 @@
+doctype html
+html
+	head
+		title= title
+		link(href='/stylesheets/style.css', rel='stylesheet')
+		script(type='text/javascript', src='/javascripts/jquery.min.js')
+		script(src='/javascripts/login.form.js')
+	body
+		div#LoginForm
+		h2 Введите пароль
+		fieldset
+			input#inputPassword( type='text', placeholder='Пароль')
+			br
+
+		button#btnCommitLogin Подтвердить
+		a(href='/') Вернуться к управлению квестом
