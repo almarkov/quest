@@ -88,7 +88,7 @@ exports.reset = function () {
 			error_cb:    "function(error) {}",
 			to_send:     1,
 		},
-
+/*
 		switch_stage: {
 			disabled:    0,
 			highlight:   0,
@@ -157,7 +157,7 @@ exports.reset = function () {
 			confirm:     1,
 			to_send:     1,
 		},
-
+*/
 		
 	};
 
@@ -225,7 +225,7 @@ exports.reset = function () {
 			value:    'NA',
 			to_send:  1,
 		},
-		new_stage: {
+		/*new_stage: {
 			name:     '_new_stage',
 			type:     'text',
 			label:    'Этап',
@@ -234,7 +234,7 @@ exports.reset = function () {
 			section:  'Quest',
 			value:    '',
 			to_send:  1,
-		},
+		},*/
 	};
 };
 
