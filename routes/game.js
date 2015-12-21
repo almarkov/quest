@@ -33,17 +33,17 @@ router.get('/all_light', function(req, res, next) {
 	}
 
 	devices.list.forEach(function (_device) {
-		if (_device.prev_value != _device.value
-			|| _device.prev_state != _device.state) {
-			result.devices.push(_device);
-		}
-		/*result.devices.push({
+		// if (_device.prev_value != _device.value
+		// 	|| _device.prev_state != _device.state) {
+		// 	result.devices.push(_device);
+		// }
+		result.devices.push({
 			state:_device.state,
 			value:_device.value,
 			name: _device.name,
 			states: _device.states,
-			wd_emulate: wd_emulate
-		})*/
+			wd_emulate: _device.wd_emulate
+		})
 	});
 
 	// сделать адаптивно - отправлять только изменения
