@@ -22,8 +22,12 @@ function populateGamesTable() {
     var pagerContent = '';
     var i = 1;
     var j = 0;
+    var query = ''
+    if (operator_id) {
+        query += '?operator_id=' + operator_id
+    }
 
-    $.getJSON( '/api/games/list', function( data ) {
+    $.getJSON( '/api/games/list' + query, function( data ) {
         $.each(data, function(){
             if (j == 0) {
                 pagerContent += '<li class="' + (i == page ? 'pagination_page_active' :  'pagination_page') + '"><a href="/stats/games?page=' + i + '&count=' + count + '">' + i + '</a></li>'

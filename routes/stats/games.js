@@ -8,6 +8,7 @@ router.get('/', function(req, res) {
 		title: 'Управление статистикой - Игры',
 		page:  req.query.page  || 1,
 		count: req.query.count || 30,
+		operator_id: req.query.operator_id || '',
 	});
 });
 

@@ -35,6 +35,23 @@ exports.select = function(table, query, callback) {
 			}
 		})
 	}
+
+	if (query.filter) {
+		var tmp_table = [];
+		data.items.forEach(function(item){
+			var flag = 1;
+			for (var select_filter in query.filter) {
+				if (item[select_filter] == query.filter[select_filter]) {
+				} else {
+					flag = 0
+				}
+			}
+			if (flag) {
+				tmp_table.push(item)
+			}
+		})
+		data.items = tmp_table
+	}
 	callback(null, data.items)
 
 }

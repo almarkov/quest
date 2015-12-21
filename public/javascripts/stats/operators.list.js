@@ -14,7 +14,7 @@ function populateOperatorsTable() {
             tableContent += '<tr>';
 
             tableContent += '<td><a href="/stats/operators/' + this._id +  '">' + this.name + '</a></td>'
-            tableContent += '<td>' + this.name + '</td>';
+            tableContent += '<td><a href="/stats/games?operator_id=' + this._id + '">игры</a></td>';
 
             tableContent += '<td><a href="" class="linkdelete" rel="' + this._id + '">Удалить</a></td>'
 
