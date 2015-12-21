@@ -3,8 +3,11 @@ var router = express.Router();
 
 // список
 router.get('/', function(req, res) {
+
 	res.render('stats/games/list', {
-		title:        'Управление статистикой - Игры',
+		title: 'Управление статистикой - Игры',
+		page:  req.query.page  || 1,
+		count: req.query.count || 30,
 	});
 });
 

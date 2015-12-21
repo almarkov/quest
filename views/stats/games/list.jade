@@ -2,10 +2,17 @@ extends ../../../views/layout
 
 block content
 
+	script(type='text/javascript').
+		page=#{page};
+		count=#{count};
+
 	script(src='/javascripts/stats/games.list.js')
 
 	h2 Игры
 	#menu
+
+	#Pager
+		ul(class='pagination')
 
 	#GamesList
 		table
@@ -13,5 +20,5 @@ block content
 				th Дата начала
 				th Продолжительность
 				th Оператор
-				th foo
+				th
 			tbody

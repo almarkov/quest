@@ -9,8 +9,13 @@ html
 	body
 		h2 Главное меню
 		#menu
-			a(href='/') Управление квестом
-			a(href='/stats/operators') Операторы
-			a(href='/stats/games') Список игр
-			a(href='', id='Logout') Выйти
+			ul
+				li
+					a(href='/') Управление квестом
+				li
+					a(href='/stats/operators') Операторы
+				li
+					a(href='/stats/games') Список игр
+				li
+					a(href='', id='Logout') Выйти
 		block content

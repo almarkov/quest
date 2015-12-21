@@ -1,28 +1,53 @@
 $(document).ready(function(){
-
     populateGamesTable();
 
     $('#GamesList table tbody').on('click', 'td a.linkdelete', deleteGame);
 
 });
 
+// дата в формате 'yyyy-mm-dd HH:MM:SS'
+function ymdhms_date(date) {
+    //benchmarks.add('routinesjs_ymdhms_date')
+    var dt = new Date(date) || new Date()
+    dt = new Date(dt.getTime() + (dt.getTimezoneOffset() / 60) * -1)
+    return dt.getFullYear()
+        + '-' + ('0' + (dt.getMonth() + 1)).slice(-2)
+        + '-' + ('0' + dt.getDate()).slice(-2)
+        + ' ' + ('0' + dt.getHours()).slice(-2)
+        + ':' + ('0' + dt.getMinutes()).slice(-2)
+}
+
 function populateGamesTable() {
     var tableContent = '';
+    var pagerContent = '';
+    var i = 1;
+    var j = 0;
 
     $.getJSON( '/api/games/list', function( data ) {
         $.each(data, function(){
-            tableContent += '<tr>';
+            if (j == 0) {
+                pagerContent += '<li class="' + (i == page ? 'pagination_page_active' :  'pagination_page') + '"><a href="/stats/games?page=' + i + '&count=' + count + '">' + i + '</a></li>'
+            }
+            if (i == page) {
+                tableContent += '<tr>';
 
-            tableContent += '<td><a href="/stats/games/' + this._id +  '">' + this.dt_start + '</a></td>'
-            tableContent += '<td>' + this.duration + '</td>';
-            tableContent += '<td>' + this.operator.name + '</td>';
+                tableContent += '<td><a href="/stats/games/' + this._id +  '">' + ymdhms_date(this.dt_start) + '</a></td>'
+                tableContent += '<td>' + this.duration + '</td>';
+                tableContent += '<td>' + this.operator.name + '</td>';
 
-            tableContent += '<td><a href="" class="linkdelete" rel="' + this._id + '">Удалить</a></td>'
+                tableContent += '<td><a href="" class="linkdelete" rel="' + this._id + '">Удалить</a></td>'
 
-            tableContent += '</tr>';
+                tableContent += '</tr>';
+            }
+            j++;
+            if (j == count) {
+                i += 1;
+                j = 0;
+            }
         });
 
         $('#GamesList table tbody').html(tableContent);
+        $('#Pager ul').html(pagerContent);
     });
 }
 

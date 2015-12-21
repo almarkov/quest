@@ -155,4 +155,29 @@ table {
 
 table, th, td {
    border: 1px solid black;
-} 
+}
+
+/* pagination */
+ul.pagination {
+	list-style-type: none;
+}
+li.pagination_page {
+	font-size: 22px;
+    line-height: 30px;
+    display: inline-block;
+    margin-right: 20px;
+}
+li.pagination_page_active {
+	font-size: 22px;
+    line-height: 30px;
+    display: inline-block;
+    margin-right: 20px;
+}
+li.pagination_page a {
+	text-decoration: none;
+	color: #252a3a;
+}
+li.pagination_page_active a {
+	text-decoration: none;
+	color: #c9cbd3;
+}
