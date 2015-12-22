@@ -119,13 +119,21 @@ exports.build_modbus_state_query = function() {
 		if (!exports.list_by_carrier_id[carrier_id].ip) {
 			i += 1
 			var length = exports.list_by_carrier_id[carrier_id].devices.length
-			buffers.push(new Buffer([
+			var req_buf = new Buffer([
 				4+ length*2,   // ожидаемая длина ответа
 				0+ carrier_id, // carrier_id
 				255,           //
 				0,             // crc16
 				0              // crc16
-			]))
+			])
+			var crc_word = helpers.get_crc(req_buf, 1, 3)
+			req_buf[3] = crc_word >> 8
+			req_buf[4] = crc_word & 0xFF
+			buffers.push(req_buf)
+			mlog.dev('modbus state query crc');
+			mlog.dev('carrier_id')
+			mlog.dev(carrier_id)
+			mlog.dev(crc_word);
 		}
 	}
 	buffers[0][1] = i;
