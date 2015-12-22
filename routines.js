@@ -127,6 +127,6 @@ exports.get_crc = function(buf, left, right)
 
 exports.append_crc = function(buf, left, right){
 	var crc_word = exports.get_crc(buf, left, right)
-	req_buf[right] = crc_word >> 8
-	req_buf[right+1] = crc_word & 0xFF
+	buf[right] = crc_word >> 8
+	buf[right+1] = crc_word & 0xFF
 }
