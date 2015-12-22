@@ -126,7 +126,7 @@ exports.build_modbus_state_query = function() {
 				0,             // crc16
 				0              // crc16
 			])
-			var crc_word = helpers.get_crc(req_buf, 1, 3)
+			var crc_word = routines.get_crc(req_buf, 1, 3)
 			req_buf[3] = crc_word >> 8
 			req_buf[4] = crc_word & 0xFF
 			buffers.push(req_buf)
