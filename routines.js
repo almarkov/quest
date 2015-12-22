@@ -118,9 +118,9 @@ exports.get_crc = function(buf, left, right)
 
 	i = left
 	while (i < right) {
-		tmp = buf[i++] ^ crc_word
+		tmp = (buf[i++] ^ crc_word) & 0xff
 		crc_word = crc_word >> 8
-		crc_word = crc_word ^ exports.crc_table[tmp]
+		crc_word = (crc_word ^ exports.crc_table[tmp])  & 0xFFFF
 	}
 	return crc_word
 }
