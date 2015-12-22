@@ -73,7 +73,7 @@ exports.build_and_exec_query = function(device_name, command_name, parameter) {
 			0,                    // crc16
 			0                     // crc16
 		]);
-
+		routines.append_crc(buf, 1, 5)
 		modbus_queue.unshift(buf)
 
 	}
@@ -98,7 +98,7 @@ exports.build_modbus_command_query = function(device_name, command_name, paramet
 	var device  = exports.get(device_name)
 	var command = device.commands[command_name]
 
-	return new Buffer([
+	var req_buf = new Buffer([
 		6,                    // ожидаемая длина ответа
 		0+ device.carrier_id, // carrier_id
 		0+ device.id,         // device_id
@@ -107,6 +107,9 @@ exports.build_modbus_command_query = function(device_name, command_name, paramet
 		0,                    // crc16
 		0                     // crc16
 	])
+
+	routines.append_crc(req_buf, 1, 5)
+	return req_buf
 }
 
 exports.build_modbus_state_query = function() {
@@ -126,14 +129,8 @@ exports.build_modbus_state_query = function() {
 				0,             // crc16
 				0              // crc16
 			])
-			var crc_word = routines.get_crc(req_buf, 1, 3)
-			req_buf[3] = crc_word >> 8
-			req_buf[4] = crc_word & 0xFF
+			routines.append_crc(req_buf, 1, 3)
 			buffers.push(req_buf)
-			mlog.dev('modbus state query crc');
-			mlog.dev('carrier_id')
-			mlog.dev(carrier_id)
-			mlog.dev(crc_word);
 		}
 	}
 	buffers[0][1] = i;
