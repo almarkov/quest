@@ -290,7 +290,9 @@ exports.execute_action = function(action) {
 			break;
 
 		case 'Присвоить значение':
-			exports.set_variable(action.url, action.parameter);
+			var tmp = exports.parse_variables(action.parameter)
+			var param = eval(tmp)
+			exports.set_variable(action.url, param);
 			break;
 
 	}
