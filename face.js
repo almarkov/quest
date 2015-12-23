@@ -49,12 +49,18 @@ exports.reset = function () {
 						+        "alert ('Выберите язык медиафайлов');"
 						+        "return { ok: 0};"
 						+    "};"
+						+    "var light_type = $('#inpLightType').val();"
+						+    "if (!light_type || light_type == '-1') {"
+						+        "alert ('Выберите тип освещения');"
+						+        "return { ok: 0};"
+						+    "};"						
 						+    "return {"
 						+        "ok: 1,"
 						+        "params: {"
 						+            "gamers_count: gamers_count,"
 						+            "operator_id:  operator_id,"
 						+            "language:     language,"
+						+            "light_type:   light_type,"
 						+        "}"
 						+    "};"
 						+"}",
@@ -83,6 +89,7 @@ exports.reset = function () {
 						+     "$('#inpOperatorId').val(-1);"
 						+     "$('#inpLanguage').val(-1);"
 						+     "$('#inpGamerCount').val('');"
+						+     "$('#inpLightType').val(-1);"
 						+     "shown=0;"
 						+"}",
 			error_cb:    "function(error) {}",
@@ -191,11 +198,28 @@ exports.reset = function () {
 			source_type: 'raw',
 			source:   [
 				{_id:'english', name: 'Английский'},
-				{_id:'spanish', name: 'Испанский'}
+				{_id:'spanish', name: 'Испанский'},
+				{_id:'russian', name: 'Русский'},
 			],
 			label:    'Язык медиафайлов',
 			id:       'inpLanguage',
 			select_text: 'Выберите язык',
+			disabled: 0,
+			section:  'Service',
+			value:    '',
+			to_send:  1,
+		},
+		light_type: {
+			name:     '_light_type',
+			type:     'select',
+			source_type: 'raw',
+			source:   [
+				{_id:'blinking', name: 'Мерцает'},
+				{_id:'steady', name: 'Постоянное'}
+			],
+			label:    'Освещение',
+			id:       'inpLightType',
+			select_text: 'Выберите тип',
 			disabled: 0,
 			section:  'Service',
 			value:    '',

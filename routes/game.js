@@ -154,7 +154,8 @@ router.get('/start_game', function(req, res, next) {
 
 	logic.set_variable('gamers_count', parseInt(req.query.gamers_count))
 	logic.set_variable('operator_id',  req.query.operator_id)
-	logic.set_variable('language',  req.query.language)
+	logic.set_variable('light_type',   req.query.light_type)
+	logic.set_variable('language',     req.query.language)
 	logic.set_variable('dt_start',     new Date())
 
 	logic.submit_event('Нажата кнопка', 'Начать игру')
