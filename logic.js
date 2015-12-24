@@ -238,8 +238,8 @@ exports.parse_variables = function(src) {
 	//benchmarks.add('logicjs_parse_variables')
 	var dst = src;
 	for (var variable in exports.variables_hash) {
-		var re = new RegExp(exports.variables_hash[variable].name, "g");
-		dst = dst.replace(re, exports.variables_hash[variable].value);
+		var re = new RegExp(exports.variables_hash[variable].name, "g")
+		dst = dst.replace(re, exports.variables_hash[variable].value)
 	}
 	return dst;
 }
