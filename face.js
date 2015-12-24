@@ -30,15 +30,15 @@ exports.reset = function () {
 			confirm:     0,
 			ajax_url:    '/game/start_game',
 			validate_cb: "function (){"
-						+    "var gamers_count = $('#inpGamerCount').val();"
-						+    "if (!gamers_count) {"
-						+        "alert ('Введите количество игроков');"
-						+        "return { ok: 0};"
-						+    "};"
-						+    "if (gamers_count != '2' && gamers_count != '3' && gamers_count != '4' && gamers_count != '5') {"
-						+        "alert ('Введено неверное количество игроков');"
-						+        "return { ok: 0};"
-						+    "};"
+						// +    "var gamers_count = $('#inpGamerCount').val();"
+						// +    "if (!gamers_count) {"
+						// +        "alert ('Введите количество игроков');"
+						// +        "return { ok: 0};"
+						// +    "};"
+						// +    "if (gamers_count != '2' && gamers_count != '3' && gamers_count != '4' && gamers_count != '5') {"
+						// +        "alert ('Введено неверное количество игроков');"
+						// +        "return { ok: 0};"
+						// +    "};"
 						+    "var operator_id = $('#inpOperatorId').val();"
 						+    "if (!operator_id || operator_id == '-1') {"
 						+        "alert ('Выберите оператора');"
@@ -57,7 +57,7 @@ exports.reset = function () {
 						+    "return {"
 						+        "ok: 1,"
 						+        "params: {"
-						+            "gamers_count: gamers_count,"
+						//+            "gamers_count: gamers_count,"
 						+            "operator_id:  operator_id,"
 						+            "language:     language,"
 						+            "light_type:   light_type,"
@@ -169,16 +169,16 @@ exports.reset = function () {
 	};
 
 	exports.dashboard_fields = {
-		gamers_count: {
-			name:     '_gamers_count',
-			type:     'text',
-			label:    'Число игроков',
-			id:       'inpGamerCount',
-			disabled: 0,
-			section:  'Service',
-			value:    '',
-			to_send:  1,
-		},
+		// gamers_count: {
+		// 	name:     '_gamers_count',
+		// 	type:     'text',
+		// 	label:    'Число игроков',
+		// 	id:       'inpGamerCount',
+		// 	disabled: 0,
+		// 	section:  'Service',
+		// 	value:    '',
+		// 	to_send:  1,
+		// },
 		operator_id: {
 			name:     '_operator_id',
 			type:     'select',
