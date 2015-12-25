@@ -237,10 +237,15 @@ exports.switch_stage = function(new_stage) {
 exports.parse_variables = function(src) {
 	//benchmarks.add('logicjs_parse_variables')
 	var dst = src;
+	mlog.dev('parse_variables')
+	mlog.dev(src)
 	for (var variable in exports.variables_hash) {
+		mlog.dev(exports.variables_hash[variable].name)
+		mlog.dev(exports.variables_hash[variable].value)
 		var re = new RegExp(exports.variables_hash[variable].name, "g")
 		dst = dst.replace(re, exports.variables_hash[variable].value)
 	}
+	mlog.dev(dst)
 	return dst;
 }
 
