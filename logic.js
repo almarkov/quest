@@ -197,8 +197,8 @@ exports.switch_stage = function(new_stage) {
 	exports.current_stage = new_stage;
 	//меняем поле на экране
 	var description = exports.stages_hash[new_stage].description;
-	description = exports.parse_variables(description);
-	face.field_set_value('quest_state', description);
+	var descr = exports.parse_variables(description);
+	face.field_set_value('quest_state', descr);
 
 	// выполянем действия нового этапа
 	exports.stages_hash[exports.current_stage].actions.forEach(function(action){
@@ -218,8 +218,8 @@ exports.switch_stage = function(new_stage) {
 						var re  = new RegExp(event_.parameter, "g");
 						str = str.replace(re, event_.value.toString());
 					}
-					str = exports.parse_variables(str);
-					var result = eval(str);
+					var dst = exports.parse_variables(str) || '';
+					var result = eval(dst);
 					// если условие истинно, выполняем его действия
 					if (result) {
 
