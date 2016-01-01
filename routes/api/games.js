@@ -32,7 +32,8 @@ router.get('/:id', function(req, res) {
 
 // создание
 router.post('/create', function(req, res) {
-	console.log(req.body)
+	mlog.dev('api')
+	mlog.dev(req.body)
 	mbd.insert('games', req.body, {}, function(err, result){
 		res.send(
 			(err === null) ? { msg: '', new_id: result._id } : { msg: err }

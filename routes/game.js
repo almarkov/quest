@@ -137,6 +137,10 @@ router.get('/dump_result', function(req, res, next) {
 			}
 		},
 		function (error, response, body) {
+			mlog.dev('req_res')
+			mlog.dev(error)
+			mlog.dev(response)
+			mlog.dev(body)
 			if (!error && response.statusCode == 200) {
 			}
 		}
