@@ -126,6 +126,7 @@ router.get('/switch_stage', function(req, res, next) {
 // сохранить данные о прохождении в бд
 router.get('/dump_result', function(req, res, next) {
 	//benchmarks.add('gamejs_dump_result')
+	mlog.dev('dump_result')
 	request.post(
 		globals.get('web_server_url') + '/api/games/create',
 		{

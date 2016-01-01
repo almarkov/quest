@@ -59,7 +59,7 @@ exports.select = function(table, query, callback) {
 exports.insert = function(table, item, params, callback) {
 
 	var data = load_table(table)
-
+console.log(data)
 	item._id = data.meta.current_id+1
 
 	data.items.push(item)
@@ -67,7 +67,7 @@ exports.insert = function(table, item, params, callback) {
 		current_id: item._id,
 		count:      data.items.length,
 	};
-
+console.log(data)
 	save_table(table, data.items, meta)
 
 	callback(null, item)
