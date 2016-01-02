@@ -261,7 +261,6 @@ exports.execute_action = function(action) {
 		case 'Внутренняя команда':
 
 			var query = globals.get('web_server_url') + '/game/' + action.parameter;
-
 			http.get(query, function(res) {
 					res.on('error', function(data){
 					});
@@ -349,8 +348,9 @@ exports.submit_event = function (event_type, url, value) {
 
 function parse_stages(stages_str) {
 	//benchmarks.add('logicjs_parse_stages')
+	var src_str = stages_str.replace(' ', '')
 	var stages = []
-	var intervals = stages_str.split(',')
+	var intervals = src_str.split(',')
 	intervals.forEach(function(interval){
 		var bounds = interval.split('-')
 		if (bounds.length == 1) {
