@@ -16,7 +16,44 @@ exports.reset = function () {
 			highlight:   0,
 			section:     'Service',
 			title:       'Приготовиться к началу квеста',
+			eng_title:   'Get ready for quest',
 			confirm:     0,
+			ajax_url:    '/game/get_ready',
+			validate_cb: "function (){"
+						// +    "var gamers_count = $('#inpGamerCount').val();"
+						// +    "if (!gamers_count) {"
+						// +        "alert ('Введите количество игроков');"
+						// +        "return { ok: 0};"
+						// +    "};"
+						// +    "if (gamers_count != '2' && gamers_count != '3' && gamers_count != '4' && gamers_count != '5') {"
+						// +        "alert ('Введено неверное количество игроков');"
+						// +        "return { ok: 0};"
+						// +    "};"
+						+    "var operator_id = $('#inpOperatorId').val();"
+						+    "if (!operator_id || operator_id == '-1') {"
+						+        "alert ('Select operator');"
+						+        "return { ok: 0};"
+						+    "};"
+						+    "var language = $('#inpLanguage').val();"
+						+    "if (!language || language == '-1') {"
+						+        "alert ('Select mediafiles language');"
+						+        "return { ok: 0};"
+						+    "};"
+						+    "var light_type = $('#inpLightType').val();"
+						+    "if (!light_type || light_type == '-1') {"
+						+        "alert ('Select light type');"
+						+        "return { ok: 0};"
+						+    "};"						
+						+    "return {"
+						+        "ok: 1,"
+						+        "params: {"
+						//+            "gamers_count: gamers_count,"
+						+            "operator_id:  operator_id,"
+						+            "language:     language,"
+						+            "light_type:   light_type,"
+						+        "}"
+						+    "};"
+						+"}",
 			success_cb:  "function (response) {}",
 			error_cb:    "function(error) {}",
 			to_send:     1,
@@ -27,6 +64,7 @@ exports.reset = function () {
 			highlight:   0,
 			section:     'Service',
 			title:       'Начать игру',
+			eng_title:   'Start game',
 			confirm:     0,
 			ajax_url:    '/game/start_game',
 			validate_cb: "function (){"
@@ -41,17 +79,17 @@ exports.reset = function () {
 						// +    "};"
 						+    "var operator_id = $('#inpOperatorId').val();"
 						+    "if (!operator_id || operator_id == '-1') {"
-						+        "alert ('Выберите оператора');"
+						+        "alert ('Select operator');"
 						+        "return { ok: 0};"
 						+    "};"
 						+    "var language = $('#inpLanguage').val();"
 						+    "if (!language || language == '-1') {"
-						+        "alert ('Выберите язык медиафайлов');"
+						+        "alert ('Select mediafiles language');"
 						+        "return { ok: 0};"
 						+    "};"
 						+    "var light_type = $('#inpLightType').val();"
 						+    "if (!light_type || light_type == '-1') {"
-						+        "alert ('Выберите тип освещения');"
+						+        "alert ('Select light type');"
 						+        "return { ok: 0};"
 						+    "};"						
 						+    "return {"
@@ -74,6 +112,7 @@ exports.reset = function () {
 			highlight:   0,
 			section:     'Service',
 			title:       'Включить режим обслуживания',
+			eng_title:   'Switch to service mode',
 			confirm:     1,
 			to_send:     1,
 		},
@@ -83,6 +122,7 @@ exports.reset = function () {
 			highlight:   0,
 			section:     'Service',
 			title:       'Сбросить',
+			eng_title:   'Reset',
 			confirm:     1,
 			success_cb:  "function (response) {"
 						+     "alert('Reloading..');"
@@ -184,9 +224,9 @@ exports.reset = function () {
 			type:     'select',
 			source_type: 'db',
 			source:   'operators',
-			label:    'Оператор',
+			label:    'Operator',
 			id:       'inpOperatorId',
-			select_text: 'Выберите оператора',
+			select_text: 'Select operator',
 			disabled: 0,
 			section:  'Service',
 			value:    '',
@@ -197,13 +237,13 @@ exports.reset = function () {
 			type:     'select',
 			source_type: 'raw',
 			source:   [
-				{_id:'english', name: 'Английский'},
-				{_id:'spanish', name: 'Испанский'},
-				{_id:'russian', name: 'Русский'},
+				{_id:'english', name: 'English'},
+				{_id:'spanish', name: 'Spanish'},
+				{_id:'russian', name: 'Russian'},
 			],
-			label:    'Язык медиафайлов',
+			label:    'Mediafiles language',
 			id:       'inpLanguage',
-			select_text: 'Выберите язык',
+			select_text: 'Select language',
 			disabled: 0,
 			section:  'Service',
 			value:    '',
@@ -214,12 +254,12 @@ exports.reset = function () {
 			type:     'select',
 			source_type: 'raw',
 			source:   [
-				{_id:'blinking', name: 'Мерцает'},
-				{_id:'steady', name: 'Постоянное'}
+				{_id:'blinking', name: 'Blinking'},
+				{_id:'steady', name: 'Steady'}
 			],
-			label:    'Освещение',
+			label:    'Light type',
 			id:       'inpLightType',
-			select_text: 'Выберите тип',
+			select_text: 'Select type',
 			disabled: 0,
 			section:  'Service',
 			value:    '',
@@ -227,7 +267,7 @@ exports.reset = function () {
 		},
 		quest_state: {
 			type:     'static',
-			label:    'Состояние квеста',
+			label:    'Quest state',
 			id:       'QuestState',
 			section:  'Service',
 			value:    'NA',
@@ -235,7 +275,7 @@ exports.reset = function () {
 		},
 		timer_state: {
 			type:     'static',
-			label:    'Таймер',
+			label:    'Timer',
 			id:       'TimerState',
 			section:  'Service',
 			value:    'NA',
@@ -243,7 +283,7 @@ exports.reset = function () {
 		},
 		quest_timer: {
 			type:     'static',
-			label:    'Обратный отсчёт',
+			label:    'Countdown',
 			id:       'QuestTimer',
 			section:  'Quest',
 			value:    'NA',

@@ -171,7 +171,7 @@ function generate_dashboard_top_section (section_name, data){
 	$.each(data.face.dashboard_buttons, function(name, item) {
 		if (item.section == section_name) {
 			raw_html += "<li>"
-					+ "<input type='button' id='btn_" + name + "' class='BType_01' value='" + item.title + "'>"
+					+ "<input type='button' id='btn_" + name + "' class='BType_01' value='" + item.eng_title + "'>"
 					+ "</li>";
 		}
 	});

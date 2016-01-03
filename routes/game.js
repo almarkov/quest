@@ -168,6 +168,26 @@ router.get('/start_game', function(req, res, next) {
 
 })
 
+// кнопка 'Приготовиться к началу'
+router.get('/get_ready', function(req, res, next) {
+	//benchmarks.add('gamejs_start_game')
+	res.json(SUCCESS_RESULT)
+
+	//face.field_disable('gamers_count')
+	face.field_disable('operator_id')
+	face.field_disable('language')
+	face.field_disable('light_type')
+
+	//logic.set_variable('gamers_count', parseInt(req.query.gamers_count))
+	logic.set_variable('operator_id',  req.query.operator_id)
+	logic.set_variable('light_type',   req.query.light_type)
+	logic.set_variable('language',     req.query.language)
+	logic.set_variable('dt_start',     new Date())
+
+	logic.submit_event('Нажата кнопка', 'Приготовиться к началу квеста')
+
+})
+
 // нажатие обычных кнопок
 router.get('/dashboard_button_pushed', function(req, res, next) {
 	//benchmarks.add('gamejs_dashboard_button_pushed')
