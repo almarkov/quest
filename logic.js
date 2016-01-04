@@ -212,6 +212,7 @@ exports.switch_stage = function(new_stage) {
 		exports.stages_hash[exports.current_stage].events.forEach(function(event_){
 			// если событие произошло
 			if (event_.happened) {
+				event_.happened = 0
 				event_.conditions.forEach(function(condition){
 					var str = condition.value.toString();
 					if (event_.parameter && event_.value && event_.parameter != '0') {
