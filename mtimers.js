@@ -18,7 +18,7 @@ exports.start = function(name, timeout, callback) {
 		if (timer.value == timeout) {
 			clearInterval(timer._intervalObject);
 			timer.ready = 1;
-			face.field_set_value('timer_state', 'Готов');
+			face.field_set_value('timer_state', 'Ready');
 			logic.submit_event('Таймер готов', timer.name, timer.value);
 		}
 	}, 1000);

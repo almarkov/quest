@@ -92,6 +92,10 @@ $(document).ready(function() {
 
 			},
 			error: function(error) {
+				var elem = $("#QuestState")
+				elem.text("Server FAILURE. Probably, you should reboot it manually")
+				elem.css('color', 'red')
+				elem.css('font-weight', 'bold')
 			}
 		});
 	}, parseInt(web_ui_refresh_time));
