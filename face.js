@@ -125,7 +125,7 @@ exports.reset = function () {
 			eng_title:   'Reset',
 			confirm:     1,
 			success_cb:  "function (response) {"
-						+     "alert('Reloading..');"
+						//+     "alert('Reloading..');"
 						+     "$('#inpOperatorId').val(-1);"
 						+     "$('#inpLanguage').val(-1);"
 						+     "$('#inpGamerCount').val('');"
