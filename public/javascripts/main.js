@@ -6,7 +6,7 @@ function build_query(device, item, parameter) {
 
 $(document).ready(function() {
 
-	shown = 0;
+	shown = 0
 
 	$.ajax({
 		url: web_server_url + '/game/all',
@@ -14,18 +14,18 @@ $(document).ready(function() {
 		crossDomain: true,
 		dataType: "json",
 			success: function (response) {
-				var content_top = generate_content_top(response);
-				$('#Content').prepend(content_top);
-				var content_main = generate_content_main(response);
-				$('#Content').append(content_main);
-				set_handlers(response);
+				var content_top = generate_content_top(response)
+				$('#Content').prepend(content_top)
+				var content_main = generate_content_main(response)
+				$('#Content').append(content_main)
+				set_handlers(response)
 			},
 			error: function(error) {
 			}
-	});
+	})
 
 	for (var i = 1; i < 99999; i++) {
-        window.clearInterval(i);
+        window.clearInterval(i)
 	}
 
 	// проверяем состояние устройств
@@ -41,32 +41,32 @@ $(document).ready(function() {
 				//обновляем устройства
 				$.each(response.devices, function(index, item){
 
-					item.state = item.state || 'undef';
-					item.value = item.value || '';
-					var value = '' + item.states[item.state].title + item.value;
+					item.state = item.state || 'undef'
+					item.value = item.value || ''
+					var value = '' + item.states[item.state].title + item.value
 
-					$('#inp_' + item.name + '_state').val(value);
+					$('#inp_' + item.name + '_state').val(value)
 
-					var element = $("[name=" + item.name + "_state]");
-					var element_status = element.parent().parent().find(".Status");
+					var element = $("[name=" + item.name + "_state]")
+					var element_status = element.parent().parent().find(".Status")
 					var status_class = item.state == 'undef' ? 'Offline'
-										: item.wd_emulate ? 'Emulating' : 'Online';
+										: item.wd_emulate ? 'Emulating' : 'Online'
 
-					element_status.removeClass('Online Emulating Offline');
-					element_status.addClass(status_class);
+					element_status.removeClass('Online Emulating Offline')
+					element_status.addClass(status_class)
 
-				});
+				})
 
 				// обновляем кнопки
 				$.each(response.face.dashboard_buttons, function( name, item ) {
 
-					$("#btn_" + name).prop('disabled', item.disabled);
+					$("#btn_" + name).prop('disabled', item.disabled)
 
-					$("#btn_" + name).removeClass('Active');
+					$("#btn_" + name).removeClass('Active')
 					if (item.highlight) {
-						$("#btn_" + name).addClass('Active');
+						$("#btn_" + name).addClass('Active')
 					}
-				});
+				})
 
 				// обновляем поля
 				$.each(response.face.dashboard_fields, function( name, item ) {
@@ -96,6 +96,7 @@ $(document).ready(function() {
 				elem.text("Server FAILURE. Probably, you should reboot it manually")
 				elem.css('color', 'red')
 				elem.css('font-weight', 'bold')
+				shown = 0
 			}
 		});
 	}, parseInt(web_ui_refresh_time));
