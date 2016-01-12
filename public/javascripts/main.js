@@ -37,6 +37,9 @@ $(document).ready(function() {
 		dataType: "json",
 			success: function (response) {
 				shown = 1
+				var elem = $("#QuestState")
+				elem.css('color', 'black')
+				elem.css('font-weight', 'normal')
 
 				//обновляем устройства
 				$.each(response.devices, function(index, item){
