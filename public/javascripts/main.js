@@ -7,6 +7,7 @@ function build_query(device, item, parameter) {
 $(document).ready(function() {
 
 	shown = 0
+	was_error = 0
 
 	$.ajax({
 		url: web_server_url + '/game/all',
@@ -34,8 +35,13 @@ $(document).ready(function() {
 		url: web_server_url + (shown ? '/game/all_light' : '/game/all'),
 		type: "GET",
 		crossDomain: true,
+		timeout: 3000,
 		dataType: "json",
 			success: function (response) {
+				if (was_error == 1) {
+					was_error = 0
+					window.location.reload()
+				}
 				shown = 1
 				var elem = $("#QuestState")
 				elem.css('color', 'black')
@@ -100,6 +106,7 @@ $(document).ready(function() {
 				elem.css('color', 'red')
 				elem.css('font-weight', 'bold')
 				shown = 0
+				was_error = 1
 			}
 		});
 	}, parseInt(web_ui_refresh_time));
