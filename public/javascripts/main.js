@@ -68,7 +68,7 @@ $(document).ready(function() {
 				// 	was_error = 0
 				// 	window.location.reload()
 				// }
-				// shown = 1
+				shown = 1
 				// var elem = $("#QuestState")
 				// elem.css('color', 'black')
 				// elem.css('font-weight', 'normal')
