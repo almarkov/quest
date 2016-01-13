@@ -38,14 +38,14 @@ $(document).ready(function() {
 		timeout: 3000,
 		dataType: "json",
 			success: function (response) {
-				if (was_error == 1) {
-					was_error = 0
-					window.location.reload()
-				}
-				shown = 1
-				var elem = $("#QuestState")
-				elem.css('color', 'black')
-				elem.css('font-weight', 'normal')
+				// if (was_error == 1) {
+				// 	was_error = 0
+				// 	window.location.reload()
+				// }
+				// shown = 1
+				// var elem = $("#QuestState")
+				// elem.css('color', 'black')
+				// elem.css('font-weight', 'normal')
 
 				//обновляем устройства
 				$.each(response.devices, function(index, item){
@@ -101,12 +101,12 @@ $(document).ready(function() {
 
 			},
 			error: function(error) {
-				var elem = $("#QuestState")
-				elem.text("Server FAILURE. Probably, you should reboot it manually")
-				elem.css('color', 'red')
-				elem.css('font-weight', 'bold')
-				shown = 0
-				was_error = 1
+				// var elem = $("#QuestState")
+				// elem.text("Server FAILURE. Probably, you should reboot it manually")
+				// elem.css('color', 'red')
+				// elem.css('font-weight', 'bold')
+				// shown = 0
+				// was_error = 1
 			}
 		});
 	}, parseInt(web_ui_refresh_time));
