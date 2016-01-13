@@ -62,7 +62,6 @@ $(document).ready(function() {
 		url: web_server_url + (shown ? '/game/all_light' : '/game/all'),
 		type: "GET",
 		crossDomain: true,
-		timeout: 3000,
 		dataType: "json",
 			success: function (response) {
 				// if (was_error == 1) {
