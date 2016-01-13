@@ -36,7 +36,7 @@ function populateGamesTable() {
                 tableContent += '<tr>';
 
                 tableContent += '<td><a href="/stats/games/' + this._id +  '">' + ymdhms_date(this.dt_start) + '</a></td>'
-                tableContent += '<td>' + this.duration + '</td>';
+                tableContent += '<td>' + (this.duration/60 | 0) + ':' + this.duration%60 + '</td>';
                 tableContent += '<td>' + this.operator.name + '</td>';
 
                 tableContent += '<td><a href="" class="linkdelete" rel="' + this._id + '">Удалить</a></td>'
