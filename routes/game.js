@@ -234,6 +234,11 @@ router.get('/setinterval', function(req, res, next) {
 
 })
 
+// проверка доступности сервака
+router.get('/test', function(req, res, next) {
+	res.json(SUCCESS_RESULT)
+})
+
 // вкл/выкл эмуляцию wd для устройства
 router.get('/emulate_watchdog/:device_name/', function(req, res, next) {
 	//benchmarks.add('gamejs_emulate_watchdog')

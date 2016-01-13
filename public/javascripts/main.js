@@ -3,11 +3,13 @@ function build_query(device, item, parameter) {
 		+ "/game/emulate_command"
 		+ '/' + device + '/'+ item + '/' + parameter;
 }
+error_cnt = 0
 
 $(document).ready(function() {
 
 	shown = 0
 	was_error = 0
+	error_cnt = 0
 
 	$.ajax({
 		url: web_server_url + '/game/all',
@@ -28,6 +30,31 @@ $(document).ready(function() {
 	for (var i = 1; i < 99999; i++) {
         window.clearInterval(i)
 	}
+
+	// проверка наличия сервера
+	setInterval(function() {
+		$.ajax({
+		url: web_server_url + '/game/test',
+		type: "GET",
+		crossDomain: true,
+		timeout: 1000,
+		dataType: "json",
+			success: function (response) {
+				error_cnt = 0
+			},
+			error: function(error) {
+				error_cnt += 1
+				if (error_cnt == 5) {
+					debugger;
+					if (error.statusText == 'timeout') {
+						$('#Content').html('<h1><span style="color:red;font-weight:bold">Server FAILURE. Probably, you should reboot it manually</span></h1>')
+					} else {
+						$('#Content').html('<h1><span style="color:red;font-weight:bold">Network FAILURE. Probably, you should check it</span></h1>')
+					}
+				}
+			}
+		});
+	}, 1000)
 
 	// проверяем состояние устройств
 	setInterval(function(){
