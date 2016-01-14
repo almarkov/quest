@@ -30,14 +30,14 @@ function populateGamesTable() {
     $.getJSON( '/api/games/list' + query, function( data ) {
         $.each(data, function(){
             if (j == 0) {
-                pagerContent += '<li class="' + (i == page ? 'pagination_page_active' :  'pagination_page') + '"><a href="/stats/games?page=' + i + '&count=' + count + '">' + i + '</a></li>'
+                pagerContent += '<li class="' + (i == page ? 'pagination_page_active' :  'pagination_page') + '"><a href="/stats/games?page=' + i + '&count=' + count + '&operator_id=' + operator_id + '">' + i + '</a></li>'
             }
             if (i == page) {
                 tableContent += '<tr>';
 
                 tableContent += '<td><a href="/stats/games/' + this._id +  '">' + ymdhms_date(this.dt_start) + '</a></td>'
                 tableContent += '<td>' + (this.duration/60 | 0) + ':' + this.duration%60 + '</td>';
-                tableContent += '<td>' + this.operator.name + '</td>';
+                tableContent += '<td>' + (this.operator ? this.operator.name : '') + '</td>';
 
                 tableContent += '<td><a href="" class="linkdelete" rel="' + this._id + '">Удалить</a></td>'
 
