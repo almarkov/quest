@@ -45,7 +45,6 @@ $(document).ready(function() {
 			error: function(error) {
 				error_cnt += 1
 				if (error_cnt == 5) {
-					debugger;
 					if (error.statusText == 'timeout') {
 						$('#Content').html('<h1><span style="color:red;font-weight:bold">Server FAILURE. Probably, you should reboot it manually</span></h1>')
 					} else {
@@ -54,7 +53,7 @@ $(document).ready(function() {
 				}
 			}
 		});
-	}, 1000)
+	}, 3000)
 
 	// проверяем состояние устройств
 	setInterval(function(){
