@@ -32,28 +32,28 @@ $(document).ready(function() {
 	}
 
 	// проверка наличия сервера
-	//setInterval(function() {
-//		$.ajax({
-//		url: web_server_url + '/game/test',
-//		type: "GET",
-//		crossDomain: true,
-//		timeout: 1000,
-//		dataType: "json",
-//			success: function (response) {
-//				error_cnt = 0
-//			},
-//			error: function(error) {
-//				error_cnt += 1
-//				if (error_cnt == 5) {
-//					if (error.statusText == 'timeout') {
-//						$('#Content').html('<h1><span style="color:red;font-weight:bold">Server FAILURE. Probably, you should reboot it manually</span></h1>')
-//					} else {
-//						$('#Content').html('<h1><span style="color:red;font-weight:bold">Network FAILURE. Probably, you should check it</span></h1>')
-//					}
-//				}
-//			}
-//		});
-//	}, 3000)
+	setInterval(function() {
+		$.ajax({
+		url: web_server_url + '/game/test',
+		type: "GET",
+		crossDomain: true,
+		timeout: 1000,
+		dataType: "json",
+			success: function (response) {
+				error_cnt = 0
+			},
+			error: function(error) {
+				error_cnt += 1
+				if (error_cnt == 5) {
+					if (error.statusText == 'timeout') {
+						$('#Content').html('<h1><span style="color:red;font-weight:bold">Server FAILURE. Probably, you should reboot it manually</span></h1>')
+					} else {
+						$('#Content').html('<h1><span style="color:red;font-weight:bold">Network FAILURE. Probably, you should check it</span></h1>')
+					}
+				}
+			}
+		});
+	}, 3000)
 
 	// проверяем состояние устройств
 	setInterval(function(){
