@@ -32,7 +32,7 @@ $(document).ready(function() {
 	}
 
 	// проверка наличия сервера
-	setInterval(function() {
+	/*setInterval(function() {
 		$.ajax({
 		url: web_server_url + '/game/test',
 		type: "GET",
@@ -53,7 +53,7 @@ $(document).ready(function() {
 				}
 			}
 		});
-	}, 3000)
+	}, 3000)*/
 
 	// проверяем состояние устройств
 	setInterval(function(){
