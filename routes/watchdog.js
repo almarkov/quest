@@ -8,13 +8,13 @@ router.get('/', function(req, res, next) {
 	var device_ids = req.query.device_id || req.query.di
 	var status_ids = req.query.status_id || req.query.si
 	var carrier_id = req.query.carrier_id
-mlog.dev('watchdog_')
+
 	if (globals.get('enable_watchdog')) {
 
 		for(var i = 0; i < device_ids.length; i++) {
 
 			var device = devices.get_by_id(carrier_id, device_ids[i])
-			mlog.dev(device.name)
+
 			if (device && device.wd_enabled) {
 
 				var old_state = device.state;
