@@ -107,6 +107,16 @@ exports.reset = function () {
 			to_send:     1,
 		},
 
+		stop_game: {
+			disabled:    1,
+			highlight:   0,
+			section:     'Service',
+			title:       'Закончить игру',
+			eng_title:   'Stop game',
+			confirm:     1,
+			to_send:     1,
+		},
+
 		service_mode: {
 			disabled:    1,
 			highlight:   0,
