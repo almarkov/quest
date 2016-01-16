@@ -299,6 +299,14 @@ exports.reset = function () {
 			value:    'NA',
 			to_send:  1,
 		},
+		quest_timer_up: {
+			type:     'static',
+			label:    'Quest time',
+			id:       'QuestTimerUp',
+			section:  'Quest',
+			value:    'NA',
+			to_send:  1,
+		},
 		/*new_stage: {
 			name:     '_new_stage',
 			type:     'text',

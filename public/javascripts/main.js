@@ -116,6 +116,11 @@ $(document).ready(function() {
 								var m = ('0' + (r/60|0)).slice(-2);
 								var s = ('0' + (r-m*60)).slice(-2);
 								val = m + ':' + s;
+								var r_up = t[0];
+								var m_up = ('0' + (r_up/60|0)).slice(-2);
+								var s_up = ('0' + (r_up-m_up*60)).slice(-2);
+								val_up = m_up + ':' + s_up;
+								$('#QuestTimerUp').text(val_up);
 							}
 						}
 						$("#" + item.id).text(val);
