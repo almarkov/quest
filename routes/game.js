@@ -50,18 +50,18 @@ router.get('/all_light', function(req, res, next) {
 	var face_d = face.get()
 	for (var button_name in face_d.dashboard_buttons) {
 		var button = face_d.dashboard_buttons[button_name]
-		if (button.to_send) {
-			button.to_send -= 1;
+		//if (button.to_send) {
+		//	button.to_send -= 1;
 			result.face.dashboard_buttons[button_name] = button;
-		}
+		//}
 	}
 
 	for (var field_name in face_d.dashboard_fields) {
 		var field = face_d.dashboard_fields[field_name]
-		if (field.to_send) {
-			field.to_send -= 1;
+		//if (field.to_send) {
+		//	field.to_send -= 1;
 			result.face.dashboard_fields[field_name] = field;
-		}
+		//}
 	}
 	res.json(result)
 
