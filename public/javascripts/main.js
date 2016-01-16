@@ -109,6 +109,7 @@ $(document).ready(function() {
 						$(".State #" + item.id).prop('disabled', item.disabled);
 					} else if (item.type == 'static') {
 						var val = item.value;
+						var val_up = ''
 						if (item.id == 'QuestTimer') {
 							var t = item.value.split('\/');
 							if (t.length == 2) {
@@ -121,9 +122,14 @@ $(document).ready(function() {
 								var s_up = ('0' + (r_up-m_up*60)).slice(-2);
 								val_up = m_up + ':' + s_up;
 								$('#QuestTimerUp').text(val_up);
+							} else {
+								$('#QuestTimerUp').text(val);
 							}
 						}
-						$("#" + item.id).text(val);
+						if (item.id == 'QuestTimerUp') {
+						} else {
+							$("#" + item.id).text(val);
+						}
 					} else if (item.type == 'select') {
 						$("#" + item.id).prop('disabled', item.disabled);
 					}
