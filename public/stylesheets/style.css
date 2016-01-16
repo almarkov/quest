@@ -22,6 +22,8 @@ input:disabled.BType_01 {color:#999}
 .DashBoard input.Active {border-color:red;}
 .Commands ul, ul.DashBoard {  list-style-type: none; }
 
+#Quest ul.State li{ margin-bottom: 40px} 
+
 
 #col1 { position: absolute; width: 324px; }
 #col2 { position: absolute; left: 324px; width: 324px; }
