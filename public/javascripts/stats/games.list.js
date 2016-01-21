@@ -35,7 +35,8 @@ function populateGamesTable() {
             if (i == page) {
                 tableContent += '<tr>';
 
-                tableContent += '<td><a href="/stats/games/' + this._id +  '">' + ymdhms_date(this.dt_start) + '</a></td>'
+                //tableContent += '<td><a href="/stats/games/' + this._id +  '">' + ymdhms_date(this.dt_start) + '</a></td>'
+                tableContent += '<td>' + ymdhms_date(this.dt_start) + '</td>'
                 tableContent += '<td>' + (this.duration/60 | 0) + ':' + this.duration%60 + '</td>';
                 tableContent += '<td>' + (this.operator ? this.operator.name : '') + '</td>';
 
