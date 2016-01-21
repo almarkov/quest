@@ -52,14 +52,19 @@ exports.select = function(table, query, callback) {
 		})
 		data.items = tmp_table
 	}
+
+	if (query.order == 'reverse') {
+		data.items.reverse()
+
+	}
 	callback(null, data.items)
 
 }
 
 exports.insert = function(table, item, params, callback) {
-mlog.dev('insert')
+
 	var data = load_table(table)
-mlog.dev(data)
+
 	item._id = data.meta.current_id+1
 
 	data.items.push(item)
@@ -67,7 +72,7 @@ mlog.dev(data)
 		current_id: item._id,
 		count:      data.items.length,
 	};
-mlog.dev(data)
+
 	save_table(table, data.items, meta)
 
 	callback(null, item)

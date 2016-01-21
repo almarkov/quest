@@ -6,13 +6,13 @@ var router = express.Router();
 // список
 router.get('/list', function(req, res) {
 	if (req.query.operator_id) {
-		mbd.select('games', {join: {operators: {key: 'operator_id', alias: 'operator'}}, filter: {'operator_id': req.query.operator_id} }, function(err, result){
+		mbd.select('games', {join: {operators: {key: 'operator_id', alias: 'operator'}}, filter: {'operator_id': req.query.operator_id}, order: 'reverse' }, function(err, result){
 			res.json(
 				(err === null) ? result : { msg: err }
 			);
 		});
 	} else {
-		mbd.select('games', {join: {operators: {key: 'operator_id', alias: 'operator'}} }, function(err, result){
+		mbd.select('games', {join: {operators: {key: 'operator_id', alias: 'operator'}}, order: 'reverse' }, function(err, result){
 			res.json(
 				(err === null) ? result : { msg: err }
 			);
