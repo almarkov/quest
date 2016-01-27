@@ -30,6 +30,10 @@ var routes       = require('./routes/index')
 
 // управление статистикой
 var stats        = require('./routes/stats')
+
+// редактор сценариев
+var editor       = require('./routes/editor')
+
 // апи для статистики
 var api          = require('./routes/api')
 license          = require('./license.js')
@@ -102,6 +106,9 @@ app.use('/', routes)
 
 // cтатистика
 app.use('/stats', stats)
+
+// редактор
+app.use('/editor', editor)
 
 // игры
 var games = require('./routes/stats/games')

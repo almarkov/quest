@@ -6,6 +6,7 @@ html
 
 		script(src='/javascripts/jquery.min.js')
 		script(src='/javascripts/layout.js')
+
 	body
 		h2 Главное меню
 		#menu
@@ -14,6 +15,8 @@ html
 					a(href='/stats/operators') Операторы
 				li
 					a(href='/stats/games') Список игр
+				//li
+				//	a(href='/editor') Редактор сценария
 				li
 					a(href='', id='Logout') Выйти
 		block content
