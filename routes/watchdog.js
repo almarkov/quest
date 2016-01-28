@@ -1,12 +1,12 @@
-var express = require('express')
+﻿var express = require('express')
 var http    = require('http')
 var router  = express.Router()
 
 // обработка wd от устройства
 router.get('/', function(req, res, next) {
 
-	var device_ids = req.query.device_id
-	var status_ids = req.query.status_id
+	var device_ids = req.query.di
+	var status_ids = req.query.si
 	var carrier_id = req.query.carrier_id
 
 	if (globals.get('enable_watchdog')) {
@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 			var device = devices.get_by_id(carrier_id, device_ids[i])
 
 			if (device && device.wd_enabled) {
-
+				dev_log(carrier_id + '_' + device_ids[i])
 				var state = routines.get_by_field(device.states, 'code', status_ids[i])
 
 				device.state = state.name

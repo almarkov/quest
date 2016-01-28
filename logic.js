@@ -1,4 +1,4 @@
-var xlsx = require('node-xlsx');
+﻿var xlsx = require('node-xlsx');
 var http   = require('http');
 
 exports.variables_hash = {};
@@ -258,13 +258,13 @@ exports.parse_variables = function(src) {
 }
 
 exports.execute_action = function(action) {
-	dev_log('execute_action')
-	dev_log(action)
+	//dev_log('execute_action')
+	//dev_log(action)
 	switch(action.type) {
 		case 'Внутренняя команда':
-		dev_log(globals.globals_hash)
+		//dev_log(globals.globals_hash)
 			var query = globals.get('web_server_url') + '/game/' + action.parameter;
-			dev_log(query)
+			//dev_log(query)
 			http.get(query, function(res) {
 					res.on('error', function(data){
 					});
@@ -301,8 +301,8 @@ exports.execute_action = function(action) {
 }
 
 exports.submit_event = function (event_type, url, value) {
-dev_log(event_type);
-dev_log(url);
+//dev_log(event_type);
+//dev_log(url);
 	switch(event_type) {
 		case 'Внутреннее событие':
 			exports.stages_hash[exports.current_stage].events.forEach(function(event_){
