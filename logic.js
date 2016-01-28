@@ -7,7 +7,7 @@ exports.stages_hash    = {};
 exports.set_variable = function(name, value) {
 	var variable = exports.variables_hash[name];
 	var str = exports.parse_variables(value);
-	var result = eval(str);
+	var parsed_value = eval(str);
 	if (variable) {
 		variable.value = parsed_value;
 	} else {
