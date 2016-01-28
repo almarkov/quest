@@ -6,10 +6,12 @@ exports.stages_hash    = {};
 
 exports.set_variable = function(name, value) {
 	var variable = exports.variables_hash[name];
+	var str = exports.parse_variables(value);
+	var result = eval(str);
 	if (variable) {
-		variable.value = value;
+		variable.value = parsed_value;
 	} else {
-		exports.variables_hash[name] = {value: value, name: name, description: 'system' };
+		exports.variables_hash[name] = {value: parsed_value, name: name, description: 'system' };
 	}
 }
 
@@ -216,20 +218,15 @@ exports.switch_stage = function(new_stage) {
 		exports.stages_hash[exports.current_stage].events.forEach(function(event_){
 			// если событие произошло
 			if (event_.happened) {
+				event_.happened = 0;
 				event_.conditions.forEach(function(condition){
 					var str = condition.value.toString();
-					console.log(str);
-					console.log(event_.parameter);
-					console.log(event_.value);
 					if (event_.parameter && event_.value && event_.parameter != '0') {
 						var re  = new RegExp(event_.parameter, "g");
 						str = str.replace(re, event_.value.toString());
 					}
-					console.log(str);
 					str = exports.parse_variables(str);
-					console.log(str);
 					var result = eval(str);
-					console.log(result);
 					// если условие истинно, выполняем его действия
 					if (result) {
 
@@ -297,6 +294,11 @@ exports.execute_action = function(action) {
 		case 'Остановить таймер':
 			mtimers.stop(action.url, action.parameter);
 			break;
+
+		case 'Присвоить значение':
+			exports.set_variable(action.url, action.parameter);
+			break;
+
 	}
 }
 
