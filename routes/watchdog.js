@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 			var device = devices.get_by_id(carrier_id, device_ids[i])
 
 			if (device && device.wd_enabled) {
-				dev_log(carrier_id + '_' + device_ids[i])
+
 				var state = routines.get_by_field(device.states, 'code', status_ids[i])
 
 				device.state = state.name
