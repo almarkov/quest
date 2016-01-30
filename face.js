@@ -134,6 +134,28 @@ exports.reset = function () {
 			title:       "Подтвердить окончание сканирования",
 			confirm:     1,
 		},
+		dont_throw_friends: {
+			disabled:    1,
+			highlight:   0,
+			section:     'Quest',
+			title:       'Не бросайте друзей',
+			confirm:     1,
+		},
+		vulnerable_place: {
+			disabled:    1,
+			highlight:   0,
+			section:     'Quest',
+			title:       'Уязвимое место',
+			confirm:     1,
+		},
+		manage_zond: {
+			disabled:    1,
+			highlight:   0,
+			section:     'Quest',
+			title:       'Управляйте зондом',
+			confirm:     1,
+		},
+
 
 		
 	};
