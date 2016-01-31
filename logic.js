@@ -41,11 +41,13 @@ exports.load = function() {
 			item[variable_fields[j]] = variables[i][j];
 		}
 
-		exports.variables_hash[item.name] = {
-			description: item.description,
-			name:        item.name,
-			value:       '',
-		};
+		if (item.name) {
+			exports.variables_hash[item.name] = {
+				description: item.description,
+				name:        item.name,
+				value:       '',
+			};
+		}
 	}
 
 	// этапы, действия, условия
