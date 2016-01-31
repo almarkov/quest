@@ -105,7 +105,7 @@ exports.reset = function () {
 		},
 
 		chamber_overloaded: {
-			disabled:    1,
+			disabled:    0,
 			highlight:   0,
 			section:     'Quest',
 			title:       'Камера перегружена',
@@ -126,7 +126,6 @@ exports.reset = function () {
 			title:       'Сканировать непоследнюю группу людей',
 			confirm:     1,
 		},
-
 		confirm_end_scan: {
 			disabled:    1,
 			highlight:   0,
@@ -134,6 +133,90 @@ exports.reset = function () {
 			title:       "Подтвердить окончание сканирования",
 			confirm:     1,
 		},
+		dont_throw_friends: { 
+			disabled: 0, 
+			highlight: 0, 
+			section: 'Quest', 
+			title: 'Не бросайте друзей',
+			confirm: 1, 
+		}, 
+		sound10: { 
+			disabled: 0, 
+			highlight: 0, 
+			section: 'Quest', 
+			title: 'Звук СОС', 
+			confirm: 1, 
+		}, 
+		vulnerable_place: { 
+			disabled: 0, 
+			highlight: 0, 
+			section: 'Quest', 
+			title: 'Уязвимое место', 
+			confirm: 1, 
+		}, 
+		manage_zond: { 
+			disabled: 0, 
+			highlight: 0, 
+			section: 'Quest', 
+			title: 'Управляйте зондом', 
+			confirm: 1, 
+		},
+		
+		sound_2: { 
+			disabled: 0, 
+			highlight: 0, 
+			section: 'Quest', 
+			title: 'Звук на старт', 
+			confirm: 1, 
+		},
+
+		sound_3: { 
+			disabled: 0, 
+			highlight: 0, 
+			section: 'Quest', 
+			title: 'Звук на сканирование', 
+			confirm: 1, 
+		},
+
+		sound_4: { 
+			disabled: 0, 
+			highlight: 0, 
+			section: 'Quest', 
+			title: 'Звук сканирование закончено', 
+			confirm: 1, 
+		},
+		
+		sound_5: { 
+			disabled: 0, 
+			highlight: 0, 
+			section: 'Quest', 
+			title: 'Звук сканирование провалено', 
+			confirm: 1, 
+		},
+		
+		sound_6: { 
+			disabled: 0, 
+			highlight: 0, 
+			section: 'Quest', 
+			title: 'Звук радиация', 
+			confirm: 1, 
+		},	
+	
+		sound_7: { 
+			disabled: 0, 
+			highlight: 0, 
+			section: 'Quest', 
+			title: 'Звук атака', 
+			confirm: 1, 
+		},	
+	
+		sound_8: { 
+			disabled: 0, 
+			highlight: 0, 
+			section: 'Quest', 
+			title: 'Звук спасайтесь', 
+			confirm: 1, 
+		},		
 
 		
 	};

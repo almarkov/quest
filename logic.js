@@ -262,9 +262,7 @@ exports.execute_action = function(action) {
 	dev_log(action)
 	switch(action.type) {
 		case 'Внутренняя команда':
-		dev_log(globals.globals_hash)
 			var query = globals.get('web_server_url') + '/game/' + action.parameter;
-			dev_log(query)
 			http.get(query, function(res) {
 					res.on('error', function(data){
 					});

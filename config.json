@@ -1,10 +1,10 @@
 {
 	"device_reload_time":          1000,
-	"watchdog_fail_ticks_count":   3,
+	"watchdog_fail_ticks_count":   10,
 	"watchdog_check_timer":        1000,
-	"web_server_url":              "http://localhost:3000",
+	"web_server_url":              "http://192.168.20.100:3000",
 	"enable_buttons_confirm":      0,
 	"enable_watchdog":             1,
-	"com_port_num":                4,
-	"socket_wait_time":            3000
+	"com_port_num":                3,
+	"socket_wait_time":            300
 }
