@@ -230,7 +230,12 @@ exports.switch_stage = function(new_stage) {
 					console.log(str);
 					str = exports.parse_variables(str);
 					console.log(str);
-					var result = eval(str);
+					var result = '';
+					try {
+						result = eval(str);
+					} catch (e) {
+						result = '';
+					}
 					console.log(result);
 					// если условие истинно, выполняем его действия
 					if (result) {
