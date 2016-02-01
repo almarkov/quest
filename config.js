@@ -16,6 +16,7 @@ exports.load = function() {
 		'port',          // "Port"
 		'carrier_id',    // "Carrier ID"
 		'id',            // "Onboard ID"
+		'sv_port',       // "SV_Port"
 		'wd',            // "WD"
 		'position',      // "расположение"
 		'has_value',     // "есть значение для ввода"
@@ -55,7 +56,7 @@ exports.load = function() {
 				port:       item.port || 3000,
 				state:      'undef',
 				wd_state:   globals.get('watchdog_fail_ticks_count'),
-				sv_port:    0,
+				sv_port:    item.sv_port || 0,
 				position:   {
 					column: item.position,
 				},

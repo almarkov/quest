@@ -46,7 +46,7 @@ function send_com_exec(name, command) {
 	}
 
 	// проверить, возможно лучше настраивать через конфиг
-	if (!name.match(/terminal|audio_player|video_player/)) {
+	if (num) {
 
 		var exec_str = 'sendcom.exe ' 
 			+ globals.get('com_port_num') + ' '
