@@ -191,8 +191,8 @@ exports.init = function() {
 exports.switch_stage = function(new_stage) {
 	//benchmarks.add('logicjs_switch_stage')
 	
-	// //mlog.dev('Переключение на этап');
-	// //mlog.dev(new_stage);
+	mlog.dev('Переключение на этап');
+	mlog.dev(new_stage);
 	//меняем текущий этап
 	exports.current_stage = new_stage;
 	//меняем поле на экране
@@ -255,8 +255,8 @@ exports.parse_variables = function(src) {
 exports.execute_action = function(action) {
 	//benchmarks.add('logicjs_execute_action')
 
-	 //mlog.dev('Выполнение действия');
-	 //mlog.dev(action);
+	mlog.dev('Выполнение действия');
+	mlog.dev(action);
 
 	switch(action.type) {
 		case 'Внутренняя команда':
@@ -306,10 +306,10 @@ exports.execute_action = function(action) {
 exports.submit_event = function (event_type, url, value) {
 	//benchmarks.add('logicjs_submit_event')
 
-	 //mlog.dev('Произошло событие');
-	 //mlog.dev(event_type);
-	 //mlog.dev(url);
-	 //mlog.dev(value);
+	mlog.dev('Произошло событие');
+	mlog.dev(event_type);
+	mlog.dev(url);
+	mlog.dev(value);
 
 	switch(event_type) {
 		case 'Внутреннее событие':
