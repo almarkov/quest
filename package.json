@@ -13,7 +13,7 @@
     "getmac": "^1.0.7",
     "jade": "~1.9.2",
     "jsonfile": "*",
-    "morgan": "~1.5.3",
+    "morgan": "~1.9.1",
     "node-xlsx": "*",
     "python-shell": "*",
     "request": "*",
